@@ -1,4 +1,4 @@
-#region Licence Header
+#region License Header
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 

@@ -1,4 +1,4 @@
-﻿#region Licence Header
+﻿#region License Header
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -25,7 +25,6 @@
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
 #endregion
-
 namespace Thinktecture.IdentityServer.Web.Areas.Admin.ViewModels
 {
     public class RelyingPartyViewModel
