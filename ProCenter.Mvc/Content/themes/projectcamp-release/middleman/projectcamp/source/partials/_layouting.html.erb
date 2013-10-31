@@ -1,0 +1,25 @@
+<%= partial "partials/heading", locals: {title: "Layout"} %>
+
+<div class="padded">
+
+  <ul>
+    <li>The theme offers a fixed style layout, fully responsive, with two big columns (the main and the sidebar). To learn moar, click the docs button above</li>
+    <li>When the viewport is too small (a.k.a. phone/small tablet), there's also a sidebar button coming at the bottom of the screen so you can navigate fast to the sidebar (which will sit below the main container on a small screen)</li>
+    <li>The theme uses FontAwesome for icons, but feel free to use bootstrap's default icons</li>
+    <li>With this package, there's also a cool login and a register screen for your users</li>
+  </ul>
+
+  <div class="codehint">This is the layout's top markup (not including the top navbar, which is bootstrap's classic navbar with a few size mods)</div>
+
+  <pre>&lt;div class=&quot;header&quot;&gt;&lt;/div&gt;<br/><br/>&lt;div class=&quot;main&quot;&gt;<br/>  &lt;div class=&quot;container&quot;&gt;</pre>
+
+  <div class="codehint">Following up, the top tab menu</div>
+  <pre>&lt;div class=&quot;row&quot;&gt;<br/>      &lt;div class=&quot;span9&quot;&gt;<br/>        &lt;ul class=&quot;nav nav-tabs header-tabs btn-block pull-right&quot;&gt;<br/>          &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-dashboard&quot;&gt;&lt;/i&gt; Dashboard&lt;/a&gt;&lt;/li&gt;<br/>          &lt;li&gt;&lt;a href=&quot;/sessions/login&quot;&gt;Login&lt;/a&gt;&lt;/li&gt;<br/>          &lt;li class=&quot;dropdown&quot;&gt;<br/>            &lt;a href=&quot;#&quot; data-toggle=&quot;dropdown&quot; class=&quot;dropdown-toggle&quot;&gt;Dropdown &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;&lt;/a&gt;<br/>            &lt;ul class=&quot;dropdown-menu&quot;&gt;<br/>              &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;<br/>              &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Another action&lt;/a&gt;&lt;/li&gt;<br/>              &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Something else here&lt;/a&gt;&lt;/li&gt;<br/>              &lt;li class=&quot;divider&quot;&gt;&lt;/li&gt;<br/>              &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Separated link&lt;/a&gt;&lt;/li&gt;<br/>            &lt;/ul&gt;<br/>          &lt;/li&gt;<br/>          &lt;li&gt;&lt;a href=&quot;/sessions/register&quot;&gt;Register&lt;/a&gt;&lt;/li&gt;<br/>        &lt;/ul&gt;<br/>      &lt;/div&gt;<br/>    &lt;/div&gt;</pre>
+
+  <div class="codehint">And the wrapper for the actual content</div>
+  <pre>&lt;div class=&quot;row wrapper&quot;&gt;<br/><br/>      &lt;div class=&quot;span9 main-left&quot;&gt;<br/>        &lt;div class=&quot;heading-bar&quot;&gt;<br/>          &lt;h3 class=&quot;pull-left&quot;&gt;Projectcamp &lt;span class=&quot;subheading&quot;&gt;(subheading possible)&lt;/span&gt;&lt;/h3&gt;<br/>          &lt;ul class=&quot;nav-links pull-right&quot;&gt;<br/>            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-caret-left&quot;&gt;&lt;/i&gt; back&lt;/a&gt;&lt;/li&gt;<br/>            &lt;li class=&quot;divider-vertical&quot;&gt;&lt;/li&gt;<br/>            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;some link&lt;/a&gt;&lt;/li&gt;<br/>            &lt;li class=&quot;divider-vertical&quot;&gt;&lt;/li&gt;<br/>            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;another link&lt;/a&gt;&lt;/li&gt;<br/>          &lt;/ul&gt;<br/>        &lt;/div&gt;<br/><br/>        &lt;%= this is where the big content sits %&gt;<br/>      &lt;/div&gt;<br/><br/>      &lt;%= this is where the sidebar gets rendered %&gt;<br/><br/>    &lt;/div&gt;<br/>    &lt;%= ..and the footer %&gt;<br/>  &lt;/div&gt;</pre>
+
+  <div class="codehint">And some markup for the sidebar too</div>
+  <pre>&lt;div id=&quot;sidebar&quot; class=&quot;span3 sidebar-right&quot;&gt;<br/>  &lt;div class=&quot;heading-bar&quot;&gt;<br/>    &lt;h5 class=&quot;pull-left&quot;&gt;This is a heading bar (small version for sidebar)&lt;/h5&gt;<br/>	&lt;div class=&quot;pull-right&quot;&gt;&lt;a href=&quot;#&quot;&gt;&lt;i class=&quot;icon-pencil&quot;&gt;&lt;/i&gt; Edit&lt;/a&gt;&lt;/div&gt;<br/>  &lt;/div&gt;<br/>&lt;/div&gt;</pre>
+
+</div>

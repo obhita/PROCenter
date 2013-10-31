@@ -1,0 +1,41 @@
+---
+layout: sessions_layout
+---
+
+<div class="mid-container wrapper">
+  <h1 class="title">Sign In</h1>
+  <form>
+    <ul class="fields">
+      <li>
+        <i class="icon-user"></i>
+        <input autocomplete="off" id="username" name="username" placeholder="username" type="text">
+      </li>
+      <li>
+        <i class="icon-key"></i>
+        <input autocomplete="off" id="password" name="password" placeholder="password" type="password">
+      </li>
+    </ul>
+
+    <div class="mid-form">
+      <span class="login-checkbox pull-left">
+        <input id="remember_me" name="remember_me" type="checkbox" value="1">
+        <label for="remember_me">Remember me</label>
+      </span>
+
+      <input class="btn blue large pull-right" name="commit" type="submit" value="Sign In">
+    </div>
+
+    <div class="inset-margin">
+
+      <a href="#" class="btn btn-twitter btn-block">
+        <i class="icon-twitter-sign"></i> Login with Twitter
+      </a>      <a href="#" class="btn btn-facebook btn-block">
+      <i class="icon-facebook-sign"></i> Login with Facebook
+    </a>    </div>
+
+  </form>
+
+  <div class="mid-footer">
+    Don't have an account yet? <a href="/sessions/register.html">Register here</a>
+  </div>
+</div>

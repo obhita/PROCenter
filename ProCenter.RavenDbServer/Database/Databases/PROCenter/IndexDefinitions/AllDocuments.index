@@ -1,0 +1,20 @@
+{
+  "Name": "AllDocuments",
+  "Map": "from doc in docs select new {doc}",
+  "Maps": [
+    "from doc in docs select new {doc}"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Map"
+}

@@ -1,0 +1,17 @@
+﻿@using Thinktecture.IdentityServer.Web.App_LocalResources.Home
+@model Dictionary<string, string>
+
+@{
+    ViewBag.Title = AppIntegration_cshtml.ApplicationIntegration;
+}
+
+<h2>@AppIntegration_cshtml.ApplicationIntegration</h2>
+
+@foreach (var pair in Model)
+{
+    <p>
+        <b>@pair.Key</b>
+        <br />
+        @pair.Value
+    </p> 
+}

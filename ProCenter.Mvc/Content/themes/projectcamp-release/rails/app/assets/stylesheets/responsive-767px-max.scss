@@ -1,0 +1,181 @@
+@import "compass/css3";
+
+// UP TO LANDSCAPE PHONE
+// ---------------------
+
+@media (max-width: 480px) {
+
+  .mid-container {
+    width: auto;
+    input {
+      width: auto;
+    }
+  }
+
+  .inset-margin, .inset-margin .btn {
+    width: 100%;
+    display: block;
+    @include box-sizing(border-box);
+  }
+
+  .inset-margin .btn {
+    margin-bottom: 5px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .header {
+    @include box-shadow(none);
+  }
+
+  .header, body {
+    background: #22557A;
+  }
+
+  .footer {
+    color: white;
+    text-shadow: none;
+  }
+
+  .comment {
+    .box-right {
+      .meta {
+        height: auto;
+        .left-side {
+          float: none;
+        }
+
+        .right-side {
+          float: none;
+        }
+      }
+    }
+  }
+
+  .main-left {
+    .heading-bar {
+      > * {
+        float: none;
+      }
+    }
+  }
+
+  .btn-block {
+
+    .btn {
+      display: block;
+      width: 100%;
+      margin: 0;
+      margin-top: -1px;
+      @include border-radius(0,0);
+
+      &:first-child {
+        margin-top: 0;
+        @include border-radius(2px 2px 0 0, 2px 2px 0 0);
+      }
+
+      &:last-child {
+        @include border-radius(0 0 2px 2px, 0 0 2px 2px);
+      }
+    }
+
+    &.pull-right {
+      float: none;
+    }
+
+    &.header-tabs {
+
+      margin: 0;
+      padding: 10px;
+      > li {
+        margin: 0;
+        display: block;
+        width: 100%;
+
+        > a {
+          @include border-radius(0,0);
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  .slate {
+    .slate-content {
+      .box-left {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+      .box-right {
+        margin-left: 0;
+      }
+      .btn {
+        display: block;
+      }
+    }
+  }
+
+  .main {
+    background: #22557A;
+  }
+
+  .badge.top {
+    position: static;
+  }
+
+}
+
+// LANDSCAPE PHONE TO SMALL DESKTOP & PORTRAIT TABLET
+// --------------------------------------------------
+
+@media (max-width: 767px) {
+  .navbar {
+    .input-placeholder {
+      line-height: 30px;
+      left: 22px;
+    }
+  }
+
+  .footer {
+    .left, .right {
+      text-align: center;
+    }
+  }
+
+  .navbar-fixed-top, .navbar-fixed-bottom {
+    margin: 0;
+  }
+
+  body{
+    padding: 0;
+  }
+
+  .activity-line {
+    .label, .title, .date {
+      margin-bottom: 5px;
+    }
+  }
+
+  .main-left {
+    @include box-shadow(0 1px 1px rgba(0,0,0,.3));
+    @include border-radius(0);
+    border-right: 0;
+  }
+
+  .sidebar-helper {
+    display: inline;
+  }
+
+  .activity-line {
+    .label, .date, .title {
+      white-space: normal;
+      text-overflow: clip;
+      overflow: visible;
+    }
+  }
+
+}
+

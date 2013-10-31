@@ -1,0 +1,111 @@
+﻿@using Pillar.Common.Utility
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Organization
+@model OrganizationDto
+
+@{
+    var disable = !(Html.CanAccess("Organization", "Edit", "POST") || Html.CanAccess("SystemAdmin", "Edit", "POST")) ? "true" : "false"; 
+    ViewBag.Title = "Edit Organization";
+}
+
+<div class="organization-editor dashboard-wrapper">
+    @if ( Html.CanAccess( "Organization", "Index" ) )
+    {
+        @Html.ActionLink( "Back", "Index", new {key = Model.Key}, new {@class = "btn btn-info"} )
+    }
+    <div class="editor-content container-fluid" data-disabled="@disable">
+        @Html.HiddenFor( m => m.Key )
+        <div class="questions">
+            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Name)" data-ajax-container="true">
+                <div>
+                    @Html.LabelFor(m => m.Name)
+                </div>
+                <div class="question-answer-wrapper">
+                    @Html.TextBoxFor(m => m.Name, new { placeholder = Html.DisplayNameFor(m => m.Name) })
+                    <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            @{
+                var addressesPropertyName = PropertyUtil.ExtractPropertyName(() => Model.OrganizationAddresses);
+                var addModel = new OrganizationAddressDto();
+                var modalViewData = new ViewDataDictionary(ViewData);
+                var addressesModalId = string.Format("add-{0}-modal", addressesPropertyName);
+                modalViewData["ModalId"] = addressesModalId;
+                modalViewData["Title"] = Html.DisplayNameFor(m => m.OrganizationAddresses);
+            }
+            <div class="list @addressesPropertyName">
+                <div class="header">
+                    @Html.LabelFor(m => m.OrganizationAddresses)
+                    @if (Html.CanAccess("Organization", "AddAddress"))
+                    {
+                        @Html.Partial("AddModal", addModel, modalViewData)
+                    }
+                </div>
+                <div class="clear"></div>
+                <ul>
+                    @foreach (var subModel in Model.OrganizationAddresses)
+                    {
+                        <li class="question-root" data-ajax-container="true" data-ajax-container-status="true">
+                            <div class="question-answer-wrapper">
+                                @Html.EditorFor(m => subModel, null, htmlFieldName: typeof(OrganizationAddressDto).Name)
+                                <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+
+            </div>
+            @{
+                var phonesPropertyName = PropertyUtil.ExtractPropertyName(() => Model.OrganizationPhones);
+                var phoneAddModel = new OrganizationPhoneDto();
+                modalViewData = new ViewDataDictionary(ViewData);
+                var phonesModalId = string.Format("add-{0}-modal", phonesPropertyName);
+                modalViewData["ModalId"] = phonesModalId;
+                modalViewData["Title"] = Html.DisplayNameFor(m => m.OrganizationPhones);
+            }
+            <div class="list @phonesPropertyName">
+                <div class="header">
+                    @Html.LabelFor(m => m.OrganizationPhones)
+                    @if (Html.CanAccess("Organization", "AddPhone"))
+                    {
+                        @Html.Partial("AddModal", phoneAddModel, modalViewData)
+                    }
+                </div>
+                <div class="clear"></div>
+                <ul>
+                    @foreach (var subModel in Model.OrganizationPhones)
+                    {
+                        <li class="question-root" data-ajax-container="true" data-ajax-container-status="true">
+                            <div class="question-answer-wrapper">
+                                @Html.EditorFor(m => subModel, null, htmlFieldName: typeof(OrganizationPhoneDto).Name)
+                                <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                                <div class="clear"></div>
+                            </div>
+                        </li>
+                    }
+                </ul>
+            </div>
+            @if ( Html.CanAccess ( "SystemAdmin", "CreateOrganizationAdmin" ) )
+            {
+                <fieldset>
+                    <legend>Admin Account</legend>
+                        <a id="create-org-admin" href="#" class="btn btn-success" data-icon="&#xe102;">Setup Organization Admin</a>
+                </fieldset>
+            }
+            <div class="clear"></div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/organizationedit")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            window.procenter.InitializeOrganization('@Url.Content("~/Organization")', '@Model.Key', '@addressesModalId', '@addressesPropertyName', '@phonesModalId', '@phonesPropertyName');
+        });
+    </script>
+    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+}

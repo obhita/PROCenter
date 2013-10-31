@@ -1,0 +1,393 @@
+	/*         
+	     __                   .__        
+	    |__|____ __________  _|__| ______
+	    |  \__  \\_  __ \  \/ /  |/  ___/
+	    |  |/ __ \|  | \/\   /|  |\___ \ 
+	/\__|  (____  /__|    \_/ |__/____  >
+	\______|    \/                    \/ 
+	
+	Copyright 2013 - Jarvis : Smart Admin Template
+	
+	 * This is part of an item on wrapbootstrap.com
+	 * https://wrapbootstrap.com/user/myorange
+	 * ==================================
+
+	
+	   Table of Contents
+	   ---------------------------------------------------------------
+	   
+	   - Main
+	   - Header
+	   - Content
+	   - Edit box
+	   - Timestamp
+	   - Helpers
+	   - Fullscreen
+	   - Styling
+	   - Custom styles
+	   - Icons - A few used examples
+	   - RTL support 
+	   - Clearfix  
+	   - Examples (minimalistic in grid)
+	   - Examples (lists)
+	   
+	*/
+	
+  i.edit-clicked {
+      background-position  : 4px -194px !important;
+      background-color     : #333 !important;
+      width          : 18px !important;
+      height         : 18px !important;
+      top            : 0px !important;
+      left           : 0px !important;
+      margin         : 0px !important;
+      .border-radius(@borderRadiusSmall);
+  }
+  i.normalscreen-10 {
+      background-position: 0 -187px !important;
+  }
+  i.min-10 {
+      background-position: 0 -143px !important;
+  }
+  .orange-btn,.jarviswidget.orange &>header,.jarviswidget.orange .fc-event-skin {
+      background: #feccb1;
+      background: -moz-linear-gradient(top,  #feccb1 0%, #f17432 50%, #ea5507 51%, #fb955e 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#feccb1), color-stop(50%,#f17432), color-stop(51%,#ea5507), color-stop(100%,#fb955e));
+      background: -webkit-linear-gradient(top,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+      background: -o-linear-gradient(top,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+      background: -ms-linear-gradient(top,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+      background: linear-gradient(to bottom,  #feccb1 0%,#f17432 50%,#ea5507 51%,#fb955e 100%);
+      border-color   : #E9984D;
+      color          : #FFF;
+      text-shadow    : 0 1px 0 #333;
+  }
+  .pink-btn,.jarviswidget.pink &>header,.jarviswidget.pink .fc-event-skin,.jarviswidget.pink .dt-footer {
+      background: #cb60b3;
+      background: -moz-linear-gradient(top,  #cb60b3 0%, #c146a1 50%, #a80077 51%, #db36a4 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cb60b3), color-stop(50%,#c146a1), color-stop(51%,#a80077), color-stop(100%,#db36a4));
+      background: -webkit-linear-gradient(top,  #cb60b3 0%,#c146a1 50%,#a80077 51%,#db36a4 100%);
+      background: -o-linear-gradient(top,  #cb60b3 0%,#c146a1 50%,#a80077 51%,#db36a4 100%);
+      background: -ms-linear-gradient(top,  #cb60b3 0%,#c146a1 50%,#a80077 51%,#db36a4 100%);
+      background: linear-gradient(to bottom,  #cb60b3 0%,#c146a1 50%,#a80077 51%,#db36a4 100%);
+      border-color   : #E44CC5;
+      color          : #FFF;
+      text-shadow    : 0 1px 0 #333;
+  }
+  .red-btn,.jarviswidget.red &>header,.jarviswidget.red .fc-event-skin {
+      background: #a90329;
+      background: -moz-linear-gradient(top,  #a90329 0%, #8f0222 44%, #6d0019 100%);
+      background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), color-stop(44%,#8f0222), color-stop(100%,#6d0019));
+      background: -webkit-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%);
+      background: -o-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%);
+      background: -ms-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%);
+      background: linear-gradient(to bottom,  #a90329 0%,#8f0222 44%,#6d0019 100%);
+      border-color   : #931313;
+      color          : #FFF;
+      text-shadow    : 0 1px 0 #333;
+  }
+  .jarviswidget-timestamp {
+      font-size: 12px;
+      color: #868686;
+      margin: 10px 20px 0;
+  }
+  .jarviswidget-editbox {
+      display : none;
+      padding : 10px;
+      border-bottom    : 1px solid #B1B1B1;
+      background-color : #F6F6F6;
+      label {
+          width       : 80px;
+          height      : 26px;
+          float       : left;
+          line-height : 26px;
+          font-weight : bold;
+      }
+      div {
+          width         : 100%;
+          float         : left;
+          margin-bottom : 5px;
+      }
+      span {
+          height : 26px;
+          width  : 26px;
+          float  : left;
+          margin : 0 5px 0 0;
+          cursor : pointer;
+      }
+      input {
+          width   : 200px;
+          height  : 24px;
+          padding : 0 5px;
+          border : 1px solid #666;
+      }
+  }
+  .jarviswidget-loader {
+      width               : 30px;
+      height              : 34px;
+      margin              : 0;
+      float               : right;
+      background-repeat   : no-repeat;
+      background-position : center center;
+      display             : none;
+      background-image    : url("../img/loaders/type3/light/16.gif");
+  }
+  .jarviswidget:after,.jarviswidget &>div:after,.inner-spacer:after,.jarviswidget-editbox:after,.clearfix:after {
+      clear : both;
+  }
+  i.fullscreen-10 {
+      background-position: 0 -121px !important;
+  }
+  .jarviswidget,.jarviswidget &>div,.inner-spacer:after,.jarviswidget-editbox,.clearfix {
+      zoom : 1;
+  }
+  i.refresh-10 {
+      background-position: 0 -253px !important;
+  }
+  .jarviswidget &>header h2, .fc-header-title h2 {
+      height      : 100%;
+      width       : auto;
+      float       : left;
+      font-size   : 13px;
+      position    : relative;
+      margin      : 0;
+      line-height : 34px;
+  }
+  .widget-content-padding {
+      padding : 20px;
+      .well {
+          margin-bottom:0px;
+      }
+  }
+  .darkgrey-btn,.jarviswidget.darkgrey &>header,.jarviswidget.darkgrey .fc-event-skin {
+      #gradient.vertical(#fafafa, #eee);
+      border-color   : #C2C2C2;
+      color          : @grayDark;
+      text-shadow    : 0 1px 0 #FFF;
+  }
+  .jarviswidget.red &>header .jarviswidget-loader,.jarviswidget.green &>header .jarviswidget-loader,.jarviswidget.black &>header .jarviswidget-loader,.jarviswidget.purple &>header .jarviswidget-loader,.jarviswidget.navyblue &>header .jarviswidget-loader,.jarviswidget.pink &>header .jarviswidget-loader,.jarviswidget.orange &>header .jarviswidget-loader {
+      background-image: url("../img/loaders/type3/dark/16.gif");
+  }
+  .ui-sortable {
+      .jarviswidget-sortable {
+          & > header {
+              cursor : move;
+              box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.5);
+              .border-radius(3px 3px 0 0);
+          }
+      }
+      .jarviswidget-sortable.jarviswidget-collapsed {
+          & > header {
+              .border-radius(@borderRadiusSmall);
+          }
+      }
+  }
+  .jarviswidget {
+      margin                : 0 0 30px 0;
+      position              : relative;
+      .border-radius(@borderRadiusSmall);
+      padding               : 0;
+      box-shadow            : 0 1px 1px #E6E6E6;
+      -webkit-box-shadow    : 0 1px 1px #E6E6E6;
+      & > header {
+          height      : 34px;
+          padding     : 0 0 0 10px;
+          line-height : 40px;
+          color : @grayDark;
+          text-shadow : 0 1px 0 #FFF;
+          border: 1px solid #C2C2C2;
+          #gradient.vertical(#fafafa, #efefef);
+          .jarviswidget-icon {
+              width    : 16px;
+              height   : 16px;
+              float    : left;
+              margin   : 12px 10px 0 0;
+              display  : block;
+              zoom     : 1;
+              z-index  : 4000;
+          }
+      }
+      & > div {
+          float                 : left;
+          width                 : 100%;
+          min-height            : 20px;
+          position              : relative;
+          font-size             : 13px;
+          .border-radius(0 0 3px 3px);
+          margin                : 0;
+          border-width      : 1px;
+          border-style          : solid;
+          border-top          : none;
+          border-right-color    : #C8C8C8 !important;
+          border-bottom-color   : #C8C8C8 !important;
+          border-left-color     : #C8C8C8 !important;
+          background-color : #fff !important;
+      }
+  }
+  .jarviswidget:before,.jarviswidget:after,.jarviswidget &>div:before,.jarviswidget &>div:after,.inner-spacer:before,.inner-spacer:after,.jarviswidget-editbox:before,.jarviswidget-editbox:after,.clearfix:before,.clearfix:after {
+      content     : "\0020";
+      display     : block;
+      height      : 0;
+      overflow    : hidden;
+      font-size   : 0;
+      line-height : 0;
+      visibility  : hidden;
+  }
+  i.trashcan-10 {
+      background-position: 0 -297px !important;
+  }
+  i.delete-10 {
+      background-position: 0 -297px !important;
+      opacity: .8;
+  }
+  i.plus-10 {
+      background-position: 0 -231px !important;
+  }
+  .jarviswidget-icon {
+      i {
+          width             : 16px;
+          height            : 16px;
+          display       : block;
+          position          : absolute;
+          left              : 50%;
+          top               : 50%;
+          margin            : -8px 0 0 -8px;
+          background-repeat : no-repeat;
+      }
+  }
+  .darkgrey-btn {
+      border: 1px solid #CACACA;
+      width: 24px !important;
+      height: 24px !important;
+  }
+  .purple-btn,.jarviswidget.purple &>header,.jarviswidget.purple .fc-event-skin {
+      #gradient.vertical(#b86de0, #914cad);
+      border-color     : #6a4395;
+      color        : #FFF;
+      text-shadow    : 0 1px 0 @grayDark;
+  }
+  .rtl {
+      .jarviswidget-loader {
+          float : left;
+      }
+      .jarviswidget {
+          & > header {
+              padding : 0 7px 0 0;
+              .jarviswidget-icon {
+                  float  : right;
+                  margin : 12px 0 0 7px;
+              }
+              h2 {
+                  float      : right;
+                  text-align : right;
+              }
+          }
+      }
+      .jarviswidget-ctrls {
+          float   : left;
+          padding : 10px 0 0 3px;
+          margin  : 0;
+          .button-icon {
+              margin : 0 0 5px 5px;
+          }
+      }
+  }
+  i.pencil-10 {
+      background-position: 0 -209px !important;
+  }
+  .yellow-btn,.jarviswidget.yellow &>header,.jarviswidget.yellow .fc-event-skin {
+      #gradient.vertical(#e5e696, #d1d360);
+      border-color : #BBBB4F;
+      color        : @grayDark;
+      text-shadow  : 0 1px 0 #FFF;
+  }
+  .black-btn,.jarviswidget.black &>header,.jarviswidget.black .fc-event-skin {
+      #gradient.vertical(#3A3A3A, #3A3A3A);
+      border-color   : #222;
+      color          : #FFF;
+      text-shadow    : 0 1px 0 @grayDark;
+  }
+  .green-btn,.jarviswidget.green &>header,.jarviswidget.green .fc-event-skin {
+      #gradient.vertical(#8fc400, #8fc400);
+      border-color     : #4c9d57;
+      color        : #FFF;
+      text-shadow    : 0 1px 0 @grayDark;
+  }
+  body.nooverflow {
+      overflow : hidden;
+      position : fixed;
+  }
+  .inner-spacer {
+      margin : 0;
+  }
+  #jarviswidget-fullscreen-mode {
+      width    : 100%;
+      height   : 100%;
+      position : fixed;
+      top      : 0;
+      left     : 0;
+      z-index  : @zindexJarvisFullScreen;
+      .jarviswidget {
+          margin: 0;
+          .border-radius(0);
+          & > div {
+              overflow-y: scroll;
+              .border-radius(0);
+          }
+      }
+      & > div {
+          & > header {
+              cursor : default;
+          }
+      }
+  }
+  .jarviswidget-placeholder {
+      .border-radius(@borderRadiusSmall);
+      margin-bottom         : 28px;
+      padding               : 0;
+      .sizing(border-box);
+      background-color : #FFC;
+      border           : 1px dotted #666;
+  }
+  .jarviswidget-ctrls {
+      width   : auto;
+      float   : right;
+      padding : 8px 2px 0 0;
+      margin  : 0;
+      a {
+          & > i {
+              width             : 10px;
+              height            : 10px;
+              position          : absolute;
+              left              : 50%;
+              top               : 50%;
+              margin            : -5px 0 0 -5px;
+              background-repeat : no-repeat;
+              background: url(../img/widget/widget-icon.png) no-repeat top left;
+          }
+      }
+      .button-icon:hover {
+          background: #e5e5e5;
+      }
+      .button-icon {
+          width                 : 18px;
+          height                : 18px;
+          float                 : left;
+          .border-radius(@borderRadiusSmall);
+          position              : relative;
+          margin                : 0 5px 5px 0;
+          font-size             : 13px;
+          font-family           : @baseFontFamily;
+          #gradient.vertical(#ffffff, #e5e5e5);
+          border      : 1px solid #C2C2C2;
+      }
+  }
+  .navyblue-btn,.jarviswidget.navyblue &>header,.jarviswidget.navyblue .fc-event-skin {
+      #gradient.vertical(#6484C9, #305F9C);
+      background-repeat: repeat-x;
+      border-color     : #416992;
+      color            : #FFF;
+      text-shadow      : 0 1px 0 @grayDark;
+  }
+  .jarviswidget-ajax-placeholder {
+      padding:10px;
+  }

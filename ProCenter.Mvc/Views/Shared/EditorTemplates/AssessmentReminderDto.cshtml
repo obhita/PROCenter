@@ -1,0 +1,105 @@
+﻿@using Newtonsoft.Json
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Common
+@using ProCenter.Primitive
+@using ProCenter.Service.Message.Assessment
+@using ProCenter.Service.Message.Patient
+@model ProCenter.Service.Message.Message.AssessmentReminderDto
+
+@{
+    var patientAttributes = new Dictionary<string, object>
+        {
+            //Note: using hyphen instead of underscore in the attribute dictionary
+            {"class", Html.PropertyNameFor(m => m.PatientKey)},
+            {"placeholder", "Search Patient"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content("~/api/Patient/FinderSearch/" + UserContext.Current.OrganizationKey)},
+            {"data-finder-display", "Name.FullName"},
+        };
+    if (Model.PatientKey.HasValue)
+    {
+        patientAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new PatientDto
+            {
+                Key = Model.PatientKey.Value,
+                Name = new PersonName(Model.PatientFirstName, Model.PatientLastName)
+            }));
+    }
+
+    var assessmentAttributes = new Dictionary<string, object>
+        {
+            {"class", Html.PropertyNameFor(m => m.AssessmentDefinitionKey)},
+            {"placeholder", "Search Assessment"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content("~/api/Organization/FinderSearchActive")},
+            {"data-finder-display", "AssessmentName"},
+        };
+    if (Model.AssessmentDefinitionKey.HasValue)
+    {
+        assessmentAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new AssessmentDefinitionDto
+            {
+                Key = Model.AssessmentDefinitionKey.Value,
+                AssessmentName = Model.AssessmentName
+            }));
+    }
+
+    var setReminderClass = "set-reminder-wrapper";
+    var setReminderButtonClass = "set-reminder-button btn btn-success";
+    if ( Model.ReminderTime <= 0 )
+    {
+        setReminderClass += " hidden";
+    }
+    else
+    {
+        setReminderButtonClass += " hidden";
+    }
+    var disable = Html.CanAccess("AssessmentReminder", "Edit", "POST") ? "false" : "true"; 
+}
+
+<div data-disabled="@disable">
+    @Html.HiddenFor(m => m.Key)
+    @Html.ValidationSummary()
+    <div>
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title, new {@class = Html.PropertyNameFor(m => m.Title)})
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.PatientKey)
+        @Html.TextBoxFor(m => m.PatientKey, patientAttributes)
+        @Html.ValidationMessageFor(m => m.PatientKey)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.AssessmentDefinitionKey)
+        @Html.TextBoxFor(m => m.AssessmentDefinitionKey, assessmentAttributes)
+        @Html.ValidationMessageFor(m => m.AssessmentDefinitionKey)
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Start)
+        @Html.TextBoxFor(m => m.Start, new {@class = Html.PropertyNameFor(m => m.Start)})
+        @Html.ValidationMessageFor(m => m.Start)
+    </div>
+    <div>
+        @Html.CheckBoxFor(m => m.ForSelfAdministration, new {@class = Html.PropertyNameFor(m => m.ForSelfAdministration)})
+        @Html.LabelFor(m => m.ForSelfAdministration)
+        @Html.ValidationMessageFor(m => m.ForSelfAdministration)
+    </div>
+    <button class="@setReminderButtonClass" type="button">Set Reminder</button>
+    <div class="@setReminderClass" data-ajax-container="true">
+        <div>
+            @Html.LabelFor(m => m.ReminderTime)
+            @Html.TextBoxFor(m => m.ReminderTime, new {@class = Html.PropertyNameFor( m => m.ReminderTime ) })
+            @Html.DropDownListFor(m => m.ReminderUnit, Model.ReminderUnit.ToSelectList (), new {@class = Html.PropertyNameFor(m => m.ReminderUnit)})
+            <div>
+                @Html.ValidationMessageFor(m => m.ReminderTime)
+                @Html.ValidationMessageFor(m => m.ReminderUnit)
+            </div>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.SendToEmail)
+            @Html.TextBoxFor(m => m.SendToEmail, new {@class = Html.PropertyNameFor(m => m.SendToEmail), type = "email"})
+            @Html.ValidationMessageFor(m => m.SendToEmail)
+        </div>
+    </div>
+</div>

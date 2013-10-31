@@ -1,0 +1,20 @@
+{
+  "Name": "RavenStreamHeadBySnapshotAge",
+  "Map": "docs.RavenStreamHeads.Select(s => new {\r\n    SnapshotAge = s.HeadRevision - s.SnapshotRevision,\r\n    Partition = s.Partition ?? null\r\n})",
+  "Maps": [
+    "docs.RavenStreamHeads.Select(s => new {\r\n    SnapshotAge = s.HeadRevision - s.SnapshotRevision,\r\n    Partition = s.Partition ?? null\r\n})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Map"
+}

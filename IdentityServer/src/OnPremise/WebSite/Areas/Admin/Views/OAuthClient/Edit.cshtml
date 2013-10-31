@@ -1,0 +1,48 @@
+@model OAuthClientViewModel
+@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.OAuthClient
+
+@{
+    if (Model.IsNew)
+    {
+        ViewBag.Title = Edit_cshtml.NewOAuthClient;
+    }
+    else
+    {
+        ViewBag.Title = string.Format(Edit_cshtml.OAuthClient, Model.Client.Name);
+    }
+}
+@{
+    var action = Model.IsNew ? "Create" : "Update";
+}
+@using (Html.BeginForm(action, "OAuthClient"))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(Edit_cshtml.ErrorUpdatingClient)
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+
+        @Html.EditorFor(x=>x.Client)
+
+        <div class="buttons">
+            @if (!Model.IsNew)
+            {
+                <button type="submit" name="action" value="save">@Edit_cshtml.SaveChanges</button>
+                <button type="submit" name="action" value="delete">@Edit_cshtml.Delete</button>
+            }
+            else
+            {
+                <button type="submit" name="action" value="create">@Edit_cshtml.Create</button>
+            }
+            <button type="reset">@Edit_cshtml.Cancel</button>
+        </div>
+
+        @if (Model.IsOAuthRefreshTokenEnabled)
+        {
+            <nav class="links">
+                <ul>
+                    <li>@Html.ActionLink("tokens", "Index", "OAuthRefreshToken", new { ClientID=Model.Client.ID }, null)</li>
+                </ul>
+            </nav>
+        }
+    </fieldset>
+}

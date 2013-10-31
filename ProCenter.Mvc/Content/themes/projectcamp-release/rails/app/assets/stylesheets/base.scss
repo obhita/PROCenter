@@ -1,0 +1,33 @@
+@import "compass/css3";
+
+a {
+  color: #3670AE;
+}
+
+a, a:hover {
+  outline: none;
+  text-decoration: none;
+}
+
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table, tr, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+html {
+  height: 100%;
+}
+body {
+  background: lighten(#A49F9D, 30);
+  @include background-image(linear-gradient(top, lighten(#A49F9D, 30), #c9c9c9));
+  //@include background-image(linear-gradient(top, lighten(#A49F9D, 30), darken(#EBF3FB, 20)));
+  margin: 0;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}

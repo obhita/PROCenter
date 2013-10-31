@@ -1,0 +1,1262 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DevExpress.XtraReports.v13.1.Service</name>
+    </assembly>
+    <members>
+        <member name="T:DevExpress.XtraReports.Service.XtraReportExtensions">
+
+            <summary>
+                <para>Provides methods for registering and obtaining report data sources during an editing session with a Silverlight Report Designer.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.XtraReportExtensions.GetDataSourceByName(DevExpress.XtraReports.UI.XtraReport,System.String)">
+            <summary>
+                <para>Obtains a report's data source by its name, to populate it for a design session. This is an extension method.
+</para>
+            </summary>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object.
+
+            </param>
+            <param name="name">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <returns>A <see cref="T:System.Object"/> value, specifying the data source.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.XtraReportExtensions.RegisterDataSourceName(DevExpress.XtraReports.UI.XtraReport,System.String,System.Object)">
+            <summary>
+                <para>Registers the name of a report's data source to populate it during the design session. This is an extension method.
+</para>
+            </summary>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object.
+
+            </param>
+            <param name="name">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="component">
+		A <see cref="T:System.Object"/> value, specifying the report's data source.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.Extensions.IDataSourceService">
+
+            <summary>
+                <para>If implemented by a class, provides the functionality to work with report data sources.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IDataSourceService.FillDataSources(DevExpress.XtraReports.UI.XtraReport,System.String,System.Boolean)">
+            <summary>
+                <para>Fills the report's data sources with data.
+</para>
+            </summary>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object.
+
+            </param>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+            <param name="isDesignSessionActive">
+		<b>true</b>, if the design session is active; otherwise <b>false</b>.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IDataSourceService.RegisterDataSources(DevExpress.XtraReports.UI.XtraReport,System.String)">
+            <summary>
+                <para>Registers the report's data sources on the server.
+</para>
+            </summary>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object.
+
+            </param>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.DataProviderRepositoryExtensions">
+
+            <summary>
+                <para>Provides the functionality to register <see cref="T:DevExpress.XtraReports.Data.DbConnectionDataProvider"/>.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.DataProviderRepositoryExtensions.Register(DevExpress.XtraReports.Data.IDataProviderRepository,System.String,System.String,System.String)">
+            <summary>
+                <para>Registers a data provider on the server.
+</para>
+            </summary>
+            <param name="dataProviderRepository">
+		An object implementing the <see cref="T:DevExpress.XtraReports.Data.IDataProviderRepository"/> interface.
+
+            </param>
+            <param name="name">
+		A <see cref="T:System.String"/> value.
+
+            </param>
+            <param name="displayName">
+		A <see cref="T:System.String"/> value.
+
+            </param>
+            <param name="connectionString">
+		A <see cref="T:System.String"/> value.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.Extensions.IWizardReportNameGenerator">
+
+            <summary>
+                <para>If implemented by a class, generates unique report names for the Silverlight Report Wizard.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IWizardReportNameGenerator.Generate">
+            <summary>
+                <para>Generates a unique name for a report.
+</para>
+            </summary>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IWizardReportNameGenerator.IsGenerated(System.String)">
+            <summary>
+                <para>Indicates whether or not the specified report name has already been generated.
+</para>
+            </summary>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+            <returns><b>true</b> if the specified report name has been generated; otherwise <b>false</b>.
+</returns>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.ReportServiceExtensionsResolver">
+
+            <summary>
+                <para>Implements extensions of the specified types for a Report Service.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportServiceExtensionsResolver.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportServiceExtensionsResolver class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportServiceExtensionsResolver.SetResolver(System.Object)">
+            <summary>
+                <para>Applies a resolver of the specified type to the Report Service. 
+</para>
+            </summary>
+            <param name="serviceLocator">
+		A <see cref="T:System.Object"/> value.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportServiceExtensionsResolver.SetResolver(DevExpress.Xpf.Printing.Service.IExtensionsResolver)">
+            <summary>
+                <para>Applies a resolver of the specified type to the Report Service. 
+</para>
+            </summary>
+            <param name="resolver">
+		An object implementing the <see cref="T:DevExpress.Xpf.Printing.Service.IExtensionsResolver"/> interface.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportServiceExtensionsResolver.SetResolver(System.Func`2)">
+            <summary>
+                <para>Applies a resolver of the specified type to the Report Service. 
+</para>
+            </summary>
+            <param name="resolve">
+		A <see cref="T:System.Type"/> delegate.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.Extensions.IDesignerReportStore">
+
+            <summary>
+                <para>If implemented by a class, provides the functionality to store reports with the End-User Report Designer for Silverlight.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IDesignerReportStore.LoadLayout(System.String)">
+            <summary>
+                <para>Restores a report's layout.
+</para>
+            </summary>
+            <param name="reportName">
+		A <see cref="T:System.Byte"/> structure, containing the report layout.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value, specifying the report name.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IDesignerReportStore.SaveLayout(System.String,System.Byte[])">
+            <summary>
+                <para>Saves a report's layout to a byte array.
+</para>
+            </summary>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+            <param name="layoutData">
+		A <see cref="T:System.Byte"/> structure, containing the report layout.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.Extensions.IReportResolver">
+
+            <summary>
+                <para>If implemented by a class, resolves reports by their names.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IReportResolver.Resolve(System.String,System.Boolean)">
+            <summary>
+                <para>Returns a report object based on the specified report name.
+</para>
+            </summary>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+            <param name="getParameters">
+		<b>true</b> if the report is required only to obtain its parameters; otherwise <b>false</b>.
+
+            </param>
+            <returns>An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object.
+</returns>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.IReportService">
+
+            <summary>
+                <para>If implemented by a class, maintains WCF service and provides the printing and exporting functionality.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.AddNewReport(DevExpress.Data.XtraReports.Wizard.ReportModel)">
+            <summary>
+                <para>Invokes a Silverlight Report Wizard for a new report.
+</para>
+            </summary>
+            <param name="model">
+		A <see cref="T:DevExpress.Data.XtraReports.Wizard.ReportModel"/> object.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.ClearReport(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId)">
+            <summary>
+                <para>Deletes a report from the specified session.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object, identifying the report editing session.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetBuildStatus(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId)">
+            <summary>
+                <para>Gets the current build status of the specified report.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.BuildStatus"/> structure.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetColumns(System.String,DevExpress.Data.XtraReports.DataProviders.TableInfo)">
+            <summary>
+                <para>Returns a collection of columns available in a data source.
+
+
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMemberName">
+		A <see cref="T:DevExpress.Data.XtraReports.DataProviders.TableInfo"/> object.
+
+            </param>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.ColumnInfo"/> objects. 
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetDataSourceDisplayName(System.String,System.String)">
+            <summary>
+                <para>Gets the display name of the specified data source.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetDataSourceDisplayNameForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId,System.String)">
+            <summary>
+                <para>Gets the Field List display names for members of the specified data source.
+</para>
+            </summary>
+            <param name="dataSourceId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId"/> object.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetDataSources">
+            <summary>
+                <para>Obtains the available data sources for a Silverlight Report Wizard.
+</para>
+            </summary>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.DataSourceInfo"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetDataSourcesForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId)">
+            <summary>
+                <para>Obtains the report data sources to list them in the Report Designer's Field List.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceInformation"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetDocumentData(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId)">
+            <summary>
+                <para>Gets the data related to the specified document.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentData"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetItemProperties(System.String,System.String)">
+            <summary>
+                <para>Obtains the item properties from a data source for a Silverlight Report Wizard.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetItemPropertiesForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId,System.String)">
+            <summary>
+                <para>Obtains the item properties from a data source for the Field List panel of a Silverlight Report Designer.
+</para>
+            </summary>
+            <param name="dataSourceId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId"/> object, identifying the data source.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetListItemProperties(System.String,System.String)">
+            <summary>
+                <para>Obtains the list item properties from a data source for a Silverlight Report Wizard.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetListItemPropertiesForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId,System.String)">
+            <summary>
+                <para>Obtains the list item properties from a data source for the Field List panel of a Silverlight Report Designer.
+</para>
+            </summary>
+            <param name="dataSourceId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId"/> object.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetPage(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId,System.Int32,DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility)">
+            <summary>
+                <para>Returns the content of the specified document page.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object, identifying the document.
+
+            </param>
+            <param name="pageIndex">
+		An integer value, specifying the page index.
+
+            </param>
+            <param name="compatibility">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility"/> enumeration value.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value, specifying the page content.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetPages(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId,System.Int32[],DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility)">
+            <summary>
+                <para>Returns an array of report pages.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <param name="pageIndexes">
+		An array of integer values.
+
+            </param>
+            <param name="compatibility">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility"/> enumeration value.
+
+            </param>
+            <returns>A <see cref="T:System.Byte"/> array.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetPrintDocument(DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId)">
+            <summary>
+                <para>Gets the document that is ready to print.
+</para>
+            </summary>
+            <param name="printId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+
+            </param>
+            <returns>A <see cref="T:System.IO.Stream"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetPrintStatus(DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId)">
+            <summary>
+                <para>Gets the current status of a document that is being printed.
+</para>
+            </summary>
+            <param name="printId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintStatus"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetReportParameters(DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity)">
+            <summary>
+                <para>Returns an object that contains parameters available in a report.
+</para>
+            </summary>
+            <param name="identity">
+		An <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportParameterContainer"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetTables(System.String)">
+            <summary>
+                <para>Obtains the data tables from a data source for a Silverlight Report Wizard.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.TableInfo"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.GetViews(System.String)">
+            <summary>
+                <para>Obtains the data views from a data source for a Silverlight Report Wizard.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.TableInfo"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.InvokeReportEditing(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId,DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.EditActionBase[])">
+            <summary>
+                <para>Applies the specified action to a report on the server.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object.
+
+            </param>
+            <param name="editActions">
+		A collection of <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.EditActionBase"/> descendants.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value, specifying the document page content in XAML.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.SaveReport(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId)">
+            <summary>
+                <para>Saves the report that is currently opened in a Silverlight Report Designer.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object, identifying the report editing session.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.StartBuild(DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity,DevExpress.DocumentServices.ServiceModel.DataContracts.ReportBuildArgs)">
+            <summary>
+                <para>Starts building a report document on the server.
+</para>
+            </summary>
+            <param name="identity">
+		An <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity"/> object.
+
+            </param>
+            <param name="buildArgs">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportBuildArgs"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.StartDesign(DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity,DevExpress.XtraPrinting.XamlExport.XamlCompatibility)">
+            <summary>
+                <para>Opens the specified report in a Report Designer.
+</para>
+            </summary>
+            <param name="identity">
+		An <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity"/> object.
+
+            </param>
+            <param name="compatibility">
+		 [To be supplied] 
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.ReportDesignerPage"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.StartPrint(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId,DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility)">
+            <summary>
+                <para>Starts printing the specified document.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <param name="compatibility">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility"/> enumeration value.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.StopBuild(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId)">
+            <summary>
+                <para>When implemented by a class, stops building the document. 
+
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object that identifies the report document.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.IReportService.StopPrint(DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId)">
+            <summary>
+                <para>Stops printing the specified document.
+</para>
+            </summary>
+            <param name="printId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.Extensions.IWizardReportProcessor">
+
+            <summary>
+                <para>If implemented by a class, assists the processing of reports created by using the Silverlight Report Wizard.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IWizardReportProcessor.OnAddNewReport(System.String,DevExpress.Data.XtraReports.Wizard.ReportModel,System.Byte[])">
+            <summary>
+                <para>Handles the <see cref="M:DevExpress.XtraReports.Service.IReportService.AddNewReport"/> event of the Report Service.
+</para>
+            </summary>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+            <param name="model">
+		A <see cref="T:DevExpress.Data.XtraReports.Wizard.ReportModel"/> object.
+
+            </param>
+            <param name="layout">
+		A <see cref="T:System.Byte"/> array.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.ReportService">
+
+            <summary>
+                <para>Maintains WCF service and provides the printing functionality.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportService class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.#ctor(System.IServiceProvider)">
+            <summary>
+                <para>Initializes a new instance of the ReportService class with the specified service provider.
+</para>
+            </summary>
+            <param name="serviceProvider">
+		An object implementing the <see cref="T:System.IServiceProvider"/> interface.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.#ctor(DevExpress.XtraReports.Service.Native.Services.IIntermediateReportService,DevExpress.Xpf.Printing.Service.Native.Services.IIntermediateExportService,DevExpress.Xpf.Printing.Service.Native.Services.IDALService,DevExpress.Xpf.Printing.Service.Native.Services.ICleanService)">
+            <summary>
+                <para>For internal use. Initializes a new instance of the ReportService class with the specified settings.
+</para>
+            </summary>
+            <param name="intermediateReportService">
+		@nbsp;
+
+            </param>
+            <param name="intermediateExportService">
+		@nbsp;
+
+            </param>
+            <param name="dalService">
+		@nbsp;
+
+            </param>
+            <param name="cleanService">
+		@nbsp;
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.AddNewReport(DevExpress.Data.XtraReports.Wizard.ReportModel)">
+            <summary>
+                <para>Creates a new report based on the specified report model.
+</para>
+            </summary>
+            <param name="model">
+		A <see cref="T:DevExpress.Data.XtraReports.Wizard.ReportModel"/> object.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.ClearReport(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId)">
+            <summary>
+                <para>Deletes a report from the specified session.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object, identifying the report editing session.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetBuildStatus(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId)">
+            <summary>
+                <para>Gets the current build status of the specified report.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.BuildStatus"/> structure.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetColumns(System.String,DevExpress.Data.XtraReports.DataProviders.TableInfo)">
+            <summary>
+                <para>Returns a collection of columns available in a data source.
+
+
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMemberName">
+		A <see cref="T:DevExpress.Data.XtraReports.DataProviders.TableInfo"/> object.
+
+            </param>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.ColumnInfo"/> objects. 
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetDataSourceDisplayName(System.String,System.String)">
+            <summary>
+                <para>Gets the display name of the specified data source.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetDataSourceDisplayNameForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId,System.String)">
+            <summary>
+                <para>Gets the Field List display names for members of the specified data source.
+</para>
+            </summary>
+            <param name="dataSourceId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId"/> object.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member name.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetDataSources">
+            <summary>
+                <para>Obtains the available data sources.
+</para>
+            </summary>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.DataSourceInfo"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetDataSourcesForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId)">
+            <summary>
+                <para>Obtains the report data sources to list them in the Report Designer's Field List.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceInformation"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetDocumentData(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId)">
+            <summary>
+                <para>Gets the data related to the specified document.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentData"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetItemProperties(System.String,System.String)">
+            <summary>
+                <para>Obtains item properties from a data member.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetItemPropertiesForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId,System.String)">
+            <summary>
+                <para>Obtains item properties from a data member for the Field List panel.
+</para>
+            </summary>
+            <param name="dataSourceId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId"/> object, identifying the data source.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetListItemProperties(System.String,System.String)">
+            <summary>
+                <para>Obtains list item properties from a data member.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetListItemPropertiesForFieldList(DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId,System.String)">
+            <summary>
+                <para>Obtains list item properties from a data member for the Field List panel.
+</para>
+            </summary>
+            <param name="dataSourceId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.DataSourceId"/> object, identifying the data source.
+
+            </param>
+            <param name="dataMember">
+		A <see cref="T:System.String"/> value, specifying the data member.
+
+            </param>
+            <returns>An array of <see cref="T:DevExpress.Data.XtraReports.ServiceModel.DataContracts.PropertyDescriptorProxy"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetPage(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId,System.Int32,DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility)">
+            <summary>
+                <para>Returns the content of the specified document page.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <param name="pageIndex">
+		An integer value, specifying the page index.
+
+            </param>
+            <param name="compatibility">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility"/> enumeration value.
+
+            </param>
+            <returns>A <see cref="T:System.String"/> value, specifying the page contents.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetPages(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId,System.Int32[],DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility)">
+            <summary>
+                <para>Returns an array of report pages.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <param name="pageIndexes">
+		An array of integer values.
+
+            </param>
+            <param name="compatibility">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility"/> enumeration value.
+
+            </param>
+            <returns>A <see cref="T:System.Byte"/> array.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetPrintDocument(DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId)">
+            <summary>
+                <para>Gets the document that is ready to print.
+</para>
+            </summary>
+            <param name="printId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+
+            </param>
+            <returns>A <see cref="T:System.IO.Stream"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetPrintStatus(DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId)">
+            <summary>
+                <para>Gets the current status of a document that is being printed.
+</para>
+            </summary>
+            <param name="printId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintStatus"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetReportParameters(DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity)">
+            <summary>
+                <para>Returns an object that contains parameters available in a report.
+</para>
+            </summary>
+            <param name="instanceIdentity">
+		An <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportParameterContainer"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetTables(System.String)">
+            <summary>
+                <para>Obtains data tables available in a data source.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.TableInfo"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.GetViews(System.String)">
+            <summary>
+                <para>Obtains data views available in a data source.
+</para>
+            </summary>
+            <param name="dataSourceName">
+		A <see cref="T:System.String"/> value, specifying the data source name.
+
+            </param>
+            <returns>A collection of <see cref="T:DevExpress.Data.XtraReports.DataProviders.TableInfo"/> objects.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.InvokeReportEditing(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId,DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.EditActionBase[])">
+            <summary>
+                <para> [To be supplied] </para>
+            </summary>
+            <param name="reportId">
+		 [To be supplied] 
+            </param>
+            <param name="editActions">
+		 [To be supplied] 
+            </param>
+            <returns> [To be supplied] </returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.SaveReport(DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId)">
+            <summary>
+                <para>Saves a report.
+</para>
+            </summary>
+            <param name="reportId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportSessionId"/> object, identifying the report editing session.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StartBuild(DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity,DevExpress.DocumentServices.ServiceModel.DataContracts.ReportBuildArgs)">
+            <summary>
+                <para>Starts building a report document on the server.
+</para>
+            </summary>
+            <param name="instanceIdentity">
+		An <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity"/> object.
+
+            </param>
+            <param name="buildArgs">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.ReportBuildArgs"/> object.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StartDesign(DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity,DevExpress.XtraPrinting.XamlExport.XamlCompatibility)">
+            <summary>
+                <para>Opens the specified report in a Report Designer.
+</para>
+            </summary>
+            <param name="identity">
+		An <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.InstanceIdentity"/> object.
+
+            </param>
+            <param name="compatibility">
+		 [To be supplied] 
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.Xpf.Designer.ReportDesignerPage"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StartPrint(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId,DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility)">
+            <summary>
+                <para>Starts printing the specified document.
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object.
+
+            </param>
+            <param name="compatibility">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PageCompatibility"/> enumeration value.
+
+            </param>
+            <returns>A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StaticInitialize">
+            <summary>
+                <para>For internal use.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StaticSetContainer">
+            <summary>
+                <para>For internal use.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StopBuild(DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId)">
+            <summary>
+                <para>Stops building the document. 
+</para>
+            </summary>
+            <param name="documentId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.DocumentId"/> object that identifies the report document.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.ReportService.StopPrint(DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId)">
+            <summary>
+                <para>Stops printing the specified document.
+</para>
+            </summary>
+            <param name="printId">
+		A <see cref="T:DevExpress.DocumentServices.ServiceModel.DataContracts.PrintId"/> object.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Service.Extensions.IDesignerControlService">
+
+            <summary>
+                <para>If implemented by a class, processes the <see cref="T:DevExpress.XtraReports.UI.XRControl"/> class descendants to be used in the End-User Designer for Silverlight.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Service.Extensions.IDesignerControlService.FillCustomProperties(System.String,DevExpress.XtraReports.UI.XRControl,System.Collections.Generic.IDictionary`2)">
+            <summary>
+                <para>Fills the dictionary with an <see cref="T:DevExpress.XtraReports.UI.XRControl"/>'s properties, to make them accessible via the programming interface of the End-User Report Designer for Silverlight.
+</para>
+            </summary>
+            <param name="reportName">
+		A <see cref="T:System.String"/> value, specifying the report name.
+
+            </param>
+            <param name="control">
+		An <see cref="T:DevExpress.XtraReports.UI.XRControl"/> descendant.
+
+            </param>
+            <param name="properties">
+		A dictionary, listing a control's properties.
+
+            </param>
+
+
+        </member>
+    </members>
+</doc>

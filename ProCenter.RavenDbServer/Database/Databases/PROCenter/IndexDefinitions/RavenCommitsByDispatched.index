@@ -1,0 +1,20 @@
+{
+  "Name": "RavenCommitsByDispatched",
+  "Map": "docs.RavenCommits.Select(c => new {\r\n    Dispatched = c.Dispatched,\r\n    Partition = c.Partition ?? null\r\n})",
+  "Maps": [
+    "docs.RavenCommits.Select(c => new {\r\n    Dispatched = c.Dispatched,\r\n    Partition = c.Partition ?? null\r\n})"
+  ],
+  "Reduce": null,
+  "TransformResults": null,
+  "IsMapReduce": false,
+  "IsCompiled": false,
+  "IsTemp": false,
+  "Stores": {},
+  "Indexes": {},
+  "SortOptions": {},
+  "Analyzers": {},
+  "Fields": [],
+  "Suggestions": {},
+  "TermVectors": {},
+  "Type": "Map"
+}

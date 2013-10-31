@@ -1,0 +1,22 @@
+<div class="navbar navbar-fixed-top">
+  <div class="navbar-inner">
+    <div class="container">
+      <a data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+      <a href="#" class="brand">Projectcamp</a>
+      <div class="nav-collapse">
+        <ul class="nav">
+          <li><%= link_to "Homepage", root_path %></li>
+          <% if params[:action] == "register" %>
+            <li><%= link_to "Sign in", login_path %></li>
+          <% else %>
+            <li><%= link_to "Sign up", register_path %></li>
+          <% end %>
+        </ul>
+      </div><!-- /.nav-collapse -->
+    </div>
+  </div><!-- /navbar-inner -->
+</div>

@@ -1,0 +1,21 @@
+@import "compass/css3";
+@import "components/buttons_mixins";
+
+.alert {
+
+  i {
+    position: relative;
+    top: 2px;
+    font-size: 140%;
+  }
+
+  @include box-shadow(0 0 0 1px rgba(255,255,255,.4) inset);
+
+  &.alert-error {
+    @include btn-light(#e35355);
+  }
+
+  &.alert-success {
+    @include btn-light(#50BE50);
+  }
+}

@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Amber" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="AssessReadinessToChange" xml:space="preserve">
+    <value>Discuss readiness to change your behaviors.</value>
+  </data>
+  <data name="BenefitOfDrugAbstinentFeedback" xml:space="preserve">
+    <value>You will feel healthier if you refrain from using drugs.</value>
+  </data>
+  <data name="FollowUpHeader" xml:space="preserve">
+    <value>Please schedule an appointment(s) to address the following:</value>
+  </data>
+  <data name="FollowUpVisit" xml:space="preserve">
+    <value>A follow up appointment for {0} to monitor progress</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="High" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="MentalHealthCondition" xml:space="preserve">
+    <value>Mental health conditions (mood disorders, anxiety, trauma/stress reaction)</value>
+  </data>
+  <data name="ObtainDrugTreatmentHistory" xml:space="preserve">
+    <value>Drug treatment History</value>
+  </data>
+  <data name="ObtainTobaccoAlcoholHistory" xml:space="preserve">
+    <value>Tobacco and Alcohol use</value>
+  </data>
+  <data name="OnsiteOpiodeTreatment" xml:space="preserve">
+    <value>Please immediately report to the onsite treatment program.</value>
+  </data>
+  <data name="OpioidDependenceOffSiteTreatment" xml:space="preserve">
+    <value>Please immediately report to the off-site treatment program</value>
+  </data>
+  <data name="OpioidDependenceOnSiteTreatment" xml:space="preserve">
+    <value>Please immediately report to the onsite treatment program</value>
+  </data>
+  <data name="PatientResourceHeader" xml:space="preserve">
+    <value>Please consider taking advantage of the following resources:</value>
+  </data>
+  <data name="PositiveFeedback" xml:space="preserve">
+    <value>Congratulations on leading a healthy lifestyle.</value>
+  </data>
+  <data name="PreventiveScreenings" xml:space="preserve">
+    <value>Preventive health screenings (e.g. HIV, hepatitis, Sexually Transmitted Infections, etc.)</value>
+  </data>
+  <data name="RecommendCessation" xml:space="preserve">
+    <value>Please consider abstaining from drug use.</value>
+  </data>
+  <data name="ReferalOpiodeTreatment" xml:space="preserve">
+    <value>Please immediately report to the off-site treatement program.</value>
+  </data>
+  <data name="ReferralForFurtherAssessment" xml:space="preserve">
+    <value>Please contact our recommended treatment specialist/program regarding treatment.</value>
+  </data>
+  <data name="ReportName" xml:space="preserve">
+    <value>NIDA Patient Summary</value>
+  </data>
+  <data name="ReviewCurrentMedication" xml:space="preserve">
+    <value>Review your current list of medications</value>
+  </data>
+  <data name="ScheduleSummary" xml:space="preserve">
+    <value>Please schedule an appointment to address the following:</value>
+  </data>
+  <data name="SexualTransmittedInjectionScreening" xml:space="preserve">
+    <value>Sexual Transmitted Infections Screening</value>
+  </data>
+  <data name="SummaryHeader" xml:space="preserve">
+    <value>You scored a {0} on the DAST-10 and the following was reported:</value>
+  </data>
+  <data name="SummaryItems" xml:space="preserve">
+    <value>{1} use of {0}</value>
+  </data>
+  <data name="SupportGroups" xml:space="preserve">
+    <value>Please explore participation with the recommended Support Group(s).</value>
+  </data>
+  <data name="UrineDrugScreen" xml:space="preserve">
+    <value>Please provide a urine specimen to the Lab we recomended.</value>
+  </data>
+  <data name="UsDepartmentHealthAndHumanServices" xml:space="preserve">
+    <value>U.S. Department of Health &amp; Human Services (www.hhs.gov)</value>
+  </data>
+  <data name="UseTreatmentHistoryHeader" xml:space="preserve">
+    <value>Please provide a release for or discuss with your physician your:</value>
+  </data>
+</root>

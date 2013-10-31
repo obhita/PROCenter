@@ -1,0 +1,20 @@
+(function() {
+
+  $(function() {
+    var showDocs,
+      _this = this;
+    $("pre").addClass("prettyprint linenums");
+    prettyPrint();
+    showDocs = false;
+    return $("#docs").mouseup(function() {
+      if (showDocs === false) {
+        $(".codehint, pre").show();
+        return showDocs = true;
+      } else {
+        $(".codehint, pre").hide();
+        return showDocs = false;
+      }
+    });
+  });
+
+}).call(this);

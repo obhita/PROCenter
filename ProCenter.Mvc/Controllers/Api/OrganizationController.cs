@@ -1,0 +1,160 @@
+﻿namespace ProCenter.Mvc.Controllers.Api
+{
+    #region
+
+    using System.Linq;
+    using System.Web.Http;
+    using Common;
+    using Dapper;
+    using Infrastructure;
+    using Models;
+    using ProCenter.Infrastructure.Service.ReadSideService;
+    using Service.Message.Assessment;
+
+    #endregion
+
+    public class OrganizationController : BaseApiController
+    {
+        private readonly IDbConnectionFactory _connectionFactory;
+        private readonly IResourcesManager _resourcesManager;
+        const string WhereConstraintActive = " AND (AssessmentName LIKE @search+'%')";
+            const string QueryActive = @"
+                             SELECT COUNT(*) as TotalCount FROM OrganizationModule.OrganizationAssessmentDefinition
+                                 WHERE OrganizationKey=@OrganizationKey{0}
+                             SELECT [t].AssessmentName,
+                                    [t].AssessmentDefinitionKey AS 'Key',
+                                    [t].AssessmentCode                                      
+                             FROM ( 
+                                 SELECT ROW_NUMBER() OVER ( 
+                                    ORDER BY [t1].AssessmentName) AS [ROW_NUMBER],   
+                                             [t1].AssessmentName,
+                                             [t1].AssessmentDefinitionKey,
+                                             [t1].AssessmentCode  
+                                 FROM OrganizationModule.OrganizationAssessmentDefinition AS [t1]
+                                 WHERE OrganizationKey=@OrganizationKey{0}
+                                 ) AS [t] 
+                             WHERE [t].[ROW_NUMBER] BETWEEN @start + 1 AND @end 
+                             ORDER BY [t].[ROW_NUMBER] ";
+
+
+        public OrganizationController(IDbConnectionFactory connectionFactory, IResourcesManager resourcesManager)
+        {
+            _connectionFactory = connectionFactory;
+            _resourcesManager = resourcesManager;
+        }
+
+        [HttpGet]
+        public DataTableResponse<AssessmentDefinitionDto> Get(string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null)
+        {
+            var start = iDisplayStart;
+            var end = start + iDisplayLength;
+            var replaceString = string.IsNullOrWhiteSpace(sSearch) ? "" : WhereConstraintActive;
+            var completeQuery = string.Format(QueryActive, replaceString);
+
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                using (var multiQuery = connection.QueryMultiple(completeQuery, new {start, end, search = sSearch, UserContext.Current.OrganizationKey}))
+                {
+                    var totalCount = multiQuery.Read<int>().Single();
+                    var assessmentDefinitionDtos = multiQuery.Read<AssessmentDefinitionDto>().ToList();
+                    foreach (var assessmentDefinitionDto in assessmentDefinitionDtos)
+                    {
+                        assessmentDefinitionDto.AssessmentName =
+                            _resourcesManager.GetResourceManagerByName(assessmentDefinitionDto.AssessmentName)
+                                             .GetString(SharedStringNames.ResourceKeyPrefix + assessmentDefinitionDto.AssessmentCode);
+                    }
+                    var dataTableResponse = new DataTableResponse<AssessmentDefinitionDto>
+                        {
+                            Data = assessmentDefinitionDtos,
+                            Echo = sEcho,
+                            TotalDisplayRecords = totalCount,
+                            TotalRecords = totalCount,
+                        };
+
+                    return dataTableResponse;
+                }
+            }
+        }
+
+        [HttpGet]
+        public FinderResults<AssessmentDefinitionDto> FinderSearchActive(int page, int pageSize, string search = null)
+        {
+            var start = page * pageSize;
+            var end = start + pageSize;
+            var replaceString = string.IsNullOrWhiteSpace(search) ? "" : WhereConstraintActive;
+            var completeQuery = string.Format(QueryActive, replaceString);
+
+            using (var connection = _connectionFactory.CreateConnection())
+            using (var multiQuery = connection.QueryMultiple(completeQuery, new { start, end, search, UserContext.Current.OrganizationKey }))
+            {
+                var totalCount = multiQuery.Read<int>().Single();
+                var assessmentDefinitionDtos = multiQuery.Read<AssessmentDefinitionDto>().ToList();
+                foreach (var assessmentDefinitionDto in assessmentDefinitionDtos)
+                {
+                    assessmentDefinitionDto.AssessmentName =
+                        _resourcesManager.GetResourceManagerByName(assessmentDefinitionDto.AssessmentName)
+                                         .GetString(SharedStringNames.ResourceKeyPrefix + assessmentDefinitionDto.AssessmentCode);
+                }
+
+                var findResults = new FinderResults<AssessmentDefinitionDto>
+                {
+                    Data = assessmentDefinitionDtos,
+                    TotalCount = totalCount
+                };
+
+                return findResults;
+            }
+        }
+
+        [HttpGet]
+        public FinderResults<AssessmentDefinitionDto> FinderSearch(int page, int pageSize, string search = null)
+        {
+            const string whereConstraint = " AND ([t1].AssessmentName LIKE @search+'%')";
+            const string query = @"
+                             SELECT COUNT(*) as TotalCount 
+                             FROM AssessmentModule.AssessmentDefinition [t1] LEFT JOIN OrganizationModule.OrganizationAssessmentDefinition [t2] 
+                                 ON [t1].AssessmentDefinitionKey = [t2].AssessmentDefinitionKey AND OrganizationKey=@OrganizationKey 
+                                 WHERE [t2].AssessmentDefinitionKey IS NULL{0}
+                             SELECT [t].AssessmentName,
+                                    [t].AssessmentDefinitionKey AS 'Key',
+                                    [t].AssessmentCode                                      
+                             FROM ( 
+                                 SELECT ROW_NUMBER() OVER ( 
+                                    ORDER BY [t1].AssessmentName) AS [ROW_NUMBER],   
+                                             [t1].AssessmentName,
+                                             [t1].AssessmentDefinitionKey,
+                                             [t1].AssessmentCode  
+                                 FROM AssessmentModule.AssessmentDefinition [t1] LEFT JOIN OrganizationModule.OrganizationAssessmentDefinition [t2] 
+                                 ON [t1].AssessmentDefinitionKey = [t2].AssessmentDefinitionKey AND OrganizationKey=@OrganizationKey 
+                                 WHERE [t2].AssessmentDefinitionKey IS NULL{0}
+                                 ) AS [t] 
+                             WHERE [t].[ROW_NUMBER] BETWEEN @start + 1 AND @end 
+                             ORDER BY [t].[ROW_NUMBER] ";
+            var start = page * pageSize;
+            var end = start + pageSize;
+            var replaceString = string.IsNullOrWhiteSpace(search) ? "" : whereConstraint;
+            var completeQuery = string.Format(query, replaceString);
+
+            using (var connection = _connectionFactory.CreateConnection())
+            using (var multiQuery = connection.QueryMultiple(completeQuery, new { start, end, search, UserContext.Current.OrganizationKey }))
+            {
+                var totalCount = multiQuery.Read<int>().Single();
+                var assessmentDefinitionDtos = multiQuery.Read<AssessmentDefinitionDto>().ToList();
+                foreach (var assessmentDefinitionDto in assessmentDefinitionDtos)
+                {
+                    assessmentDefinitionDto.AssessmentName =
+                        _resourcesManager.GetResourceManagerByName(assessmentDefinitionDto.AssessmentName)
+                                         .GetString(SharedStringNames.ResourceKeyPrefix + assessmentDefinitionDto.AssessmentCode);
+                }
+
+                var findResults = new FinderResults<AssessmentDefinitionDto>
+                    {
+                        Data = assessmentDefinitionDtos,
+                        TotalCount = totalCount
+                    };
+
+                return findResults;
+            }
+        }
+    }
+}

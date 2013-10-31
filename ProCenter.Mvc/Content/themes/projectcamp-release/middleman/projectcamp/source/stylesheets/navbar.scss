@@ -1,0 +1,124 @@
+@import "compass/css3";
+
+.navbar-inner {
+  min-height: 30px;
+}
+
+.navbar-search .search-query {
+  padding: 1px 9px;
+  padding-left: 18px;
+  margin-bottom: 6px;
+}
+
+.navbar {
+  .nav > li > a {
+    padding: 6px 10px 9px;
+  }
+
+  .divider-vertical {
+    height: 34px;
+  }
+
+  .brand {
+    padding: 7px 20px 7px;
+  }
+}
+
+.navbar-search .search-query:focus, .navbar-search .search-query.focused {
+  padding: 2px 10px;
+  padding-left: 18px;
+}
+
+.input-placeholder {
+  position: absolute;
+  line-height: 24px;
+  left:7px;
+}
+
+@mixin arrow_box($border-color: #ddd, $background-color: #fff, $size: 5px) {
+  position: relative;
+  background: $background-color;
+  border: 1px solid $border-color;
+
+  &:after, &:before {
+    right: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:after {
+    border-right-color: $background-color;
+    border-width: $size;
+    top: 50%;
+    margin-top: -$size;
+  }
+
+  &:before {
+    border-right-color: $border-color;
+    border-width: $size+1px;
+    top: 50%;
+    margin-top: -($size+1px);
+  }
+}
+
+@mixin shadow-box($border: #ddd) {
+  color: #404040;
+  background: #fff;
+  border: 1px solid #ddd;
+  @include border-radius(2px, 2px);
+  @include box-shadow(0px 4px 3px -3px rgba(0, 0, 0, 0.1));
+  padding: 7px 10px;
+  @include text-shadow(0 1px #fff);
+}
+
+.aside-menu {
+  list-style: none;
+  margin: 0;
+  li {
+    a {
+      @include box-sizing(border-box);
+      display: block;
+      padding: 7px 10px;
+      margin: 10px 0px;
+      border: 1px solid transparent;
+      color: #808080;
+      @include text-shadow(0 1px #fff);
+
+      &:hover {
+        color: #404040;
+        @include arrow_box(#ddd, $wrapper_bg);
+        border: 1px solid #ddd;
+      }
+    }
+
+    &.active {
+      a {
+        @include arrow_box;
+        @include shadow-box;
+      }
+    }
+  }
+}
+
+.shadow-box {
+
+  margin-bottom: 20px;
+
+  @include shadow-box;
+
+  h4 {
+    line-height: 25px;
+  }
+
+  &.green {
+    background: #ccffcc;
+  }
+
+  &.yellow {
+    background: #ffffcc;
+  }
+}

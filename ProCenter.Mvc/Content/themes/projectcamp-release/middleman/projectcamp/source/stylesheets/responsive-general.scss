@@ -1,0 +1,19 @@
+@media (max-width: 979px) {
+  .nav-collapse .dropdown-menu {
+    background: transparent;
+    li a:hover {
+      background: #222;
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+    }
+  }
+
+  .header {
+    height: 100px;
+  }
+
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
+}
+

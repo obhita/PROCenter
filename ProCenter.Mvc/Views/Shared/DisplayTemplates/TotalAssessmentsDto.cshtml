@@ -1,0 +1,12 @@
+﻿@model ProCenter.Service.Message.Patient.TotalAssessmentsDto
+
+<div class="total-assessments">
+    <div class="feed-left">@Html.DisplayFor(m => m.Total)</div>
+    <div class="feed-right" >
+        <span class="title">Total Assessments </span>
+        @if (Model.StartingDate.HasValue)
+        {
+            <span class="info">Since: @Model.StartingDate.Value.ToShortDateString()</span>
+        }
+    </div>
+</div>

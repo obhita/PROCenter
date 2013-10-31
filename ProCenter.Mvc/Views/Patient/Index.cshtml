@@ -1,0 +1,98 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Common
+@model ProCenter.Service.Message.Patient.PatientDto
+
+@{
+    var patientKey = Model == null ? string.Empty : Model.Key.ToString();
+    ViewBag.Title = "Patient Record";
+}
+
+@section subnav{
+    <div class="sub-nav">
+        <div class="patient-header row-fluid">
+            @Html.DisplayFor(m => ViewData["Patient"], new {CanEdit = true})
+            <div id="assessment-create" class="assessment-tools">
+                @if (Html.CanAccess("Assessment", "Create"))
+                {
+                    <input type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Organization/FinderSearchActive" data-finder-display="AssessmentName" />
+                    <a title="Create Assessment" class="add-btn btn btn-success" data-icon="&#xe102;" disabled="disabled"></a>
+                    <a title="Create Self Administered Assessment" class="self-admin-add-btn btn btn-success" data-icon="&#xe074;" disabled="disabled"></a>
+                }
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+
+<div class="dashboard-wrapper full-height">
+    <div class="patient-dashboard">
+        <div class="left">
+            @if (Html.CanAccess("Patient", "PatientFeed"))
+            {
+                @Html.Partial("../Widgets/PatientFeed")
+            }
+        </div>
+        <div class="right">
+            @if (Html.CanAccess("Report", "Get"))
+            {
+                @Html.Partial("../Widgets/PatientReports")
+            }
+            @if (Html.CanAccess("Assessment", "Edit"))
+            {
+                @Html.Partial("../Widgets/PatientRecentAssessments")
+            }
+            @if (Html.CanAccess("AssessmentReminder", "Get"))
+            {
+                @Html.Partial("../Widgets/AssessmentReminderPartial")
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="ajax-loader" style="display: none"></div>
+</div>
+
+@section scripts 
+{
+    @if (Model != null)
+    {
+        @Scripts.Render("~/bundles/patient")
+        <script>
+            $(document).ready(function() {
+                var canViewReports = @Html.CanAccess("Report", "Get").ToString().ToLower();
+                if (canViewReports) {
+                    var canCustomizeReport = @Html.CanAccess("Report", "Customize").ToString().ToLower();
+                    window.procenter.InitializePatientReports('@Url.Content("~/Assessment")', '@Url.Content("~/api/Assessment")', '@patientKey', '@Url.Action("Get", "Report")', '@Url.Action("Customize", "Report")', canCustomizeReport);
+                }
+                
+                var canViewPatientFeed = @Html.CanAccess("Assessment", "PatientFeed").ToString().ToLower();
+                if (canViewPatientFeed) {
+                    window.procenter.InitializePatientFeed('@Url.Content("~/Patient")', '@patientKey');
+                }
+                
+                var canViewPatientAssessments = @Html.CanAccess("Assessment", "Edit").ToString().ToLower();
+                if (canViewPatientAssessments) {
+                    var canEditAssessments = @Html.CanAccess("Assessment", "Edit", "POST").ToString().ToLower();
+                    window.procenter.InitializePatientRecentAssessments('@Url.Content("~/api/PatientAssessmentsDataTable")', '@patientKey', '@Url.Action("Edit", "Assessment")', canEditAssessments);
+                }
+
+                var canViewReminders = @Html.CanAccess("AssessmentReminder", "Get").ToString().ToLower();
+                if (canViewReminders) {
+                    var canEditReminders = @Html.CanAccess("AssessmentReminder", "Edit", "POST").ToString().ToLower();
+                    window.procenter.InitializeReminders('@Url.Content("~/AssessmentReminder")', '@Url.Content("~/api/AssessmentReminder")', canEditReminders, '@patientKey');
+                }
+
+                $('#assessment-create').on('selectionChanged', function(evt, data) {
+                    if (data && $('#' + data.Key).length === 0) {
+                        $('#assessment-create a.add-btn').removeAttr("disabled").attr("href", '@Url.Content("~/Assessment")' + '/Create?patientKey=' + '@patientKey' + '&assessmentDefinitionKey=' + data.Key);
+                        $('#assessment-create a.self-admin-add-btn').removeAttr("disabled").attr("href", '@Url.Content("~/Assessment")' + '/CreateForSelfAdministration?patientKey=' + '@patientKey' + '&assessmentDefinitionKey=' + data.Key);
+                    } else {
+                        $('#assessment-create a.add-btn').attr("disabled", "disabled");
+                        $('#assessment-create a.self-admin-add-btn').attr("disabled", "disabled");
+                    }
+                });
+                
+            });
+        </script>
+        <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+    }
+}

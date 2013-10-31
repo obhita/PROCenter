@@ -1,0 +1,14 @@
+.activity-line {
+  margin-bottom: 10px;
+
+  .label {
+    padding: 3px 4px 2px;
+    margin-right: 5px;
+  }
+
+  .label, .date, .title {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

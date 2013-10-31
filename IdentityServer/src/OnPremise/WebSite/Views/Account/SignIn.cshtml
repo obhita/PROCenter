@@ -1,0 +1,57 @@
+﻿@using Thinktecture.IdentityServer.Web.App_LocalResources.Account
+@model Thinktecture.IdentityServer.Web.ViewModels.SignInModel
+
+@{
+    ViewBag.Title = SignIn_cshtml.UsernamePasswordSignIn;
+    if (Model.IsSigninRequest)
+    {
+        ViewBag.HideMenu = true;
+    }
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>@string.Format(SignIn_cshtml.UnauthorizedAuthenticatedUser, User.Identity.Name)</h2>
+}
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary(true, SignIn_cshtml.SignInWasUnsuccessful)
+    <fieldset class="editor small signin">
+        <legend>@SignIn_cshtml.Login</legend>
+        <div>
+            @Html.LabelFor(m => m.UserName)
+            @Html.TextBoxFor(m => m.UserName)
+            @Html.ValidationMessageFor(m => m.UserName)
+        </div>
+                
+        <div>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+                
+        <div>
+            @Html.LabelFor(m => m.EnableSSO)
+            @Html.CheckBoxFor(m => m.EnableSSO)
+        </div>
+                
+        <div class="buttons">
+            <input type="submit" value="@SignIn_cshtml.SignIn" />
+        </div>
+    </fieldset>
+}
+
+@if (Model.ShowClientCertificateLink)
+{ 
+    @Html.ActionLink(SignIn_cshtml.UseClientCertificate, "CertificateSignIn", new { returnUrl = Model.ReturnUrl }) 
+}
+
+@section scripts
+{
+<script type="text/javascript">
+    $(function () {
+        $("#UserName").focus();
+    });
+</script>
+}

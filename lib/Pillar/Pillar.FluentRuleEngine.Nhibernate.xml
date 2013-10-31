@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.FluentRuleEngine.Nhibernate</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.FluentRuleEngine.Nhibernate.NhibernateWorkingMemoryGetStrategy">
+            <summary>
+                Strategy for getting nhibernate working memory.
+            </summary>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.Nhibernate.NhibernateWorkingMemoryGetStrategy.GetEntry(System.Collections.Generic.IList{Pillar.FluentRuleEngine.ContextEntry},System.Type,System.String)">
+            <summary>
+                Gets the entry.
+            </summary>
+            <param name="workingMemory">The working memory.</param>
+            <param name="contextObjectType">Type of the context object.</param>
+            <param name="name">The name of the context object.</param>
+            <returns>
+                A <see cref="T:Pillar.FluentRuleEngine.ContextEntry"/> or null if no entry exists.
+            </returns>
+        </member>
+    </members>
+</doc>

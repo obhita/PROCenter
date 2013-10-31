@@ -1,0 +1,51 @@
+.nav-pills {
+  .active {
+    a, a:hover {
+      border: 1px solid #4889CA;
+      background: #5199E1;
+      @include text-shadow(0 1px rgba(0,0,0,.2));
+    }
+  }
+
+  > li > a {
+    border: 1px solid transparent;
+    @include border-radius(13px,13px);
+    padding-top: 4px;
+    padding-bottom: 4px;
+    &:hover {
+      border: 1px solid #eee;
+    }
+  }
+}
+
+
+.nav-plastic {
+  @include border-radius(2px,2px);
+  border: 1px solid #dadada;
+  background: #f8f8f8;
+
+  .active {
+    a, a:hover {
+      position: relative;
+      left: -1px;
+      width: 100%;
+      border-top: 1px solid #2E85DB;
+      border-bottom: 1px solid #1E66AE;
+      border-left: 1px solid #247AD1;
+      border-right: 1px solid #247AD1;
+      background: #5199E1;
+      @include text-shadow(0 1px rgba(0,0,0,.2));
+      @include background-image(linear-gradient(top, #6FAAE6, #2F86DB));
+      @include box-shadow(0 1px 0 rgba(255,255,255,.2) inset, 0 1px rgba(0,0,0,.1));
+      font-weight: bold;
+    }
+  }
+}
+
+.navbar {
+  .btn-navbar {
+    &:active, .active, &:hover {
+      background: #090909;
+    }
+  }
+}

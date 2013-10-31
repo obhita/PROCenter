@@ -1,0 +1,66 @@
+﻿/*!
+ * Bootstrap v2.3.2
+ */
+
+// Core variables and mixins
+@import "variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "mixins.less";
+
+// CSS Reset
+@import "reset.less";
+
+// Grid system and page structure
+@import "scaffolding.less";
+@import "grid.less";
+//@import "modules.less"; 
+
+// Base CSS
+@import "type.less";
+@import "forms.less";
+
+// Components: common
+@import "dropdowns.less";
+@import "component-animations.less";
+@import "close.less";
+
+// Components: Buttons & Alerts 
+@import "buttons.less";
+@import "button-groups.less";
+@import "alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "breadcrumbs.less";
+@import "pagination.less";
+// Components: Popovers
+@import "modals.less";
+@import "tooltip.less";
+@import "popovers.less";
+
+// Components: Misc
+@import "labels-badges.less";
+@import "accordion.less";
+
+// Utility classes
+@import "utilities.less"; // Has to be last to override when necessary
+
+// RESPONSIVE CLASSES
+// ------------------
+
+// IE10 Metro responsive
+// Required for Windows 8 Metro split-screen snapping with IE10
+// Source: http://timkadlec.com/2012/10/ie10-snap-mode-and-responsive-design/
+@-ms-viewport
+{
+    width: device-width;
+}
+
+// Blue Moon
+
+//PRO Center
+@import "base.less";
+@import "brushes.less";
+@import "layout.less";
+@import "modules.less";
+@import "states.less";
+@import "bluemoon.less";
+@import "jquery.procenter-expander.less";

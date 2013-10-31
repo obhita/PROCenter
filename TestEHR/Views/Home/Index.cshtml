@@ -1,0 +1,28 @@
+﻿@model TestEHR.Models.PatientList
+@{
+    ViewBag.Title = "Test EHR System";
+}
+@section featured {
+    <section class="featured">
+        <div class="content-wrapper">
+            <hgroup class="title">
+                <h2>@ViewBag.Message</h2>
+            </hgroup>
+            <p>
+            </p>
+        </div>
+    </section>
+}
+<h3>Patients:</h3>
+
+<div class="div-table">
+    <div class="div-table-row">
+        @foreach (var p in Model.Patients)
+        {
+            <div class="div-table-col"><span style="font-weight: bold;">@p.Name</span></div>
+            <div class="div-table-col">@Html.ActionLink("View Profile & Assessments", "Index", "Patient", new { key = p.PatientKey }, new { @class = "patient" })</div>
+            <div class="div-table-col">Call Web Api</div>
+            <div class="clear"></div>
+        }
+    </div>
+</div>

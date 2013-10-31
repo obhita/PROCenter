@@ -1,0 +1,43 @@
+@import "components/buttons_mixins";
+
+.pagination {
+  ul {
+    @include box-shadow(none);
+  }
+
+  a {
+    margin: 0 5px;
+    padding: 0px 10px;
+    @include btn2;
+    @include box-shadow(0 0 0 1px rgba(255,255,255,.3) inset);
+    @include border-radius(3px, 3px);
+    height: 25px;
+    line-height: 25px;
+    color: #666;
+    @include text-shadow(0 1px #fff);
+  }
+
+  .active a, li:active a{
+    background: #fefefe;
+    @include box-shadow(0px 0px 2px 1px rgba(0, 0, 0, 0.1) inset);
+  }
+
+  .disabled {
+    span, a, a:hover {
+      background: none;
+      border: none;
+      @include box-shadow(none);
+    }
+  }
+
+  li.disabled:first-child, li.disabled:last-child {
+    span, a, a:hover {
+      border: 1px solid #CBCBCB;
+    }
+  }
+
+  li:first-child a, li:last-child a {
+    @include border-radius(3px, 3px);
+  }
+
+}

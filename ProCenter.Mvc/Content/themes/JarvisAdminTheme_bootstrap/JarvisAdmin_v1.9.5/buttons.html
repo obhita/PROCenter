@@ -1,0 +1,4042 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>{JARVIS}Admin</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+	<!-- http://davidbcalhoun.com/2010/viewport-metatag -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!--// OPTIONAL & CONDITIONAL CSS FILES //-->   
+	<!-- date picker css -->
+	<link rel="stylesheet" href="css/datepicker.css?v=1">
+	<!-- full calander css -->
+	<link rel="stylesheet" href="css/fullcalendar.css?v=1">
+	<!-- data tables extended CSS -->
+	<link rel="stylesheet" href="css/TableTools.css?v=1">
+	<!-- bootstrap wysimhtml5 editor -->
+	<link rel="stylesheet" href="css/bootstrap-wysihtml5.css?v=1">
+	<link rel="stylesheet" href="css/wysiwyg-color.css">
+	<!-- custom/responsive growl messages -->
+	<link rel="stylesheet" href="css/toastr.custom.css?v=1">
+	<link rel="stylesheet" href="css/toastr-responsive.css?v=1">
+	<link rel="stylesheet" href="css/jquery.jgrowl.css?v=1">
+	
+	<!-- // DO NOT REMOVE OR CHANGE ORDER OF THE FOLLOWING // -->
+	<!-- bootstrap default css (DO NOT REMOVE) -->
+	<link rel="stylesheet" href="css/bootstrap.min.css?v=1">
+	<link rel="stylesheet" href="css/bootstrap-responsive.min.css?v=1">
+	<!-- font awsome and custom icons -->
+	<link rel="stylesheet" href="css/font-awesome.min.css?v=1">
+	<link rel="stylesheet" href="css/cus-icons.css?v=1">
+	<!-- jarvis widget css -->
+	<link rel="stylesheet" href="css/jarvis-widgets.css?v=1">
+	<!-- Data tables, normal tables and responsive tables css -->
+	<link rel="stylesheet" href="css/DT_bootstrap.css?v=1">
+	<link rel="stylesheet" href="css/responsive-tables.css?v=1">
+	<!-- used where radio, select and form elements are used -->
+	<link rel="stylesheet" href="css/uniform.default.css?v=1">
+	<link rel="stylesheet" href="css/select2.css?v=1">
+	<!-- main theme files -->
+	<link rel="stylesheet" href="css/theme.css?v=1">
+	<link rel="stylesheet" href="css/theme-responsive.css?v=1">
+    
+	<!-- // THEME CSS changed by javascript: the CSS link below will override the rules above // -->
+	<!-- For more information, please see the documentation for "THEMES" -->
+    <link rel="stylesheet" id="switch-theme-js" href="css/themes/default.css?v=1">   
+	
+   	<!-- To switch to full width -->
+    <link rel="stylesheet" id="switch-width" href="css/full-width.css?v=1">
+    
+	<!-- Webfonts -->
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
+	
+	<!-- All javascripts are located at the bottom except for HTML5 Shim -->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+   		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+   		<script src="js/include/respond.min.js"></script>
+   	<![endif]-->
+
+	<!-- For Modern Browsers -->
+	<link rel="shortcut icon" href="img/favicons/favicon.png">
+	<!-- For everything else -->
+	<link rel="shortcut icon" href="img/favicons/favicon.ico">
+	<!-- For retina screens -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/favicons/apple-touch-icon-retina.png">
+	<!-- For iPad 1-->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/favicons/apple-touch-icon-ipad.png">
+	<!-- For iPhone 3G, iPod Touch and Android -->
+	<link rel="apple-touch-icon-precomposed" href="img/favicons/apple-touch-icon.png">
+	
+	<!-- iOS web-app metas -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- Add your custom home screen title: -->
+	<meta name="apple-mobile-web-app-title" content="Jarvis"> 
+
+	<!-- Startup image for web apps -->
+	<link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+	<link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+	<link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+
+  </head>
+
+  <body>
+  	<!-- .height-wrapper -->
+	<div class="height-wrapper">
+
+		<!-- header -->
+		<header>
+			<!-- tool bar -->
+			<div id="header-toolbar" class="container-fluid">
+				<!-- .contained -->
+				<div class="contained">
+					
+					<!-- theme name -->
+					<h1> {JARVIS} <span class="hidden-phone">- Smart Admin Template</span> </h1>
+					<!-- end theme name -->
+					
+					<!-- span4 -->
+					<div class="pull-right">
+						<!-- demo theme switcher-->
+						<div id="theme-switcher" class="btn-toolbar">
+							
+							<!-- search and log off button for phone devices -->
+							<div class="btn-group pull-right visible-phone">
+								<a href="javascript:void(0)" class="btn btn-inverse btn-small"><i class="icon-search"></i></a>
+								<a href="login.html" class="btn btn-inverse btn-small"><i class="icon-off"></i></a>
+							</div>
+							<!-- end buttons for phone device -->
+							
+							<!-- dropdown mini-inbox-->
+							<div class="btn-group">
+								<!-- new mail ticker -->
+								<a href="javascript:void(0)" class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown">
+									<span class="mail-sticker">3</span>
+									<i class="cus-email"></i>
+								</a>
+								<!-- end new mail ticker -->
+								
+								<!-- email lists -->
+								<div class="dropdown-menu toolbar pull-right">
+									<h3>Inbox</h3>
+									<ul id="mailbox-slimscroll-js" class="mailbox">
+										<li>
+											<a href="javascript:void(0)" class="unread">
+												<img src="img/email-important.png" alt="important mail">
+												From: David Simpson
+												<i class="icon-paper-clip"></i>
+												<span>Dear Victoria, Congratulations! Your work has been uploaded to wrapbootstrap.com...</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="unread attachment">
+												
+												<img src="img/email-unread.png" alt="important mail">
+												Re:Last Year sales
+												<i class="icon-paper-clip"></i>
+												<span>Hey Vicky, find attached! Thx :-)</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="unread">
+												<img src="img/email-unread.png" alt="important mail">
+												Company Party
+												<i class="icon-paper-clip"></i>
+												<span>Hi, You have been cordially invited to join new year after party.</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="read">
+												<img src="img/email-read.png" alt="important mail">
+												RE: 2 Bugs found...
+												<i class="icon-paper-clip"></i>
+												<span>I have found two more bugs in this your beta version, maybe its not working...</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="read">
+												<img src="img/email-read.png" alt="important mail">
+												2 Bugs found...
+												<i class="icon-paper-clip"></i>
+												<span>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales.</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="read">
+												<img src="img/email-read.png" alt="important mail">
+												Welcome to Jarvis!
+												<i class="icon-paper-clip"></i>
+												<span>Feugiat a, tellus. Phasellus viverra nulla ut metus varius. Quisque rutrum. Aenean imperdiet... </span>
+											</a>
+										</li>
+									</ul>
+									<a href="javascript:void(0);" id="go-to-inbox">Go to Inbox <i class="icon-double-angle-right"></i></a>
+								</div>
+								<!-- end email lists -->
+							</div>
+							<!-- end dropdown mini-inbox-->
+							
+							<!-- Tasks -->
+							<div class="btn-group hidden-phone">
+								<a href="javascript:void(0)" class="btn btn-inverse btn-small">My Tasks</a>
+								<a href="javascript:void(0)" class="btn btn-inverse dropdown-toggle btn-small" data-toggle="dropdown"><span class="caret"></span></a>
+					
+								<div class="dropdown-menu toolbar pull-right">
+									<h3>Showing All Tasks</h3>
+									<ul class="progressbox">
+						                <li>
+						                    <strong><i class="online pull-left"></i>Urgent Bug Fixes</strong><b class="pull-right">Complete</b>
+						                    <div class="progress progress-success slim"><div class="bar" style="width: 100%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong>Added functionality</strong><b class="pull-right">70%</b>
+						                    <div class="progress progress-info slim"><div class="bar" style="width: 70%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong>CAD Changes</strong><b class="pull-right">50%</b>
+						                    <div class="progress progress-info slim"><div class="bar" style="width: 50%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong>Marketing Campaign Mocup</strong><b class="pull-right">22%</b>
+						                    <div class="progress progress-danger slim"><div class="bar" style="width: 22%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong><i class="offline pull-left"></i>Proposal</strong><b class="pull-right">Pending</b>
+						                    <div class="progress progress-info slim"><div class="bar" style="width: 0%;"></div></div>
+						                </li>
+						            </ul>
+								</div>
+
+							</div>
+							<!-- end Tasks -->
+							
+							<!-- theme dropdown -->
+							<div class="btn-group hidden-phone">
+								<a href="javascript:void(0)" class="btn btn-small btn-inverse" id="reset-widget"><i class="icon-refresh"></i></a>
+								<a href="javascript:void(0)" class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown">Themes <span class="caret"></span></a>
+								<ul id="theme-links-js" class="dropdown-menu toolbar pull-right">
+									<li>
+										<a href="javascript:void(0)" data-rel="purple"><i class="icon-sign-blank purple-icon"></i>Royal Purple</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="blue"><i class="icon-sign-blank navyblue-icon"></i>Navy Blue</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="green"><i class="icon-sign-blank green-icon "></i>Emerald</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="darkred"><i class="icon-sign-blank red-icon "></i>Dark Rose</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="default"><i class="icon-sign-blank grey-icon"></i>Default</a>
+									</li>
+								</ul>
+							</div>
+							<!-- end theme dropdown-->
+							
+						</div>
+					  	<!-- end demo theme switcher-->
+					</div>
+					<!-- end span4 -->
+				</div>
+				<!-- end .contained -->
+			</div>
+			<!-- end tool bar -->
+			
+		</header>
+		<!-- end header -->
+
+	    <div id="main" role="main" class="container-fluid">
+			<div class="contained">
+				<!-- aside -->	
+				<aside>	
+					
+					<!-- search box -->
+					<div class="main-search">
+						<label for="main-search"><i class="icon-search"></i></label>
+	                    <input id="main-search" type="text" placeholder="Search..." />
+                	</div>
+					<div class="divider"></div>
+					<!-- end search box -->
+										
+					<!-- aside item: Mini profile -->
+					<div class="my-profile">
+						<a href="javascript:void(0)" class="my-profile-pic">
+							<img src="img/avatar/avatar_0.jpg" alt="" />
+						</a>
+						<span class="first-child">Welcome <strong>Victoria!</strong></span>
+						<span><a href="javascript:void(0);">Edit Profile </a></span>
+					</div>
+					<div class="divider"></div>
+					<!-- end aside item: Mini profile -->
+
+					<!-- aside item: Menu -->
+					<div class="sidebar-nav-fixed">
+						
+						<ul class="menu" id="accordion-menu-js">
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-off"></i>Dashboard <span class="badge">2</span></a>
+								<ul>
+									<li class="current">
+										<a href="index.html">Dashboard</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" class="logout-js" data-rel="login.html">Logout</a>
+									</li>
+								</ul>
+							</li>
+							<li class="">
+								<a href="inbox.html"><i class="icon-envelope"></i>Inbox</a>
+							</li>
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-check"></i>Forms<span class="badge">3</span></a>
+								<ul>
+									<li>
+										<a href="forms.html">Form Elements</a>
+									</li>
+									<li>
+										<a href="validation.html">Validation</a>
+									</li>
+									<li>
+										<a href="wizard.html">Wizards</a>
+									</li>
+								</ul>
+							</li>
+							<li class="current">
+								<a href="javascript:void(0)"><i class="icon-user"></i>Interface<span class="badge">3</span></a>
+								<ul>
+									<li>
+										<a href="interface.html" >Interface Elements</a>
+									</li>
+									<li>
+										<a href="buttons.html" class="expanded">Buttons &amp; Icons</a>
+									</li>
+									<li>
+										<a href="tables.html">Tables</a>
+									</li>
+								</ul>
+							</li>
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-signal"></i>Charts &amp; Graphs<span class="badge">3</span></a>
+								<ul>
+									<li>
+										<a href="basic_charts.html">Basic Charts</a>
+									</li>
+									<li>
+										<a href="adv_charts.html">Advanced Charts</a>
+									</li>
+									<li>
+										<a href="raphael.html">Raphael Engine</a>
+									</li>
+								</ul>
+							</li>
+							<li class="">
+								<a href="widgets.html"><i class="icon-refresh"></i>Smart Widgets</a>
+							</li>
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-plus"></i>Bonus<span class="badge">4</span></a>
+								<ul>
+									<li>
+										<a href="invoice.html">Invoice</a>
+									</li>
+									<li>
+										<a href="typography.html">Typography</a>
+									</li>
+									<li>
+										<a href="chat.html">Chat</a>
+									</li>
+									<li>
+										<a href="error-page.html">Error Page</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						
+					</div>
+					<div class="divider"></div>
+					<!-- end aside item: Menu -->
+					
+					<!-- aside buttons -->
+					<div class="aside-buttons">
+		                <a href="javascript:void(0)" title="" class="btn btn-primary">Create an Invoice</a>
+		            </div>
+		            <div class="divider"></div>
+		            <!-- end aside buttons -->
+		            
+					
+					<!-- aside progress bars -->
+					<ul class="indented aside-progress-stats">
+		                <li>
+		                    <strong>Data Restored</strong><strong class="pull-right">90%</strong>
+		                    <div class="progress progress-danger slim"><div class="bar" data-percentage="90"></div></div>
+		                </li>
+		                <li>
+		                    <strong>Recovering IDE</strong><strong class="pull-right">66%</strong>
+		                    <div class="progress progress-info slim"><div class="bar" data-percentage="66"></div></div>
+		                </li>
+		                <li>
+		                    <strong>DLL Construction</strong><strong class="pull-right">48%</strong>
+		                    <div class="progress progress-info slim"><div class="bar" data-percentage="48"></div></div>
+		                </li>
+		                <li>
+		                    <strong>Machine Req</strong><strong class="pull-right">33%</strong>
+		                    <div class="progress progress-info slim"><div class="bar" data-percentage="33"></div></div>
+		                </li>
+		            </ul>
+		            <div class="divider"></div>
+		            <!-- end aside progress bars -->
+		            
+				</aside>
+				<!-- aside end -->
+				
+				<!-- main content -->
+				<div id="page-content">
+					<!-- page header -->
+					<h1 id="page-header">Interface > Buttons &amp; Icons</h1>	
+					
+					<div class="fluid-container">
+
+						<!-- widget grid -->
+						<section id="widget-grid" class="">
+							
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+
+								<article class="span12">
+
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-0">
+									    <header>
+									        <h2>Buttons</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer"> 
+									        <!-- content goes here -->
+												<table class="table table-bordered table-striped responsive">
+													<thead>
+														<tr>
+															<th>Button</th>
+															<th>Medium Button</th>
+															<th>Small Button</th>
+															<th>Small Mini</th>
+															<th>Disabled Button</th>
+															<th>Button with Icon</th>
+															<th>Split Button</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td><a class="btn" href="javascript:void(0);">Default</a></td>
+															<td><a class="btn medium" href="javascript:void(0);">Default</a></td>
+															<td><a class="btn btn-small" href="javascript:void(0);">Default</a></td>
+															<td><a class="btn btn-mini" href="javascript:void(0);">Default</a></td>
+															<td><a class="btn disabled" href="javascript:void(0);">Default</a></td>
+															<td><a class="btn" href="javascript:void(0);"><i class="icon-cog"></i> Default</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn" href="javascript:void(0);">Default</a>
+																<a class="btn dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+														<tr>
+															<td><a class="btn btn-primary" href="javascript:void(0);">Primary</a></td>
+															<td><a class="btn btn-primary medium" href="javascript:void(0);">Primary</a></td>
+															<td><a class="btn btn-primary btn-small" href="javascript:void(0);">Primary</a></td>
+															<td><a class="btn btn-primary btn-mini" href="javascript:void(0);">Primary</a></td>
+															<td><a class="btn btn-primary disabled" href="javascript:void(0);">Primary</a></td>
+															<td><a class="btn btn-primary" href="javascript:void(0);"><i class="icon-shopping-cart icon-white"></i> Primary</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn btn-primary" href="javascript:void(0);">Primary</a>
+																<a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+														<tr>
+															<td><a class="btn btn-info" href="javascript:void(0);">Info</a></td>
+															<td><a class="btn btn-info medium" href="javascript:void(0);">Info</a></td>
+															<td><a class="btn btn-info btn-small" href="javascript:void(0);">Info</a></td>
+															<td><a class="btn btn-info btn-mini" href="javascript:void(0);">Info</a></td>
+															<td><a class="btn btn-info disabled" href="javascript:void(0);">Info</a></td>
+															<td><a class="btn btn-info" href="javascript:void(0);"><i class="icon-exclamation-sign icon-white"></i> Info</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn btn-info" href="javascript:void(0);">Info</a>
+																<a class="btn btn-info dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+														<tr>
+															<td><a class="btn btn-success" href="javascript:void(0);">Success</a></td>
+															<td><a class="btn btn-success medium" href="javascript:void(0);">Success</a></td>
+															<td><a class="btn btn-success btn-small" href="javascript:void(0);">Success</a></td>
+															<td><a class="btn btn-success btn-mini" href="javascript:void(0);">Success</a></td>
+															<td><a class="btn btn-success disabled" href="javascript:void(0);">Success</a></td>
+															<td><a class="btn btn-success" href="javascript:void(0);"><i class="icon-ok icon-white"></i> Success</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn btn-success" href="javascript:void(0);">Success</a>
+																<a class="btn btn-success dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+														<tr>
+															<td><a class="btn btn-warning" href="javascript:void(0);">Warning</a></td>
+															<td><a class="btn btn-warning medium" href="javascript:void(0);">Warning</a></td>
+															<td><a class="btn btn-warning btn-small" href="javascript:void(0);">Warning</a></td>
+															<td><a class="btn btn-warning btn-mini" href="javascript:void(0);">Warning</a></td>
+															<td><a class="btn btn-warning disabled" href="javascript:void(0);">Warning</a></td>
+															<td><a class="btn btn-warning" href="javascript:void(0);"><i class="icon-warning-sign icon-white"></i> Warning</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn btn-warning" href="javascript:void(0);">Warning</a>
+																<a class="btn btn-warning dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+														<tr>
+															<td><a class="btn btn-danger" href="javascript:void(0);">Danger</a></td>
+															<td><a class="btn btn-danger medium" href="javascript:void(0);">Danger</a></td>
+															<td><a class="btn btn-danger btn-small" href="javascript:void(0);">Danger</a></td>
+															<td><a class="btn btn-danger btn-mini" href="javascript:void(0);">Danger</a></td>
+															<td><a class="btn btn-danger disabled" href="javascript:void(0);">Danger</a></td>
+															<td><a class="btn btn-danger" href="javascript:void(0);"><i class="icon-remove icon-white"></i> Danger</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn btn-danger" href="javascript:void(0);">Danger</a>
+																<a class="btn btn-danger dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+														<tr>
+															<td><a class="btn btn-inverse" href="javascript:void(0);">Inverse</a></td>
+															<td><a class="btn btn-inverse medium" href="javascript:void(0);">Inverse</a></td>
+															<td><a class="btn btn-inverse btn-small" href="javascript:void(0);">Inverse</a></td>
+															<td><a class="btn btn-inverse btn-mini" href="javascript:void(0);">Inverse</a></td>
+															<td><a class="btn btn-inverse disabled" href="javascript:void(0);">Inverse</a></td>
+															<td><a class="btn btn-inverse" href="javascript:void(0);"><i class="icon-random icon-white"></i> Inverse</a></td>
+															<td>
+															<div class="btn-group">
+																<a class="btn btn-inverse" href="javascript:void(0);">Inverse</a>
+																<a class="btn btn-inverse dropdown-toggle" data-toggle="dropdown" href="javascript:void(0);"><span class="caret"></span></a>
+																<ul class="dropdown-menu">
+																	<li>
+																		<a href="javascript:void(0);">Action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Another action</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">Something else here</a>
+																	</li>
+																	<li class="divider"></li>
+																	<li>
+																		<a href="javascript:void(0);">Separated link</a>
+																	</li>
+																</ul>
+															</div><!-- /btn-group --></td>
+														</tr>
+													</tbody>
+												</table>
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-1">
+									    <header>
+									        <h2>Buttons with default icons</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding show-in-middle"> 
+									        <!-- content -->	
+									       
+												
+			                                        <button type="button" class="btn"><i class="icon-search"></i></button>
+			                                        <button type="button" class="btn btn-primary"><i class="icon-exclamation-sign"></i></button>
+			                                        <button type="button" class="btn btn-success"><i class="icon-ok"></i></button>
+			                                        <button type="button" class="btn btn-warning"><i class="icon-warning-sign"></i></button>
+			                                        <button type="button" class="btn btn-danger"><i class="icon-fire"></i></button>
+			                                        <button type="button" class="btn btn-inverse"><i class="icon-circle-arrow-up"></i></button>
+			                                        <button type="button" class="btn btn-link"><i class="icon-music"></i></button>
+			                                   
+			                                    <h5>Normal and disabled states</h5>
+												
+			                                        <button type="button" class="btn disabled"><i class="icon-search"></i></button>
+			                                        <button type="button" class="btn disabled btn-primary"><i class="icon-exclamation-sign"></i></button>
+			                                        <button type="button" class="btn disabled btn-success"><i class="icon-ok"></i></button>
+			                                        <button type="button" class="btn disabled btn-warning"><i class="icon-warning-sign"></i></button>
+			                                        <button type="button" class="btn disabled btn-danger"><i class="icon-fire"></i></button>
+			                                        <button type="button" class="btn disabled btn-inverse"><i class="icon-circle-arrow-up"></i></button>
+			                                        <button type="button" class="btn disabled btn-link"><i class="icon-music"></i></button>
+			                                   
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-2">
+									    <header>
+									        <h2>Buttons with custom icons</h2>                                   
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding show-in-middle"> 
+									        <!-- content -->	
+									        
+												
+			                                        <button type="button" class="btn"><i class="cus-magnifier"></i></button>
+			                                        <button type="button" class="btn btn-primary"><i class="cus-exclamation"></i></button>
+			                                        <button type="button" class="btn btn-success"><i class="cus-accept"></i></button>
+			                                        <button type="button" class="btn btn-warning"><i class="cus-exclamation-octagon-fram"></i></button>
+			                                        <button type="button" class="btn btn-danger"><i class="cus-lightbulb-off"></i></button>
+			                                        <button type="button" class="btn btn-inverse"><i class="cus-contrast"></i></button>
+			                                        <button type="button" class="btn btn-link"><i class="cus-bin-closed"></i></button>
+			                                    
+			                                    <h5>Normal and disabled states</h5>
+												
+			                                        <button type="button" class="btn disabled"><i class="cus-magnifier"></i></button>
+			                                        <button type="button" class="btn disabled btn-primary"><i class="cus-exclamation"></i></button>
+			                                        <button type="button" class="btn disabled btn-success"><i class="cus-accept"></i></button>
+			                                        <button type="button" class="btn disabled btn-warning"><i class="cus-exclamation-octagon-fram"></i></button>
+			                                        <button type="button" class="btn disabled btn-danger"><i class="cus-lightbulb-off"></i></button>
+			                                        <button type="button" class="btn disabled btn-inverse"><i class="cus-contrast"></i></button>
+			                                        <button type="button" class="btn disabled btn-link"><i class="cus-bin-closed"></i></button>
+			                                    
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+
+								<article class="span12">
+
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-3">
+									    <header>
+									        <h2>Extra large buttons</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding show-in-middle"> 
+									        <!-- content goes here -->
+		                                        <button type="button" class="btn btn-large">Default</button>
+		                                        <button type="button" class="btn btn-primary btn-large">Primary</button>
+		                                        <button type="button" class="btn btn-success btn-large">Success</button>
+		                                        <button type="button" class="btn btn-warning btn-large">Warning</button>
+		                                        <button type="button" class="btn btn-danger btn-large">Danger</button>
+		                                        <button type="button" class="btn btn-inverse btn-large">Inverse</button>
+		                                        <button type="button" class="btn btn-link btn-large">Link</button>
+			                                   
+			                                    <h5>Normal and disabled states</h5>
+
+		                                        <button type="button" class="btn disabled btn-large">Default</button>
+		                                        <button type="button" class="btn disabled btn-primary btn-large">Primary</button>
+		                                        <button type="button" class="btn disabled btn-success btn-large">Success</button>
+		                                        <button type="button" class="btn disabled btn-warning btn-large">Warning</button>
+		                                        <button type="button" class="btn disabled btn-danger btn-large">Danger</button>
+		                                        <button type="button" class="btn disabled btn-inverse btn-large">Inverse</button>
+		                                        <button type="button" class="btn disabled btn-link btn-large">Link</button>
+			                                   
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-4">
+									    <header>
+									        <h2>Split Buttons</h2>                           
+									    </header>
+									    <div>
+									    
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+            
+											<div class="inner-spacer"> 
+									        <!-- content -->	
+									        	<div class="control-group">
+			 										<h5>Dropdown button</h5>   						        
+													<div class="btn-toolbar">
+														<div class="btn-group">
+															<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+																<i class="cus-cog"></i> Settings <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-undo"></i> Undo</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-refresh"></i> Refresh</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class=" cus-cancel"></i> Delete</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group">
+															<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+																<i class="cus-cog"></i> Settings <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-undo"></i> Undo</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-refresh"></i> Refresh</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class=" cus-cancel"></i> Delete</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group">
+															<button class="btn dropdown-toggle" data-toggle="dropdown">
+																<i class="cus-cog"></i> Settings <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-undo"></i> Undo</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-refresh"></i> Refresh</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class=" cus-cancel"></i> Delete</a>
+																</li>
+															</ul>
+														</div>
+
+													</div>
+												</div>
+												<div class="control-group">	
+													<h5>Split dropdown button</h5>
+													<div class="btn-toolbar">
+
+														<div class="btn-group">
+															<button class="btn btn-mini">
+																<i class="cus-doc-pdf"></i> Download
+															</button>
+															<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+																<span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-excel-table"></i> Excel</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-access"></i> Download Access</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-pdf"></i> As PDF</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group">
+															<button class="btn btn-small">
+																<i class="cus-doc-pdf"></i> Download
+															</button>
+															<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+																<span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-excel-table"></i> Excel</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-access"></i> Download Access</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-pdf"></i> As PDF</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group">
+															<button class="btn">
+																<i class="cus-doc-pdf"></i> Download
+															</button>
+															<button class="btn dropdown-toggle" data-toggle="dropdown">
+																<span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-excel-table"></i> Excel</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-access"></i> Download Access</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-pdf"></i> As PDF</a>
+																</li>
+															</ul>
+														</div>
+
+													</div>
+												</div>	
+												<div class="control-group">
+													<h5>Dropup button</h5>   	
+													<div class="btn-toolbar">
+
+														<div class="btn-group dropup">
+															<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+																<i class="cus-cog"></i> Settings <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-undo"></i> Undo</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-refresh"></i> Refresh</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class=" cus-cancel"></i> Delete</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group dropup">
+															<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+																<i class="cus-cog"></i> Settings <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-undo"></i> Undo</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-refresh"></i> Refresh</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class=" cus-cancel"></i> Delete</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group dropup">
+															<button class="btn dropdown-toggle" data-toggle="dropdown">
+																<i class="cus-cog"></i> Settings <span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-undo"></i> Undo</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-arrow-refresh"></i> Refresh</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class=" cus-cancel"></i> Delete</a>
+																</li>
+															</ul>
+														</div>
+
+													</div>
+												</div>
+												<div class="control-group">	
+													<h5>Split dropup button</h5>
+													<div class="btn-toolbar">
+
+														<div class="btn-group dropup">
+															<button class="btn btn-mini">
+																<i class="cus-doc-pdf"></i> Download
+															</button>
+															<button class="btn btn-mini dropdown-toggle" data-toggle="dropdown">
+																<span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-excel-table"></i> Excel</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-access"></i> Download Access</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-pdf"></i> As PDF</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group dropup">
+															<button class="btn btn-small">
+																<i class="cus-doc-pdf"></i> Download
+															</button>
+															<button class="btn btn-small dropdown-toggle" data-toggle="dropdown">
+																<span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-excel-table"></i> Excel</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-access"></i> Download Access</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-pdf"></i> As PDF</a>
+																</li>
+															</ul>
+														</div>
+
+														<div class="btn-group dropup">
+															<button class="btn">
+																<i class="cus-doc-pdf"></i> Download
+															</button>
+															<button class="btn dropdown-toggle" data-toggle="dropdown">
+																<span class="caret"></span>
+															</button>
+															<ul class="dropdown-menu">
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-excel-table"></i> Excel</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-access"></i> Download Access</a>
+																</li>
+																<li>
+																	<a href="javascript:void(0);"><i class="cus-doc-pdf"></i> As PDF</a>
+																</li>
+															</ul>
+														</div>
+
+													</div>
+												</div>
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									</div>
+									<!-- end widget -->
+
+								</article>
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-5">
+									    <header>
+									        <h2>iOS Buttons</h2>                           
+									    </header>
+									    <div>
+									    
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+            
+											<div class="inner-spacer"> 
+									        <!-- content -->	
+												
+
+												<div class="control-group">
+													<h5>Different Sizes</h5>
+										            <div class="switch switch-large">
+										                <input type="checkbox" checked />
+										            </div>
+										
+										            <div class="switch">
+										                <input type="checkbox" checked />
+										            </div>
+										
+										            <div class="switch switch-small">
+										                <input type="checkbox" checked />
+										            </div>
+										
+										            <div class="switch switch-mini">
+										                <input type="checkbox" checked />
+										            </div>
+												</div>
+												
+												<div class="control-group">
+													<h5>Customizable Colors from CSS</h5>
+													<div class="switch" data-on="primary" data-off="info">
+													    <input type="checkbox" checked />
+													</div>
+													 
+													<div class="switch" data-on="info" data-off="success">
+													    <input type="checkbox" checked />
+													</div>
+													 
+													<div class="switch" data-on="success" data-off="warning">
+													    <input type="checkbox" checked />
+													</div>
+													 
+													<div class="switch" data-on="warning" data-off="danger">
+													    <input type="checkbox" checked />
+													</div>
+													 
+													<div class="switch" data-on="danger" data-off="primary">
+													    <input type="checkbox" checked />
+													</div>
+												</div>
+												
+												<div class="control-group">
+													<h5>Custom Icons and Text</h5>
+													<div class="switch" data-on-label="<i class='icon-ok icon-white'></i>" data-off-label="<i class='icon-remove'></i>">
+													    <input type="checkbox" checked />
+													</div>
+													<div class="switch" data-on-label="SI" data-off-label="NO">
+													    <input type="checkbox" checked />
+													</div>
+												</div>
+												
+												<div class="control-group">
+													<h5>No Animation & Disabled State</h5>
+													<div class="switch" data-animated="false">
+													    <input type="checkbox" checked />
+													</div>
+													<div class="switch">
+													   <input type="checkbox" checked disabled />
+													</div>
+												</div>
+
+												<!-- end content -->	
+
+									    	</div>
+										
+										</div>
+									<!-- end widget -->
+									</div>
+								</article>
+							
+							</div>
+							
+							<!-- end row-fluid -->
+	
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span12">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-6">
+									    <header>
+									        <h2>Over 900+ Icons</h2>                           
+									    </header>
+									    <div>
+									    
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+            
+											<div class="inner-spacer widget-content-padding"> 
+									        <!-- content -->	
+
+												<ul id="myTab" class="nav nav-tabs default-tabs">
+									              <li class="active"><a href="#s1" data-toggle="tab">500+ Color Icons</a></li>
+									              <li><a href="#s2" data-toggle="tab">Font Awsome Icons</a></li>
+									              <li><a href="#s3" data-toggle="tab">Ajax loaders</a></li>
+									            </ul>
+									            
+												<div id="myTabContent" class="tab-content">
+									              <div class="tab-pane fade in active" id="s1">
+									            
+													<ul class="all-icons-display">
+														<li>
+															<i class="cus-accept"></i>
+															cus-accept
+														</li>
+														<li>
+															<i class="cus-add"></i>
+															cus-add
+														</li>
+														<li>
+															<i class="cus-alarm"></i>
+															cus-alarm
+														</li>
+														<li>
+															<i class="cus-anchor"></i>
+															cus-anchor
+														</li>
+														<li>
+															<i class="cus-application-add"></i>
+															cus-application-add
+														</li>
+														<li>
+															<i class="cus-application-delete"></i>
+															cus-application-delete
+														</li>
+														<li>
+															<i class="cus-application-double"></i>
+															cus-application-double
+														</li>
+														<li>
+															<i class="cus-application-edit"></i>
+															cus-application-edit
+														</li>
+														<li>
+															<i class="cus-application-error"></i>
+															cus-application-error
+														</li>
+														<li>
+															<i class="cus-application-form"></i>
+															cus-application-form
+														</li>
+														<li>
+															<i class="cus-application-home"></i>
+															cus-application-home
+														</li>
+														<li>
+															<i class="cus-application-key"></i>
+															cus-application-key
+														</li>
+														<li>
+															<i class="cus-application-lightning"></i>
+															cus-application-lightning
+														</li>
+														<li>
+															<i class="cus-application-link"></i>
+															cus-application-link
+														</li>
+														<li>
+															<i class="cus-application-osx"></i>
+															cus-application-osx
+														</li>
+														<li>
+															<i class="cus-application-put"></i>
+															cus-application-put
+														</li>
+														<li>
+															<i class="cus-application-side-boxes"></i>
+															cus-application-side-boxes
+														</li>
+														<li>
+															<i class="cus-application-side-contract"></i>
+															cus-application-side-contract
+														</li>
+														<li>
+															<i class="cus-application-side-expand"></i>
+															cus-application-side-expand
+														</li>
+														<li>
+															<i class="cus-application-side-list"></i>
+															cus-application-side-list
+														</li>
+														<li>
+															<i class="cus-application-side-tree"></i>
+															cus-application-side-tree
+														</li>
+														<li>
+															<i class="cus-application-split"></i>
+															cus-application-split
+														</li>
+														<li>
+															<i class="cus-application-tile-horizontal"></i>
+															cus-application-tile-horizontal
+														</li>
+														<li>
+															<i class="cus-application-tile-vertical"></i>
+															cus-application-tile-vertical
+														</li>
+														<li>
+															<i class="cus-application-view-columns"></i>
+															cus-application-view-columns
+														</li>
+														<li>
+															<i class="cus-application-view-detail"></i>
+															cus-application-view-detail
+														</li>
+														<li>
+															<i class="cus-application-view-gallery"></i>
+															cus-application-view-gallery
+														</li>
+														<li>
+															<i class="cus-application-view-icons"></i>
+															cus-application-view-icons
+														</li>
+														<li>
+															<i class="cus-application-view-list"></i>
+															cus-application-view-list
+														</li>
+														<li>
+															<i class="cus-application-view-tile"></i>
+															cus-application-view-tile
+														</li>
+														<li>
+															<i class="cus-application-view-xp"></i>
+															cus-application-view-xp
+														</li>
+														<li>
+															<i class="cus-application-view-xp-terminal"></i>
+															cus-application-view-xp-terminal
+														</li>
+														<li>
+															<i class="cus-arrow-branch"></i>
+															cus-arrow-branch
+														</li>
+														<li>
+															<i class="cus-arrow-divide"></i>
+															cus-arrow-divide
+														</li>
+														<li>
+															<i class="cus-arrow-in"></i>
+															cus-arrow-in
+														</li>
+														<li>
+															<i class="cus-arrow-inout"></i>
+															cus-arrow-inout
+														</li>
+														<li>
+															<i class="cus-arrow-join"></i>
+															cus-arrow-join
+														</li>
+														<li>
+															<i class="cus-arrow-left"></i>
+															cus-arrow-left
+														</li>
+														<li>
+															<i class="cus-arrow-merge"></i>
+															cus-arrow-merge
+														</li>
+														<li>
+															<i class="cus-arrow-out"></i>
+															cus-arrow-out
+														</li>
+														<li>
+															<i class="cus-arrow-redo"></i>
+															cus-arrow-redo
+														</li>
+														<li>
+															<i class="cus-arrow-refresh"></i>
+															cus-arrow-refresh
+														</li>
+														<li>
+															<i class="cus-arrow-right"></i>
+															cus-arrow-right
+														</li>
+														<li>
+															<i class="cus-arrow-undo"></i>
+															cus-arrow-undo
+														</li>
+														<li>
+															<i class="cus-asterisk-orange"></i>
+															cus-asterisk-orange
+														</li>
+														<li>
+															<i class="cus-attach"></i>
+															cus-attach
+														</li>
+														<li>
+															<i class="cus-attach"></i>
+															cus-attach
+														</li>
+														<li>
+															<i class="cus-award-star-gold"></i>
+															cus-award-star-gold
+														</li>
+														<li>
+															<i class="cus-bandaid"></i>
+															cus-bandaid
+														</li>
+														<li>
+															<i class="cus-basket"></i>
+															cus-basket
+														</li>
+														<li>
+															<i class="cus-bell"></i>
+															cus-bell
+														</li>
+														<li>
+															<i class="cus-bin-closed"></i>
+															cus-bin-closed
+														</li>
+														<li>
+															<i class="cus-blog"></i>
+															cus-blog
+														</li>
+														<li>
+															<i class="cus-blueprint"></i>
+															cus-blueprint
+														</li>
+														<li>
+															<i class="cus-blueprint-horizontal"></i>
+															cus-blueprint-horizontal
+														</li>
+														<li>
+															<i class="cus-bluetooth"></i>
+															cus-bluetooth
+														</li>
+														<li>
+															<i class="cus-bomb"></i>
+															cus-bomb
+														</li>
+														<li>
+															<i class="cus-book"></i>
+															cus-book
+														</li>
+														<li>
+															<i class="cus-book-addresses"></i>
+															cus-book-addresses
+														</li>
+														<li>
+															<i class="cus-book-next"></i>
+															cus-book-next
+														</li>
+														<li>
+															<i class="cus-book-open"></i>
+															cus-book-open
+														</li>
+														<li>
+															<i class="cus-book-previous"></i>
+															cus-book-previous
+														</li>
+														<li>
+															<i class="cus-bookmark"></i>
+															cus-bookmark
+														</li>
+														<li>
+															<i class="cus-bookmark-book"></i>
+															cus-bookmark-book
+														</li>
+														<li>
+															<i class="cus-bookmark-book-open"></i>
+															cus-bookmark-book-open
+														</li>
+														<li>
+															<i class="cus-bookmark-document"></i>
+															cus-bookmark-document
+														</li>
+														<li>
+															<i class="cus-bookmark-folder"></i>
+															cus-bookmark-folder
+														</li>
+														<li>
+															<i class="cus-books"></i>
+															cus-books
+														</li>
+														<li>
+															<i class="cus-box"></i>
+															cus-box
+														</li>
+														<li>
+															<i class="cus-brick"></i>
+															cus-brick
+														</li>
+														<li>
+															<i class="cus-bricks"></i>
+															cus-bricks
+														</li>
+														<li>
+															<i class="cus-briefcase"></i>
+															cus-briefcase
+														</li>
+														<li>
+															<i class="cus-bug"></i>
+															cus-bug
+														</li>
+														<li>
+															<i class="cus-buildings"></i>
+															cus-buildings
+														</li>
+														<li>
+															<i class="cus-bullet-add-1"></i>
+															cus-bullet-add-1
+														</li>
+														<li>
+															<i class="cus-bullet-add-2"></i>
+															cus-bullet-add-2
+														</li>
+														<li>
+															<i class="cus-bullet-key"></i>
+															cus-bullet-key
+														</li>
+														<li>
+															<i class="cus-cake"></i>
+															cus-cake
+														</li>
+														<li>
+															<i class="cus-calculator"></i>
+															cus-calculator
+														</li>
+														<li>
+															<i class="cus-calendar-1"></i>
+															cus-calendar-1
+														</li>
+														<li>
+															<i class="cus-calendar-2"></i>
+															cus-calendar-2
+														</li>
+														<li>
+															<i class="cus-camera"></i>
+															cus-camera
+														</li>
+														<li>
+															<i class="cus-cancel"></i>
+															cus-cancel
+														</li>
+														<li>
+															<i class="cus-car"></i>
+															cus-car
+														</li>
+														<li>
+															<i class="cus-cart"></i>
+															cus-cart
+														</li>
+														<li>
+															<i class="cus-cd"></i>
+															cus-cd
+														</li>
+														<li>
+															<i class="cus-chart-bar"></i>
+															cus-chart-bar
+														</li>
+														<li>
+															<i class="cus-chart-curve"></i>
+															cus-chart-curve
+														</li>
+														<li>
+															<i class="cus-chart-line"></i>
+															cus-chart-line
+														</li>
+														<li>
+															<i class="cus-chart-organisation"></i>
+															cus-chart-organisation
+														</li>
+														<li>
+															<i class="cus-chart-pie"></i>
+															cus-chart-pie
+														</li>
+														<li>
+															<i class="cus-clipboard-paste-image"></i>
+															cus-clipboard-paste-image
+														</li>
+														<li>
+															<i class="cus-clipboard-sign"></i>
+															cus-clipboard-sign
+														</li>
+														<li>
+															<i class="cus-clipboard-text"></i>
+															cus-clipboard-text
+														</li>
+														<li>
+															<i class="cus-clock"></i>
+															cus-clock
+														</li>
+														<li>
+															<i class="cus-cog"></i>
+															cus-cog
+														</li>
+														<li>
+															<i class="cus-coins"></i>
+															cus-coins
+														</li>
+														<li>
+															<i class="cus-color-swatch-1"></i>
+															cus-color-swatch-1
+														</li>
+														<li>
+															<i class="cus-color-swatch-2"></i>
+															cus-color-swatch-2
+														</li>
+														<li>
+															<i class="cus-comment"></i>
+															cus-comment
+														</li>
+														<li>
+															<i class="cus-compass"></i>
+															cus-compass
+														</li>
+														<li>
+															<i class="cus-compress"></i>
+															cus-compress
+														</li>
+														<li>
+															<i class="cus-computer"></i>
+															cus-computer
+														</li>
+														<li>
+															<i class="cus-connect"></i>
+															cus-connect
+														</li>
+														<li>
+															<i class="cus-contrast"></i>
+															cus-contrast
+														</li>
+														<li>
+															<i class="cus-control-eject"></i>
+															cus-control-eject
+														</li>
+														<li>
+															<i class="cus-control-end"></i>
+															cus-control-end
+														</li>
+														<li>
+															<i class="cus-control-equalizer"></i>
+															cus-control-equalizer
+														</li>
+														<li>
+															<i class="cus-control-fastforward"></i>
+															cus-control-fastforward
+														</li>
+														<li>
+															<i class="cus-control-pause"></i>
+															cus-control-pause
+														</li>
+														<li>
+															<i class="cus-control-play"></i>
+															cus-control-play
+														</li>
+														<li>
+															<i class="cus-control-repeat"></i>
+															cus-control-repeat
+														</li>
+														<li>
+															<i class="cus-control-rewind"></i>
+															cus-control-rewind
+														</li>
+														<li>
+															<i class="cus-control-start"></i>
+															cus-control-start
+														</li>
+														<li>
+															<i class="cus-control-stop"></i>
+															cus-control-stop
+														</li>
+														<li>
+															<i class="cus-control-wheel"></i>
+															cus-control-wheel
+														</li>
+														<li>
+															<i class="cus-counter"></i>
+															cus-counter
+														</li>
+														<li>
+															<i class="cus-counter-count"></i>
+															cus-counter-count
+														</li>
+														<li>
+															<i class="cus-counter-count-up"></i>
+															cus-counter-count-up
+														</li>
+														<li>
+															<i class="cus-counter-reset"></i>
+															cus-counter-reset
+														</li>
+														<li>
+															<i class="cus-counter-stop"></i>
+															cus-counter-stop
+														</li>
+														<li>
+															<i class="cus-cross"></i>
+															cus-cross
+														</li>
+														<li>
+															<i class="cus-cross-octagon"></i>
+															cus-cross-octagon
+														</li>
+														<li>
+															<i class="cus-cross-octagon-fram"></i>
+															cus-cross-octagon-fram
+														</li>
+														<li>
+															<i class="cus-cross-shield"></i>
+															cus-cross-shield
+														</li>
+														<li>
+															<i class="cus-cross-shield-2"></i>
+															cus-cross-shield-2
+														</li>
+														<li>
+															<i class="cus-crown"></i>
+															cus-crown
+														</li>
+														<li>
+															<i class="cus-crown-bronze"></i>
+															cus-crown-bronze
+														</li>
+														<li>
+															<i class="cus-crown-silver"></i>
+															cus-crown-silver
+														</li>
+														<li>
+															<i class="cus-css"></i>
+															cus-css
+														</li>
+														<li>
+															<i class="cus-cursor"></i>
+															cus-cursor
+														</li>
+														<li>
+															<i class="cus-cut"></i>
+															cus-cut
+														</li>
+														<li>
+															<i class="cus-dashboard"></i>
+															cus-dashboard
+														</li>
+														<li>
+															<i class="cus-data"></i>
+															cus-data
+														</li>
+														<li>
+															<i class="cus-database"></i>
+															cus-database
+														</li>
+														<li>
+															<i class="cus-databases"></i>
+															cus-databases
+														</li>
+														<li>
+															<i class="cus-delete"></i>
+															cus-delete
+														</li>
+														<li>
+															<i class="cus-delivery"></i>
+															cus-delivery
+														</li>
+														<li>
+															<i class="cus-desktop"></i>
+															cus-desktop
+														</li>
+														<li>
+															<i class="cus-desktop-empty"></i>
+															cus-desktop-empty
+														</li>
+														<li>
+															<i class="cus-direction"></i>
+															cus-direction
+														</li>
+														<li>
+															<i class="cus-disconnect"></i>
+															cus-disconnect
+														</li>
+														<li>
+															<i class="cus-disk"></i>
+															cus-disk
+														</li>
+														<li>
+															<i class="cus-doc-access"></i>
+															cus-doc-access
+														</li>
+														<li>
+															<i class="cus-doc-break"></i>
+															cus-doc-break
+														</li>
+														<li>
+															<i class="cus-doc-convert"></i>
+															cus-doc-convert
+														</li>
+														<li>
+															<i class="cus-doc-excel-csv"></i>
+															cus-doc-excel-csv
+														</li>
+														<li>
+															<i class="cus-doc-excel-table"></i>
+															cus-doc-excel-table
+														</li>
+														<li>
+															<i class="cus-doc-film"></i>
+															cus-doc-film
+														</li>
+														<li>
+															<i class="cus-doc-illustrator"></i>
+															cus-doc-illustrator
+														</li>
+														<li>
+															<i class="cus-doc-music"></i>
+															cus-doc-music
+														</li>
+														<li>
+															<i class="cus-doc-music-playlist"></i>
+															cus-doc-music-playlist
+														</li>
+														<li>
+															<i class="cus-doc-offlice"></i>
+															cus-doc-offlice
+														</li>
+														<li>
+															<i class="cus-doc-page"></i>
+															cus-doc-page
+														</li>
+														<li>
+															<i class="cus-doc-page-previous"></i>
+															cus-doc-page-previous
+														</li>
+														<li>
+															<i class="cus-doc-pdf"></i>
+															cus-doc-pdf
+														</li>
+														<li>
+															<i class="cus-doc-photoshop"></i>
+															cus-doc-photoshop
+														</li>
+														<li>
+															<i class="cus-doc-resize"></i>
+															cus-doc-resize
+														</li>
+														<li>
+															<i class="cus-doc-resize-actual"></i>
+															cus-doc-resize-actual
+														</li>
+														<li>
+															<i class="cus-doc-shred"></i>
+															cus-doc-shred
+														</li>
+														<li>
+															<i class="cus-doc-stand"></i>
+															cus-doc-stand
+														</li>
+														<li>
+															<i class="cus-doc-table"></i>
+															cus-doc-table
+														</li>
+														<li>
+															<i class="cus-doc-tag"></i>
+															cus-doc-tag
+														</li>
+														<li>
+															<i class="cus-doc-text-image"></i>
+															cus-doc-text-image
+														</li>
+														<li>
+															<i class="cus-door"></i>
+															cus-door
+														</li>
+														<li>
+															<i class="cus-door-in"></i>
+															cus-door-in
+														</li>
+														<li>
+															<i class="cus-drawer"></i>
+															cus-drawer
+														</li>
+														<li>
+															<i class="cus-drink"></i>
+															cus-drink
+														</li>
+														<li>
+															<i class="cus-drive"></i>
+															cus-drive
+														</li>
+														<li>
+															<i class="cus-drive-burn"></i>
+															cus-drive-burn
+														</li>
+														<li>
+															<i class="cus-drive-cd"></i>
+															cus-drive-cd
+														</li>
+														<li>
+															<i class="cus-drive-cd-empty"></i>
+															cus-drive-cd-empty
+														</li>
+														<li>
+															<i class="cus-drive-delete"></i>
+															cus-drive-delete
+														</li>
+														<li>
+															<i class="cus-drive-disk"></i>
+															cus-drive-disk
+														</li>
+														<li>
+															<i class="cus-drive-error"></i>
+															cus-drive-error
+														</li>
+														<li>
+															<i class="cus-drive-go"></i>
+															cus-drive-go
+														</li>
+														<li>
+															<i class="cus-drive-link"></i>
+															cus-drive-link
+														</li>
+														<li>
+															<i class="cus-drive-network"></i>
+															cus-drive-network
+														</li>
+														<li>
+															<i class="cus-drive-rename"></i>
+															cus-drive-rename
+														</li>
+														<li>
+															<i class="cus-dvd"></i>
+															cus-dvd
+														</li>
+														<li>
+															<i class="cus-email"></i>
+															cus-email
+														</li>
+														<li>
+															<i class="cus-email-open"></i>
+															cus-email-open
+														</li>
+														<li>
+															<i class="cus-email-open-image"></i>
+															cus-email-open-image
+														</li>
+														<li>
+															<i class="cus-emoticon-evilgrin"></i>
+															cus-emoticon-evilgrin
+														</li>
+														<li>
+															<i class="cus-emoticon-grin"></i>
+															cus-emoticon-grin
+														</li>
+														<li>
+															<i class="cus-emoticon-happy"></i>
+															cus-emoticon-happy
+														</li>
+														<li>
+															<i class="cus-emoticon-smile"></i>
+															cus-emoticon-smile
+														</li>
+														<li>
+															<i class="cus-emoticon-surprised"></i>
+															cus-emoticon-surprised
+														</li>
+														<li>
+															<i class="cus-emoticon-tongue"></i>
+															cus-emoticon-tongue
+														</li>
+														<li>
+															<i class="cus-emoticon-unhappy"></i>
+															cus-emoticon-unhappy
+														</li>
+														<li>
+															<i class="cus-emoticon-waii"></i>
+															cus-emoticon-waii
+														</li>
+														<li>
+															<i class="cus-emoticon-wink"></i>
+															cus-emoticon-wink
+														</li>
+														<li>
+															<i class="cus-envelope"></i>
+															cus-envelope
+														</li>
+														<li>
+															<i class="cus-envelope-2"></i>
+															cus-envelope
+														</li>
+														<li>
+															<i class="cus-error"></i>
+															cus-error
+														</li>
+														<li>
+															<i class="cus-exclamation"></i>
+															cus-exclamation
+														</li>
+														<li>
+															<i class="cus-exclamation-octagon-fram"></i>
+															cus-exclamation-octagon-fram
+														</li>
+														<li>
+															<i class="cus-eye"></i>
+															cus-eye
+														</li>
+														<li>
+															<i class="cus-feed"></i>
+															cus-feed
+														</li>
+														<li>
+															<i class="cus-feed-ballon"></i>
+															cus-feed-ballon
+														</li>
+														<li>
+															<i class="cus-feed-document"></i>
+															cus-feed-document
+														</li>
+														<li>
+															<i class="cus-female"></i>
+															cus-female
+														</li>
+														<li>
+															<i class="cus-film"></i>
+															cus-film
+														</li>
+														<li>
+															<i class="cus-films"></i>
+															cus-films
+														</li>
+														<li>
+															<i class="cus-find"></i>
+															cus-find
+														</li>
+														<li>
+															<i class="cus-flag-blue"></i>
+															cus-flag-blue
+														</li>
+														<li>
+															<i class="cus-folder"></i>
+															cus-folder
+														</li>
+														<li>
+															<i class="cus-font"></i>
+															cus-font
+														</li>
+														<li>
+															<i class="cus-funnel"></i>
+															cus-funnel
+														</li>
+														<li>
+															<i class="cus-grid"></i>
+															cus-grid
+														</li>
+														<li>
+															<i class="cus-grid-dot"></i>
+															cus-grid-dot
+														</li>
+														<li>
+															<i class="cus-group"></i>
+															cus-group
+														</li>
+														<li>
+															<i class="cus-hammer-screwdriver"></i>
+															cus-hammer-screwdriver
+														</li>
+														<li>
+															<i class="cus-hand"></i>
+															cus-hand
+														</li>
+														<li>
+															<i class="cus-hand-point"></i>
+															cus-hand-point
+														</li>
+														<li>
+															<i class="cus-heart"></i>
+															cus-heart
+														</li>
+														<li>
+															<i class="cus-heart-break"></i>
+															cus-heart-break
+														</li>
+														<li>
+															<i class="cus-heart-empty"></i>
+															cus-heart-empty
+														</li>
+														<li>
+															<i class="cus-heart-half"></i>
+															cus-heart-half
+														</li>
+														<li>
+															<i class="cus-help"></i>
+															cus-help
+														</li>
+														<li>
+															<i class="cus-highlighter"></i>
+															cus-highlighter
+														</li>
+														<li>
+															<i class="cus-house"></i>
+															cus-house
+														</li>
+														<li>
+															<i class="cus-html"></i>
+															cus-html
+														</li>
+														<li>
+															<i class="cus-image-1"></i>
+															cus-image-1
+														</li>
+														<li>
+															<i class="cus-image-2"></i>
+															cus-image-2
+														</li>
+														<li>
+															<i class="cus-images"></i>
+															cus-images
+														</li>
+														<li>
+															<i class="cus-inbox"></i>
+															cus-inbox
+														</li>
+														<li>
+															<i class="cus-ipod"></i>
+															cus-ipod
+														</li>
+														<li>
+															<i class="cus-key"></i>
+															cus-key
+														</li>
+														<li>
+															<i class="cus-keyboard"></i>
+															cus-keyboard
+														</li>
+														<li>
+															<i class="cus-layer-treansparent"></i>
+															cus-layer-treansparent
+														</li>
+														<li>
+															<i class="cus-layers"></i>
+															cus-layers
+														</li>
+														<li>
+															<i class="cus-layout"></i>
+															cus-layout
+														</li>
+														<li>
+															<i class="cus-layout-header-footer-1"></i>
+															cus-layout-header-footer-1
+														</li>
+														<li>
+															<i class="cus-layout-header-footer-2"></i>
+															cus-layout-header-footer-2
+														</li>
+														<li>
+															<i class="cus-layout-join"></i>
+															cus-layout-join
+														</li>
+														<li>
+															<i class="cus-layout-join-vertical"></i>
+															cus-layout-join-vertical
+														</li>
+														<li>
+															<i class="cus-layout-select"></i>
+															cus-layout-select
+														</li>
+														<li>
+															<i class="cus-layout-select-content"></i>
+															cus-layout-select-content
+														</li>
+														<li>
+															<i class="cus-layout-select-footer"></i>
+															cus-layout-select-footer
+														</li>
+														<li>
+															<i class="cus-layout-select-sidebar"></i>
+															cus-layout-select-sidebar
+														</li>
+														<li>
+															<i class="cus-layout-split"></i>
+															cus-layout-split
+														</li>
+														<li>
+															<i class="cus-layout-split-vertical"></i>
+															cus-layout-split-vertical
+														</li>
+														<li>
+															<i class="cus-lifebuoy"></i>
+															cus-lifebuoy
+														</li>
+														<li>
+															<i class="cus-lightbulb"></i>
+															cus-lightbulb
+														</li>
+														<li>
+															<i class="cus-lightbulb-off"></i>
+															cus-lightbulb-off
+														</li>
+														<li>
+															<i class="cus-lightning"></i>
+															cus-lightning
+														</li>
+														<li>
+															<i class="cus-link"></i>
+															cus-link
+														</li>
+														<li>
+															<i class="cus-link-break"></i>
+															cus-link-break
+														</li>
+														<li>
+															<i class="cus-lock"></i>
+															cus-lock
+														</li>
+														<li>
+															<i class="cus-lock-unlock"></i>
+															cus-lock-unlock
+														</li>
+														<li>
+															<i class="cus-magnet"></i>
+															cus-magnet
+														</li>
+														<li>
+															<i class="cus-magnifier"></i>
+															cus-magnifier
+														</li>
+														<li>
+															<i class="cus-magnifier-zoom-in"></i>
+															cus-magnifier-zoom-in
+														</li>
+														<li>
+															<i class="cus-male"></i>
+															cus-male
+														</li>
+														<li>
+															<i class="cus-map"></i>
+															cus-map
+														</li>
+														<li>
+															<i class="cus-marker"></i>
+															cus-marker
+														</li>
+														<li>
+															<i class="cus-medal-bronze-1"></i>
+															cus-medal-bronze-1
+														</li>
+														<li>
+															<i class="cus-medal-gold-1"></i>
+															cus-medal-gold-1
+														</li>
+														<li>
+															<i class="cus-media-player-small-blue"></i>
+															cus-media-player-small-blue
+														</li>
+														<li>
+															<i class="cus-microphone"></i>
+															cus-microphone
+														</li>
+														<li>
+															<i class="cus-mobile-phone"></i>
+															cus-mobile-phone
+														</li>
+														<li>
+															<i class="cus-money"></i>
+															cus-money
+														</li>
+														<li>
+															<i class="cus-money-dollar"></i>
+															cus-money-dollar
+														</li>
+														<li>
+															<i class="cus-money-euro"></i>
+															cus-money-euro
+														</li>
+														<li>
+															<i class="cus-money-pound"></i>
+															cus-money-pound
+														</li>
+														<li>
+															<i class="cus-money-yen"></i>
+															cus-money-yen
+														</li>
+														<li>
+															<i class="cus-monitor"></i>
+															cus-monitor
+														</li>
+														<li>
+															<i class="cus-mouse"></i>
+															cus-mouse
+														</li>
+														<li>
+															<i class="cus-music"></i>
+															cus-music
+														</li>
+														<li>
+															<i class="cus-music-beam"></i>
+															cus-music-beam
+														</li>
+														<li>
+															<i class="cus-neutral"></i>
+															cus-neutral
+														</li>
+														<li>
+															<i class="cus-new"></i>
+															cus-new
+														</li>
+														<li>
+															<i class="cus-newspaper"></i>
+															cus-newspaper
+														</li>
+														<li>
+															<i class="cus-note"></i>
+															cus-note
+														</li>
+														<li>
+															<i class="cus-nuclear"></i>
+															cus-nuclear
+														</li>
+														<li>
+															<i class="cus-package"></i>
+															cus-package
+														</li>
+														<li>
+															<i class="cus-page"></i>
+															cus-page
+														</li>
+														<li>
+															<i class="cus-page"></i>
+															cus-page
+														</li>
+														<li>
+															<i class="cus-page-copy"></i>
+															cus-page-copy
+														</li>
+														<li>
+															<i class="cus-page-code"></i>
+															cus-page-code
+														</li>
+														<li>
+															<i class="cus-page-copy"></i>
+															cus-page-copy
+														</li>
+														<li>
+															<i class="cus-page-excel"></i>
+															cus-page-excel
+														</li>
+														<li>
+															<i class="cus-page-lightning"></i>
+															cus-page-lightning
+														</li>
+														<li>
+															<i class="cus-page-paste"></i>
+															cus-page-paste
+														</li>
+														<li>
+															<i class="cus-page-red"></i>
+															cus-page-red
+														</li>
+														<li>
+															<i class="cus-page-refresh"></i>
+															cus-page-refresh
+														</li>
+														<li>
+															<i class="cus-page-save"></i>
+															cus-page-save
+														</li>
+														<li>
+															<i class="cus-page-white-cplusplus"></i>
+															cus-page-white-cplusplus
+														</li>
+														<li>
+															<i class="cus-page-white-csharp"></i>
+															cus-page-white-csharp
+														</li>
+														<li>
+															<i class="cus-page-white-cup"></i>
+															cus-page-white-cup
+														</li>
+														<li>
+															<i class="cus-page-white-database"></i>
+															cus-page-white-database
+														</li>
+														<li>
+															<i class="cus-page-white-delete"></i>
+															cus-page-white-delete
+														</li>
+														<li>
+															<i class="cus-page-white-dvd"></i>
+															cus-page-white-dvd
+														</li>
+														<li>
+															<i class="cus-page-white-edit"></i>
+															cus-page-white-edit
+														</li>
+														<li>
+															<i class="cus-page-white-error"></i>
+															cus-page-white-error
+														</li>
+														<li>
+															<i class="cus-page-white-excel"></i>
+															cus-page-white-excel
+														</li>
+														<li>
+															<i class="cus-page-white-find"></i>
+															cus-page-white-find
+														</li>
+														<li>
+															<i class="cus-page-white-flash"></i>
+															cus-page-white-flash
+														</li>
+														<li>
+															<i class="cus-page-white-freehand"></i>
+															cus-page-white-freehand
+														</li>
+														<li>
+															<i class="cus-page-white-gear"></i>
+															cus-page-white-gear
+														</li>
+														<li>
+															<i class="cus-page-white-get"></i>
+															cus-page-white-get
+														</li>
+														<li>
+															<i class="cus-page-white-paintbrush"></i>
+															cus-page-white-paintbrush
+														</li>
+														<li>
+															<i class="cus-page-white-paste"></i>
+															cus-page-white-paste
+														</li>
+														<li>
+															<i class="cus-page-white-php"></i>
+															cus-page-white-php
+														</li>
+														<li>
+															<i class="cus-page-white-picture"></i>
+															cus-page-white-picture
+														</li>
+														<li>
+															<i class="cus-page-white-powerpoint"></i>
+															cus-page-white-powerpoint
+														</li>
+														<li>
+															<i class="cus-page-white-put"></i>
+															cus-page-white-put
+														</li>
+														<li>
+															<i class="cus-page-white-ruby"></i>
+															cus-page-white-ruby
+														</li>
+														<li>
+															<i class="cus-page-white-stack"></i>
+															cus-page-white-stack
+														</li>
+														<li>
+															<i class="cus-page-white-star"></i>
+															cus-page-white-star
+														</li>
+														<li>
+															<i class="cus-page-white-swoosh"></i>
+															cus-page-white-swoosh
+														</li>
+														<li>
+															<i class="cus-page-white-text"></i>
+															cus-page-white-text
+														</li>
+														<li>
+															<i class="cus-page-white-text-width"></i>
+															cus-page-white-text-width
+														</li>
+														<li>
+															<i class="cus-page-white-tux"></i>
+															cus-page-white-tux
+														</li>
+														<li>
+															<i class="cus-page-white-vector"></i>
+															cus-page-white-vector
+														</li>
+														<li>
+															<i class="cus-page-white-visualstudio"></i>
+															cus-page-white-visualstudio
+														</li>
+														<li>
+															<i class="cus-page-white-width"></i>
+															cus-page-white-width
+														</li>
+														<li>
+															<i class="cus-page-white-word"></i>
+															cus-page-white-word
+														</li>
+														<li>
+															<i class="cus-page-white-world"></i>
+															cus-page-white-world
+														</li>
+														<li>
+															<i class="cus-page-white-wrench"></i>
+															cus-page-white-wrench
+														</li>
+														<li>
+															<i class="cus-page-white-zip"></i>
+															cus-page-white-zip
+														</li>
+														<li>
+															<i class="cus-paintbrush"></i>
+															cus-paintbrush
+														</li>
+														<li>
+															<i class="cus-paintcan"></i>
+															cus-paintcan
+														</li>
+														<li>
+															<i class="cus-palette"></i>
+															cus-palette
+														</li>
+														<li>
+															<i class="cus-paper-bag"></i>
+															cus-paper-bag
+														</li>
+														<li>
+															<i class="cus-paste-plain"></i>
+															cus-paste-plain
+														</li>
+														<li>
+															<i class="cus-paste-word"></i>
+															cus-paste-word
+														</li>
+														<li>
+															<i class="cus-pencil"></i>
+															cus-pencil
+														</li>
+														<li>
+															<i class="cus-photo"></i>
+															cus-photo
+														</li>
+														<li>
+															<i class="cus-photo-album"></i>
+															cus-photo-album
+														</li>
+														<li>
+															<i class="cus-photos"></i>
+															cus-photos
+														</li>
+														<li>
+															<i class="cus-piano"></i>
+															cus-piano
+														</li>
+														<li>
+															<i class="cus-picture"></i>
+															cus-picture
+														</li>
+														<li>
+															<i class="cus-pilcrow"></i>
+															cus-pilcrow
+														</li>
+														<li>
+															<i class="cus-pill"></i>
+															cus-pill
+														</li>
+														<li>
+															<i class="cus-pin"></i>
+															cus-pin
+														</li>
+														<li>
+															<i class="cus-pipette"></i>
+															cus-pipette
+														</li>
+														<li>
+															<i class="cus-plaing-card"></i>
+															cus-plaing-card
+														</li>
+														<li>
+															<i class="cus-plug"></i>
+															cus-plug
+														</li>
+														<li>
+															<i class="cus-plugin"></i>
+															cus-plugin
+														</li>
+														<li>
+															<i class="cus-printer"></i>
+															cus-printer
+														</li>
+														<li>
+															<i class="cus-projection-screen"></i>
+															cus-projection-screen
+														</li>
+														<li>
+															<i class="cus-projection-screen-present"></i>
+															cus-projection-screen-present
+														</li>
+														<li>
+															<i class="cus-rainbow"></i>
+															cus-rainbow
+														</li>
+														<li>
+															<i class="cus-report"></i>
+															cus-report
+														</li>
+														<li>
+															<i class="cus-rocket"></i>
+															cus-rocket
+														</li>
+														<li>
+															<i class="cus-rosette"></i>
+															cus-rosette
+														</li>
+														<li>
+															<i class="cus-rss"></i>
+															cus-rss
+														</li>
+														<li>
+															<i class="cus-ruby"></i>
+															cus-ruby
+														</li>
+														<li>
+															<i class="cus-ruler-1"></i>
+															cus-ruler-1
+														</li>
+														<li>
+															<i class="cus-ruler-2"></i>
+															cus-ruler-2
+														</li>
+														<li>
+															<i class="cus-ruler-crop"></i>
+															cus-ruler-crop
+														</li>
+														<li>
+															<i class="cus-ruler-triangle"></i>
+															cus-ruler-triangle
+														</li>
+														<li>
+															<i class="cus-safe"></i>
+															cus-safe
+														</li>
+														<li>
+															<i class="cus-script"></i>
+															cus-script
+														</li>
+														<li>
+															<i class="cus-selection"></i>
+															cus-selection
+														</li>
+														<li>
+															<i class="cus-selection-select"></i>
+															cus-selection-select
+														</li>
+														<li>
+															<i class="cus-server"></i>
+															cus-server
+														</li>
+														<li>
+															<i class="cus-shading"></i>
+															cus-shading
+														</li>
+														<li>
+															<i class="cus-shape-aling-bottom"></i>
+															cus-shape-aling-bottom
+														</li>
+														<li>
+															<i class="cus-shape-aling-center"></i>
+															cus-shape-aling-center
+														</li>
+														<li>
+															<i class="cus-shape-aling-left"></i>
+															cus-shape-aling-left
+														</li>
+														<li>
+															<i class="cus-shape-aling-middle"></i>
+															cus-shape-aling-middle
+														</li>
+														<li>
+															<i class="cus-shape-aling-right"></i>
+															cus-shape-aling-right
+														</li>
+														<li>
+															<i class="cus-shape-aling-top"></i>
+															cus-shape-aling-top
+														</li>
+														<li>
+															<i class="cus-shape-flip-horizontal"></i>
+															cus-shape-flip-horizontal
+														</li>
+														<li>
+															<i class="cus-shape-flip-vertical"></i>
+															cus-shape-flip-vertical
+														</li>
+														<li>
+															<i class="cus-shape-group"></i>
+															cus-shape-group
+														</li>
+														<li>
+															<i class="cus-shape-handles"></i>
+															cus-shape-handles
+														</li>
+														<li>
+															<i class="cus-shape-move-back"></i>
+															cus-shape-move-back
+														</li>
+														<li>
+															<i class="cus-shape-move-backwards"></i>
+															cus-shape-move-backwards
+														</li>
+														<li>
+															<i class="cus-shape-move-forwards"></i>
+															cus-shape-move-forwards
+														</li>
+														<li>
+															<i class="cus-shape-move-front"></i>
+															cus-shape-move-front
+														</li>
+														<li>
+															<i class="cus-shape-square"></i>
+															cus-shape-square
+														</li>
+														<li>
+															<i class="cus-shield"></i>
+															cus-shield
+														</li>
+														<li>
+															<i class="cus-sitemap"></i>
+															cus-sitemap
+														</li>
+														<li>
+															<i class="cus-slide"></i>
+															cus-slide
+														</li>
+														<li>
+															<i class="cus-slides"></i>
+															cus-slides
+														</li>
+														<li>
+															<i class="cus-slides-stack"></i>
+															cus-slides-stack
+														</li>
+														<li>
+															<i class="cus-smiley-confuse"></i>
+															cus-smiley-confuse
+														</li>
+														<li>
+															<i class="cus-smiley-cool"></i>
+															cus-smiley-cool
+														</li>
+														<li>
+															<i class="cus-smiley-cry"></i>
+															cus-smiley-cry
+														</li>
+														<li>
+															<i class="cus-smiley-fat"></i>
+															cus-smiley-fat
+														</li>
+														<li>
+															<i class="cus-smiley-mad"></i>
+															cus-smiley-mad
+														</li>
+														<li>
+															<i class="cus-smiley-red"></i>
+															cus-smiley-red
+														</li>
+														<li>
+															<i class="cus-smiley-roll"></i>.
+															cus-smiley-roll
+														</li>
+														<li>
+															<i class="cus-smiley-slim"></i>
+															cus-smiley-slim
+														</li>
+														<li>
+															<i class="cus-smiley-yell"></i>
+															cus-smiley-yell
+														</li>
+														<li>
+															<i class="cus-socket"></i>
+															cus-socket
+														</li>
+														<li>
+															<i class="cus-sockets"></i>
+															cus-sockets
+														</li>
+														<li>
+															<i class="cus-sort"></i>
+															cus-sort
+														</li>
+														<li>
+															<i class="cus-sort-alphabet"></i>
+															cus-sort-alphabet
+														</li>
+														<li>
+															<i class="cus-sort-date"></i>
+															cus-sort-date
+														</li>
+														<li>
+															<i class="cus-sort-disable"></i>
+															cus-sort-disable
+														</li>
+														<li>
+															<i class="cus-sort-number"></i>
+															cus-sort-number
+														</li>
+														<li>
+															<i class="cus-sort-price"></i>
+															cus-sort-price
+														</li>
+														<li>
+															<i class="cus-sort-quantity"></i>
+															cus-sort-quantity
+														</li>
+														<li>
+															<i class="cus-sort-rating"></i>
+															cus-sort-rating
+														</li>
+														<li>
+															<i class="cus-sound"></i>
+															cus-sound
+														</li>
+														<li>
+															<i class="cus-sound-note"></i>
+															cus-sound-note
+														</li>
+														<li>
+															<i class="cus-spellcheck"></i>
+															cus-spellcheck
+														</li>
+														<li>
+															<i class="cus-sport-ball"></i>
+															cus-sport-ball
+														</li>
+														<li>
+															<i class="cus-sport-basketball"></i>
+															cus-sport-basketball
+														</li>
+														<li>
+															<i class="cus-sport-football"></i>
+															cus-sport-football
+														</li>
+														<li>
+															<i class="cus-sport-golf"></i>
+															cus-sport-golf
+														</li>
+														<li>
+															<i class="cus-sport-raquet"></i>
+															cus-sport-raquet
+														</li>
+														<li>
+															<i class="cus-sport-shuttlecock"></i>
+															cus-sport-shuttlecock
+														</li>
+														<li>
+															<i class="cus-sport-soccer"></i>
+															cus-sport-soccer
+														</li>
+														<li>
+															<i class="cus-sport-tennis"></i>
+															cus-sport-tennis
+														</li>
+														<li>
+															<i class="cus-stamp"></i>
+															cus-stamp
+														</li>
+														<li>
+															<i class="cus-star-1"></i>
+															cus-star-1
+														</li>
+														<li>
+															<i class="cus-star-2"></i>
+															cus-star-2
+														</li>
+														<li>
+															<i class="cus-status-online"></i>
+															cus-status-online
+														</li>
+														<li>
+															<i class="cus-stop"></i>
+															cus-stop
+														</li>
+														<li>
+															<i class="cus-style"></i>
+															cus-style
+														</li>
+														<li>
+															<i class="cus-sum"></i>
+															cus-sum
+														</li>
+														<li>
+															<i class="cus-sum-2"></i>
+															cus-sum-2
+														</li>
+														<li>
+															<i class="cus-switch"></i>
+															cus-switch
+														</li>
+														<li>
+															<i class="cus-tab"></i>
+															cus-tab
+														</li>
+														<li>
+															<i class="cus-table"></i>
+															cus-table
+														</li>
+														<li>
+															<i class="cus-tag"></i>
+															cus-tag
+														</li>
+														<li>
+															<i class="cus-tag-blue"></i>
+															cus-tag-blue
+														</li>
+														<li>
+															<i class="cus-target"></i>
+															cus-target
+														</li>
+														<li>
+															<i class="cus-telephone"></i>
+															cus-telephone
+														</li>
+														<li>
+															<i class="cus-television"></i>
+															cus-television
+														</li>
+														<li>
+															<i class="cus-text-align-center"></i>
+															cus-text-align-center
+														</li>
+														<li>
+															<i class="cus-text-align-justify"></i>
+															cus-text-align-justify
+														</li>
+														<li>
+															<i class="cus-text-align-left"></i>
+															cus-text-align-left
+														</li>
+														<li>
+															<i class="cus-text-align-right"></i>
+															cus-text-align-right
+														</li>
+														<li>
+															<i class="cus-text-allcaps"></i>
+															cus-text-allcaps
+														</li>
+														<li>
+															<i class="cus-text-bold"></i>
+															cus-text-bold
+														</li>
+														<li>
+															<i class="cus-text-columns"></i>
+															cus-text-columns
+														</li>
+														<li>
+															<i class="cus-text-dropcaps"></i>
+															cus-text-dropcaps
+														</li>
+														<li>
+															<i class="cus-text-heading-1"></i>
+															cus-text-heading-1
+														</li>
+														<li>
+															<i class="cus-text-horizontalrule"></i>
+															cus-text-horizontalrule
+														</li>
+														<li>
+															<i class="cus-text-indent"></i>
+															cus-text-indent
+														</li>
+														<li>
+															<i class="cus-text-indent-remove"></i>
+															cus-text-indent-remove
+														</li>
+														<li>
+															<i class="cus-text-italic"></i>
+															cus-text-italic
+														</li>
+														<li>
+															<i class="cus-text-kerning"></i>
+															cus-text-kerning
+														</li>
+														<li>
+															<i class="cus-text-letter-omega"></i>
+															cus-text-letter-omega
+														</li>
+														<li>
+															<i class="cus-text-letterspacing"></i>
+															cus-text-letterspacing
+														</li>
+														<li>
+															<i class="cus-text-linespacing"></i>
+															cus-text-linespacing
+														</li>
+														<li>
+															<i class="cus-text-list-bullets"></i>
+															cus-text-list-bullets
+														</li>
+														<li>
+															<i class="cus-text-list-numbers"></i>
+															cus-text-list-numbers
+														</li>
+														<li>
+															<i class="cus-text-lowercase"></i>
+															cus-text-lowercase
+														</li>
+														<li>
+															<i class="cus-text-padding-bottom"></i>
+															cus-text-padding-bottom
+														</li>
+														<li>
+															<i class="cus-text-padding-left"></i>
+															cus-text-padding-left
+														</li>
+														<li>
+															<i class="cus-text-padding-right"></i>
+															cus-text-padding-right
+														</li>
+														<li>
+															<i class="cus-text-padding-top"></i>
+															cus-text-padding-top
+														</li>
+														<li>
+															<i class="cus-text-signature"></i>
+															cus-text-signature
+														</li>
+														<li>
+															<i class="cus-text-smallcaps"></i>
+															cus-text-smallcaps
+														</li>
+														<li>
+															<i class="cus-text-strikethrough"></i>
+															cus-text-strikethrough
+														</li>
+														<li>
+															<i class="cus-text-subscript"></i>
+															cus-text-subscript
+														</li>
+														<li>
+															<i class="cus-textfield"></i>
+															cus-textfield
+														</li>
+														<li>
+															<i class="cus-textfield-rename"></i>
+															cus-textfield-rename
+														</li>
+														<li>
+															<i class="cus-ticket"></i>
+															cus-ticket
+														</li>
+														<li>
+															<i class="cus-timeline-marker"></i>
+															cus-timeline-marker
+														</li>
+														<li>
+															<i class="cus-traffic"></i>
+															cus-traffic
+														</li>
+														<li>
+															<i class="cus-transmit"></i>
+															cus-transmit
+														</li>
+														<li>
+															<i class="cus-trophy"></i>
+															cus-trophy
+														</li>
+														<li>
+															<i class="cus-trophy-bronze"></i>
+															cus-trophy-bronze
+														</li>
+														<li>
+															<i class="cus-trophy-silver"></i>
+															cus-trophy-silver
+														</li>
+														<li>
+															<i class="cus-ui-combo-box"></i>
+															cus-ui-combo-box
+														</li>
+														<li>
+															<i class="cus-ui-saccordion"></i>
+															cus-ui-saccordion
+														</li>
+														<li>
+															<i class="cus-ui-slider-1"></i>
+															cus-ui-slider-1
+														</li>
+														<li>
+															<i class="cus-ui-slider-2"></i>
+															cus-ui-slider-2
+														</li>
+														<li>
+															<i class="cus-ui-tab-bottom"></i>
+															cus-ui-tab-bottom
+														</li>
+														<li>
+															<i class="cus-ui-tab-content"></i>
+															cus-ui-tab-content
+														</li>
+														<li>
+															<i class="cus-ui-tab-disable"></i>
+															cus-ui-tab-disable
+														</li>
+														<li>
+															<i class="cus-ui-tab-side"></i>
+															cus-ui-tab-side
+														</li>
+														<li>
+															<i class="cus-ui-text-field-hidden"></i>
+															cus-ui-text-field-hidden
+														</li>
+														<li>
+															<i class="cus-ui-text-field-password"></i>
+															cus-ui-text-field-password
+														</li>
+														<li>
+															<i class="cus-umbrella"></i>
+															cus-umbrella
+														</li>
+														<li>
+															<i class="cus-user"></i>
+															cus-user
+														</li>
+														<li>
+															<i class="cus-user-black-female"></i>
+															cus-user-black-female
+														</li>
+														<li>
+															<i class="cus-user-business"></i>
+															cus-user-business
+														</li>
+														<li>
+															<i class="cus-user-business-boss"></i>
+															cus-user-business-boss
+														</li>
+														<li>
+															<i class="cus-user-female"></i>
+															cus-user-female
+														</li>
+														<li>
+															<i class="cus-user-silhouette"></i>
+															cus-user-silhouette
+														</li>
+														<li>
+															<i class="cus-user-thief"></i>
+															cus-user-thief
+														</li>
+														<li>
+															<i class="cus-user-thief-baldie"></i>
+															cus-user-thief-baldie
+														</li>
+														<li>
+															<i class="cus-vcard"></i>
+															cus-vcard
+														</li>
+														<li>
+															<i class="cus-vector"></i>
+															cus-vector
+														</li>
+														<li>
+															<i class="cus-wait"></i>
+															cus-wait
+														</li>
+														<li>
+															<i class="cus-wall"></i>
+															cus-wall
+														</li>
+														<li>
+															<i class="cus-wall-break"></i>
+															cus-wall-break
+														</li>
+														<li>
+															<i class="cus-wall-brick"></i>
+															cus-wall-brick
+														</li>
+														<li>
+															<i class="cus-wall-disable"></i>
+															cus-wall-disable
+														</li>
+														<li>
+															<i class="cus-wand"></i>
+															cus-wand
+														</li>
+														<li>
+															<i class="cus-weather-clouds"></i>
+															cus-weather-clouds
+														</li>
+														<li>
+															<i class="cus-weather-cloudy"></i>
+															cus-weather-cloudy
+														</li>
+														<li>
+															<i class="cus-weather-lightning"></i>
+															cus-weather-lightning
+														</li>
+														<li>
+															<i class="cus-weather-rain"></i>
+															cus-weather-rain
+														</li>
+														<li>
+															<i class="cus-weather-snow"></i>
+															cus-weather-snow
+														</li>
+														<li>
+															<i class="cus-weather-sun"></i>
+															cus-weather-sun
+														</li>
+														<li>
+															<i class="cus-webcam"></i>
+															cus-webcam
+														</li>
+														<li>
+															<i class="cus-world"></i>
+															cus-world
+														</li>
+														<li>
+															<i class="cus-zone"></i>
+															cus-zone
+														</li>
+														<li>
+															<i class="cus-zone-money"></i>
+															cus-zone-money
+														</li>
+													</ul>
+										       	
+									              </div>
+									              <div class="tab-pane fade" id="s2">
+								
+									            
+													<ul class="all-icons-display">
+														<li>
+															<i class="icon-glass"></i> icon-glass
+														</li>
+														<li>
+															<i class="icon-music"></i> icon-music
+														</li>
+														<li>
+															<i class="icon-search"></i> icon-search
+														</li>
+														<li>
+															<i class="icon-envelope"></i> icon-envelope
+														</li>
+														<li>
+															<i class="icon-heart"></i> icon-heart
+														</li>
+														<li>
+															<i class="icon-star"></i> icon-star
+														</li>
+														<li>
+															<i class="icon-star-empty"></i> icon-star-empty
+														</li>
+														<li>
+															<i class="icon-user"></i> icon-user
+														</li>
+														<li>
+															<i class="icon-film"></i> icon-film
+														</li>
+														<li>
+															<i class="icon-th-large"></i> icon-th-large
+														</li>
+														<li>
+															<i class="icon-th"></i> icon-th
+														</li>
+														<li>
+															<i class="icon-th-list"></i> icon-th-list
+														</li>
+														<li>
+															<i class="icon-ok"></i> icon-ok
+														</li>
+														<li>
+															<i class="icon-remove"></i> icon-remove
+														</li>
+														<li>
+															<i class="icon-zoom-in"></i> icon-zoom-in
+														</li>
+														<li>
+															<i class="icon-zoom-out"></i> icon-zoom-out
+														</li>
+														<li>
+															<i class="icon-off"></i> icon-off
+														</li>
+														<li>
+															<i class="icon-signal"></i> icon-signal
+														</li>
+														<li>
+															<i class="icon-cog"></i> icon-cog
+														</li>
+														<li>
+															<i class="icon-trash"></i> icon-trash
+														</li>
+														<li>
+															<i class="icon-home"></i> icon-home
+														</li>
+														<li>
+															<i class="icon-file"></i> icon-file
+														</li>
+														<li>
+															<i class="icon-time"></i> icon-time
+														</li>
+														<li>
+															<i class="icon-road"></i> icon-road
+														</li>
+														<li>
+															<i class="icon-download-alt"></i> icon-download-alt
+														</li>
+														<li>
+															<i class="icon-download"></i> icon-download
+														</li>
+														<li>
+															<i class="icon-upload"></i> icon-upload
+														</li>
+														<li>
+															<i class="icon-inbox"></i> icon-inbox
+														</li>
+	
+														<li>
+															<i class="icon-play-circle"></i> icon-play-circle
+														</li>
+														<li>
+															<i class="icon-repeat"></i> icon-repeat
+														</li>
+														<li>
+															<i class="icon-refresh"></i> icon-refresh
+														</li>
+														<li>
+															<i class="icon-list-alt"></i> icon-list-alt
+														</li>
+														<li>
+															<i class="icon-lock"></i> icon-lock
+														</li>
+														<li>
+															<i class="icon-flag"></i> icon-flag
+														</li>
+														<li>
+															<i class="icon-headphones"></i> icon-headphones
+														</li>
+														<li>
+															<i class="icon-volume-off"></i> icon-volume-off
+														</li>
+														<li>
+															<i class="icon-volume-down"></i> icon-volume-down
+														</li>
+														<li>
+															<i class="icon-volume-up"></i> icon-volume-up
+														</li>
+														<li>
+															<i class="icon-qrcode"></i> icon-qrcode
+														</li>
+														<li>
+															<i class="icon-barcode"></i> icon-barcode
+														</li>
+														<li>
+															<i class="icon-tag"></i> icon-tag
+														</li>
+														<li>
+															<i class="icon-tags"></i> icon-tags
+														</li>
+														<li>
+															<i class="icon-book"></i> icon-book
+														</li>
+														<li>
+															<i class="icon-bookmark"></i> icon-bookmark
+														</li>
+														<li>
+															<i class="icon-print"></i> icon-print
+														</li>
+														<li>
+															<i class="icon-camera"></i> icon-camera
+														</li>
+														<li>
+															<i class="icon-font"></i> icon-font
+														</li>
+														<li>
+															<i class="icon-bold"></i> icon-bold
+														</li>
+														<li>
+															<i class="icon-italic"></i> icon-italic
+														</li>
+														<li>
+															<i class="icon-text-height"></i> icon-text-height
+														</li>
+														<li>
+															<i class="icon-text-width"></i> icon-text-width
+														</li>
+														<li>
+															<i class="icon-align-left"></i> icon-align-left
+														</li>
+														<li>
+															<i class="icon-align-center"></i> icon-align-center
+														</li>
+														<li>
+															<i class="icon-align-right"></i> icon-align-right
+														</li>
+														<li>
+															<i class="icon-align-justify"></i> icon-align-justify
+														</li>
+														<li>
+															<i class="icon-list"></i> icon-list
+														</li>
+	
+														<li>
+															<i class="icon-indent-left"></i> icon-indent-left
+														</li>
+														<li>
+															<i class="icon-indent-right"></i> icon-indent-right
+														</li>
+														<li>
+															<i class="icon-facetime-video"></i> icon-facetime-video
+														</li>
+														<li>
+															<i class="icon-picture"></i> icon-picture
+														</li>
+														<li>
+															<i class="icon-pencil"></i> icon-pencil
+														</li>
+														<li>
+															<i class="icon-map-marker"></i> icon-map-marker
+														</li>
+														<li>
+															<i class="icon-adjust"></i> icon-adjust
+														</li>
+														<li>
+															<i class="icon-tint"></i> icon-tint
+														</li>
+														<li>
+															<i class="icon-edit"></i> icon-edit
+														</li>
+														<li>
+															<i class="icon-share"></i> icon-share
+														</li>
+														<li>
+															<i class="icon-check"></i> icon-check
+														</li>
+														<li>
+															<i class="icon-move"></i> icon-move
+														</li>
+														<li>
+															<i class="icon-step-backward"></i> icon-step-backward
+														</li>
+														<li>
+															<i class="icon-fast-backward"></i> icon-fast-backward
+														</li>
+														<li>
+															<i class="icon-backward"></i> icon-backward
+														</li>
+														<li>
+															<i class="icon-play"></i> icon-play
+														</li>
+														<li>
+															<i class="icon-pause"></i> icon-pause
+														</li>
+														<li>
+															<i class="icon-stop"></i> icon-stop
+														</li>
+														<li>
+															<i class="icon-forward"></i> icon-forward
+														</li>
+														<li>
+															<i class="icon-fast-forward"></i> icon-fast-forward
+														</li>
+														<li>
+															<i class="icon-step-forward"></i> icon-step-forward
+														</li>
+														<li>
+															<i class="icon-eject"></i> icon-eject
+														</li>
+														<li>
+															<i class="icon-chevron-left"></i> icon-chevron-left
+														</li>
+														<li>
+															<i class="icon-chevron-right"></i> icon-chevron-right
+														</li>
+														<li>
+															<i class="icon-plus-sign"></i> icon-plus-sign
+														</li>
+														<li>
+															<i class="icon-minus-sign"></i> icon-minus-sign
+														</li>
+														<li>
+															<i class="icon-remove-sign"></i> icon-remove-sign
+														</li>
+														<li>
+															<i class="icon-ok-sign"></i> icon-ok-sign
+														</li>
+	
+														<li>
+															<i class="icon-question-sign"></i> icon-question-sign
+														</li>
+														<li>
+															<i class="icon-info-sign"></i> icon-info-sign
+														</li>
+														<li>
+															<i class="icon-screenshot"></i> icon-screenshot
+														</li>
+														<li>
+															<i class="icon-remove-circle"></i> icon-remove-circle
+														</li>
+														<li>
+															<i class="icon-ok-circle"></i> icon-ok-circle
+														</li>
+														<li>
+															<i class="icon-ban-circle"></i> icon-ban-circle
+														</li>
+														<li>
+															<i class="icon-arrow-left"></i> icon-arrow-left
+														</li>
+														<li>
+															<i class="icon-arrow-right"></i> icon-arrow-right
+														</li>
+														<li>
+															<i class="icon-arrow-up"></i> icon-arrow-up
+														</li>
+														<li>
+															<i class="icon-arrow-down"></i> icon-arrow-down
+														</li>
+														<li>
+															<i class="icon-share-alt"></i> icon-share-alt
+														</li>
+														<li>
+															<i class="icon-resize-full"></i> icon-resize-full
+														</li>
+														<li>
+															<i class="icon-resize-small"></i> icon-resize-small
+														</li>
+														<li>
+															<i class="icon-plus"></i> icon-plus
+														</li>
+														<li>
+															<i class="icon-minus"></i> icon-minus
+														</li>
+														<li>
+															<i class="icon-asterisk"></i> icon-asterisk
+														</li>
+														<li>
+															<i class="icon-exclamation-sign"></i> icon-exclamation-sign
+														</li>
+														<li>
+															<i class="icon-gift"></i> icon-gift
+														</li>
+														<li>
+															<i class="icon-leaf"></i> icon-leaf
+														</li>
+														<li>
+															<i class="icon-fire"></i> icon-fire
+														</li>
+														<li>
+															<i class="icon-eye-open"></i> icon-eye-open
+														</li>
+														<li>
+															<i class="icon-eye-close"></i> icon-eye-close
+														</li>
+														<li>
+															<i class="icon-warning-sign"></i> icon-warning-sign
+														</li>
+														<li>
+															<i class="icon-plane"></i> icon-plane
+														</li>
+														<li>
+															<i class="icon-calendar"></i> icon-calendar
+														</li>
+														<li>
+															<i class="icon-random"></i> icon-random
+														</li>
+														<li>
+															<i class="icon-comment"></i> icon-comment
+														</li>
+														<li>
+															<i class="icon-magnet"></i> icon-magnet
+														</li>
+	
+														<li>
+															<i class="icon-chevron-up"></i> icon-chevron-up
+														</li>
+														<li>
+															<i class="icon-chevron-down"></i> icon-chevron-down
+														</li>
+														<li>
+															<i class="icon-retweet"></i> icon-retweet
+														</li>
+														<li>
+															<i class="icon-shopping-cart"></i> icon-shopping-cart
+														</li>
+														<li>
+															<i class="icon-folder-close"></i> icon-folder-close
+														</li>
+														<li>
+															<i class="icon-folder-open"></i> icon-folder-open
+														</li>
+														<li>
+															<i class="icon-resize-vertical"></i> icon-resize-vertical
+														</li>
+														<li>
+															<i class="icon-resize-horizontal"></i> icon-resize-horizontal
+														</li>
+														<li>
+															<i class="icon-hdd"></i> icon-hdd
+														</li>
+														<li>
+															<i class="icon-bullhorn"></i> icon-bullhorn
+														</li>
+														<li>
+															<i class="icon-bell"></i> icon-bell
+														</li>
+														<li>
+															<i class="icon-certificate"></i> icon-certificate
+														</li>
+														<li>
+															<i class="icon-thumbs-up"></i> icon-thumbs-up
+														</li>
+														<li>
+															<i class="icon-thumbs-down"></i> icon-thumbs-down
+														</li>
+														<li>
+															<i class="icon-hand-right"></i> icon-hand-right
+														</li>
+														<li>
+															<i class="icon-hand-left"></i> icon-hand-left
+														</li>
+														<li>
+															<i class="icon-hand-up"></i> icon-hand-up
+														</li>
+														<li>
+															<i class="icon-hand-down"></i> icon-hand-down
+														</li>
+														<li>
+															<i class="icon-circle-arrow-right"></i> icon-circle-arrow-right
+														</li>
+														<li>
+															<i class="icon-circle-arrow-left"></i> icon-circle-arrow-left
+														</li>
+														<li>
+															<i class="icon-circle-arrow-up"></i> icon-circle-arrow-up
+														</li>
+														<li>
+															<i class="icon-circle-arrow-down"></i> icon-circle-arrow-down
+														</li>
+														<li>
+															<i class="icon-globe"></i> icon-globe
+														</li>
+														<li>
+															<i class="icon-wrench"></i> icon-wrench
+														</li>
+														<li>
+															<i class="icon-tasks"></i> icon-tasks
+														</li>
+														<li>
+															<i class="icon-filter"></i> icon-filter
+														</li>
+														<li>
+															<i class="icon-briefcase"></i> icon-briefcase
+														</li>
+														<li>
+															<i class="icon-fullscreen"></i> icon-fullscreen
+														</li>
+													</ul>
+										       		
+								
+									              </div>
+									              
+									              <div class="tab-pane fade" id="s3">
+									              
+							              			<img src="img/loaders/misc/16-1.gif" alt="loader" />
+							              			<img src="img/loaders/misc/16-2.gif" alt="loader" />
+							              			<img src="img/loaders/misc/16-3.gif" alt="loader" />
+							              			<img src="img/loaders/misc/100.gif" alt="loader" />
+							              			<img src="img/loaders/misc/126.gif" alt="loader" />
+							              			<img src="img/loaders/misc/128.gif" alt="loader" />
+							              			<img src="img/loaders/misc/24.gif" alt="loader" />
+							              			<img src="img/loaders/misc/56.gif" alt="loader" />
+							              			<img src="img/loaders/misc/66.gif" alt="loader" />
+							              			
+							              			
+							              			<img src="img/loaders/type1/light/12.gif" alt="loader" />
+							              			<img src="img/loaders/type1/light/16.gif" alt="loader" />
+							              			<img src="img/loaders/type1/light/20.gif" alt="loader" />
+							              			<img src="img/loaders/type1/light/24.gif" alt="loader" />
+							              			<img src="img/loaders/type1/light/32.gif" alt="loader" />
+							              			
+							              			<img src="img/loaders/type2/light/12.gif" alt="loader" />
+							              			<img src="img/loaders/type2/light/16.gif" alt="loader" />
+							              			<img src="img/loaders/type2/light/20.gif" alt="loader" />
+							              			<img src="img/loaders/type2/light/24.gif" alt="loader" />
+							              			<img src="img/loaders/type2/light/32.gif" alt="loader" />
+							              			
+							              			<img src="img/loaders/type3/light/12.gif" alt="loader" />
+							              			<img src="img/loaders/type3/light/16.gif" alt="loader" />
+							              			<img src="img/loaders/type3/light/20.gif" alt="loader" />
+							              			<img src="img/loaders/type3/light/24.gif" alt="loader" />
+							              			<img src="img/loaders/type3/light/32.gif" alt="loader" />
+							              			
+							              			<img src="img/loaders/type4/light/20.gif" alt="loader" />
+							              			<img src="img/loaders/type4/light/26.gif" alt="loader" />
+							              			<img src="img/loaders/type4/light/36.gif" alt="loader" />
+							              			<img src="img/loaders/type4/light/46.gif" alt="loader" />
+							              			<img src="img/loaders/type4/light/56.gif" alt="loader" />
+							              			
+							              			<img src="img/loaders/type5/light/12.gif" alt="loader" />
+							              			<img src="img/loaders/type5/light/16.gif" alt="loader" />
+							              			<img src="img/loaders/type5/light/20.gif" alt="loader" />
+							              			<img src="img/loaders/type5/light/24.gif" alt="loader" />
+							              			<img src="img/loaders/type5/light/32.gif" alt="loader" />
+							              			
+							              			<img src="img/loaders/type6/light/40.gif" alt="loader" />
+							              			<img src="img/loaders/type6/light/50.gif" alt="loader" />
+							              			<img src="img/loaders/type6/light/60.gif" alt="loader" />
+							              			<img src="img/loaders/type6/light/70.gif" alt="loader" />
+							              			<img src="img/loaders/type6/light/80.gif" alt="loader" />
+							              			
+							              			<img src="img/loaders/type7/light/12.gif" alt="loader" />
+							              			<img src="img/loaders/type7/light/16.gif" alt="loader" />
+							              			<img src="img/loaders/type7/light/20.gif" alt="loader" />
+							              			<img src="img/loaders/type7/light/24.gif" alt="loader" />
+							              			<img src="img/loaders/type7/light/32.gif" alt="loader" />
+									              		
+									              </div>	
+									            </div>
+	
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									</div>
+									<!-- end widget -->
+
+								</article>
+							
+							</div>
+							
+							<!-- end row-fluid -->
+							
+						</section>
+						<!-- end widget grid -->
+					</div>
+					<!-- end container-fluid-->		
+				</div>
+				<!-- end main content -->
+			
+				<!-- aside right on high res -->
+				<aside class="right">
+					
+					<!-- sparkline stats -->
+					<ul class="mystats indented">
+		                <li class="first">
+		                    <h1><span>My Balance:</span>$17,349</h1>
+		                    <div class="mychart" id="balance" style="width:35px"></div>
+		                </li>
+		                <li>
+		                    <h1><span>Impressions:</span>145k+</h1>
+		                    <div class="mychart" id="clicks" style="width:35px"></div>
+		                </li>
+		                <li>
+		                    <h1><span>Subscribers:</span>1,120</h1>
+		                    <div class="mychart" id="subscribe" style="width:35px"></div>
+		                </li>
+		                <li class="last">
+		                    <h1><span>Support Ticket:</span>945+</h1>
+		                    <div class="mychart" id="support" style="width:35px"></div>
+		                </li>
+		            </ul>
+		            <div class="divider"></div>
+		            <!-- end sparkline stats -->
+					
+					<!-- date picker -->
+					<div id="datepicker"></div>
+					<div class="divider"></div>
+					<!-- end date picker -->
+					
+					<!-- aside small buttons -->
+					<div class="aside-buttons">
+		                <a href="javascript:void(0);" title="" class="btn btn-info btn-small">Create an Invoice</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-success btn-small">New Campaign</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-warning btn-small">Stop All Process</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-danger btn-small">Restart Server</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-inverse btn-small">Cloak Mode</a>
+		            </div>
+		            <div class="divider"></div>
+		            <!-- end aside small buttons -->
+					
+					<!-- aside buttons -->
+					<div class="aside-buttons">
+		                <a href="javascript:void(0);" title="" class="btn btn-info">Create an Invoice</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-success">New Campaign</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-warning">Stop All Process</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-danger">Restart Server</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-inverse">Cloak Mode</a>
+		            </div>
+		            <div class="divider"></div>
+		            <!-- end aside buttons -->
+		            
+					<!-- aside bigger buttons -->
+					<div class="aside-buttons">
+		                <a href="javascript:void(0);" title="" class="btn btn-info btn-large">Create an Invoice</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-success btn-large">New Campaign</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-warning btn-large">Stop All Process</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-danger btn-large">Restart Server</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-inverse btn-large">Cloak Mode</a>
+		            </div>
+		            <div class="divider"></div>
+		            <!-- end aside bigger buttons -->
+		            
+				</aside>
+				
+				<!-- end aside right -->
+			</div>
+			
+	    </div><!--/.fluid-container-->
+		<div class="push"></div>
+	</div>
+	<!-- end .height-wrapper -->	
+	
+	<!-- footer -->
+	
+	<!-- if you like you can insert your footer here -->
+	
+	<!-- end footer -->
+
+    <!--================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery.min.js"><\/script>')</script>
+    	<!-- OPTIONAL: Use this migrate script for plugins that are not supported by jquery 1.9+ -->
+		<!-- DISABLED <script src="js/libs/jquery.migrate-1.0.0.min.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script>window.jQuery.ui || document.write('<script src="js/libs/jquery.ui.min.js"><\/script>')</script>
+    
+    <!-- IMPORTANT: Jquery Touch Punch is always placed under Jquery UI -->
+    <script src="js/include/jquery.ui.touch-punch.min.js"></script>
+    
+    <!-- REQUIRED: Mobile responsive menu generator -->
+	<script src="js/include/selectnav.min.js"></script>
+
+	<!-- REQUIRED: Datatable components -->
+    <script src="js/include/jquery.accordion.min.js"></script>
+
+	<!-- REQUIRED: Toastr & Jgrowl notifications  -->
+    <script src="js/include/toastr.min.js"></script>
+    <script src="js/include/jquery.jgrowl.min.js"></script>
+    
+    <!-- REQUIRED: Sleek scroll UI  -->
+    <script src="js/include/slimScroll.min.js"></script>
+	
+	<!-- REQUIRED: Datatable components -->
+	<script src="js/include/jquery.dataTables.min.js"></script>
+	<script src="js/include/DT_bootstrap.min.js"></script>
+
+    <!-- REQUIRED: Form element skin  -->
+    <script src="js/include/jquery.uniform.min.js"></script> 
+
+	<!-- REQUIRED: AmCharts  -->
+    <script src="js/include/amchart/amcharts.js"></script>
+	<script src="js/include/amchart/amchart-draw1.js"></script>
+
+	<script type="text/javascript">
+		var ismobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));	
+	    if(!ismobile){
+	    	
+	    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS FALSE **/
+	    	
+	    	/* REQUIRED: Datatable PDF/Excel output componant */
+	    	
+	    	document.write('<script src="js/include/ZeroClipboard.min.js"><\/script>');
+	    	document.write('<script src="js/include/TableTools.min.js"><\/script>');
+	    	document.write('<script src="js/include/select2.min.js"><\/script>');
+	    	document.write('<script src="js/include/jquery.excanvas.min.js"><\/script>');
+	    	document.write('<script src="js/include/jquery.placeholder.min.js"><\/script>');
+	    }else{
+	    	
+	    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS TRUE **/
+
+	    	document.write('<script src="js/include/responsive-tables.min.js"><\/script>');
+	    }
+	</script>
+	
+	<!-- REQUIRED: iButton -->
+    <script src="js/include/jquery.ibutton.min.js"></script>
+	
+	<!-- REQUIRED: Justgage animated charts -->
+	<script src="js/include/raphael.2.1.0.min.js"></script>
+    <script src="js/include/justgage.min.js"></script>
+    
+    <!-- REQUIRED: Morris Charts -->
+    <script src="js/include/morris.min.js"></script> 
+    <script src="js/include/morris-chart-settings.js"></script> 
+    
+    <!-- REQUIRED: Animated pie chart -->
+    <script src="js/include/jquery.easy-pie-chart.min.js"></script>
+    
+    <!-- REQUIRED: Functional Widgets -->
+    <script src="js/include/jarvis.widget.min.js"></script>
+    <script src="js/include/mobiledevices.min.js"></script>
+    <!-- DISABLED (only needed for IE7 <script src="js/include/json2.js"></script> -->
+	
+	<!-- REQUIRED: Full Calendar -->
+    <script src="js/include/jquery.fullcalendar.min.js"></script>		
+    
+    <!-- REQUIRED: Flot Chart Engine -->
+    <script src="js/include/jquery.flot.cust.min.js"></script>			
+    <script src="js/include/jquery.flot.resize.min.js"></script>		
+    <script src="js/include/jquery.flot.tooltip.min.js"></script>		
+    <script src="js/include/jquery.flot.orderBar.min.js"></script> 	
+    <script src="js/include/jquery.flot.fillbetween.min.js"></script>	
+    <script src="js/include/jquery.flot.pie.min.js"></script> 	 
+    
+    <!-- REQUIRED: Sparkline Charts -->
+    <script src="js/include/jquery.sparkline.min.js"></script>
+
+	<!-- REQUIRED: Infinite Sliding Menu (used with inbox page) -->
+	<script src="js/include/jquery.inbox.slashc.sliding-menu.js"></script> 
+
+	<!-- REQUIRED: Form validation plugin -->
+    <script src="js/include/jquery.validate.min.js"></script>
+    
+    <!-- REQUIRED: Progress bar animation -->
+    <script src="js/include/bootstrap-progressbar.min.js"></script>
+    
+    <!-- REQUIRED: wysihtml5 editor -->
+    <script src="js/include/wysihtml5-0.3.0.min.js"></script>
+    <script src="js/include/bootstrap-wysihtml5.min.js"></script>
+
+	<!-- REQUIRED: Masked Input -->
+    <script src="js/include/jquery.maskedinput.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap Date Picker -->
+    <script src="js/include/bootstrap-datepicker.min.js"></script>
+
+    <!-- REQUIRED: Bootstrap Wizard -->
+    <script src="js/include/bootstrap.wizard.min.js"></script> 
+    
+	<!-- REQUIRED: Bootstrap Color Picker -->
+    <script src="js/include/bootstrap-colorpicker.min.js"></script>
+
+    
+	<!-- REQUIRED: Bootstrap Time Picker -->
+    <script src="js/include/bootstrap-timepicker.min.js"></script> 
+    
+    <!-- REQUIRED: Bootstrap Prompt -->
+    <script src="js/include/bootbox.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap engine -->
+    <script src="js/include/bootstrap.min.js"></script>
+    
+    <!-- DO NOT REMOVE: Theme Config file -->
+    <script src="js/config.js"></script>
+    
+    <!-- d3 library placed at the bottom for better performance -->
+    <!-- DISABLED  <script src="js/include/d3.v3.min.js"></script> -->
+    <!-- DISABLED  <script src="js/include/adv_charts/d3-chart-1.js"></script> -->
+    <!-- DISABLED  <script src="js/include/adv_charts/d3-chart-2.js"></script> -->
+
+    <!-- Google Geo Chart -->
+    <!-- DISABLED <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script> -->
+    <!-- DISABLED <script type='text/javascript' src='https://www.google.com/jsapi'></script>-->
+    <!-- DISABLED <script src="js/include/adv_charts/geochart.js"></script> -->
+    
+    <!-- end scripts -->
+  </body>
+</html>

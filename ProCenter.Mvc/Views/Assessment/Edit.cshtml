@@ -1,0 +1,102 @@
+﻿@using ProCenter.Mvc.Infrastructure
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Models
+@using ProCenter.Service.Message.Message
+@model ProCenter.Service.Message.Assessment.SectionDto
+
+@{
+    ViewBag.Title = Html.GetResource(Model);
+    var messages = (ViewData["Messages"] as IEnumerable<IMessageDto>) ?? Enumerable.Empty<IMessageDto>();
+    var disable = Html.CanAccess("Assessment","Edit","POST") && !Model.IsSubmitted  ? "false" : "true"; 
+
+    var style = !Model.IsSubmitted && Model.IsComplete ? null : "display:none;";
+}
+
+@section subnav{
+    <div class="sub-nav">
+        <div class="assessment-header row-fluid">
+            <h3 class="title">@Html.GetResource(Model)</h3>
+            @Html.ActionLink( "Submit", "Submit", new {key = Model.AssessmentKey, patientKey = Model.PatientKey}, new { id = "assessmentSubmit",@class = "btn btn-success", style, data_loadElementId = "submit-loader"} )
+            <div class="clear"></div>
+        </div>
+    </div>
+}
+
+<div class="assessment-wrapper dashboard-wrapper @Model.AssessmentName container-fluid" data-disabled="@disable">
+    <div class="score-header row-fluid">
+        @Html.Partial( "ScoreHeader", new ScoreHeaderViewModel { Score = Model.Score, Messages = messages} )
+    </div>
+    <div id="contentDiv" class="content row-fluid" data-layout-height="*">
+        <div>
+            <h4 class="instructions">@Html.GetResource(Model, SharedStringNames.Instructions)</h4>
+            <div>
+                @Html.Hidden("AssessmentKey", Model.AssessmentKey)
+                @Html.Hidden("AssessmentName", Model.AssessmentName)
+                @Html.Hidden("PatientKey", Model.PatientKey)
+            </div>
+            @foreach (var item in Html.GetItemsToRender(Model))
+            {
+                @Html.Partial(item.ItemType, item)
+            }
+        </div>
+    </div>
+    <div id="submit-loader">
+        <span>Submitting...</span>
+    </div>
+</div>
+
+@section scripts
+{
+    @{
+        var bundle = "~/ClientBusinessRules/" + Model.AssessmentName;
+        if (BundleTable.Bundles.Any(b => b.Path == bundle))
+        {
+            @Scripts.Render("~/ClientBusinessRulesEngine")
+            @Scripts.Render(bundle)
+        }
+    }
+   
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var checkDisabled = function() {
+                $('[data-disabled="true"]').find(":input").prop('disabled', true);
+                $('[data-disabled="false"]').find(":input").prop('disabled', false);
+            };
+
+            checkDisabled();
+            var $assessment = $('.assessment-wrapper');
+            $assessment.ajaxForm({
+                url: '@Url.Action("Edit", new {key = Model.Key, patientKey = Model.PatientKey})',
+                forceValueName: true,
+                success: function(data) {
+                    if (data !== undefined && data.CanSubmit === true) {
+                        $("#assessmentSubmit").fadeIn();
+                    } else {
+                        $("#assessmentSubmit").fadeOut();
+                    }
+                }
+            });
+
+            $('#assessmentSubmit').ajaxLink({
+                success: function(data) {
+                    $assessment.find('.score-header').html(data);
+                    $("#assessmentSubmit").fadeOut();
+                    $(".assessment-wrapper").attr("data-disabled", true);
+                    checkDisabled();
+                    $assessment.find('.score-header').expander();
+                }
+            });
+
+            $assessment.find('.score-header').expander();
+        });
+
+        var $inputBox = $('input[name="3254097_Value"]');
+        $inputBox.on("change", function (event) {
+            if ($inputBox.val() < 0) {
+                $inputBox.val(null);
+            }
+        });
+
+    </script>
+    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+}

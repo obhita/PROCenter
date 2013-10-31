@@ -1,0 +1,87 @@
+﻿@using System.Web.UI.WebControls
+@using DevExpress.Web.Mvc.UI
+@using DevExpress.XtraReports.Web
+
+<html>
+@{
+    Layout = null;
+}
+<head>
+    <title>PRO Center Report</title>
+    <script src="@Url.Content("~/Scripts/jquery-1.9.1.js")" type="text/javascript"></script>
+    @Html.DevExpress().GetStyleSheets(
+            new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.HtmlEditor },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.PivotGrid },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Chart },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.Scheduler },
+            new StyleSheet { ExtensionSuite = ExtensionSuite.TreeList }
+             )
+    @Html.DevExpress().GetScripts(
+            new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+            new Script { ExtensionSuite = ExtensionSuite.HtmlEditor },
+            new Script { ExtensionSuite = ExtensionSuite.GridView },
+            new Script { ExtensionSuite = ExtensionSuite.PivotGrid },
+            new Script { ExtensionSuite = ExtensionSuite.Editors },
+            new Script { ExtensionSuite = ExtensionSuite.Chart },
+            new Script { ExtensionSuite = ExtensionSuite.Report },
+            new Script { ExtensionSuite = ExtensionSuite.Scheduler },
+            new Script { ExtensionSuite = ExtensionSuite.TreeList }
+             )
+</head>
+<body>
+    @Html.DevExpress().ReportToolbar(s =>
+    {
+        // The following settings are necessary for a Report Toolbar. 
+        s.Name = "ReportToolbar";
+        //s.Width = Unit.Percentage(100);
+        s.ReportViewerName = "reportViewer1";
+
+        // The following code defines the list of export formats available for the Report Toolbar. 
+        var saveFormat = new ReportToolbarComboBox { ItemKind = ReportToolbarItemKind.SaveFormat, Width = new Unit(70, UnitType.Pixel) };
+        saveFormat.Elements.AddRange(new[]
+            {
+                new ListElement {Value = "pdf", Text = "Pdf"},
+                new ListElement {Value = "xls", Text = "Xls"},
+                new ListElement {Value = "xlsx", Text = "Xlsx"},
+                new ListElement {Value = "rtf", Text = "Rtf"},
+                new ListElement {Value = "mht", Text = "Mht"},
+                new ListElement {Value = "txt", Text = "Txt"},
+                new ListElement {Value = "csv", Text = "Csv"},
+                new ListElement {Value = "png", Text = "Image"},
+            });
+
+        // The following code defines the items that the Report Toolbar contains. 
+        s.Items.AddRange(new ReportToolbarItem[]
+            {
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.Search},
+                new ReportToolbarSeparator(),
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.PrintReport},
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.PrintPage},
+                new ReportToolbarSeparator(),
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.FirstPage},
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.PreviousPage},
+                new ReportToolbarLabel {ItemKind = ReportToolbarItemKind.PageLabel},
+                new ReportToolbarComboBox
+                    {
+                        ItemKind = ReportToolbarItemKind.PageNumber,
+                        Width = new Unit(65, UnitType.Pixel)
+                    },
+                new ReportToolbarLabel {ItemKind = ReportToolbarItemKind.OfLabel},
+                new ReportToolbarTextBox {ItemKind = ReportToolbarItemKind.PageCount},
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.NextPage},
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.LastPage},
+                new ReportToolbarSeparator(),
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.SaveToDisk},
+                new ReportToolbarButton {ItemKind = ReportToolbarItemKind.SaveToWindow},
+                saveFormat,
+                new ReportToolbarSeparator(),
+            });
+    }).GetHtml()
+
+    @Html.Partial("ReportViewerPartial")
+</body>
+</html>

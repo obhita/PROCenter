@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="56px" height="56px" viewBox="0 0 56 56" enable-background="new 0 0 56 56" xml:space="preserve">
+<symbol  id="Form_Icon_1_" viewBox="-11.067 -13.848 22.134 27.695">
+	
+		<radialGradient id="SVGID_1_" cx="4.9814" cy="5.3164" r="15.4923" gradientTransform="matrix(1 7.000000e-04 -7.000000e-04 1 -5.6274 -3.8164)" gradientUnits="userSpaceOnUse">
+		<stop  offset="0.4287" style="stop-color:#F7F8F8"/>
+		<stop  offset="0.8568" style="stop-color:#E8E8E8"/>
+		<stop  offset="1" style="stop-color:#DFDFDE"/>
+	</radialGradient>
+	<path fill="url(#SVGID_1_)" stroke="#FFFFFF" stroke-width="0.3224" d="M3.954,13.687l-13.507-0.008
+		c-0.748,0-1.353-0.609-1.353-1.355l0.016-24.655c0.001-0.747,0.607-1.354,1.354-1.354l19.088,0.012
+		c0.748,0.001,1.354,0.61,1.353,1.358L10.894,6.755L3.954,13.687z"/>
+	<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="3.1577" y1="5.6538" x2="7.3414" y2="9.8375">
+		<stop  offset="0" style="stop-color:#D7D6D6"/>
+		<stop  offset="1" style="stop-color:#B9B9B9"/>
+	</linearGradient>
+	<path fill="url(#SVGID_2_)" d="M4.029,13.136L2.764,6.377c0.052-0.479,0.481-0.923,0.957-0.983l6.926,1.139L4.029,13.136z"/>
+	<path fill="#FAFAFA" d="M3.986,13.206l0.489-5.102C4.525,7.618,4.964,7.167,5.45,7.106l5.27-0.623L3.986,13.206z"/>
+</symbol>
+<use xlink:href="#Form_Icon_1_"  width="22.134" height="27.695" x="-11.067" y="-13.848" transform="matrix(1 0 0 -1 28 28.6582)" overflow="visible"/>
+<g id="Form_Icon">
+</g>
+</svg>

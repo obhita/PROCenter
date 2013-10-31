@@ -1,0 +1,34 @@
+﻿@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.RP
+@model RelyingPartiesViewModel
+
+@{
+    ViewBag.Title = Index_cshtml.EnabledRelyingParties;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(Index_cshtml.ErrorUpdatingRelyingParties)
+
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+        @{
+            var list = Model.RPs.ToArray();
+        }
+        @for (int i = 0; i < list.Length; i++)
+        {
+            <div>
+                @Html.HiddenFor(x=>list[i].ID)
+                @Html.LabelFor(x => list[i].Enabled, list[i].DisplayName)
+                @Html.CheckBoxFor(x=>list[i].Enabled)
+            </div>
+        }
+
+        <div class="buttons">
+            <button type="submit" name="action" value="save">@Index_cshtml.SaveChanges</button>
+            <button type="submit" name="action" value="new">@Index_cshtml.New</button>
+            <button type="reset">@Index_cshtml.Cancel</button>
+        </div>
+
+    </fieldset>
+}

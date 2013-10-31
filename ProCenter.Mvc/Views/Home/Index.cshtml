@@ -1,0 +1,281 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Common
+@{
+    ViewBag.Title = "Home Dashboard";
+}
+
+@section subnav{
+    <div class="sub-nav">
+        <input id="dashboard-filter" type="search" placeholder="Search" class="input-search" />
+        @Html.SecureActionLink("New Patient", "Create", "Patient", null, new {id = "main-add-patient", @class = "add-patient btn btn-success", data_icon = "\ue102"})
+    </div>
+}
+
+<div id="createPatientModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="create-patient-label" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="create-patient-label">Create Patient</h3>
+    </div>
+    <div class="field-validation-error hidden modal-error">
+    </div>
+    @using(Html.BeginForm( "Create", "Patient", new {}, FormMethod.Post, new { id = "create-patient-form"}))
+    {
+        <div class="modal-body">
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <input value="Create" type="submit" class="save-btn btn btn-primary" aria-hidden="true"/>
+        </div>
+    }
+    <div id="patient-create-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
+</div>
+
+<div class="dashboard-wrapper">
+    <div class="home-dashboard">
+        <div class="row-fluid">
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title">
+                        Patients
+                    </div>
+                    <span class="tools">
+                        @Html.SecureActionLink(" ", "Create", "Patient", null, new {@class = "add-patient fs1", data_icon = "\ue102", title = "Add patient"})
+                    </span>
+                </div>
+                <div class="widget-body" data-layout-height="*">
+                    <div class="dataTable_wrapper">
+                        <table id="patientSearchDataTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 15%;">First Name</th>
+                                    <th style="width: 40%">Last Name</th>
+                                    <th style="width: 10%">Gender</th>
+                                    <th style="width: 18%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="widget">
+                <div class="widget-header">
+                    <div class="title">
+                        Recent Assessments
+                    </div>
+                </div>
+                <div class="widget-body" data-layout-height="*">
+                    <div class="dataTable_wrapper">
+                        <table id="recentAssessmentsDataTable">
+                            <thead>
+                                <tr>
+                                    <th class="width-10;">First Name</th>
+                                    <th class="width-10;">Last Name</th>
+                                    <th class="width-20;">Assessment</th>
+                                    <th class="width-10;">Date Started</th>
+                                    <th class="width-10;">Complete</th>
+                                    <th class="width-10;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @if ( Html.CanAccess ( "AssessmentReminder", "Get" ) )
+            {
+                @Html.Partial( "../Widgets/AssessmentReminderPartial" )
+            }
+        </div>
+    </div>
+    <div id="ajax-loader" style="display: none"></div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/home")
+    <script>
+        $(document).ready(function() {
+            var updateTableSizes = function() {
+                $('.dataTable_wrapper .dataTables_scroll,.dataTable_wrapper .dataTables_scroll .dataTables_scrollBody').attr("data-layout-height", "*");
+                fixSizes(true);
+            };
+
+            var canViewReminders = @Html.CanAccess( "AssessmentReminder", "Get" ).ToString().ToLower();
+            if (canViewReminders) {
+                var canEditReminders = @Html.CanAccess( "AssessmentReminder", "Edit", "POST" ).ToString().ToLower();
+                window.procenter.InitializeReminders('@Url.Content( "~/AssessmentReminder" )', '@Url.Content( "~/api/AssessmentReminder" )', canEditReminders);
+            }
+
+            var patientSearchDataTable = $('#patientSearchDataTable').dataTable({
+                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+                "sPaginationType": "bootstrap",
+                "sScrollY": "100%",
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                "bAutoWidth": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "bSort": false,
+                "sAjaxSource": '@Url.Content( "~/api/Patient/DataTableSearch/" )' + '@UserContext.Current.OrganizationKey',
+                "aoColumns": [
+                    {
+                        "mData": "Name.FirstName",
+                        "sClass": "FirstColumn",
+                    },
+                    {
+                        "mData": "Name.LastName",
+                        "sClass": "Sue",
+                    },
+                    {
+                        "mData": "Gender.Name",
+                        "sClass": "LastColumn",
+                    },
+                    { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
+                ],
+                "fnDrawCallback": function() {
+                    updateTableSizes();
+                }
+            });
+
+            @if ( Html.CanAccess ( "Patient", "Index" ) )
+            {
+                <text>
+            $("#patientSearchDataTable tbody").click(function (event) {
+                var key = patientSearchDataTable.fnGetData(event.target.parentNode).Key;
+                window.location = '@Url.Content( "~/Patient" )' + '/Index/' + key;
+            });
+            </text>
+            }
+
+            $('.add-patient').ajaxLink({
+                type: 'GET',
+                getData: function() {
+                    $('#patient-create-loading-indicator').show();
+                    $('#createPatientModal').modal('show');
+                    return {};
+                },
+                success: function(data) {
+                    $('#createPatientModal .save-btn').show();
+                    $('#createPatientModal .modal-error').text('');
+                    $('#createPatientModal .modal-body').html(data);
+                    var $form = $('#create-patient-form');
+                    $form.data("validator", null);
+                    $form.data("unobtrusiveValidation", null);
+                    $.validator.unobtrusive.parse('#create-patient-form');
+                    //birth date
+                    //todo: duplicate code with Patient/Edit.cshtml
+
+                    function isValidDate(dtValue) {
+                        var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
+                        return dtRegex.test(dtValue);
+                    }
+
+                    $('#DateOfBirth').datepicker({
+                        maxDate: '+0d',
+                        onSelect: function() {
+                            $(this).trigger('blur');
+                        }
+                    });
+                    $.validator.addMethod("noFutureDate", function(value) {
+                        if (value !== undefined) {
+                            var dob = Date.parse(value);
+                            var today = new Date();
+                            if (dob > today) {
+                                return false;
+                            }
+                            return true;
+                        }
+                        return true;
+                    }, "Birth Date cannot be a future date.");
+                    $('#DateOfBirth').rules('add', { noFutureDate: true });
+
+                    $.validator.addMethod("validDate", function(value) {
+                        return isValidDate(value);
+                    }, "The field Birth Date must be a date in format mm/dd/yyyy.");
+                    $('#DateOfBirth').rules('add', { validDate: true });
+
+                },
+                error: function(jqXHR, status, error) {
+                    $('#createPatientModal .modal-error').text(error);
+                    $('#createPatientModal .save-btn').hide();
+                },
+                complete: function() {
+                    $('#patient-create-loading-indicator').hide();
+                }
+            });
+
+            $('#recentAssessmentsDataTable').dataTable({
+                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+                "sPaginationType": "bootstrap",
+                "sScrollY": "1",
+                "sScrollX": "100%",
+                "sScrollXInner": "100%",
+                "bScrollCollapse": true,
+                "bAutoWidth": true,
+                "bProcessing": true,
+                "bServerSide": true,
+                "bSort": false,
+                "sAjaxSource": '@Url.Content( "~/api/AllAssessmentsDataTable" )',
+                "aoColumns": [
+                    {
+                        "mData": "PatientFirstName",
+                        "sClass": "FirstColumn",
+                    },
+                    {
+                        "mData": "PatientLastName",
+                        "sClass": "Sue",
+                    },
+                    {
+                        "mData": "AssessmentName",
+                        "sClass": "Sue"
+                    },
+                    {
+                        "mData": "CreatedTimeString",
+                        "sClass": "Sue"
+                    },
+                    {
+                        "mData": "PercentComplete",
+                        "sClass": "Sue",
+                        "fnRender": function(oObj) {
+                            return (oObj.aData.PercentComplete * 100).toFixed(0) + " %";
+                        }
+                    },
+                    {
+                        "mData": "AssessmentInstanceKey",
+                        "sClass": "LastColumn",
+                        "bSortable": false,
+                        "bSearchable": false,
+                        "fnRender": function(oObj) {
+                            var icon = '&#xe005;';
+                            var text = "Edit";
+                            var canEdit = @Html.CanAccess( "Assessment", "Edit", "Post" ).ToString().ToLower();
+                            var canView = @Html.CanAccess("Assessment", "Edit").ToString().ToLower();
+                            if (oObj.aData.IsSubmitted || !canEdit) {
+                                icon = '&#xe07f;';
+                                text = "View";
+                            }
+                            if (canView || canEdit) {
+                                return "<div><a class='btn btn-mini btn-info' data-icon='" + icon + "' href=" + '@Url.Action( "Edit", "Assessment" )' + '/' + oObj.aData.AssessmentInstanceKey + "?patientKey=" + oObj.aData.PatientKey + ">" + text + "</a></div>";
+                            } else {
+                                return "<div></div>";
+                            }
+                        }
+                    }
+                ],
+                "fnDrawCallback": function() {
+                    updateTableSizes();
+                }
+            });
+
+            $('#dashboard-filter').clearable();
+
+            //test calling Identity Srv web api from ajax
+
+        });
+    </script>
+    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+}

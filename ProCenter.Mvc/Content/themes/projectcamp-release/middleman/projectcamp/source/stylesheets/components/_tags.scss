@@ -1,0 +1,126 @@
+@import "compass/css3";
+@import "variables";
+
+$defaultColor: $blue;
+
+@mixin color-tag($color) {
+  a {
+    background: $color;
+
+    &:before {
+      border-color: transparent $color transparent transparent;
+    }
+  }
+}
+
+@mixin gradient-tag($color) {
+  a{
+    border: 1px solid darken($color, 15);
+    background: $color;
+    @include background-image(linear-gradient(top, $color, darken($color,15)));
+
+    &:before {
+      border-top: 1px solid darken($color, 15);
+      border-left: 1px solid darken($color, 15);
+      background: $color;
+      @include background-image(linear-gradient(-145deg, $color, darken($color, 15)));
+    }
+  }
+}
+
+.tags{
+  margin:0;
+  padding:0;
+  list-style:none;
+
+  li, a {
+    height:24px;
+    line-height:24px;
+    position:relative;
+    font-size:11px;
+  }
+
+  li {
+    display: inline-block;
+    margin-bottom: 10px;
+  }
+
+  &.red {
+    @include gradient-tag($red);
+  }
+
+  &.green {
+    @include gradient-tag($green);
+  }
+
+  &.yellow {
+    @include gradient-tag($yellow);
+  }
+
+  &.orange {
+    @include gradient-tag($orange);
+  }
+
+  &.pink {
+    @include gradient-tag($pink);
+  }
+
+  &.blue {
+    @include gradient-tag($blue);
+  }
+
+  &.purple {
+    @include gradient-tag($purple);
+  }
+
+  a {
+    display: inline-block;
+    margin-left: 20px;
+    padding: 0 10px 0 12px;
+    background: $defaultColor;
+    color: #fff;
+    text-decoration: none;
+    @include border-radius(0 4px 4px 0, 0 4px 4px 0);
+
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: -10px;
+      width: 18px;
+      height: 18px;
+      @include transform(rotate(-45deg));
+      border-bottom: 0;
+      border-right: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    &:hover:before, &:hover {
+      border-color: transparent;
+    }
+
+    &:after{
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 0;
+      //float: left;
+      width: 4px;
+      height: 4px;
+      @include border-radius(2px, 2px);
+      background:#fff;
+      @include box-shadow(-1px -1px 2px rgba(0,0,0,.2));
+    }
+
+
+  }
+
+
+
+
+}
+
+.tags a:hover, .tags a:hover:before {background:#555;}
+.tags a:hover:before{border-color:transparent #555 transparent transparent;}

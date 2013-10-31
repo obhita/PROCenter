@@ -1,0 +1,42 @@
+﻿@using System.Web.Mvc.Html
+@using ProCenter.Mvc.Infrastructure
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Metadata
+@model ProCenter.Service.Message.Assessment.ItemDto
+
+@{
+    var itemTemplateMetadata = Html.ViewData.Model.Metadata == null ? null : Html.ViewData.Model.Metadata.FindMetadataItem<ItemTemplateMetadataItem>();
+
+    if (itemTemplateMetadata != null)
+    {
+        if ( itemTemplateMetadata.TemplateName == typeof(bool).Name )
+        {
+            if ( Model.Value != null )
+            {
+                Model.Value = Boolean.Parse ( Model.Value.ToString () );
+            }
+        }
+        else if ( itemTemplateMetadata.TemplateName == "LookupDto" )
+        {
+            ViewData["LookupItems"] = Model.Options.Select ( l =>
+                {
+                    l.Name = Html.GetResource ( l );
+                    return l;
+                } );
+        }
+    }
+    var itemKey = Model.ItemDefinitionCode + SharedStringNames.ItemDefinitionSuffix;
+    
+}
+
+<div class="question-root @Model.ItemDefinitionName" data-ajax-container="true">
+    <div class="question-label-wrapper offset1 span6">
+        @Html.LabelFor(m => m.Value, Html.GetResource(Model), itemKey)
+    </div>
+    <div class="question-answer-wrapper span5">
+        @Html.HiddenFor(m => m.ItemDefinitionCode)
+        @HtmlHelpers.EditorFor(Html ,m => m.Value, itemTemplateMetadata == null ? null : itemTemplateMetadata.TemplateName, itemKey)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+    </div>
+    <div class="clear"></div>
+</div>

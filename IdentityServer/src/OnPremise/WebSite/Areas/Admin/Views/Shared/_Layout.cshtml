@@ -1,0 +1,28 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<nav class="config-menu">
+    @Html.Action("Index", "Menu")
+</nav>
+
+<section class="config-editor">
+    @if (TempData["Message"] != null)
+    {
+        <div class="message">@TempData["Message"]</div>
+    }
+    @RenderBody()
+</section>
+
+@section styles
+{
+    <link href="~/Areas/Admin/Content/Admin.css" rel="stylesheet" />
+}
+@section scripts
+{
+    <script>
+        var cryptoRandomUrl = '@Url.Action("Random", "Home")';
+    </script>
+    <script src="~/Areas/Admin/Scripts/Admin.js"></script>
+    @RenderSection("scripts", false)
+}

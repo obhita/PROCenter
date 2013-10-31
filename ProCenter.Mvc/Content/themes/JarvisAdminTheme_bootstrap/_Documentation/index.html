@@ -1,0 +1,1266 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Jarvis - Smart Admin Template Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/prettify/prettify.css" type="text/css" media="screen, projection">
+	
+	<script type="text/javascript" src="assets/scripts/shCore.js"></script>
+	<script type="text/javascript" src="assets/scripts/shBrushJScript.js"></script>
+	<script type="text/javascript" src="assets/scripts/shBrushXml.js"></script>
+	<link type="text/css" rel="stylesheet" href="assets/styles/shCoreDefault.css"/>
+	<script type="text/javascript">SyntaxHighlighter.all();</script>
+	
+</head>
+
+
+<body>
+	
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Jarvis Admin&rdquo; Documentation by &ldquo;MyOrange&rdquo; v 1.9.4</h3>		
+		<hr>		
+		<h1 class="center">&ldquo;Jarvis Admin- Responsive HTML5 Template&rdquo;</h1>
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 12/12/2012<br>
+					By: MyOrange<br>
+					<a href="https://wrapbootstrap.com/user/MyOrange">Contact me</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my theme. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="https://wrapbootstrap.com/user/myorange">here</a>.  Thanks so much! ^_^</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#AA">HTML Structure</a>
+				<ol>
+
+					<li><a href="#AA1">Page Header HTML Mockup</a>
+					<li><a href="#AA2">Mini Mail Box</a></li>
+					<li><a href="#AA3">Tasks</a></li>
+					<li><a href="#AA4">Theme Switcher</a></li>
+					<li><a href="#AA5">Tasks</a></li>
+					<li><a href="#AA6">Buttons and Messages</a></li>
+				</ol>
+			</li>
+
+			<li><a href="#BB">CSS Files and Structures</a></li>
+			<li><a href="#CC">Javascript</a>
+				<ol>
+					<li><a href="#CC1">Widgets explained further</a></li>
+					<li><a href="#CC2">Lists of all javascripts and reference to detailed documentation</a></li>									
+				</ol>
+			</li>
+			<li><a href="#DD">Special Thanks</a></li>
+		</ol>
+		
+		<hr>
+		<p class="error">One important note before you start working on this theme! Although the theme <u>should</u> work just fine "straight from the desktop", some of the theme features may require a real web server (local or online) to work properly. So keep that in mind!</p>	
+		
+<p>Jarvis Admin has a number of different layouts. It can be a fixed or fluid width and it can have a sidebar or be full width. You can combine these in many ways. This is done easily by adding/changing a stylesheet. Eg, if you need your layout to be full width with side bars you simply use the stylesheet “full-width.css”.
+The layout uses the default 12 column, fluid layout that generally comes with the bootstrap default css file. </p> 
+
+<p>Jarvis Admin also scales down automatically to mobile devices of different resolutions. It works perfectly on an iPhone for example (without changing the HTML of the page).</p>
+<p>To test this, resize your browser until it gets as narrow as an iPhone display, watch as the CSS changes (navigation sidebar, icons, etc) to accommodate the window. Because this template is especially optimized for mobile devices, some features you will only notice when viewed on actual mobile devices.</p>
+
+
+
+		
+		<h1 id="AA"><strong>A) HTML Structure</strong> - <a href="#toc">top</a></h1>
+		<p>All the pages have been divided into five "major" sections: <code class="prettyprint"><span class="com">Top Bar</span></code>, <code class="prettyprint"><span class="com">Sidebars</span></code>, and <code class="prettyprint"><span class="com">Content </span></code><br>
+		</p>
+		
+		<pre class="prettyprint lines brush: xml">
+				<HEADER>
+					[LOGO_AREA]
+					[MINI-INBOX]
+					[DROPDOWN PROGRESS BARS]
+					[THEME SELECTOR]
+				</HEADER><!-- end #header -->
+		
+				<DIV id="main" role="main">
+					<DIV class="contained">
+						<ASIDE>
+							[SEARCH_INPUT]
+							[NAVIGATION]
+							[SIDE_BAR_WIDGETS]
+						</ASIDE>
+						<DIV id="page-content">
+		
+							<SECTION id="widget-grid">
+								[PAGE_HEADER]
+								[WIDGETS_HERE]
+							</SECTION>
+		
+						</DIV><!--end page-content -->
+						<ASIDE class="right">
+							[RELATED_SIDEBAR_WIDGETS]
+						</ASIDE>
+					</DIV><!-- end containedt-->
+				</DIV><!-- end #main -->
+		
+		</pre>
+		
+	  <p>You have also the option to split content area into multiple parts, allowing you to add side bars and widgets. </p>
+
+	  <hr />
+	  <h2 id="AA1">A. 1) Page Header HTML mockup - <a href="#toc">top</a></h2>
+	   <pre class="brush:xml">
+		
+		<header>
+			
+			<!-- tool bar -->
+			<div id="header-toolbar" class="container-fluid">
+				<!-- .contained -->
+				<div class="contained">
+					
+					<!-- theme name -->
+					<h1> {JARVIS} <span class="hidden-phone">- Smart Admin Template</span> </h1>
+					<!-- end theme name -->
+					
+					<!-- span4 -->
+					<div class="pull-right">
+						<!-- demo theme switcher-->
+						<div id="theme-switcher" class="btn-toolbar">
+							
+							<!-- search and log off button for phone devices -->
+							[LOG_OFF_BTN]
+							<!-- end buttons for phone device -->
+							
+							<!-- dropdown mini-inbox-->
+							[MINI_INBOX]
+							<!-- end dropdown mini-inbox-->
+							
+							<!-- Tasks -->
+							[TASKS_DROPDOWN]
+							<!-- end Tasks -->
+							
+							<!-- theme dropdown -->
+							[THEME_DROPDOWN]
+							<!-- end theme dropdown-->
+							
+						</div>
+					  	<!-- end demo theme switcher-->
+					</div>
+					<!-- end span4 -->
+				</div>
+				<!-- end .contained -->
+			</div>
+			<!-- end tool bar -->
+			
+		</header>
+		<!-- end header -->
+	   </pre>	
+
+	  <hr />
+	  <h2 id="AA2">A. 2) Mini Mail Box - <a href="#toc">top</a></h2>
+
+      <pre class="brush:xml">
+		<div class="btn-group">
+			<!-- new mail ticker -->
+			<a href="javascript:void(0)" class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown">
+				<span class="mail-sticker">3</span>
+				<i class="cus-email"></i>
+			</a>
+			<!-- end new mail ticker -->
+			
+			<!-- email lists -->
+			<div class="dropdown-menu toolbar pull-right">
+				<h3>Inbox</h3>
+				<ul id="mailbox-slimscroll-js" class="mailbox">
+					<li>
+						<a href="javascript:void(0)" class="unread">
+							<img src="img/email-important.png" alt="important mail">
+							From: James Simmons
+							<i class="icon-paper-clip"></i>
+							<span>Dear Victoria, Congratulations! Your work has been uploaded to wrapbootstrap.com...</span>
+						</a>
+					</li>
+					<li>
+						[EMAIL_ITEM]
+					</li>
+					<li>
+						[EMAIL_ITEM]
+					</li>
+					<li>
+						[EMAIL_ITEM]
+					</li>
+					<li>
+						[EMAIL_ITEM]
+					</li>
+				</ul>
+				<a href="javascript:void(0);" id="go-to-inbox">Go to Inbox <i class="icon-double-angle-right"></i></a>
+			</div>
+      </pre>
+      <hr />
+      <h2 id="AA3">A. 3) Tasks - <a href="#toc">top</a></h2>
+      
+       <pre class="brush:xml">
+		<!-- Tasks -->
+		<div class="btn-group hidden-phone">
+			<a href="javascript:void(0)" class="btn btn-inverse btn-small">My Tasks</a>
+			<a href="javascript:void(0)" class="btn btn-inverse dropdown-toggle btn-small" data-toggle="dropdown"><span class="caret"></span></a>
+
+			<div class="dropdown-menu toolbar pull-right">
+				<h3>Showing All Tasks</h3>
+				<ul class="progressbox">
+	                <li>
+	                    <strong><i class="online pull-left"></i>Urgent Bug Fixes</strong><b class="pull-right">Complete</b>
+	                    <div class="progress progress-success slim"><div class="bar" style="width: 100%;"></div></div>
+	                </li>
+	                <li>
+	                    <strong>Added functionality</strong><b class="pull-right">70%</b>
+	                    <div class="progress progress-info slim"><div class="bar" style="width: 70%;"></div></div>
+	                </li>
+	                <li>
+	                    <strong>CAD Changes</strong><b class="pull-right">50%</b>
+	                    <div class="progress progress-info slim"><div class="bar" style="width: 50%;"></div></div>
+	                </li>
+	                <li>
+	                    <strong>Marketing Campaign Mocup</strong><b class="pull-right">22%</b>
+	                    <div class="progress progress-danger slim"><div class="bar" style="width: 22%;"></div></div>
+	                </li>
+	                <li>
+	                    <strong><i class="offline pull-left"></i>Proposal</strong><b class="pull-right">Pending</b>
+	                    <div class="progress progress-info slim"><div class="bar" style="width: 0%;"></div></div>
+	                </li>
+	            </ul>
+			</div>
+
+		</div>
+		<!-- end Tasks -->
+		</pre>
+		
+      <hr />
+      <h2 id="AA4">A. 4) Theme Switcher - <a href="#toc">top</a></h2>
+
+      <p>Theme switcher uses javascript to temporarely switch themes, to make the effect permanent you can insert the CSS from the themes at the end of your theme switcher css file.</p>
+      <pre class="brush:xml">
+			<!-- theme dropdown -->
+			<div class="btn-group hidden-phone">
+				<a href="javascript:void(0)" class="btn btn-small btn-inverse" id="reset-widget"><i class="icon-refresh"></i></a>
+				<a href="javascript:void(0)" class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown">Themes <span class="caret"></span></a>
+				<ul id="theme-links-js" class="dropdown-menu toolbar pull-right">
+					<li>
+						<a href="javascript:void(0)" data-rel="purple"><i class="icon-sign-blank purple-icon"></i>Royal Purple</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" data-rel="blue"><i class="icon-sign-blank navyblue-icon"></i>Navy Blue</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" data-rel="green"><i class="icon-sign-blank green-icon "></i>Emerald</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" data-rel="darkred"><i class="icon-sign-blank red-icon "></i>Dark Rose</a>
+					</li>
+					<li>
+						<a href="javascript:void(0)" data-rel="default"><i class="icon-sign-blank grey-icon"></i>Default</a>
+					</li>
+				</ul>
+			</div>
+			<!-- end theme dropdown-->
+      </pre>
+
+      <hr>
+
+      <h3 id="Columns">Basics &raquo; <em>Columns</em></h3>
+      <p>The CSS was based on a 12 grid system. So, you can easily divide your content between columns by using these classes:</p>
+      <p>You will need to remember to use class <code class="com">.row-fluid</code> before starting a new row. Like the example below (will create a row with 3 columns):</p>
+      <pre class="prettyprint lines brush: xml">
+&lt;div class="row-fluid"&gt;
+
+	&lt;div class="span4"&gt;
+		[CONTENT]
+	&lt;/div&gt;&lt;!-- end .span4 --&gt; 
+	
+	&lt;div class="span4"&gt;
+		[CONTENT]
+	&lt;/div&gt;&lt;!-- end .span4 --&gt;
+
+	&lt;div class="span4"&gt;
+		[CONTENT]
+	&lt;/div&gt;&lt;!-- end .span4 --&gt;
+   
+&lt;/div&gt;&lt;!-- end .row-fluid --&gt;
+
+&lt;div class="clearfix"&gt;&lt;/div&gt;    
+      </pre>
+
+      <hr>
+      <h2 id="AA6">A. 6) Buttons and Messages - <a href="#toc">top</a></h2>
+
+      <pre class="brush: xml">
+		<button class="btn btn-large">Button Large</button>
+		<button class="btn btn-peach">Button Normal</button>
+		<button class="btn btn-small">Button Small</button>
+		<button class="btn btn-mini">Button Mini</button>
+      </pre>
+      <p>More button samples and colors can be found in <strong>buttons.html</strong></p>
+
+      <hr>
+					
+      <h3 id="Alerts">Alerts</h3>
+      <pre class="brush: xml">
+		<div class="alert">
+			<button type="button" class="close" data-dismiss="alert"> × </button>
+			<i class="[INSERT_ICON_CSS_HERE]"></i>
+			<strong>Notice</strong> - Your message!
+		</div>
+		<div class="alert alert-error">
+			<button type="button" class="close" data-dismiss="alert"> × </button>
+			<i class="[INSERT_ICON_CSS_HERE]"></i>
+			<strong>Alert!</strong> - Your message!
+		</div>
+		<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert"> × </button>
+			<i class="[INSERT_ICON_CSS_HERE]"></i>
+			<strong>Info</strong> - Your message!
+		</div>
+		<div class="alert alert-info">
+			<button type="button" class="close" data-dismiss="alert"> × </button>
+			<i class="[INSERT_ICON_CSS_HERE]"></i>
+			<strong>Info</strong> - Your message!
+		</div>
+	  </pre>
+	  <p>Examples can be seen on <strong>interface.html</strong></p>
+
+      <h1 id="BB">B) CSS Files and Structure - <a href="#toc">top</a></strong><a href="#toc"></a></h1>
+
+		<p>Please note the CSS structure and keep this consistant:</p>
+
+<pre class="prettyprint lines brush: xml">
+<!--// OPTIONAL & CONDITIONAL CSS FILES //-->   
+	<!-- date picker css -->
+	<link rel="stylesheet" href="css/datepicker.css?v=1">
+	<!-- full calander css -->
+	<link rel="stylesheet" href="css/fullcalendar.css?v=1">
+	<!-- data tables extended CSS -->
+	<link rel="stylesheet" href="css/TableTools.css?v=1">
+	<!-- bootstrap wysimhtml5 editor -->
+	<link rel="stylesheet" href="css/bootstrap-wysihtml5.css?v=1">
+	<link rel="stylesheet" href="css/wysiwyg-color.css">
+	<!-- custom/responsive growl messages -->
+	<link rel="stylesheet" href="css/toastr.custom.css?v=1">
+	<link rel="stylesheet" href="css/toastr-responsive.css?v=1">
+	<link rel="stylesheet" href="css/jquery.jgrowl.css?v=1">
+	
+	<!-- // DO NOT REMOVE OR CHANGE ORDER OF THE FOLLOWING // -->
+	<!-- bootstrap default css (DO NOT REMOVE) -->
+	<link rel="stylesheet" href="css/bootstrap.min.css?v=1">
+	<link rel="stylesheet" href="css/bootstrap-responsive.min.css?v=1">
+	<!-- font awsome and custom icons -->
+	<link rel="stylesheet" href="css/font-awesome.min.css?v=1">
+	<link rel="stylesheet" href="css/cus-icons.css?v=1">
+	<!-- jarvis widget css -->
+	<link rel="stylesheet" href="css/jarvis-widgets.css?v=1">
+	<!-- Data tables, normal tables and responsive tables css -->
+	<link rel="stylesheet" href="css/DT_bootstrap.css?v=1">
+	<link rel="stylesheet" href="css/responsive-tables.css?v=1">
+	<!-- used where radio, select and form elements are used -->
+	<link rel="stylesheet" href="css/uniform.default.css?v=1">
+	<link rel="stylesheet" href="css/select2.css?v=1">
+	<!-- main theme files -->
+	<link rel="stylesheet" href="css/theme.css?v=1">
+	<link rel="stylesheet" href="css/theme-responsive.css?v=1">
+    
+	<!-- // THEME CSS changed by javascript: the CSS link below will override the rules above // -->
+	<!-- For more information, please see the documentation for "THEMES" -->
+    <link rel="stylesheet" id="switch-theme-js" href="css/themes/default.css?v=1">   
+   	<!-- To switch to full width -->
+    <link rel="stylesheet" id="switch-width" href="css/full-width.css?v=1">
+    
+	<!-- Webfonts -->
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
+</pre>	
+
+<p>As you can see by the order - the last file will normally override its predecessor classes. This makes "theme.css" a child theme css for the site.</p>
+
+<p>This template was built using <a href="http://twitter.github.com/bootstrap/"> Twitter Bootstrap </a>- which means you have access to a wide variety of built in CSS from the bootstrap.css file (that has already been tested across major browsers by the Twitter Bootstrap group).</p>
+
+<p>And lastly but definately not least, here is simple list where you can find every section of the CSS file (theme.css):</p>
+
+<ul>
+	<li><strong>CSS BASE</strong> - <em>(Line 76)</em></li>
+	<li><strong>Keep footer down</strong> - <em>(Line 195)</em></li>
+	<li><strong>Tool bar</strong> - <em>(Line 216)</em></li>
+	<li><strong>Toolbar Dropdown</strong> - <em>(Line 260</em>)</li>
+	<li><strong>Toolbar button Icons</strong> - <em>(Line 475)</em></li>
+	<li><strong>Big icon button</strong> - <em>(Line 499)</em></li>
+	<li><strong>Responsive nav</strong> - <em>(Line 604)</em></li>
+	<li><strong>Main Navigation</strong> - <em>(Line 637)</em></li>
+	<li><strong>Page content divs</strong> - <em>(Line 648)</em></li>
+	<li><strong>Page content header</strong> - <em>(Line 673)</em></li>
+	<li><strong>Page aside</strong> - <em>(Line 699)</em></li>
+	<li><strong>Aside mini profile </strong> - <em>(Line 743)</em></li>
+	<li><strong>Aside number stats </strong> - <em>(Line 774)</em></li>
+	<li><strong>Secondary Nav (inside aside)</strong> - <em>(Line 811)</em></li>
+	<li><strong>Mini inbox (inside aside)</strong> - <em>(Line 994)</em></li>
+	<li><strong>Alerts</strong> - <em>(Line 1067)</em></li>
+	<li><strong>Accordion</strong> - <em>(Line 1200)</em></li>
+	<li><strong>Button (overrides)</strong> - <em>(Line 1254)</em></li>
+	<li><strong>Bread crumb</strong> - <em>(Line 1265)</em></li>
+	<li><strong>Calendar</strong> - <em>(Line 1294)</em></li>
+	<li><strong>D3 Charts</strong> - <em>(Line 1361)</em></li>
+	<li><strong>Flot chart tooltip & legend</strong> - <em>(Line 1392)</em></li>
+	<li><strong>Flot Charts</strong> - <em>(Line 1437)</em></li>
+	<li><strong>JustGague </strong> - <em>(Line 1457)</em></li>
+	<li><strong>Table adjustments</strong> - <em>(Line 1476)</em></li>
+	<li><strong>Forms</strong> - <em>(Line 1483)</em></li>
+	<li><strong>UI slider</strong> - <em>(Line 1654)</em></li>
+	<li><strong>EasyPie Plugin</strong> - <em>(Line 1823)</em></li>
+	<li><strong>Progress bars (overrides)</strong> - <em>(Line 1860)</em></li>
+	<li><strong>Mystats</strong> - <em>(Line 2032)</em></li>
+	<li><strong>aside right</strong> - <em>(Line 2085)</em></li>
+	<li><strong>button overides</strong> - <em>(Line 2118)</em></li>
+	<li><strong>Model overides (adjustments)</strong> - <em>(line 2261)</em></li>
+	<li><strong>wysihtml5 adjustments</strong> - <em>(Line 2288)</em></li>
+	<li><strong>Chat Interface</strong> - <em>(Line 2307)</em></li>
+	<li><strong>Users online</strong> - <em>(Line 2525)</em></li>
+	<li><strong>tooltip</strong> - <em>(Line 2621)</em></li>
+	<li><strong>Forms</strong> - <em>(Line 2639)</em></li>
+	<li><strong>Tables (adjustments)</strong> - <em>(line 2685)</em></li>
+	<li><strong>Badge & Labels (adjustments)</strong> - <em>(line 2707)</em></li>
+	<li><strong>Login Page</strong> - <em>(Line 2740)</em></li>
+	<li><strong>Paging</strong> - <em>(Line 2860)</em></li>
+	<li><strong>Well</strong> - <em>(Line 2926)</em></li>
+	<li><strong>nav list</strong>- <em>(Line 2941)</em></li>
+	<li><strong>Logout Animation</strong> - <em>(line 2971)</em></li>
+	<li><strong>Footer</strong> - <em>(Line 2987)</em></li>
+	<li><strong>Color picker</strong> - <em>(Line 3016)</em></li>
+	<li><strong>time picker</strong> - <em>(line 3145)</em></li>
+	<li><strong>bootstrap form wizzard</strong> - <em>(line 3232)</em></li>
+	<li><strong>Inbox</strong> - <em>(Line 3341)</em></li>
+	<li><strong>Inbox Menu</strong> - <em>(Line 3455)</em></li>
+	<li><strong>default tabs</strong> - <em>(Line 3602)</em></li>
+	<li><strong>ibutton</strong> - <em>(Line 3663)</em></li>
+	<li><strong>Invoice</strong> - <em>(Line 3870)</em></li>
+	<li><strong>Custom Lists</strong> - <em>(Line 3968)</em></li>
+	<li><strong>Login Page</strong> - <em>(Line 3982)</em></li>
+	<li><strong>For Demo Purpose </strong>(delete if not needed) - <em>(Line 76)</em></li>
+
+
+</ul>
+		<p>If you would like to edit a specific section of the site, simply find the appropriate label in the CSS file, and then scroll down until you find the appropriate style that needs to be edited.</p>
+
+        <hr>
+		
+		<h1 id="CC">C) JavaScript - <a href="#toc">top</a></h1>
+		
+	  <p class="error">All Javascript files are located in <strong>js</strong> folder. By default theme uses minified version of the all scripts to reduce page loading times and to save your site bandwidth, for convenience you can also find uncompressed version from the same folder.</p>
+	  <p>All used JavaScript scripts can be found from bottom of every page (JavaScripts links are added at the bottom of the page to load the overall content faster):</p>
+	  <pre class="prettyprint lines brush: xml">
+	  	
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery.min.js"><\/script>')</script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script>window.jQuery.ui || document.write('<script src="js/libs/jquery.ui.min.js"><\/script>')</script>
+    
+    <!-- IMPORTANT: Jquery Touch Punch is always placed under Jquery UI -->
+    <script src="js/include/jquery.ui.touch-punch.min.js"></script>
+
+	<!-- REQUIRED: Datatable components -->
+    <script src="js/include/jquery.accordion.min.js"></script>
+
+	<!-- REQUIRED: Toastr & Jgrowl notifications  -->
+    <script src="js/include/toastr.min.js"></script>
+    <script src="js/include/jquery.jgrowl.min.js"></script>
+    
+    <!-- REQUIRED: Sleek scroll UI  -->
+    <script src="js/include/slimScroll.min.js"></script>
+	
+	<!-- REQUIRED: Datatable components -->
+	<script src="js/include/jquery.dataTables.min.js"></script>
+	<script src="js/include/DT_bootstrap.min.js"></script>
+
+	<script type="text/javascript">
+		var ismobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));	
+	    if(!ismobile){
+	    	
+	    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS FALSE **/
+	    	
+	    	/* REQUIRED: Datatable PDF/Excel output componant */
+	    	
+	    	document.write('<script src="js/include/ZeroClipboard.min.js"><\/script>');
+	    	document.write('<script src="js/include/TableTools.min.js"><\/script>');/
+	    	document.write('<script src="js/include/jquery.uniform.min.js"><\/script>'); 
+	    	document.write('<script src="js/include/select2.min.js"><\/script>');
+	    	document.write('<script src="js/include/jquery.excanvas.min.js"><\/script>');
+	    	document.write('<script src="js/include/jquery.placeholder.min.js"><\/script>');
+	    	
+			/** DEMO SCRIPTS **/
+	        $(function() {
+	            /* show tooltips */
+				$.jGrowl("I am the <strong>smartest Admin Template</strong> on <strong>wrapbootstrap.com</strong>. Don't forget to check out all my pages.", { 
+					header: 'Welcome, I am Jarvis!', 
+					sticky: false,
+					life: 5000,
+					speed: 500,
+					theme: 'with-icon',
+					position: 'top-right', //this is default position
+					easing: 'easeOutBack',
+					animateOpen: { 
+						height: "show"
+					},
+					animateClose: { 
+						opacity: 'hide' 
+					}
+				});	
+	        });
+	        /** end DEMO SCRIPTS **/
+	        
+	    }else{
+	    	
+	    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS TRUE **/
+	    	
+			document.write('<script src="js/include/selectnav.min.js"><\/script>');
+	    	document.write('<script src="js/include/responsive-tables.min.js"><\/script>');
+	    }
+	</script>
+
+    <!-- REQUIRED: iButton -->
+    <script src="js/include/jquery.ibutton.min.js"></script>
+	
+	<!-- REQUIRED: Justgage animated charts -->
+    <script src="js/include/justgage.min.js"></script>
+    <script src="js/include/raphael.2.1.0.min.js"></script>
+    
+    <!-- REQUIRED: Animated pie chart -->
+    <script src="js/include/jquery.easy-pie-chart.min.js"></script>
+    
+    <!-- REQUIRED: Functional Widgets -->
+    <script src="js/include/jarvis.widget.min.js"></script>
+    <script src="js/include/mobiledevices.min.js"></script>
+	
+	<!-- REQUIRED: Full Calendar -->
+    <script src="js/include/jquery.fullcalendar.min.js"></script>		
+    
+    <!-- REQUIRED: Flot Chart Engine -->
+    <script src="js/include/jquery.flot.cust.min.js"></script>			
+    <script src="js/include/jquery.flot.resize.min.js"></script>		
+    <script src="js/include/jquery.flot.tooltip.min.js"></script>		
+    <script src="js/include/jquery.flot.orderBar.min.js"></script>	
+    <script src="js/include/jquery.flot.fillbetween.min.js"></script>	
+    <script src="js/include/jquery.flot.pie.min.js"></script> 	 
+    
+    <!-- REQUIRED: Sparkline Charts -->
+    <script src="js/include/jquery.sparkline.min.js"></script>
+
+	<!-- REQUIRED: Infinite Sliding Menu (used with inbox page) -->
+	 <script src="js/include/jquery.inbox.slashc.sliding-menu.js"></script>
+
+	<!-- REQUIRED: Form validation plugin -->
+    <script src="js/include/jquery.validate.min.js"></script>
+    
+    <!-- REQUIRED: Progress bar animation -->
+    <script src="js/include/bootstrap-progressbar.min.js"></script>
+    
+    <!-- REQUIRED: wysihtml5 editor -->
+    <script src="js/include/wysihtml5-0.3.0.min.js"></script>
+    <script src="js/include/bootstrap-wysihtml5.min.js"></script>
+
+	<!-- REQUIRED: Masked Input -->
+     <script src="js/include/jquery.maskedinput.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap Date Picker -->
+    <script src="js/include/bootstrap-datepicker.min.js"></script>
+
+    <!-- REQUIRED: Bootstrap Wizard -->
+     <script src="js/include/bootstrap.wizard.min.js"></script>
+    
+	<!-- REQUIRED: Bootstrap Color Picker -->
+     <script src="js/include/bootstrap-colorpicker.min.js"></script>
+
+    
+	<!-- REQUIRED: Bootstrap Time Picker -->
+     <script src="js/include/bootstrap-timepicker.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap Prompt -->
+     <script src="js/include/bootbox.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap engine -->
+    <script src="js/include/bootstrap.min.js"></script>
+    
+    <!-- DO NOT REMOVE: Theme Config file -->
+    <script src="js/config.js"></script>
+    
+    <!-- d3 library placed at the bottom for better performance -->
+     <script src="js/include/d3.v3.min.js"></script>
+     <script src="js/include/adv_charts/d3-chart-1.js"></script>
+     <script src="js/include/adv_charts/d3-chart-2.js"></script>
+
+    <!-- Google Geo Chart -->
+    <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>
+    <script type='text/javascript' src='https://www.google.com/jsapi'></script>-->
+    <script src="js/include/adv_charts/geochart.js"></script>
+    
+    <!-- end scripts -->
+
+	  </pre>	
+	 <p class="notice">
+	 	Notice how some of the jquery files are DISABLED. This is done to reduce page rendering time and not load scripts that are not needed in the page. 
+	 </p> 
+	  
+	 <p>
+	 	Lines <strong>25</strong> to line <strong>68</strong> mainly concentrates on executing scripts that are only needed on mobile or desktop devices
+	 </p> 
+
+		<hr>
+      <p>And lastly but definitely not least, here is simple list where you can find every function with convenience from <strong>js/config.js</strong> file:<strong><br>
+      </strong></p>
+      <ul>
+		<li>Set Vars</li>
+		<li>On Page Load</li>
+		<li>isMobile</li>
+		<li>Responsive nav </li>
+		<li>Widgets Desktop</li>
+		<li>widgets Mobile</li>
+		<li>Reset widgets script</li>
+		<li>Calendar</li>
+		<li>JarvisGuage</li>
+		<li>Flot charts</li>
+		<li>Sparklines setup</li>
+		<li>Progress bar</li>
+		<li>Toastr setup</li>
+		<li>Functions for idevice</li>
+		<li>All button functions</li>
+		<li>Logout</li>
+		<li>Slimscroll</li>
+		<li>Easypie</li>
+		<li>Randomize easy pie</li>
+		<li>Chat message</li>
+		<li>Bootbox</li>
+		<li>Enable Select2</li>
+		<li>Setup_datepicker_demo</li>
+		<li>Setup_masked_input</li>
+		<li>Setup_masked_input</li>
+		<li>Setup_timepicker</li>
+		<li>Setup_uislider</li>
+		<li>Validation_setup_demo</li>
+		<li>Setup_wizard_demo</li>
+		<li>Setup checkedin tables</li>
+		<li>Activate_bt_accordion_hack</li>
+		<li>Setup ios button demo</li>
+		<li>Window.resize functions</li>
+		<li>Window.load functions</li>
+      </ul>
+      <hr>
+      
+      <h2 id="CC1">C. 1) Widgets explained further - <a href="#toc">top</a></h2>
+      <hr />
+      
+      <P>JARVIS WIDGET aka PowerWidgets is a copyright product of creativemilk (www.creativemilk.net) - Author: Mark</P>
+      <p> The whole available settings of the plugins:
+      </p>
+    	
+        <pre class="brush: js">
+			$('#widget-grid').jarvisWidgets({			
+				grid: 'article',
+				widgets: '.jarviswidget',
+				localStorage: true,
+				deleteSettingsKey: '#deletesettingskey-options',
+				settingsKeyLabel: 'Reset settings?',
+				deletePositionKey: '#deletepositionkey-options',
+				positionKeyLabel: 'Reset position?',
+				sortable: true,
+				buttonsHidden: false,
+				toggleButton: true,
+				toggleClass: 'min-10 | plus-10',
+				toggleSpeed: 200,
+				onToggle: function(){},
+				deleteButton: true,
+				deleteClass: 'trashcan-10',
+				deleteSpeed: 200,
+				onDelete: function(){},
+				editButton: true,
+				editPlaceholder: '.jarviswidget-editbox',
+				editClass: 'pencil-10 | edit-clicked',
+				editSpeed: 200,
+				onEdit: function(){},
+				fullscreenButton: true,
+				fullscreenClass: 'fullscreen-10 | normalscreen-10',	
+				fullscreenDiff: 3,		
+				onFullscreen: function(){},
+				customButton: false,
+				customClass: 'folder-10 | next-10',
+				customStart: function(){ alert('Hello you, this is a custom button...') },
+				customEnd: function(){ alert('bye, till next time...') },
+				buttonOrder: '%refresh% %delete% %custom% %edit% %fullscreen% %toggle%',
+				opacity: 1.0,
+				dragHandle: '> header',
+				placeholderClass: 'jarviswidget-placeholder',
+				indicator: true,
+				indicatorTime: 600,
+				ajax: true,
+				timestampPlaceholder:'.jarviswidget-timestamp',
+				timestampFormat: 'Last update: %m%/%d%/%y% %h%:%i%:%s%',
+			    refreshButton: true,
+			    refreshButtonClass: 'refresh-10',
+				labelError:'Sorry but there was a error:',
+				labelUpdated: 'Last Update:',
+				labelRefresh: 'Refresh',
+				labelDelete: 'Delete widget:',
+				afterLoad: function(){},
+				rtl: false
+			});
+            </pre>
+  <hr>
+     <h3>Widget HTML mockup - <a href="#toc">top</a></h2> 
+   
+    <pre class="brush: js">
+    	
+	<div class="jarviswidget" id="widget-id-00">
+	    <header>
+	        <h2>Widget Title</h2>                           
+	    </header>
+	    <div>
+	    
+	        <div class="jarviswidget-editbox">
+	            <div>
+	                <label>Title:</label>
+	                <input type="text" />
+	            </div>
+	            <div>
+	                <label>Styles:</label>
+	                <span data-widget-setstyle="red" class="red-btn"></span>
+	                <span data-widget-setstyle="green" class="green-btn"></span>
+	                <span data-widget-setstyle="purple" class="purple-btn"></span>
+	                <span data-widget-setstyle="black" class="black-btn"></span>
+	                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+	            </div>
+	        </div>
+	         
+	        <div class="jarviswidget-timestamp"></div>
+	                    
+	        <div class="inner-spacer"> 
+	        <!-- content goes here -->
+	        
+	        </div>
+	        
+	    </div>
+	</div>
+
+    </pre>	
+   <hr>
+   <h3>Uses of the widget - <a href="#toc">top</a></h2>
+					<table class="table" style="width:100%; margin-top:20px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Plugin options</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Default</th>
+                                <th scope="col">Desctription</th>
+                            </tr>                                            
+                        </thead> 
+                        <tbody>
+                            <tr>
+                                <td>grid</td>
+                                <td>string</td>
+                                <td></td>
+                                <td>This is the class or element that are used for the sorting(if option sortable is set to true) of a widget.</td>
+                            </tr>                                                  
+                            <tr>
+                                <td>widgets</td>
+                                <td>string</td>
+                                <td>.jarviswidget</td>
+                                <td>Widgets class.</td>
+                            </tr>
+                            <tr>
+                                <td>localStorage</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Everyting is saved in to the local storage, but you can turn this off.</td>
+                            </tr>
+                            <tr>
+                                <td>deleteSettingsKey</td>
+                                <td>string</td>
+                                <td></td>
+                                <td>You can delete the local storage settings key(if you are using local storage). The settings key is used to store things, style and title.
+                                This must be an unique(just for that page) Id or class for example: '#thelink'.</td>
+                            </tr> 
+                            <tr>
+                                <td>settingsKeyLabel</td>
+                                <td>string</td>
+                                <td>Reset settings?</td>
+                                <td>Set the text for the 'deleteSettingsKey' confirm dialog.</td>
+                            </tr> 
+                            <tr>
+                                <td>deletePositionKey</td>
+                                <td>string</td>
+                                <td></td>
+                                <td>You can delete the local storage position key(if you are using local storage). The positions key is used to store the position of the widgets.
+                                This must be an unique(just for that page) Id or class for example: '#thelink'.</td>
+                            </tr> 
+                            <tr>
+                                <td>settingsKeyLabel</td>
+                                <td>string</td>
+                                <td>Reset positions?</td>
+                                <td>Set the text for the 'deletePositionKey' confirm dialog.</td>
+                            </tr>                    
+                            <tr>
+                                <td>sortable</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>You can allow widgets to be sortable.</td>
+                            </tr>
+                            <tr>
+                                <td>buttonsHidden</td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>If you are using action button, you can set them to visible, or hidden. If you choose hidden(value true) the buttons will be 
+                                showen if you hover over the widgets header.</td>
+                            </tr>  
+                            <tr>
+                                <td>toggleButton</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Show a toggle button.</td>
+                            </tr>
+                            <tr>
+                                <td>toggleClass</td>
+                                <td>string</td>
+                                <td>min-10 | plus-10</td>
+                                <td>The button class, active and non-active state. The two classes must be seperated by a '|' in order to work.</td>
+                            </tr> 
+                            <tr>
+                                <td>toggleSpeed</td>
+                                <td>number(integer)</td>
+                                <td>200</td>
+                                <td>The speed of the collapsable effect.</td>
+                            </tr>
+                            <tr>
+                                <td>onToggle</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs if you toggle a widget.</td>
+                            </tr> 
+                            <tr>
+                                <td>deleteButton</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Show a delete button.</td>
+                            </tr>
+                            <tr>
+                                <td>deleteClass</td>
+                                <td>string</td>
+                                <td>trashcan-10</td>
+                                <td>The button class.</td>
+                            </tr> 
+                            <tr>
+                                <td>deleteSpeed</td>
+                                <td>number(integer)</td>
+                                <td>200</td>
+                                <td>The speed of the deleting effect.</td>
+                            </tr>
+                            <tr>
+                                <td>onDelete</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs once the widget has been deleted.</td>
+                            </tr> 
+                            <tr>
+                                <td>editButton</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Show a edit button.</td>
+                            </tr>
+                            <tr>
+                                <td>editPlaceholder</td>
+                                <td>string</td>
+                                <td></td>
+                                <td>The class of the edit box wrapper, which contains the title input and styling setters(see the markup demo above for an example).</td>
+                            </tr> 
+                            <tr>
+                                <td>editClass</td>
+                                <td>string</td>
+                                <td>pencil-10 | delete-10</td>
+                                <td>The edit class, active and non-active state. The two classes must be seperated by a '|' in order to work.</td>
+                            </tr> 
+                            <tr>
+                                <td>editSpeed</td>
+                                <td>number(integer)</td>
+                                <td>200</td>
+                                <td>The speed of the edit effect.</td>
+                            </tr>
+                            <tr>
+                                <td>onEdit</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs once you close the edit box.</td>
+                            </tr>                     
+                            <tr>
+                                <td>fullscreenButton</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Show a fullscreen button.</td>
+                            </tr>
+                            <tr>
+                                <td>fullscreenClass</td>
+                                <td>string</td>
+                                <td>fullscreen-10 | normalscreen-10</td>
+                                <td>The fullscreen class, active and non-active state. The two classes must be seperated by a '|' in order to work.</td>
+                            </tr> 
+                            <tr>
+                                <td>fullscreenDiff</td>
+                                <td>number(integer)</td>
+                                <td>3</td>
+                                <td>If you change the layout fo the widget, you can use this to make sure the that fullscreen is fullscreen(if needed).</td>
+                            </tr>
+                            <tr>
+                                <td>onfullscreen</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs once you go to fullscreen mode.</td>
+                            </tr>
+                            <tr>
+                                <td>customButton</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Show a custom button.</td>
+                            </tr>
+                            <tr>
+                                <td>customClass</td>
+                                <td>string</td>
+                                <td></td>
+                                <td>The custom class, active and non-active state. The two classes must be seperated by a '|' in order to work.</td>
+                            </tr> 
+                            <tr>
+                                <td>customStart</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs once you start the custom button.</td>
+                            </tr> 
+                            <tr>
+                                <td>customEnd</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs once you end the custom button.</td>
+                            </tr>                  
+                            <tr>
+                                <td>buttonOrder</td>
+                                <td>string</td>
+                                <td>%refresh% %delete% %custom% %edit% %fullscreen% %toggle%</td>
+                                <td>You can change the order of the buttons</td>
+                            </tr>    
+                            <tr>
+                                <td>opacity</td>
+                                <td>number(float)</td>
+                                <td>1.0</td>
+                                <td>The opacity of the widgets once you drag them.</td>
+                            </tr>
+                            <tr>
+                                <td>dragHandle</td>
+                                <td>string</td>
+                                <td>&gt; header</td>
+                                <td>Choose the element that you want to use as an drag handle. The widgets main class is the parents class.</td>
+                            </tr> 
+                            <tr>
+                                <td>placeholderClass</td>
+                                <td>string</td>
+                                <td>jarviswidget-placeholder</td>
+                                <td>This is the class thats used for the placeholder.</td>
+                            </tr> 
+                            <tr>
+                                <td>indicator</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Shows a animated image if there has been made a change in the widget(AJAX, deleting, toggle...).</td>
+                            </tr>
+                            <tr>
+                                <td>indicatorTime</td>
+                                <td>number(integer)</td>
+                                <td>600</td>
+                                <td>The speed of the indicator image(animated loader image). This is in milliseconds.</td>
+                            </tr>
+                            <tr>
+                                <td>ajax</td>
+                                <td>boolean</td>
+                                <td>true</td>
+                                <td>Allow widgets to use ajax.</td>
+                            </tr>
+                            <tr>
+                                <td>loadingLabel</td>
+                                <td>string</td>
+                                <td>loading...</td>
+                                <td>Placeholder text at the start of every page load.</td>
+                            </tr>                                                                                                            
+                            <tr>
+                                <td>timestampPlaceholder</td>
+                                <td>string</td> 
+                                <td></td>
+                                <td>Show a timestamp form the last update. Only use classes.</td>
+                            </tr> 
+                            <tr>
+                                <td>timestampFormat</td>
+                                <td>string</td>
+                                <td>Last update: %m%/%d%/%y% %h%:%i%:%s%</td>
+                                <td>Choose the output format.</td>
+                            </tr>
+                            <tr>
+                                <td>refreshButton</td>
+                                <td>boolean</td> 
+                                <td>true</td>
+                                <td>Allow users to refresh the ajax content manually.</td>
+                            </tr> 
+                            <tr>
+                                <td>refreshClass</td>
+                                <td>string</td>
+                                <td>refresh-10</td>
+                                <td>The class of the refresh button.</td>
+                            </tr>                             
+                            <tr>
+                                <td>labelError</td>
+                                <td>string</td>
+                                <td>Sorry but there was a error:</td>
+                                <td>Label of the ajax error(label + error code(s)).</td>
+                            </tr> 
+                            <tr>
+                                <td>labelUpdated</td>
+                                <td>string</td>
+                                <td>Last Update:</td>
+                                <td>Label for the timestamp, which will be showen every time it has been updated.</td>
+                            </tr>
+                            <tr>
+                                <td>labelRefresh</td>
+                                <td>string</td>
+                                <td>Refresh</td>
+                                <td>Label for the refresh button, this button will allow u to refresh the ajax content.</td>
+                            </tr> 
+                            <tr>
+                                <td>afterLoad</td>
+                                <td>function</td>
+                                <td>function(){}</td>
+                                <td>Callback function that runs if the widget loads any ajax content.</td>
+                            </tr>
+                            <tr>
+                                <td>rtl</td>
+                                <td>boolean</td>
+                                <td>false</td>
+                                <td>Need rtl, use this.</td>
+                            </tr>                            
+                        </tbody>                                                                                                                                            
+                    </table>
+
+     
+
+      <hr>
+      <h2 id="CC2">C. 2) List of all Javascripts and reference to a detailed documentation - <a href="#toc">top</a></h2>
+     
+
+		<hr />
+		<h3>Easy Pie Chart</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : Animated pie chart -->
+		    <script src="js/include/jquery.easy-pie-chart.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://rendro.github.com/easy-pie-chart/">http://rendro.github.com/easy-pie-chart/</a></p>
+		
+		<h3>Bootbox</h3>
+		<pre class="brush: js">
+			 <!-- REQUIRED JS : Bootstrap Prompt -->
+ 			 <script src="js/include/bootbox.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://bootboxjs.com">http://bootboxjs.com</a></p>
+		
+		<h3>Flot</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : Flot Chart Engine -->
+		    <script src="js/include/jquery.flot.cust.min.js"></script>			
+		    <script src="js/include/jquery.flot.resize.min.js"></script>		
+		    <script src="js/include/jquery.flot.tooltip.min.js"></script>		
+		    <script src="js/include/jquery.flot.orderBar.min.js"></script>	
+		    <script src="js/include/jquery.flot.fillbetween.min.js"></script>	
+		    <script src="js/include/jquery.flot.pie.min.js"></script> 
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://flotcharts.org/">http://flotcharts.org</a></p>
+		
+		
+		<h3>FullCalendar</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED JS : Full Calendar -->
+		    <script src="js/include/jquery.fullcalendar.min.js"></script>		
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://arshaw.com/fullcalendar/">http://arshaw.com/fullcalendar</a></p>
+
+			
+		<h3>iButton</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : iButton -->
+		    <script src="js/include/jquery.ibutton.min.js"></script> 	
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://www.givainc.com/labs/ibutton_jquery_plugin.htm">http://www.givainc.com/labs/ibutton_jquery_plugin.htm</a></p>
+
+			
+		<h3>Select2</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED CSS -->
+			<link rel="stylesheet" href="css/select2.css?v=1">
+			
+			<!-- REQUIRED JS : Select2 -->
+ 			if(!ismobile){
+		    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS FALSE **/
+		    	document.write('<script src="js/include/select2.min.js"></script>');
+	    	}
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://ivaynberg.github.com/select2/">http://ivaynberg.github.com/select2</a></p>
+		
+		<h3>Uniform</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED CSS -->
+			<link rel="stylesheet" href="css/uniform.default.css?v=1">
+			
+			<!-- REQUIRED JS : Uniform -->
+			if(!ismobile){
+		    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS FALSE **/
+		    	document.write('<script src="js/include/jquery.uniform.min.js"></script>');
+	    	}
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://uniformjs.com/">http://uniformjs.com</a></p>
+					
+ 
+		<h3>jQuery Validate Plugin </h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : iButton -->
+		    <script src="js/include/jquery.validate.min.js"></script> 	
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://bassistance.de/jquery-plugins/jquery-plugin-validation/">http://bassistance.de/jquery-plugins/jquery-plugin-validation</a></p>
+		
+
+		<h3>Bootstrap Wizard</h3>
+		<pre class="brush: js">
+		   <!-- REQUIRED JS : Bootstrap Wizard -->
+		   <script src="js/include/bootstrap.wizard.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://github.com/VinceG/twitter-bootstrap-wizard">http://github.com/VinceG/twitter-bootstrap-wizard</a></p>
+		
+		<h3>Bootstrap Color Picker</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED JS : Bootstrap Color Picker -->
+		 	<script src="js/include/bootstrap-colorpicker.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://www.eyecon.ro/bootstrap-colorpicker">http://www.eyecon.ro/bootstrap-colorpicker</a></p>
+	
+		<h3>Bootstrap Date Picker</h3>
+		<pre class="brush: js">
+			<!-- date picker css -->
+			<link rel="stylesheet" href="css/datepicker.css?v=1">
+			
+		    <!-- REQUIRED JS : Bootstrap Date Picker -->
+		    <script src="js/include/bootstrap-datepicker.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://www.eyecon.ro/bootstrap-datepicker">http://www.eyecon.ro/bootstrap-datepicker</a></p>
+
+		<h3>Bootstrap Time Picker</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED JS : Bootstrap Time Picker -->
+		    <script src="js/include/bootstrap-timepicker.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://www.github.com/jdewit/bootstrap-timepicker">http://www.github.com/jdewit/bootstrap-timepicker</a></p>		
+
+		<h3>Bootstrap Progress Bar</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : Progress bar animation -->
+		    <script src="js/include/bootstrap-progressbar.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="https://github.com/minddust/bootstrap-progressbar">https://github.com/minddust/bootstrap-progressbar</a></p>	
+
+		<h3>Bootstrap WYSIHTML6 Editor</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : wysihtml5 editor -->
+		    <script src="js/include/wysihtml5-0.3.0.min.js"></script>
+		    <script src="js/include/bootstrap-wysihtml5.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://jhollingworth.github.com/bootstrap-wysihtml5/">http://jhollingworth.github.com/bootstrap-wysihtml5</a></p>	
+
+		<h3>Data Driven Document (d3) Charts</h3>
+		<pre class="brush: js">
+		   <!-- REQUIRED JS : D3 Charts -->
+		   <script src="js/include/d3.v3.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://d3js.org/">http://d3js.org</a></p>	
+		
+		<h3>Data Tables</h3>
+		<pre class="brush: js">
+			<!-- data tables extended CSS -->
+			<link rel="stylesheet" href="css/TableTools.css?v=1">
+			<link rel="stylesheet" href="css/DT_bootstrap.css?v=1">
+			
+		   <!-- REQUIRED JS : Data Table Engine -->
+			<script src="js/include/jquery.dataTables.min.js"></script>
+			<script src="js/include/DT_bootstrap.min.js"></script> 
+			<script src="js/include/ZeroClipboard.min.js"></script>
+			<script src="js/include/TableTools.min.js"></script> 
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://www.datatables.net/">http://www.datatables.net</a></p>	
+		
+		<h3>Jgrowl Messages</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED CSS -->
+		    <link rel="stylesheet" href="css/jquery.jgrowl.css?v=1">
+		    <!-- REQUIRED JS : jgrowl -->
+		    <script src="js/include/jquery.jgrowl.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://stanlemon.net/pages/jgrowl">http://stanlemon.net/pages/jgrowl</a></p>	
+
+		<h3>Masked Input</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED JS : Masked Input -->
+			<script src="js/include/jquery.maskedinput.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://digitalbush.com/projects/masked-input-plugin/">http://digitalbush.com/projects/masked-input-plugin/</a></p>	
+		
+		<h3>Sparkline</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : Sparkline Charts -->
+		    <script src="js/include/jquery.sparkline.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://omnipotent.net/jquery.sparkline/">http://omnipotent.net/jquery.sparkline/</a></p>		
+		
+		<h3>JustGage</h3>
+		<pre class="brush: js">
+			<!-- REQUIRED JS : Justgage animated charts -->
+		    <script src="js/include/justgage.min.js"></script>
+		    <script src="js/include/raphael.2.1.0.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://justgage.com/">http://justgage.com</a></p>	
+		
+		<h3>SlimScroll</h3>
+		<pre class="brush: js">
+		    <!-- REQUIRED JS : Sleek scroll UI  -->
+		    <script src="js/include/slimScroll.min.js"></script>
+		</pre>	
+		<p>	For information how to use this plugin, please visit <a href="http://rocha.la/jQuery-slimScroll">http://rocha.la/jQuery-slimScroll</a></p>	
+		
+		<h1 id="credits">G) Special Thanks - <a href="#toc">top</a></h1>
+		
+		<p>People and their links who I wanna say my thanks to.</p>
+		
+		<ul>
+			<li><a href="www.wrapbootstrap.com">Wrapbootstrap</a> - <i>James Simmons (CEO) for letting this theme host on the site!</i></li>
+			<li><a href="http://twitter.github.com/bootstrap/">Bootstrap Framework</a> - <i>by Twitter bootstrap dev team - for an amazing and simple framework to work with</i></li>
+		</ul>
+		
+		<hr>
+		
+		<p>Once again, thank you so much for purchasing this theme. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. No guarantees, but I'll do my best to assist.</p> 
+		
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+	</div><!-- end div .container -->
+</body>
+</html>

@@ -1,0 +1,23 @@
+﻿@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.General
+@{
+    ViewBag.Title = Recycle_cshtml.ApplicationRecycle;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+
+        <div>
+            <label>@Recycle_cshtml.CurrentAppDomainId</label>
+            @AppDomain.CurrentDomain.FriendlyName
+        </div>
+
+        <div class="buttons">
+            <p>@Recycle_cshtml.RecycleMessage</p>
+            <button type="submit">@Recycle_cshtml.RecycleButton</button>
+        </div>
+    </fieldset>
+}

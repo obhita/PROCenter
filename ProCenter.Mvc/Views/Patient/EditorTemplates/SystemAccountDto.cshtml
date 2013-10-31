@@ -1,0 +1,16 @@
+﻿@model ProCenter.Service.Message.Security.SystemAccountDto
+
+@{
+    var disable = Model.Key != Guid.Empty ? "true" : "false";
+}
+<div data-ajaxform-ignore="false" data-disabled="@disable" class="question-root system-account">
+    @if (Model.Key == Guid.Empty && Model.CreateNew)
+    {
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new {placeholder = Html.DisplayNameFor(m => m.Username)})
+        @Html.ValidationMessageFor(m => m.Username)
+    }
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email, new {type = "email", placeholder = Html.DisplayNameFor(m => m.Email)})
+    @Html.ValidationMessageFor(m => m.Email)
+</div>

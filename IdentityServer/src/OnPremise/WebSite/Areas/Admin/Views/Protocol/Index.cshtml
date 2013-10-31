@@ -1,0 +1,33 @@
+﻿@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.Protocol
+@model ProtocolsViewModel
+
+@{
+    ViewBag.Title = Index_cshtml.Protocols;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(Index_cshtml.ErrorUpdatingProtocols)
+
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+        @foreach (var protocol in Model.Protocols)
+        {
+            <div>
+                @{
+                    var name = "protocols[" + protocol.ID + "]";
+                    var id = name.Replace("[", "_").Replace("]", "_");
+                }
+                <label for="@id">@protocol.Name</label>
+                @Html.CheckBox(name, protocol.Enabled)
+            </div>
+        }
+
+        <div class="buttons">
+            <button type="submit">@Index_cshtml.SaveChanges</button>
+            <button type="reset">@Index_cshtml.Cancel</button>
+        </div>
+
+    </fieldset>
+}

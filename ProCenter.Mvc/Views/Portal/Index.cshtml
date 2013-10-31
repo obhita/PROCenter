@@ -1,0 +1,74 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Common
+@model ProCenter.Service.Message.Patient.PatientDto
+
+@{
+    ViewBag.Title = "Portal Dashboard";
+    var patientKey = Model == null ? string.Empty : Model.Key.ToString();
+}
+
+@section subnav{
+    <div class="sub-nav">
+    </div>
+}
+
+<div class="dashboard-wrapper full-height">
+    <div class="patient-dashboard">
+        <div class="left">
+            @if ( Html.CanAccess ( "Patient", "PatientFeed" ) )
+            {
+                @Html.Partial( "../Widgets/PatientFeed" )
+            }
+        </div>
+        <div class="right">
+            @if ( Html.CanAccess ( "Report", "Get" ) )
+            {
+                @Html.Partial( "../Widgets/PatientReports" )
+            }
+            @if ( Html.CanAccess ( "Assessment", "Edit" ) )
+            {
+                @Html.Partial( "../Widgets/PatientRecentAssessments" )
+            }
+            @if ( Html.CanAccess ( "AssessmentReminder", "Get" ) )
+            {
+                @Html.Partial( "../Widgets/AssessmentReminderPartial" )
+            }
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div id="ajax-loader" style="display: none"></div>
+</div>
+
+@section scripts 
+{
+    @if ( Model != null )
+    {
+        @Scripts.Render( "~/bundles/patient" )
+        <script>
+            $(document).ready(function() {
+                var canViewReports = @Html.CanAccess( "Report", "Get" ).ToString().ToLower();
+                if (canViewReports) {
+                    window.procenter.InitializePatientReports('@Url.Content("~/Assessment")', '@Url.Content("~/api/Assessment")', '@patientKey', '@Url.Action("Get", "Report")', '', false);
+                }
+                
+                var canViewPatientFeed = @Html.CanAccess( "Assessment", "PatientFeed" ).ToString().ToLower();
+                if (canViewPatientFeed) {
+                    window.procenter.InitializePatientFeed('@Url.Content("~/Patient")', '@patientKey');
+                }
+                
+                var canViewPatientAssessments = @Html.CanAccess( "Assessment", "Edit" ).ToString().ToLower();
+                if (canViewPatientAssessments) {
+                    var canEditAssessments = @Html.CanAccess( "Assessment", "Edit", "POST" ).ToString().ToLower();
+                    window.procenter.InitializePatientRecentAssessments('@Url.Content("~/api/PatientAssessmentsDataTable")', '@patientKey', '@Url.Action("Edit", "Assessment")', canEditAssessments);
+                }
+
+                var canViewReminders = @Html.CanAccess( "AssessmentReminder", "Get" ).ToString().ToLower();
+                if (canViewReminders) {
+                    var canEditReminders = @Html.CanAccess( "AssessmentReminder", "Edit", "POST" ).ToString().ToLower();
+                    window.procenter.InitializeReminders('@Url.Content( "~/AssessmentReminder" )', '@Url.Content( "~/api/AssessmentReminder" )', canEditReminders, '@patientKey');
+                }
+            });
+        </script>
+        <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+    }
+}

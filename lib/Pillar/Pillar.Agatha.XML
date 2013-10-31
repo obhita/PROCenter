@@ -1,0 +1,96 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.Agatha</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.Agatha.Message.GetDtoByKeyRequest`2">
+            <summary>
+                Class GetDtoByKeyRequest.
+            </summary>
+            <typeparam name="TDto"> The type of the dto. </typeparam>
+            <typeparam name="TKey"> The type of the key. </typeparam>
+        </member>
+        <member name="P:Pillar.Agatha.Message.GetDtoByKeyRequest`2.Key">
+            <summary>
+                Gets or sets the key.
+            </summary>
+            <value> The dto key. </value>
+        </member>
+        <member name="T:Pillar.Agatha.Message.GetDtoByKeyResponse`2">
+            <summary>
+                Class GetDtoByKeyResponse.
+            </summary>
+            <typeparam name="TDto"> The type of the dto. </typeparam>
+            <typeparam name="TKey"> The type of the key. </typeparam>
+        </member>
+        <member name="T:Pillar.Agatha.Message.NotificationResponse">
+            <summary>
+                Class NotificationResponse.
+            </summary>
+        </member>
+        <member name="T:Pillar.Agatha.Message.INotificationResponse">
+            <summary>
+                Interface INotificationResponse.
+            </summary>
+        </member>
+        <member name="P:Pillar.Agatha.Message.INotificationResponse.Notification">
+            <summary>
+                Gets or sets the notification.
+            </summary>
+            <value>The notification.</value>
+        </member>
+        <member name="P:Pillar.Agatha.Message.NotificationResponse.Notification">
+            <summary>
+                Gets or sets the notification.
+            </summary>
+            <value>The notification.</value>
+        </member>
+        <member name="P:Pillar.Agatha.Message.GetDtoByKeyResponse`2.DataTransferObject">
+            <summary>
+                Gets or sets the data transfer object.
+            </summary>
+            <value> The dto that has to be sent as response. </value>
+        </member>
+        <member name="T:Pillar.Agatha.Message.ResponseExtensions">
+            <summary>
+                Class ResponseExtensions.
+            </summary>
+        </member>
+        <member name="M:Pillar.Agatha.Message.ResponseExtensions.HasErrors(Agatha.Common.Response)">
+            <summary>
+                Determines whether the specified response has errors.
+            </summary>
+            <param name="response">The response.</param>
+            <returns>
+                <c>true</c> if the specified response has errors; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Agatha.Message.SaveDtoRequest`2">
+            <summary>
+                Class SaveDtoRequest.
+            </summary>
+            <typeparam name="TDto">The type of the dto.</typeparam>
+            <typeparam name="TKey">The type of the key.</typeparam>
+        </member>
+        <member name="P:Pillar.Agatha.Message.SaveDtoRequest`2.DataTransferObject">
+            <summary>
+                Gets or sets the data transfer object.
+            </summary>
+            <value>The dto to save.</value>
+        </member>
+        <member name="T:Pillar.Agatha.Message.SaveDtoResponse`2">
+            <summary>
+                Class SaveDtoResponse.
+            </summary>
+            <typeparam name="TDto">The type of the dto.</typeparam>
+            <typeparam name="TKey">The type of the key.</typeparam>
+        </member>
+        <member name="P:Pillar.Agatha.Message.SaveDtoResponse`2.DataTransferObject">
+            <summary>
+                Gets or sets the data transfer object.
+            </summary>
+            <value>The dto that has to be sent as response.</value>
+        </member>
+    </members>
+</doc>

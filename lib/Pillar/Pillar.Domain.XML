@@ -1,0 +1,890 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.Domain</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.Domain.Attributes.ColumnLengthAttribute">
+            <summary>
+                ColumnLengthAttribute class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Attributes.ColumnLengthAttribute.#ctor(System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Attributes.ColumnLengthAttribute"/> class.
+            </summary>
+            <param name="length">The length.</param>
+        </member>
+        <member name="P:Pillar.Domain.Attributes.ColumnLengthAttribute.Length">
+            <summary>
+                Gets the length.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Attributes.ComponentAttribute">
+            <summary>
+                This attribute denotes that a class is a component in ORM mapping.
+                A component is a contained object that is persisted as a value type, not an entity.
+                The term "component" refers to the object-oriented notion of composition (not to architecture-level components).
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Attributes.ComponentAttribute.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Attributes.ComponentAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Attributes.ComponentAttribute.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Attributes.ComponentAttribute"/> class.
+            </summary>
+            <param name="columnPrefix">The column prefix.</param>
+        </member>
+        <member name="P:Pillar.Domain.Attributes.ComponentAttribute.ColumnPrefix">
+            <summary>
+                Gets or sets the column prefix.
+            </summary>
+            <value>
+                The column prefix.
+            </value>
+        </member>
+        <member name="P:Pillar.Domain.Attributes.ComponentAttribute.HasColumnPrefix">
+            <summary>
+                Gets a value indicating whether this instance has column prefix.
+            </summary>
+            <value>
+                <c>true</c> if this instance has column prefix; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Pillar.Domain.Attributes.IgnoreMappingAttribute">
+            <summary>
+                IgnoreMappingAttribute class.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Attributes.NotLayerSupertypeAttribute">
+            <summary>
+                This attribute is used for ORM mapping.
+                Abstract class denoted by this attribute is NOT as layer supertype. i.e. will have a mapping table in database.
+                The default behavior is to consider abstract classes as layer supertypes
+                (<see href="http://martinfowler.com/eaaCatalog/layerSupertype.html" />) and effectively unmapped.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Attributes.NotNullAttribute">
+            <summary>
+                NotNullAttribute class.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Attributes.AggregateReferenceAttribute">
+            <summary>
+                Attribute for specifying Reference Property.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Attributes.AggregateReferenceAttribute.#ctor(System.Type)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Attributes.AggregateReferenceAttribute"/> class.
+            </summary>
+            <param name="referenceType">Type of the reference.</param>
+        </member>
+        <member name="P:Pillar.Domain.Attributes.AggregateReferenceAttribute.ReferenceType">
+            <summary>
+                Gets the type of the reference.
+            </summary>
+            <value>
+                The type of the reference.
+            </value>
+        </member>
+        <member name="T:Pillar.Domain.Attributes.UseListAttribute">
+            <summary>
+            Attribute to tell ORM to use list collection type.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Attributes.UseListAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Pillar.Domain.Attributes.UseListAttribute"/> class.
+            </summary>
+            <param name="columnName">Name of the column.</param>
+        </member>
+        <member name="P:Pillar.Domain.Attributes.UseListAttribute.ColumnName">
+            <summary>
+            Gets the name of the column.
+            </summary>
+            <value>
+            The name of the column.
+            </value>
+        </member>
+        <member name="T:Pillar.Domain.GuidKeyEntityBase">
+            <summary>
+                An entity base class implementation that uses a <see cref="T:System.Guid"/> as a key.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Entity`1">
+            <summary>
+                Entity class.
+            </summary>
+            <typeparam name="TKeyType">The type of the key.</typeparam>
+        </member>
+        <member name="T:Pillar.Domain.IEntity`1">
+            <summary>
+                A generic entity interface that identifies a Key property with
+                the given key type.
+            </summary>
+            <typeparam name="TKeyType">The type of the key.</typeparam>
+        </member>
+        <member name="T:Pillar.Domain.IEntity">
+            <summary>
+                A marker interface to identify a class as an entity.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.IEntity`1.Key">
+            <summary>
+                Gets the key.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.IEntity`1.Version">
+            <summary>
+                Gets the version.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Entity`1.op_Equality(Pillar.Domain.Entity{`0},Pillar.Domain.Entity{`0})">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left entity.</param>
+            <param name="right">The right entity.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Entity`1.op_Inequality(Pillar.Domain.Entity{`0},Pillar.Domain.Entity{`0})">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left entity.</param>
+            <param name="right">The right entity.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Entity`1.Equals(Pillar.Domain.Entity{`0})">
+            <summary>
+                Determines if the given entity is equal to this entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Entity`1.Equals(Pillar.Domain.IEntity{`0})">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Entity`1.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Entity`1.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="P:Pillar.Domain.Entity`1.Key">
+            <summary>
+                Gets or sets the key.
+            </summary>
+            <value>
+                The key.
+            </value>
+        </member>
+        <member name="P:Pillar.Domain.Entity`1.Version">
+            <summary>
+                Gets or sets the version.
+            </summary>
+            <value>The version.</value>
+        </member>
+        <member name="T:Pillar.Domain.IAggregateRoot`1">
+            <summary>
+                A marker interface to identity the root entity for an aggregate.
+            </summary>
+            <typeparam name="TKeyType">The type of the key.</typeparam>
+        </member>
+        <member name="T:Pillar.Domain.IAggregateRootMarker">
+            <summary>
+                A marker interface to identity the root entity for an aggregate.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.LongKeyEntityBase">
+            <summary>
+                An entity base class implementation that uses a <see cref="T:System.Int64"/> as a key.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Registry">
+            <summary>
+                This class defines dependency mapping for this Pillar assembly.
+                These mappings will be registered when <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Bootstrap method is called.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Registry.Register">
+            <summary>
+                Registers dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Event.DomainEvent">
+            <summary>
+                The <see cref="T:Pillar.Domain.Event.DomainEvent"/> class supports registering for and raising domain events.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Event.DomainEvent.Raise``1(``0)">
+            <summary>
+                Raises the specified @event.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="event">The @event.</param>
+        </member>
+        <member name="M:Pillar.Domain.Event.DomainEvent.Register``1(System.Action{``0})">
+            <summary>
+                Registers the specified callback.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="T:Pillar.Domain.Event.DomainEventService">
+            <summary>
+                Service for managing Domain Events.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Event.IDomainEventService">
+            <summary>
+                Service for managing domain events.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Event.IDomainEventService.Raise``1(``0)">
+            <summary>
+                Raises the specified @event.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="event">The @event.</param>
+        </member>
+        <member name="M:Pillar.Domain.Event.IDomainEventService.Register``1(System.Action{``0})">
+            <summary>
+                Registers the specified callback.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="M:Pillar.Domain.Event.DomainEventService.Raise``1(``0)">
+            <summary>
+                Raises the specified @event.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="event">The @event.</param>
+        </member>
+        <member name="M:Pillar.Domain.Event.DomainEventService.Register``1(System.Action{``0})">
+            <summary>
+                Registers the specified callback.
+            </summary>
+            <typeparam name="TEvent">The type of the event.</typeparam>
+            <param name="callback">The callback.</param>
+        </member>
+        <member name="T:Pillar.Domain.Event.IDomainEvent">
+            <summary>
+                Marker interface for <see cref="T:Pillar.Domain.Event.DomainEvent"/>
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Event.IDomainEventHandler`1">
+            <summary>
+                Interface for handling a <see cref="T:Pillar.Domain.Event.IDomainEvent"/>.
+            </summary>
+            <typeparam name="T">Type of Domain Event.</typeparam>
+        </member>
+        <member name="M:Pillar.Domain.Event.IDomainEventHandler`1.Handle(`0)">
+            <summary>
+                Handles the <see cref="T:Pillar.Domain.Event.IDomainEvent"/>.
+            </summary>
+            <param name="args">
+                The args for the <see cref="T:Pillar.Domain.Event.IDomainEvent"/>.
+            </param>
+        </member>
+        <member name="T:Pillar.Domain.ILookup">
+            <summary>
+                ILookup interface.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.Description">
+            <summary>
+                Gets the description.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.EffectiveDateRange">
+            <summary>
+                Gets the effective date range.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.IsDefault">
+            <summary>
+                Gets a value indicating whether the given lookup value is the default.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.IsSystemOwned">
+            <summary>
+                Gets a value indicating whether the given lookup value is owned by the system.
+            </summary>
+            <remarks>If a value is owned by the system then it is not editable by the user.</remarks>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.Name">
+            <summary>
+                Gets the name.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.ShortName">
+            <summary>
+                Gets the short name.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.SortOrderNumber">
+            <summary>
+                Gets the sort order number.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.ILookup.WellKnownName">
+            <summary>
+                Gets the name of the well known.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.IRepository`2">
+            <summary>
+                The <see cref="T:Pillar.Domain.IRepository`2"/> interface defines basic repository services.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TKeyType">The type of the key type.</typeparam>
+        </member>
+        <member name="M:Pillar.Domain.IRepository`2.GetByKey(`1)">
+            <summary>
+                Gets the entity by key.
+            </summary>
+            <param name="key">The primary key.</param>
+            <returns>
+                A TEntity.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.IRepository`2.MakePersistent(`0)">
+            <summary>
+                Makes the entity persistent.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>A TEntity.</returns>
+        </member>
+        <member name="M:Pillar.Domain.IRepository`2.MakeTransient(`0)">
+            <summary>
+                Makes the entity transient.
+            </summary>
+            <param name="entity">The entity.</param>
+        </member>
+        <member name="T:Pillar.Domain.IValueObject">
+            <summary>
+            Marker interface for value objects.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Domain"/> namespace contains Domain infrasctucture and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Event.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Domain.Event"/> namespace contains Domain event infrasctucture and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.NamingStrategy.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Domain.NamingStrategy"/> namespace contains Domain naming strategies.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Domain.Primitives"/> namespace contains Domain custom primitives.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.PagedEntityList`2">
+            <summary>
+                PagedEntityList class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+            <typeparam name="TKeyType">The type of the key.</typeparam>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.PagedList`1">
+            <summary>
+                PagedList class.
+            </summary>
+            <typeparam name="T">The type in the list.</typeparam>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.IPagedList`1">
+            <summary>
+                IPagedList interface.
+            </summary>
+            <typeparam name="T">The type in the list.</typeparam>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.IPagedList`1.ItemList">
+            <summary>
+                Gets or sets the item list.
+            </summary>
+            <value>The item list.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.IPagedList`1.PageIndex">
+            <summary>
+                Gets or sets the index of the page.
+            </summary>
+            <value>The index of the page.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.IPagedList`1.PageSize">
+            <summary>
+                Gets or sets the size of the page.
+            </summary>
+            <value>The size of the page.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.IPagedList`1.TotalCount">
+            <summary>
+                Gets or sets the total count.
+            </summary>
+            <value>The total count.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.PagedList`1.ItemList">
+            <summary>
+                Gets or sets the item list.
+            </summary>
+            <value>The item list.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.PagedList`1.PageIndex">
+            <summary>
+                Gets or sets the index of the page.
+            </summary>
+            <value>The index of the page.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.PagedList`1.PageSize">
+            <summary>
+                Gets or sets the size of the page.
+            </summary>
+            <value>The size of the page.</value>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.PagedList`1.TotalCount">
+            <summary>
+                Gets or sets the total count.
+            </summary>
+            <value>The total count.</value>
+        </member>
+        <member name="M:Pillar.Domain.PagedEntityList`2.#ctor(System.Int32,System.Int32,System.Int32,System.Collections.Generic.IList{`0})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.PagedEntityList`2"/> class.
+            </summary>
+            <param name="totalCount">The total count.</param>
+            <param name="pageIndex">Index of the page.</param>
+            <param name="pageSize">Size of the page.</param>
+            <param name="itemList">The item list.</param>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.DateRange">
+            <summary>
+                DateRange class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.#ctor(System.Nullable{System.DateTime},System.Nullable{System.DateTime})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Primitives.DateRange"/> class.
+            </summary>
+            <param name="startDate">The start date.</param>
+            <param name="expirationDate">The expiration date.</param>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.#ctor">
+            <summary>
+                Prevents a default instance of the <see cref="T:Pillar.Domain.Primitives.DateRange"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.Includes(System.DateTime)">
+            <summary>
+                Determines whether range includes the specified date.
+            </summary>
+            <param name="date">The date to check.</param>
+            <returns>True if in range; otherwise false.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.DateRange.EndDate">
+            <summary>
+                Gets the end date.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.DateRange.StartDate">
+            <summary>
+                Gets the start date.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.DateTimeRange">
+            <summary>
+                DateTimeRange defines range of time between a start date and time and an end date and time.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.#ctor(System.DateTime,System.DateTime)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Primitives.DateTimeRange"/> class.
+            </summary>
+            <param name="startDateTime">The start date time.</param>
+            <param name="endDateTime">The end date time.</param>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.#ctor">
+            <summary>
+                Prevents a default instance of the <see cref="T:Pillar.Domain.Primitives.DateTimeRange"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.Equals(Pillar.Domain.Primitives.DateTimeRange)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>true if the current object is equal to the other parameter; otherwise, false.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.Includes(System.DateTime)">
+            <summary>
+                Includes the specified date time.
+            </summary>
+            <param name="dateTime">The date time.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.Includes(Pillar.Domain.Primitives.DateTimeRange)">
+            <summary>
+                Includes the specified date time range.
+            </summary>
+            <param name="dateTimeRange">The date time range.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateTimeRange.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.DateTimeRange.EndDateTime">
+            <summary>
+                Gets the end date time.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.DateTimeRange.StartDateTime">
+            <summary>
+                Gets the start date time.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.Email">
+            <summary>
+                Email class.
+            </summary>
+        </member>
+        <member name="F:Pillar.Domain.Primitives.Email.ValidationExpression">
+            <summary>
+                Email validation regular expression.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Primitives.Email"/> class.
+            </summary>
+            <param name="emailAddress">The email address.</param>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.#ctor">
+            <summary>
+                Prevents a default instance of the <see cref="T:Pillar.Domain.Primitives.Email"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.op_Equality(Pillar.Domain.Primitives.Email,Pillar.Domain.Primitives.Email)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left email address.</param>
+            <param name="right">The right email address.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.op_Inequality(Pillar.Domain.Primitives.Email,Pillar.Domain.Primitives.Email)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left email address.</param>
+            <param name="right">The right email address.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.Equals(Pillar.Domain.Primitives.Email)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.Email.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.Email.Address">
+            <summary>
+                Gets the address.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.PostalCode">
+            <summary>
+                PostalCode class.
+            </summary>
+        </member>
+        <member name="F:Pillar.Domain.Primitives.PostalCode.ValidationExpression">
+            <summary>
+                Postal code validation regular expression.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Primitives.PostalCode"/> class.
+            </summary>
+            <param name="postalCode">The postal code.</param>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.#ctor">
+            <summary>
+                Prevents a default instance of the <see cref="T:Pillar.Domain.Primitives.PostalCode"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.op_Equality(Pillar.Domain.Primitives.PostalCode,Pillar.Domain.Primitives.PostalCode)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left postal code.</param>
+            <param name="right">The right postal code.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.op_Inequality(Pillar.Domain.Primitives.PostalCode,Pillar.Domain.Primitives.PostalCode)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left postal code.</param>
+            <param name="right">The right postal code.</param>
+            <returns>The result of the operator.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.Equals(Pillar.Domain.Primitives.PostalCode)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.PostalCode.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.PostalCode.Code">
+            <summary>
+                Gets the code.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.TimeRange">
+            <summary>
+                TimeRange class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.#ctor(System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.Primitives.TimeRange"/> class.
+            </summary>
+            <param name="startTime">The start time.</param>
+            <param name="expirationTime">The expiration time.</param>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.#ctor">
+            <summary>
+                Prevents a default instance of the <see cref="T:Pillar.Domain.Primitives.TimeRange"/> class from being created.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.Includes(System.TimeSpan)">
+            <summary>
+                Includes the specified time.
+            </summary>
+            <param name="time">The time to check.</param>
+            <returns>True if time range includes time; otherwise false.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.Overlaps(Pillar.Domain.Primitives.TimeRange)">
+            <summary>
+                Overlaps the specified time range.
+            </summary>
+            <param name="timeRange">The time range.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.TimeRange.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.TimeRange.EndTime">
+            <summary>
+                Gets the end time.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.Primitives.TimeRange.StartTime">
+            <summary>
+                Gets the start time.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.TimingType">
+            <summary>
+                Type of Timing.
+            </summary>
+        </member>
+        <member name="F:Pillar.Domain.Primitives.TimingType.Frequency">
+            <summary>
+                Frequency type.
+            </summary>
+        </member>
+        <member name="F:Pillar.Domain.Primitives.TimingType.Interval">
+            <summary>
+                Interval type.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.Primitives.TimingUnit">
+            <summary>
+                Timing units.
+            </summary>
+        </member>
+        <member name="F:Pillar.Domain.Primitives.TimingUnit.Hours">
+            <summary>
+                Hours timing unit.
+            </summary>
+        </member>
+        <member name="F:Pillar.Domain.Primitives.TimingUnit.Days">
+            <summary>
+                Days timing unit.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.PropertyNotFoundException">
+            <summary>
+                PropertyNotFoundException class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.PropertyNotFoundException.#ctor(System.Type,System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.PropertyNotFoundException"/> class.
+            </summary>
+            <param name="type">The type of the property.</param>
+            <param name="propertyName">Name of the property.</param>
+        </member>
+        <member name="P:Pillar.Domain.PropertyNotFoundException.PropertyName">
+            <summary>
+                Gets the name of the property.
+            </summary>
+        </member>
+        <member name="P:Pillar.Domain.PropertyNotFoundException.Type">
+            <summary>
+                Gets the type.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.RepositoryException">
+            <summary>
+                RepositoryException class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.RepositoryException.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Domain.RepositoryException"/> class.
+            </summary>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:Pillar.Domain.StringKeyEntityBase">
+            <summary>
+                An entity base class implementation that uses a <see cref="T:System.String"/> as a key.
+            </summary>
+        </member>
+    </members>
+</doc>

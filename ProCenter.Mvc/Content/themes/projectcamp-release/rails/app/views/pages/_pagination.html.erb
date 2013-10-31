@@ -1,0 +1,53 @@
+<%= render "heading", title: "Pagination" %>
+
+
+<div class="padded">
+  <div class="codehint">Pagination is also done with no extra markup (please check bootstrap docs for more info)</div>
+  <pre>&lt;div class=&quot;pagination&quot;&gt;<br/>    &lt;ul&gt;<br/>      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&amp;larr;&lt;/a&gt;&lt;/li&gt;<br/>      &lt;li class=&quot;active&quot;&gt;<br/>        &lt;a href=&quot;#&quot;&gt;1&lt;/a&gt;<br/>      &lt;/li&gt;<br/><br/>      &lt;li class=&quot;disabled&quot;&gt;&lt;a&gt;...&lt;/a&gt;&lt;/li&gt;<br/><br/>      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;6&lt;/a&gt;&lt;/li&gt;<br/>      &lt;li&gt;&lt;a href=&quot;#&quot;&gt;&amp;rarr;&lt;/a&gt;&lt;/li&gt;<br/>    &lt;/ul&gt;<br/>  &lt;/div&gt;</pre>
+
+
+  <div class="pagination">
+    <ul>
+      <li><a href="#">&larr;</a></li>
+      <li class="active">
+        <a href="#">1</a>
+      </li>
+
+      <li class="disabled"><a href="#">...</a></li>
+
+      <li><a href="#">6</a></li>
+      <li><a href="#">&rarr;</a></li>
+    </ul>
+  </div>
+
+  <div class="pagination">
+    <ul>
+      <li><a href="#">«</a></li>
+      <li><a href="#">10</a></li>
+      <li class="active"><a href="#">11</a></li>
+      <li><a href="#">12</a></li>
+      <li><a href="#">»</a></li>
+    </ul>
+  </div>
+
+  <div class="pagination">
+    <ul>
+      <li class="disabled"><a href="#">«</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">»</a></li>
+    </ul>
+  </div>
+
+  <div class="pagination pagination-centered">
+    <ul>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+    </ul>
+  </div>
+</div>

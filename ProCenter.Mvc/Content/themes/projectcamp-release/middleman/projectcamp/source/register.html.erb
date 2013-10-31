@@ -1,0 +1,52 @@
+---
+layout: sessions_layout
+---
+
+<div class="mid-container wrapper">
+  <h1 class="title">Create your account</h1>
+  <form>
+    <ul class="fields">
+      <li>
+        <i class="icon-envelope"></i>
+        <input autocomplete="off" id="email" name="email" placeholder="email" type="text">
+      </li>
+      <li>
+        <i class="icon-user"></i>
+        <input autocomplete="off" id="firstname" name="firstname" placeholder="first name" type="text">
+      </li>
+      <li>
+        <i class="icon-user"></i>
+        <input autocomplete="off" id="lastname" name="lastname" placeholder="last name" type="text">
+      </li>
+      <li>
+        <i class="icon-key"></i>
+        <input autocomplete="off" id="password" name="password" placeholder="password" type="password">
+      </li>
+      <li>
+        <i class="icon-key"></i>
+        <input autocomplete="off" id="password_confirm" name="password_confirm" placeholder="confirm password" type="password">
+      </li>
+    </ul>
+
+    <div class="mid-form">
+      <span class="login-checkbox">
+        <input id="agree" name="agree" type="checkbox" value="1">
+        <label for="agree">I have read and agree with the Terms of Use.</label>
+      </span>
+      <input class="btn blue large pull-right" name="commit" type="submit" value="Sign Up">
+    </div>
+
+    <div class="inset-margin">
+
+      <a href="#" class="btn btn-twitter">
+        <i class="icon-twitter-sign"></i> Login with Twitter
+      </a>      <a href="#" class="btn btn-facebook">
+      <i class="icon-facebook-sign"></i> Login with Facebook
+    </a>    </div>
+
+  </form>
+
+  <div class="mid-footer">
+    Already have an account? <a href="/sessions/login">Login here</a>
+  </div>
+</div>

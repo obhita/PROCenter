@@ -1,0 +1,37 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ProCenter.Domain.OrganizationModule.Organization">
+    <Position X="1" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAABAAABAAgQAAAAABAAQAIEAABggAAAAAAAAAAAA=</HashCode>
+      <FileName>OrganizationModule\Organization.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProCenter.Domain.OrganizationModule.Staff">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACAAAEAAALAAgAAAAAIAAAQIEAAACBAAAAAAAAAAAAA=</HashCode>
+      <FileName>OrganizationModule\Staff.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProCenter.Domain.OrganizationModule.Team">
+    <Position X="1.5" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAARAAgAAAAAAAAAQAAsAAABAAYAAAAABAAAA=</HashCode>
+      <FileName>OrganizationModule\Team.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

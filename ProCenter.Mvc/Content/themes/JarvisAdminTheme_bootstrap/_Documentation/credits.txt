@@ -1,0 +1,87 @@
+
+
+
+JavaScript Libraries
+--------------------
+Bootstrap 
+http://twitter.github.com/bootstrap
+
+jQuery 
+http://www.jquery.com
+
+jQuery-UI 
+http://www.jqueryui.com
+
+
+
+JavaScript Plugins
+------------------
+
+Easy Pie Chart
+http://rendro.github.com/easy-pie-chart/
+
+Bootbox
+http://bootboxjs.com
+
+Flot 
+http://flotcharts.org/
+
+FullCalendar 
+http://arshaw.com/fullcalendar/
+
+iButton 
+http://www.givainc.com/labs/ibutton_jquery_plugin.htm
+
+Select2 
+http://ivaynberg.github.com/select2/
+
+Uniform 
+http://uniformjs.com/
+
+jQuery Validate Plugin 
+http://bassistance.de/jquery-plugins/jquery-plugin-validation/
+
+Bootstrap Wizard
+http://github.com/VinceG/twitter-bootstrap-wizard
+
+
+Bootstrap Color Picker
+http://www.eyecon.ro/bootstrap-colorpicker
+
+
+Bootstrap Date Picker
+http://www.eyecon.ro/bootstrap-datepicker
+
+
+Bootstrap Time Picker
+http://www.github.com/jdewit/bootstrap-timepicker
+
+Bootstrap Progress Bar
+https://github.com/minddust/bootstrap-progressbar
+
+Bootstrap WYSIHTML6 Editor
+http://jhollingworth.github.com/bootstrap-wysihtml5/
+
+Data Driven Document (d3) Charts
+http://d3js.org/
+
+Data Tables
+http://www.datatables.net/
+
+Flot Charts 
+http://www.flotcharts.org/
+
+Jgrowl Messages
+http://stanlemon.net/pages/jgrowl
+
+Masked Input
+http://digitalbush.com/projects/masked-input-plugin/
+
+Sparkline
+http://omnipotent.net/jquery.sparkline/
+
+JustGage 
+http://justgage.com/
+
+SlimScroll
+http://rocha.la/jQuery-slimScroll

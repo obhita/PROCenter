@@ -1,0 +1,234 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3E31EDD1-D162-4E1E-8DC5-97BD4E6B30A0}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProCenter.Mvc.Infrastructure</RootNamespace>
+    <AssemblyName>ProCenter.Mvc.Infrastructure</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Agatha.Common">
+      <HintPath>..\packages\Agatha-Common-StructureMap.1.3.1\lib\net40\Agatha.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Agatha.ServiceLayer">
+      <HintPath>..\packages\Agatha-ServiceLayer-StructureMap.1.3.1\lib\net40\Agatha.ServiceLayer.dll</HintPath>
+    </Reference>
+    <Reference Include="Agatha.StructureMap">
+      <HintPath>..\packages\Agatha-Common-StructureMap.1.3.1\lib\net40\Agatha.StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Common.Logging">
+      <HintPath>..\packages\Common.Logging.2.1.2\lib\net40\Common.Logging.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Agatha">
+      <HintPath>..\lib\Pillar\Pillar.Agatha.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Common">
+      <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Domain">
+      <HintPath>..\lib\Pillar\Pillar.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Domain.FluentRuleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Pillar\Pillar.Domain.FluentRuleEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.FluentRuleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Tools\ProCenterDatabaseGenerator\bin\Debug\Pillar.FluentRuleEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.IoC.StructureMap">
+      <HintPath>..\lib\Pillar\Pillar.IoC.StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Security">
+      <HintPath>..\lib\Pillar\Pillar.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Abstractions, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="Raven.Client.Lightweight, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.identitymodel.services" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Thinktecture.IdentityModel, Version=3.4.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Thinktecture.IdentityModel.3.4.6\lib\net45\Thinktecture.IdentityModel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
+    <Compile Include="Binder\EnumerableLookupDtoModelBinder.cs" />
+    <Compile Include="Binder\NullableHandlingValueProviderResult.cs" />
+    <Compile Include="Binder\NullableHandlingValueProviderWrapper.cs" />
+    <Compile Include="Binder\ProCenterModelBinder.cs" />
+    <Compile Include="Boostrapper\AssemblyLocator.cs" />
+    <Compile Include="Boostrapper\Bootstrapper.cs" />
+    <Compile Include="Boostrapper\CustomDependencyResolver.cs" />
+    <Compile Include="EmptyCompletenessRuleCollection.cs" />
+    <Compile Include="EmptyResources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>EmptyResources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Extension\HtmlHelper.cs" />
+    <Compile Include="Extension\MetadataDtoExtensions.cs" />
+    <Compile Include="Extension\PatientDtoExtensions.cs" />
+    <Compile Include="Filter\ExtendedExceptionFilterAttribute.cs" />
+    <Compile Include="Filter\ExtendedHandleErrorAttribute.cs" />
+    <Compile Include="Permission\AssessmentPermission.cs" />
+    <Compile Include="Permission\BasicAccessPermission.cs" />
+    <Compile Include="Permission\OrganizationPermission.cs" />
+    <Compile Include="Permission\PatientPermission.cs" />
+    <Compile Include="Permission\PortalPermission.cs" />
+    <Compile Include="Permission\RolePermission.cs" />
+    <Compile Include="Permission\StaffPermission.cs" />
+    <Compile Include="Permission\TeamPermission.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Security\AccessControlSecurityFilter.cs" />
+    <Compile Include="Security\ClaimsAuthenticationManager.cs" />
+    <Compile Include="Security\CurrentClaimsPrincipleService.cs" />
+    <Compile Include="Security\CurrentUserPermissionService.cs" />
+    <Compile Include="Security\ICurrentClaimsPrincipalService.cs" />
+    <Compile Include="Security\IdentityServerUtil.cs" />
+    <Compile Include="Security\ILogoutService.cs" />
+    <Compile Include="Security\IPermissionClaimsManager.cs" />
+    <Compile Include="Security\IProvidePermissions.cs" />
+    <Compile Include="Security\JWTEnabledSessionAuthenticationModule.cs" />
+    <Compile Include="Security\LogoutService.cs" />
+    <Compile Include="Security\PermissionClaimsManager.cs" />
+    <Compile Include="Security\ProCenterAccessControlManager.cs" />
+    <Compile Include="Security\ProCenterIdentity.cs" />
+    <Compile Include="Security\SystemAccountValidatedEventHandler.cs" />
+    <Compile Include="Service\Completeness\CompletenessModelValidator.cs" />
+    <Compile Include="Service\Completeness\CompletenessModelValidtorProvider.cs" />
+    <Compile Include="Service\Completeness\RequiredForCompletenessAttribute.cs" />
+    <Compile Include="Service\Completeness\ValidationType.cs" />
+    <Compile Include="Service\LookupPrimitiveResourceConvention.cs" />
+    <Compile Include="Service\ResourcesManager.cs" />
+    <Compile Include="Service\ResourceModelMetadataProvider.cs" />
+    <Compile Include="Service\AsyncRequestDispatcher.cs" />
+    <Compile Include="Service\IAsyncRequestDispatcher.cs" />
+    <Compile Include="Service\WorkflowEngineConvention.cs" />
+    <Compile Include="Service\WorkflowReportEngineConvention.cs" />
+    <Compile Include="SharedStringNames.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProCenter.Common\ProCenter.Common.csproj">
+      <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
+      <Name>ProCenter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Nida\ProCenter.Domain.Nida.csproj">
+      <Project>{9a809ba5-55ff-4f25-a555-9aed08910998}</Project>
+      <Name>ProCenter.Domain.Nida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain\ProCenter.Domain.csproj">
+      <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>
+      <Name>ProCenter.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Infrastructure\ProCenter.Infrastructure.csproj">
+      <Project>{5fac7fe3-0bee-404e-89db-2bb010d6677b}</Project>
+      <Name>ProCenter.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Primitive\ProCenter.Primitive.csproj">
+      <Project>{ae01f318-1337-4387-a14a-76ed315277c8}</Project>
+      <Name>ProCenter.Primitive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Service.Handler\ProCenter.Service.Handler.csproj">
+      <Project>{1384d02a-05c3-4edf-a025-b9ce6d2b568b}</Project>
+      <Name>ProCenter.Service.Handler</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Service.Message\ProCenter.Service.Message.csproj">
+      <Project>{a74fc33e-67a1-4ec2-87ac-d62ffe998380}</Project>
+      <Name>ProCenter.Service.Message</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Start\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="EmptyResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>EmptyResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,40 @@
+﻿@model Thinktecture.IdentityServer.Models.IdentityProvider
+@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.IP
+@using Thinktecture.IdentityServer.Web.Utility
+
+@{
+    if (Model.ID == 0)
+    {
+        ViewBag.Title = IP_cshtml.NewIdentityProvider;
+    }
+    else
+    {
+        ViewBag.Title = string.Format(IP_cshtml.IdentityProvider, Model.Name);
+    }
+}
+@{
+    var action = Model.ID == 0 ? "Create" : "Update";
+}
+@using (Html.BeginForm(action, "IP", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(IP_cshtml.ErrorUpdatingIdentityProvider)
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+
+        @Html.EditorForModel()
+
+        <div class="buttons">
+            @if (Model.ID > 0)
+            {
+                <button type="submit" name="action" value="save">@IP_cshtml.SaveChanges</button>
+                <button type="submit" name="action" value="delete">@IP_cshtml.Delete</button>
+            }
+            else
+            {
+                <button type="submit" name="action" value="create">@IP_cshtml.Create</button>
+            }
+            <button type="reset">@IP_cshtml.Cancel</button>
+        </div>
+    </fieldset>
+}

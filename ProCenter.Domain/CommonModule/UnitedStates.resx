@@ -1,0 +1,270 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ALABAMA" xml:space="preserve">
+    <value>AL</value>
+  </data>
+  <data name="ALASKA" xml:space="preserve">
+    <value>AK</value>
+  </data>
+  <data name="ARIZONA" xml:space="preserve">
+    <value>AZ</value>
+  </data>
+  <data name="ARKANSAS" xml:space="preserve">
+    <value>AR</value>
+  </data>
+  <data name="CALIFORNIA" xml:space="preserve">
+    <value>CA</value>
+  </data>
+  <data name="COLORADO" xml:space="preserve">
+    <value>CO</value>
+  </data>
+  <data name="CONNECTICUT" xml:space="preserve">
+    <value>CT</value>
+  </data>
+  <data name="DELAWARE" xml:space="preserve">
+    <value>DE</value>
+  </data>
+  <data name="FLORIDA" xml:space="preserve">
+    <value>FL</value>
+  </data>
+  <data name="GEORGIA" xml:space="preserve">
+    <value>GA</value>
+  </data>
+  <data name="HAWAII" xml:space="preserve">
+    <value>HI</value>
+  </data>
+  <data name="IDAHO" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="ILLINOIS" xml:space="preserve">
+    <value>IL</value>
+  </data>
+  <data name="INDIANA" xml:space="preserve">
+    <value>IN</value>
+  </data>
+  <data name="IOWA" xml:space="preserve">
+    <value>IA</value>
+  </data>
+  <data name="KANSAS" xml:space="preserve">
+    <value>KS</value>
+  </data>
+  <data name="KENTUCKY" xml:space="preserve">
+    <value>KY</value>
+  </data>
+  <data name="LOUISIANA" xml:space="preserve">
+    <value>LA</value>
+  </data>
+  <data name="MAINE" xml:space="preserve">
+    <value>ME</value>
+  </data>
+  <data name="MARYLAND" xml:space="preserve">
+    <value>MD</value>
+  </data>
+  <data name="MASSACHUSETTS" xml:space="preserve">
+    <value>MA</value>
+  </data>
+  <data name="MICHIGAN" xml:space="preserve">
+    <value>MI</value>
+  </data>
+  <data name="MINNESOTA" xml:space="preserve">
+    <value>MN</value>
+  </data>
+  <data name="MISSISSIPPI" xml:space="preserve">
+    <value>MS</value>
+  </data>
+  <data name="MISSOURI" xml:space="preserve">
+    <value>MO</value>
+  </data>
+  <data name="MONTANA" xml:space="preserve">
+    <value>MT</value>
+  </data>
+  <data name="NEBRASKA" xml:space="preserve">
+    <value>NE</value>
+  </data>
+  <data name="NEVADA" xml:space="preserve">
+    <value>NV</value>
+  </data>
+  <data name="NEW HAMPSHIRE" xml:space="preserve">
+    <value>NH</value>
+  </data>
+  <data name="NEW JERSEY" xml:space="preserve">
+    <value>NJ</value>
+  </data>
+  <data name="NEW MEXICO" xml:space="preserve">
+    <value>NM</value>
+  </data>
+  <data name="NEW YORK" xml:space="preserve">
+    <value>NY</value>
+  </data>
+  <data name="NORTH CAROLINA" xml:space="preserve">
+    <value>NC</value>
+  </data>
+  <data name="NORTH DAKOTA" xml:space="preserve">
+    <value>ND</value>
+  </data>
+  <data name="OHIO" xml:space="preserve">
+    <value>OH</value>
+  </data>
+  <data name="OKLAHOMA" xml:space="preserve">
+    <value>OK</value>
+  </data>
+  <data name="OREGON" xml:space="preserve">
+    <value>OR</value>
+  </data>
+  <data name="PENNSYLVANIA" xml:space="preserve">
+    <value>PA</value>
+  </data>
+  <data name="RHODE ISLAND" xml:space="preserve">
+    <value>RI</value>
+  </data>
+  <data name="SOUTH CAROLINA" xml:space="preserve">
+    <value>SC</value>
+  </data>
+  <data name="SOUTH DAKOTA" xml:space="preserve">
+    <value>SD</value>
+  </data>
+  <data name="TENNESSEE" xml:space="preserve">
+    <value>TN</value>
+  </data>
+  <data name="TEXAS" xml:space="preserve">
+    <value>TX</value>
+  </data>
+  <data name="UTAH" xml:space="preserve">
+    <value>UT</value>
+  </data>
+  <data name="VERMONT" xml:space="preserve">
+    <value>VT</value>
+  </data>
+  <data name="VIRGINIA" xml:space="preserve">
+    <value>VA</value>
+  </data>
+  <data name="WASHINGTON" xml:space="preserve">
+    <value>WA</value>
+  </data>
+  <data name="WEST VIRGINIA" xml:space="preserve">
+    <value>WV</value>
+  </data>
+  <data name="WISCONSIN" xml:space="preserve">
+    <value>WI</value>
+  </data>
+  <data name="WYOMING" xml:space="preserve">
+    <value>WY</value>
+  </data>
+</root>

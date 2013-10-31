@@ -1,0 +1,157 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.IoC.StructureMap</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.IoC.StructureMap.Container">
+            <summary>
+                The Container is a StructureMap implementation for <see cref="T:Pillar.Common.InversionOfControl.IContainer"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.IoC.StructureMap.Container"/> class with a default StructureMap container.
+            </summary>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.#ctor(StructureMap.IContainer)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.IoC.StructureMap.Container"/> class.
+            </summary>
+            <param name="structureMapContainer">The StructureMap container.</param>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.RegisterInstance(System.Type,System.Object)">
+            <summary>
+                Registers an instance with the container.
+            </summary>
+            <remarks>
+                <para>
+                    Instance registration is much like setting a type as a singleton, except that instead
+                    of the container creating the instance the first time it is requested, the user
+                    creates the instance ahead of registration and adds that instance to the container.
+                </para>
+            </remarks>
+            <param name="componentType">Type of instance to register (may be an implemented interface instead of the full type).</param>
+            <param name="instance">Object to returned.</param>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.RegisterInstance(System.Type,System.Object,System.String)">
+            <summary>
+                Registers an instance with the container.The registration is given a name.
+            </summary>
+            <remarks>
+                <para>
+                    Instance registration is much like setting a type as a singleton, except that instead
+                    of the container creating the instance the first time it is requested, the user
+                    creates the instance ahead of registration and adds that instance to the container.
+                </para>
+            </remarks>
+            <param name="componentType">Type of instance to register (may be an implemented interface instead of the full type).</param>
+            <param name="instance">Instance to be registered in the container.</param>
+            <param name="registrationName">The name of the registration.</param>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.RegisterType(System.Type,System.Type,Pillar.Common.InversionOfControl.Lifestyle)">
+            <summary>
+                Registers a type mapping with the container, where the created instances will use
+                the given <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/>.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> that will be requested.
+            </param>
+            <param name="implementationType">
+                The <see cref="T:System.Type"/> that will actually be returned.
+            </param>
+            <param name="lifestyle">
+                The <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/> that controls the lifetime
+                of the returned instance.
+            </param>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.RegisterType(System.Type,System.Type,Pillar.Common.InversionOfControl.Lifestyle,System.String)">
+            <summary>
+                Registers a type mapping with the container, where the created instances will use
+                the given <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/>. The registration is given a name.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> that will be requested.
+            </param>
+            <param name="implementationType">
+                The <see cref="T:System.Type"/> that will actually be returned.
+            </param>
+            <param name="lifestyle">
+                The <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/> that controls the lifetime
+                of the returned instance.
+            </param>
+            <param name="registrationName">The name of the registration.</param>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.Release(System.Object)">
+            <summary>
+                Releases the specified component from the container.
+            </summary>
+            <param name="component">The component to release.</param>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.Resolve(System.Type)">
+            <summary>
+                Resolves an instance of the requested type from the container.
+                Throws exception if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.Resolve(System.Type,System.String)">
+            <summary>
+                Resolves an instance of the requested type with the given name from the container.
+                Throws exception if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <param name="registrationName">Name of the registration.</param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.ResolveAll(System.Type)">
+            <summary>
+                Get all instances of the given <paramref name="componentType" /> currently
+                registered in the container.
+            </summary>
+            <param name="componentType">Type of object requested.</param>
+            <returns>
+                A list of instances of the requested <paramref name="componentType" />.
+            </returns>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.TryResolve(System.Type)">
+            <summary>
+                Tries to resolve an instance of the requested type from the container.
+                No exception will be thrown if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <returns>
+                The retrieved object
+                or the default value for the requested type if no registration is found in the container.
+            </returns>
+        </member>
+        <member name="M:Pillar.IoC.StructureMap.Container.TryResolve(System.Type,System.String)">
+            <summary>
+                Tries to resolve an instance of the requested type with the given name from the container.
+                No exception will be thrown if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <param name="registrationName">Name of the registration.</param>
+            <returns>
+                The retrieved object
+                or the default value for the requested type if no registration is found in the container.
+            </returns>
+        </member>
+        <member name="T:Pillar.IoC.StructureMap.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.IoC.StructureMap"/> namespace contains StructureMap implementation for
+                <see cref="T:Pillar.Common.InversionOfControl.IContainer"/>
+                .
+            </summary>
+        </member>
+    </members>
+</doc>

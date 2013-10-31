@@ -1,0 +1,57 @@
+<%= render "heading", title: "Alerts, badges and tags!" %>
+
+<div class="padded">
+
+  <div class="codehint">Using alerts like in bootstrap</div>
+  <pre>&lt;div class=&quot;alert alert-error&quot;&gt;<br/>    &lt;i class=&quot;icon-exclamation-sign&quot;&gt;&lt;/i&gt; You need to sign in or sign up before continuing.<br/>  &lt;/div&gt;</pre>
+
+  <div class="alert alert-error">
+    <i class="icon-exclamation-sign"></i> You need to sign in or sign up before continuing.
+  </div>
+
+  <div class="alert alert-success">
+    <i class="icon-ok-sign"></i> Project successfully created!
+  </div>
+
+  <div class="codehint">Adding a badge to your controls is pretty straightforward. Notice the "btn-block" class which is used for transforming the toolbar vertically when viewing from smaller (phone) screens</div>
+  <pre>&lt;div class=&quot;btn-group btn-block&quot;&gt;<br/>        &lt;button class=&quot;btn&quot;&gt;A red badge &lt;span class=&quot;badge red&quot;&gt;1&lt;/span&gt;&lt;/button&gt;<br/>        &lt;button class=&quot;btn&quot;&gt;A blue badge &lt;span class=&quot;badge blue rounded&quot;&gt;22&lt;/span&gt;&lt;/button&gt;<br/>        &lt;button class=&quot;btn&quot;&gt;A green top badge &lt;span class=&quot;badge green top&quot;&gt;33&lt;/span&gt;&lt;/button&gt;<br/>      &lt;/div&gt;</pre>
+
+  <div class="row">
+    <div class="span7" style="padding: 15px 0">
+      <div class="btn-group btn-block">
+        <button class="btn">A red badge <span class="badge red">1</span></button>
+        <button class="btn">A blue badge <span class="badge blue rounded">22</span></button>
+        <button class="btn">A green top badge <span class="badge green top">33</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="codehint">Adding tags is an easy task. And since they are all made out of css, you can create new colorful tags by using the mixins provided in the theme!</div>
+  <pre> &lt;ul class=&quot;tags red&quot;&gt;<br/>        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Some&lt;/a&gt;&lt;/li&gt;<br/>        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Nice&lt;/a&gt;&lt;/li&gt;<br/>        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Colorful&lt;/a&gt;&lt;/li&gt;<br/>        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Tags&lt;/a&gt;&lt;/li&gt;<br/>      &lt;/ul&gt;</pre>
+
+  <div class="row">
+    <div class="span7" style="padding: 15px 0">
+      <ul class="tags red">
+        <li><a href="#">Some</a></li>
+        <li><a href="#">Nice</a></li>
+        <li><a href="#">Colorful</a></li>
+        <li><a href="#">Tags</a></li>
+      </ul>
+
+      <ul class="tags green">
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Illustration</a></li>
+        <li><a href="#">Component</a></li>
+        <li><a href="#">Misc</a></li>
+      </ul>
+
+      <ul class="tags blue">
+        <li><a href="#">Infrastructure</a></li>
+        <li><a href="#">Application</a></li>
+        <li><a href="#">Mobile</a></li>
+        <li><a href="#">Desktop</a></li>
+      </ul>
+
+    </div>
+  </div>
+</div>

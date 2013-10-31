@@ -1,0 +1,92 @@
+<div class="codehint">Different sizes (mini normal or large), different colors (red green blue orange yellow pink purple) and rounded buttons (class rounded)</div>
+<pre>&lt;a href="#" class=&quot;btn mini&quot;&gt;mini gray&lt;/a&gt;<br/>&lt;a href="#" class=&quot;btn rounded red&quot;&gt;normal red rounded&lt;/a&gt;<br/>&lt;a href="#" class=&quot;btn large rounded green&quot;&gt;large green rounded&lt;/a&gt;</pre>
+
+<div class="row">
+
+  <div class="span8" style="padding: 15px 0">
+    <span class="btn mini rounded">rounded</span>
+    <span class="btn rounded">rounded</span>
+    <span class="btn large rounded">rounded</span>
+  </div>
+
+  <div class="span4" style="padding: 15px 0">
+    <span class="btn mini">mini</span>
+    <span class="btn">normal</span>
+    <span class="btn large">large</span>
+  </div>
+
+  <% %w(red green blue).each do |cls| %>
+      <div class="span4" style="padding: 15px 0">
+        <span class="btn <%= cls %> mini">mini</span>
+        <span class="btn  <%= cls %>">normal</span>
+        <span class="btn  <%= cls %> large">large</span>
+      </div>
+  <% end %>
+
+  <div class="span4" style="padding: 15px 0">
+    <% %w(purple orange pink).each do |cls| %>
+        <span class="btn  <%= cls %>"><%= cls %></span>
+    <% end %>
+  </div>
+
+</div>
+
+<div class="codehint">Use button dropdowns like you use them in bootstrap</div>
+<pre>&lt;div class=&quot;btn-group&quot;&gt;<br/>      &lt;button class=&quot;btn blue&quot;&gt;Normal&lt;/button&gt;<br/>      &lt;button class=&quot;btn blue dropdown-toggle&quot; data-toggle=&quot;dropdown&quot;&gt;&lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;&lt;/button&gt;<br/>      &lt;ul class=&quot;dropdown-menu&quot;&gt;<br/>        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;<br/>      &lt;/ul&gt;<br/>&lt;/div&gt;</pre>
+
+<div class="row">
+  <div class="span3" style="padding: 15px 0">
+    <div class="btn-group">
+      <button class="btn">Normal</button>
+      <button class="btn dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Action</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="span2" style="padding: 15px 0">
+    <div class="btn-group">
+      <button class="btn blue">Blue</button>
+      <button class="btn blue dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a href="#">Works with every color!</a></li>
+        <li><a href="#">Another action</a></li>
+        <li><a href="#">Something else here</a></li>
+        <li class="divider"></li>
+        <li><a href="#">Separated link</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="codehint">Same goes for toolbars!</div>
+<pre>&lt;div class=&quot;btn-group&quot;&gt;<br/>      &lt;button class=&quot;btn&quot;&gt;One&lt;/button&gt;<br/>      &lt;button class=&quot;btn&quot;&gt;Two&lt;/button&gt;<br/>      &lt;button class=&quot;btn&quot;&gt;Three&lt;/button&gt;<br/>    &lt;/div&gt;</pre>
+
+<div class="row">
+  <div class="span3" style="padding: 15px 0">
+    <div class="btn-group">
+      <button class="btn">One</button>
+      <button class="btn">Two</button>
+      <button class="btn">Three</button>
+    </div>
+  </div>
+
+  <div class="span4" style="padding: 15px 0">
+    <div class="btn-group">
+      <button class="btn blue">One</button>
+      <button class="btn blue">Two</button>
+      <button class="btn blue">Three</button>
+    </div>
+  </div>
+</div>
+
+<div class="shadow-box green">
+  Want more colors? No problem!
+  <br/>
+  Just pick one color and the mixins will do the rest!
+</div>

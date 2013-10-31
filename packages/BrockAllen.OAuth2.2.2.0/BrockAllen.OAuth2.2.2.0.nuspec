@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>BrockAllen.OAuth2</id>
+    <version>2.2.0</version>
+    <authors>BrockAllen</authors>
+    <owners>BrockAllen</owners>
+    <licenseUrl>https://github.com/brockallen/BrockAllen.OAuth2/blob/master/license.txt</licenseUrl>
+    <projectUrl>https://github.com/brockallen/BrockAllen.OAuth2</projectUrl>
+    <iconUrl>http://0.gravatar.com/avatar/f17c1816a6f9bff29a515c75b950460a?s=128&amp;d=mm&amp;r=G</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Claims-based OAuth2 integration</description>
+    <releaseNotes>Added convenience API for custom callback registration. Added IdentityProvider claim type constant. Removed IdP and AuthInstant Claims from OAuth result and moved them into OAuthCallback controller. Added new origin propery to be used for callback URLs.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>OAuth2 Claims</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="4.5.11" />
+      <dependency id="Thinktecture.IdentityModel" version="2.4.2" />
+    </dependencies>
+  </metadata>
+</package>

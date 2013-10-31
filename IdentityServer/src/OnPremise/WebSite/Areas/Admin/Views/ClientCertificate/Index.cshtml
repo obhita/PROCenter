@@ -1,0 +1,32 @@
+﻿@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.ClientCertificate
+@model ClientCertificatesViewModel
+
+@{
+    ViewBag.Title = Index_cshtml.ClientCertificates;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(Index_cshtml.ErrorDeletingClientCertificates)
+
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+
+        @for (int i = 0; i < Model.Users.Length; i++)
+        {
+            <div>
+                @Html.HiddenFor(x => Model.Users[i].Username)
+                @Html.LabelFor(x => Model.Users[i].Delete, Model.Users[i].Username)
+                @Html.CheckBoxFor(x => Model.Users[i].Delete)
+                @Html.ActionLink("configure", "Configure", new { id = Model.Users[i].Username })
+            </div>
+        }
+
+        <div class="buttons">
+            <button type="submit" name="action" value="delete">@Index_cshtml.DeleteSelected</button>
+            <button type="submit" name="action" value="new">@Index_cshtml.New</button>
+            <button type="reset">@Index_cshtml.Cancel</button>
+        </div>
+    </fieldset>
+}

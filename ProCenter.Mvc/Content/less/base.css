@@ -1,0 +1,13 @@
+﻿/* BASE RULES
+----------------------------------------------------------
+Base Rules are all default elements that use element 
+selectors, a descendant selector, or child selector, along 
+with pseudo-classes. Base Rules define the default styling 
+for how a base element should look in all occurrences on 
+the page. Do not use class or ID selectors with Base Rules.  
+----------------------------------------------------------*/
+header {
+  min-height: 48px;
+  /*.main-header-style;*/
+
+}

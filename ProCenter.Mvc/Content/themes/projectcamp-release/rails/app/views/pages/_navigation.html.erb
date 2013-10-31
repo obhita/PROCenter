@@ -1,0 +1,68 @@
+<%= render "heading", title: "Tabs & navigation" %>
+
+<div class="padded">
+
+  <div class="codehint">No special markup for dropdowns or stateful toolbars</div>
+  <pre>&lt;ul class=&quot;nav nav-pills&quot;&gt;<br/>        &lt;li class=&quot;active&quot;&gt;&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;<br/>        &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Help&lt;/a&gt;&lt;/li&gt;<br/>        &lt;li class=&quot;dropdown&quot;&gt;<br/>          &lt;a class=&quot;dropdown-toggle&quot; data-toggle=&quot;dropdown&quot; href=&quot;#&quot;&gt;Dropdown &lt;b class=&quot;caret&quot;&gt;&lt;/b&gt;&lt;/a&gt;<br/>          &lt;ul class=&quot;dropdown-menu&quot;&gt;<br/>            &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;
+  ...</pre>
+  <pre>&lt;div id=&quot;nav-tabs&quot; class=&quot;nav btn-group&quot; data-toggle=&quot;buttons-radio&quot;&gt;<br/>        &lt;button class=&quot;btn&quot;&gt;One&lt;/button&gt;<br/>        &lt;button class=&quot;btn&quot;&gt;Two&lt;/button&gt;
+  ...</pre>
+
+
+  <div class="row">
+    <div class="span4">
+      <ul class="nav nav-pills">
+        <li class="active"><a href="#">Home</a></li>
+        <li><a href="#">Help</a></li>
+        <li class="dropdown">
+          <a class="dropdown-toggle" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Action</a></li>
+            <li><a href="#">Another action</a></li>
+            <li><a href="#">Something else here</a></li>
+            <li class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="span4">
+      <div id="nav-tabs" class="nav btn-group" data-toggle="buttons-radio">
+        <button class="btn">One</button>
+        <button class="btn">Two</button>
+        <button class="btn">Three</button>
+        <button class="btn">Four</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="codehint">Add class "nav-plastic" to navigation menus</div>
+  <pre>&lt;ul class=&quot;nav nav-list nav-plastic&quot;&gt;<br/>        &lt;li class=&quot;nav-header&quot;&gt;<br/>          List header<br/>        &lt;/li&gt;<br/>        &lt;li class=&quot;active&quot;&gt;<br/>          &lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt;<br/>        &lt;/li&gt;</pre>
+
+  <div class="row">
+    <div class="span4">
+
+      <ul class="nav nav-list nav-plastic">
+        <li class="nav-header">
+          List header
+        </li>
+        <li class="active">
+          <a href="#">Home</a>
+        </li>
+        <li>
+          <a href="#">Library</a>
+        </li>
+        <li>
+          <a href="#">Profile</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+    $(function(){
+        $('#nav-tabs').button();
+    });
+</script>

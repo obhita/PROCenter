@@ -1,0 +1,25 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@model ProCenter.Service.Message.Common.AddressDto
+
+<div class="address">
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor(m => m.FirstStreetAddress)
+        @Html.TextBoxFor(m => m.FirstStreetAddress)
+    </div>
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor(m => m.SecondStreetAddress)
+        @Html.TextBoxFor(m => m.SecondStreetAddress)
+    </div>
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor(m => m.CityName)
+        @Html.TextBoxFor(m => m.CityName)
+    </div>
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor(m => m.StateProvince)
+        @Html.EditorFor(m => m.StateProvince, new {LookupItems = Html.GetLookupOptionsForCategory("StateProvince"), LookupCategory = "StateProvince"})
+    </div>
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor(m => m.PostalCode)
+        @Html.TextBoxFor(m => m.PostalCode)
+    </div>
+</div>

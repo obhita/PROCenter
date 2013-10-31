@@ -1,0 +1,11 @@
+.modal-header {
+  @include background-image(linear-gradient(top, #343434, #212121));
+  @include box-shadow(0 0 1px rgba(255,255,255,.1) inset);
+  color: #fff;
+  @include border-radius(3px 3px 0 0,3px 3px 0 0);
+  .close {color: white;}
+}
+
+.modal {
+  border: 1px solid #252525;
+}

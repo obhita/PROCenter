@@ -1,0 +1,378 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.Security</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.Security.AccessControl.AccessControlManager">
+            <summary>
+                The <see cref="T:Pillar.Security.AccessControl.AccessControlManager"/> can grant or deny access for a <see cref="T:Pillar.Security.AccessControl.ResourceRequest"/>.
+            </summary>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.IAccessControlManager">
+            <summary>
+                The <see cref="T:Pillar.Security.AccessControl.AccessControlManager"/> can grant or deny access for a <see cref="T:Pillar.Security.AccessControl.ResourceRequest"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.IAccessControlManager.CanAccess(Pillar.Security.AccessControl.ResourceRequest)">
+            <summary>
+                Determines whether access to the specified resource request should be granted.
+            </summary>
+            <param name="resourceRequest">The resource request.</param>
+            <returns>
+                <c>true</c> if this instance can access the specified resource request; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.IAccessControlManager.RegisterPermissionDescriptor(Pillar.Security.AccessControl.IPermissionDescriptor[])">
+            <summary>
+                Registers one or more <see cref="T:Pillar.Security.AccessControl.IPermissionDescriptor"/> instances.
+            </summary>
+            <param name="permissionDescriptors">The permission descriptors.</param>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.AccessControlManager.#ctor(Pillar.Security.AccessControl.ICurrentUserPermissionService)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Security.AccessControl.AccessControlManager"/> class.
+            </summary>
+            <param name="currentUserPermissionService">The current user permission service.</param>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.AccessControlManager.CanAccess(Pillar.Security.AccessControl.ResourceRequest)">
+            <summary>
+                Determines whether access to the specified resource request should be granted.
+            </summary>
+            <param name="resourceRequest">The resource request.</param>
+            <returns>
+                <c>true</c> if this instance can access the specified resource request; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.AccessControlManager.RegisterPermissionDescriptor(Pillar.Security.AccessControl.IPermissionDescriptor[])">
+            <summary>
+                Registers one or more <see cref="T:Pillar.Security.AccessControl.IPermissionDescriptor"/> instances.
+            </summary>
+            <param name="permissionDescriptors">The permission descriptors.</param>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.NamespaceDoc">
+            <summary>
+                Defines the classes and interfaces for controlling access to system resources.
+            </summary>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.ICurrentUserPermissionService">
+            <summary>
+                Interface for determining whether the current system user has been granted the specified <see cref="T:Pillar.Security.AccessControl.Permission"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ICurrentUserPermissionService.DoesUserHavePermission(Pillar.Security.AccessControl.Permission)">
+            <summary>
+                Determines whether the current system user has the specified <see cref="T:Pillar.Security.AccessControl.Permission"/>.
+            </summary>
+            <param name="permission">The permission.</param>
+            <returns>
+                <c>true</c> if the user has been granted the specified <see cref="T:Pillar.Security.AccessControl.Permission"/>; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.IPermissionDescriptor">
+            <summary>
+                The <see cref="T:Pillar.Security.AccessControl.IPermissionDescriptor"/> defines the protected resources throughout
+                a system or module.
+            </summary>
+            <remarks>
+                Implement an <see cref="T:Pillar.Security.AccessControl.IPermissionDescriptor"/> in order to protected resources throughout a
+                system or module.
+                <code>
+               public class ClientModulePermissionDescriptor : IPermissionDescriptor
+               {
+                   // Start by defining the permissions that you will use in this module/system.
+                   public readonly static Permission EditClientPermission   = new Permission { Name = "clientmodule/editclient" };
+                   public readonly static Permission CreateClientPermission = new Permission { Name = "clientmodule/createclient" };
+                   public readonly static Permission DeleteClientPermission = new Permission { Name = "clientmodule/deleteclient" };
+               
+                   // Then create a ResourceListBuilder to map permissions to the resources. 
+                   // This will mean that a user will need to have the given permission in order to access
+                   // the given resource.
+                   private readonly ResourceList _resources = new ResourceListBuilder ()
+                       .AddResource&lt;EditClientRequest&gt;   ( EditClientPermission   )
+                       .AddResource&lt;CreateClientRequest&gt; ( CreateClientPermission )
+                       .AddResource&lt;DeleteClientRequest&gt; ( DeleteClientPermission );
+               
+                   public ResourceList Resources
+                   {
+                       get { return _resources; }
+                   }
+               }
+            </code>
+                After creating a permission descriptor it is necessary to register it with the <see cref="T:Pillar.Security.AccessControl.IAccessControlManager"/>.
+                <code>
+            var accessControlManager = <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.CurrentContainer.Resolve&lt;IAccessControlManager&gt; ();
+            accessControlManager.RegisterPermissionDescriptor ( new ClientModulePermissionDescriptor () );
+            </code>
+            </remarks>
+        </member>
+        <member name="P:Pillar.Security.AccessControl.IPermissionDescriptor.Resources">
+            <summary>
+                Gets the resources.
+            </summary>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.Permission">
+            <summary>
+                Defines a security permission.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Permission.op_Equality(Pillar.Security.AccessControl.Permission,Pillar.Security.AccessControl.Permission)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left operand.</param>
+            <param name="right">The right operand.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Permission.op_Inequality(Pillar.Security.AccessControl.Permission,Pillar.Security.AccessControl.Permission)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left operand.</param>
+            <param name="right">The right operand.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Permission.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with this instance.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Permission.Equals(Pillar.Security.AccessControl.Permission)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Permission.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>
+                A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Permission.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Pillar.Security.AccessControl.Permission.Name">
+            <summary>
+                Gets or sets the name.
+            </summary>
+            <value>
+                The name of the permission.
+            </value>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.Resource">
+            <summary>
+                Defines a system resource along with the the <see cref="P:Pillar.Security.AccessControl.Resource.Permission"/> required to access it.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Resource.op_Equality(Pillar.Security.AccessControl.Resource,Pillar.Security.AccessControl.Resource)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left operand.</param>
+            <param name="right">The right operand.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Resource.op_Inequality(Pillar.Security.AccessControl.Resource,Pillar.Security.AccessControl.Resource)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left operand.</param>
+            <param name="right">The right operand.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Resource.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+            </summary>
+            <param name="obj">
+                The <see cref="T:System.Object"/> to compare with this instance.
+            </param>
+            <returns>
+                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Resource.Equals(Pillar.Security.AccessControl.Resource)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Resource.GetHashCode">
+            <summary>
+                Returns a hash code for this instance.
+            </summary>
+            <returns>
+                A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.Resource.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Pillar.Security.AccessControl.Resource.Name">
+            <summary>
+                Gets or sets the permission name.
+            </summary>
+            <value>
+                The name of the resource.
+            </value>
+        </member>
+        <member name="P:Pillar.Security.AccessControl.Resource.Permission">
+            <summary>
+                Gets or sets the permission.
+            </summary>
+            <value>
+                The permission.
+            </value>
+        </member>
+        <member name="P:Pillar.Security.AccessControl.Resource.Resources">
+            <summary>
+                Gets or sets the resources that live under this resource.
+            </summary>
+            <value>
+                The resources.
+            </value>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.ResourceList">
+            <summary>
+                Defines a list of resources.
+            </summary>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.ResourceListBuilder">
+            <summary>
+                The <see cref="T:Pillar.Security.AccessControl.ResourceListBuilder"/> makes it really easy to create a <see cref="T:Pillar.Security.AccessControl.ResourceList"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceListBuilder.op_Implicit(Pillar.Security.AccessControl.ResourceListBuilder)~Pillar.Security.AccessControl.ResourceList">
+            <summary>
+                Performs an implicit conversion from <see cref="T:Pillar.Security.AccessControl.ResourceListBuilder"/>
+                to <see cref="T:Pillar.Security.AccessControl.ResourceList"/>.
+            </summary>
+            <param name="resourceListBuilder">
+                The resource list builder.
+            </param>
+            <returns>
+                The result of the conversion.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceListBuilder.AddResource(System.String,Pillar.Security.AccessControl.Permission,System.Func{Pillar.Security.AccessControl.ResourceListBuilder,Pillar.Security.AccessControl.ResourceList})">
+            <summary>
+                Adds a new <see cref="T:Pillar.Security.AccessControl.Resource"/> to the <see cref="T:Pillar.Security.AccessControl.ResourceList"/>.
+            </summary>
+            <param name="name">
+                The resource name.
+            </param>
+            <param name="permission">
+                The permission.
+            </param>
+            <param name="buildResourceList">
+                Defines a new <see cref="T:Pillar.Security.AccessControl.ResourceListBuilder"/>
+                for building sub-resources.
+            </param>
+            <returns>
+                A <see cref="T:Pillar.Security.AccessControl.ResourceListBuilder"/> allowing for a fluent API.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceListBuilder.AddResource``1(Pillar.Security.AccessControl.Permission,System.Func{Pillar.Security.AccessControl.ResourceListBuilder,Pillar.Security.AccessControl.ResourceList})">
+            <summary>
+                Adds a new <see cref="T:Pillar.Security.AccessControl.Resource"/> to the <see cref="T:Pillar.Security.AccessControl.ResourceList"/>.
+            </summary>
+            <typeparam name="TResource">
+                The resource type.
+            </typeparam>
+            <param name="permission">
+                The permission.
+            </param>
+            <param name="buildResourceList">
+                Defines a new <see cref="T:Pillar.Security.AccessControl.ResourceListBuilder"/>
+                for building sub-resources.
+            </param>
+            <returns>
+                A <see cref="T:Pillar.Security.AccessControl.ResourceListBuilder"/> allowing for a fluent API.
+            </returns>
+        </member>
+        <member name="T:Pillar.Security.AccessControl.ResourceRequest">
+            <summary>
+                Defines a request for a <see cref="T:Pillar.Security.AccessControl.Resource"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceRequest.Add(System.String)">
+            <summary>
+                Adds the specified resource name.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceRequest.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerator`1" /> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceRequest.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceRequest.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+                An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="P:Pillar.Security.AccessControl.ResourceRequest.ResourceHierarchy">
+            <summary>
+                Gets the resource hierarchy.
+            </summary>
+        </member>
+        <member name="T:Pillar.Security.Registry">
+            <summary>
+                This class defines dependency mapping for this Pillar assembly.
+                These mappings will be registered when <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Bootstrap method is called.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.Registry.Register">
+            <summary>
+                Registers dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+    </members>
+</doc>

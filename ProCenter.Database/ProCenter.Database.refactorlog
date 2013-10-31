@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="686e67ca-8967-40bd-9b8f-46fb57dff85a" ChangeDateTime="08/06/2013 16:31:05">
+    <Property Name="ElementName" Value="[dbo].[AssessmentReminderMessage].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[AssessmentReminderMessage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AssessmentReminderMessageKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="e9d6467f-b520-41ed-8830-e51ef594e8d5" ChangeDateTime="08/06/2013 16:38:38">
+    <Property Name="ElementName" Value="[MessageModule].[AssessmentReminderMessage].[PaitentLastname]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[MessageModule].[AssessmentReminderMessage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PatientLastname" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9ad1c723-a767-4ac0-88c1-1182a6caa4e1" ChangeDateTime="08/06/2013 16:51:19">
+    <Property Name="ElementName" Value="[MessageModule].[AssessmentReminderMessage].[PatientFirstname]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[MessageModule].[AssessmentReminderMessage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PatientFirstName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="a0189c2c-ebe5-40eb-89a0-7764df97de7e" ChangeDateTime="08/06/2013 16:51:22">
+    <Property Name="ElementName" Value="[MessageModule].[AssessmentReminderMessage].[PatientLastname]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[MessageModule].[AssessmentReminderMessage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PatientLastName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3225fd7a-be29-4a9d-9836-2fb099bb550a" ChangeDateTime="08/06/2013 18:30:08">
+    <Property Name="ElementName" Value="[MessageModule].[AssessmentReminderMessage].[Organization]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[MessageModule].[AssessmentReminderMessage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OrganizationKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="b56829d6-73fc-4fd2-b6e7-4087fffdb0b7" ChangeDateTime="08/07/2013 13:38:00">
+    <Property Name="ElementName" Value="[MessageModule].[AssessmentReminderMessage].[AssessmentDefinitionCode]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[MessageModule].[AssessmentReminderMessage]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AssessmentCode" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="48842226-5291-436e-9a00-d57768068136" ChangeDateTime="10/29/2013 13:35:17">
+    <Property Name="ElementName" Value="[SecurityModule].[Role].[IsBuiltIn]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[SecurityModule].[Role]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RoleType" />
+  </Operation>
+</Operations>

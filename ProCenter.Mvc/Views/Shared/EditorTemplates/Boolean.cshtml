@@ -1,0 +1,21 @@
+﻿@using ProCenter.Primitive;
+@model bool?
+
+@{
+    var yesAttributes = new Dictionary<string, object>();
+    var noAttributes = new Dictionary<string, object>();
+    
+    if(Model == true)
+    {
+        yesAttributes.Add("checked", "checked");
+    }
+    else if (Model == false)
+    {
+        noAttributes.Add("checked", "checked");
+    }
+}
+
+<div class="yesno-radiobuttons">
+    <label>@Html.RadioButtonFor( m => m, true, yesAttributes )<span tabindex="0">Yes</span></label>
+    <label>@Html.RadioButtonFor( m => m, false, noAttributes )<span tabindex="0">No</span></label>
+</div>

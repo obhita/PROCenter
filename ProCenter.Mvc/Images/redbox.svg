@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="22.875px" height="13.959px" viewBox="0 0 22.875 13.959" enable-background="new 0 0 22.875 13.959" xml:space="preserve">
+<symbol  id="Status_Extended" viewBox="-11.182 -6.698 22.365 13.397">
+	<g>
+		<path fill="#BE1E2D" d="M10.623-0.139c0-3.3-2.7-6-6-6h-9.246c-3.3,0-6,2.7-6,6V0.14c0,3.299,2.7,6,6,6h9.246c3.3,0,6-2.701,6-6
+			V-0.139z"/>
+		<path fill="none" stroke="#D1D3D4" stroke-width="1.1188" stroke-miterlimit="10" d="M10.623-0.139c0-3.3-2.7-6-6-6h-9.246
+			c-3.3,0-6,2.7-6,6V0.14c0,3.299,2.7,6,6,6h9.246c3.3,0,6-2.701,6-6V-0.139z"/>
+	</g>
+</symbol>
+<g>
+	
+		<use xlink:href="#Status_Extended"  width="22.365" height="13.397" x="-11.182" y="-6.698" transform="matrix(1 0 0 -1 11.4854 7.0122)" overflow="visible"/>
+</g>
+</svg>

@@ -1,0 +1,137 @@
+﻿@using Pillar.Common.Utility
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Organization
+@using ProCenter.Service.Message.Security
+@model StaffDto
+
+@{
+    var disable = !Html.CanAccess("Staff", "Edit", "POST") ? "true" : "false";
+}
+
+<div class="staff-editor dashboard-wrapper">
+    <div class="editor-content container-fluid" data-disabled="@disable">
+        <div class="questions">
+            @Html.HiddenFor(m => m.Key, new { id = "current-staff-key" })
+             <fieldset>
+                    <legend>Staff Demographics</legend>
+            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Name)" data-ajax-container="true">    
+            <div class="question-answer-wrapper">
+                        @Html.EditorFor(m => m.Name, new { placeholder = Html.DisplayNameFor(m => m.Name) })
+                        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                        <div class="clear"></div>
+                    </div>
+            </div>
+            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Email)" data-ajax-container="true">
+                <div>
+                    @Html.LabelFor(m => m.Email)
+                </div>
+                <div class="question-answer-wrapper">
+                    @Html.TextBoxFor(m => m.Email, new { placeholder = Html.DisplayNameFor(m => m.Email), type = "email" })
+                    <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Location)" data-ajax-container="true">
+                <div>
+                    @Html.LabelFor(m => m.Location)
+                </div>
+                <div class="question-answer-wrapper">
+                    @Html.TextBoxFor(m => m.Location, new { placeholder = Html.DisplayNameFor(m => m.Location) })
+                    <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.NPI)" data-ajax-container="true">
+                <div>
+                    @Html.LabelFor(m => m.NPI)
+                </div>
+                <div class="question-answer-wrapper">
+                    @Html.TextBoxFor(m => m.NPI, new { placeholder = Html.DisplayNameFor(m => m.NPI) })
+                    <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                    <div class="clear"></div>
+                </div>                
+            </div>
+            </fieldset>
+
+            
+            <div class="teams">
+                <fieldset>
+                    <legend>Team Assignment</legend>
+                    <input type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Team/FinderSearch" data-finder-display="Name"/>
+                    <a class="add-btn btn btn-success" data-icon="&#xe102;" disabled="disabled"></a>
+                    <div>
+                        <ul class="current-teams"></ul>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="@PropertyUtil.ExtractPropertyName(() => Model.SystemAccount)">
+                <fieldset>
+                <legend>Create a System Account</legend>
+                <div id="system-account-content">
+                    @if (Model.HasAccount)
+                    {
+                        @Html.EditorFor(m => m.SystemAccount)
+                    }
+                    else
+                    {
+                        <div>
+                            <div id="createAccountModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+                                <form id="createAccountForm">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3 id="createAccountModalLabel">Create System Account</h3>
+                                    </div>
+                                    <div class="field-validation-error hidden modal-error">
+                                    </div>
+                                    <div class="modal-body">
+                                        @{
+                                            var systemAccount = new SystemAccountDto {Username = Model.Name.FirstName.Trim() + "." + Model.Name.LastName.Trim(), Email = Model.Email, CreateNew = true};
+                                        }
+                                        @Html.EditorFor(m => systemAccount)
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                                        <a id="create-account-btn" class="btn btn-primary" data-loadelementid="create-account-model-loading" aria-hidden="true">Create</a>
+                                    </div>
+                                    <div id="create-account-model-loading" class="modal-loading-indicator" style="display: none"></div>
+                                </form>
+                            </div>
+                            <div id="linkAccountModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="linkAccountModalLabel" aria-hidden="true">
+                                <form id="linkAccountForm">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3 id="linkAccountModalLabel">Link To System Account</h3>
+                                    </div>
+                                    <div class="field-validation-error hidden modal-error">
+                                    </div>
+                                    <div class="modal-body">
+                                         @{
+                                             systemAccount = new SystemAccountDto {CreateNew = false};
+                                         }
+                                        @Html.EditorFor(m => systemAccount)
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
+                                        <a id="link-account-btn" class="btn btn-primary" data-loadelementid="link-account-model-loading" aria-hidden="true">Link</a>
+                                    </div>
+                                    <div id="link-account-model-loading" class="modal-loading-indicator" style="display: none"></div>
+                                </form>
+                            </div>
+                        </div>
+
+                        if (Html.CanAccess("Staff", "CreateAccount", "POST"))
+                        {
+                        <a href="#createAccountModal" class="btn btn-success" data-toggle="modal" data-icon="&#xe102;">Create New Account</a>
+                        }
+                        if (Html.CanAccess("Staff", "LinkAccount", "POST"))
+                        {
+                        <a href="#linkAccountModal" class="btn btn-success" data-toggle="modal" data-icon="&#xe0c3;">Link To Account</a>
+                        }
+                    }
+                </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>

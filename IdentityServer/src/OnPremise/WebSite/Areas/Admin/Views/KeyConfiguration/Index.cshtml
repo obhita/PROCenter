@@ -1,0 +1,42 @@
+﻿@model KeyConfigurationViewModel
+@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.KeyConfiguration
+@using Thinktecture.IdentityServer.Web.Utility
+
+@{
+    ViewBag.Title = Index_cshtml.KeyConfiguration;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary(Index_cshtml.ErrorUpdatingKeys)
+
+    <fieldset class="editor">
+        <legend>@ViewBag.Title</legend>
+
+        <div>
+            @Html.LabelFor(x=>x.Keys.SigningCertificate)
+            @Html.DropDownListFor(x=>x.Keys.SigningCertificate, Model.AvailableSigningCerts)
+            @Html.ValidatorFor(x=>x.Keys.SigningCertificate)
+        </div>
+        <div>
+            @Html.LabelFor(x=>x.SigningCertificateThumbprint)
+            @Model.SigningCertificateThumbprint
+        </div>
+        <div>
+            @Html.LabelFor(x=>x.Keys.DecryptionCertificate)
+            @Html.DropDownListFor(x=>x.Keys.DecryptionCertificate, Model.AvailableDecryptionCerts)
+            @Html.ValidatorFor(x=>x.Keys.DecryptionCertificate)
+        </div>
+        <div>
+            @Html.LabelFor(x=>x.Keys.SymmetricSigningKey)
+            @Html.EditorFor(x=>x.Keys.SymmetricSigningKey)
+            @Html.ValidatorFor(x=>x.Keys.SymmetricSigningKey)
+        </div>
+
+        <div class="buttons">
+            <button type="submit">@Index_cshtml.Update</button>
+            <button type="reset">@Index_cshtml.Cancel</button>
+        </div>
+    </fieldset>
+}

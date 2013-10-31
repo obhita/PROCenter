@@ -1,0 +1,23 @@
+<%= render "heading", title: "Recent activity" %>
+
+<div class="padded">
+
+  <div class="codehint">Here's some markup you can use for showing summary activities. Add as many activity lines as needed!</div>
+  <pre>&lt;div class=&quot;activity-line row&quot;&gt;<br/>        &lt;span class=&quot;span1 label yellow right&quot;&gt;Comment&lt;/span&gt;<br/>        &lt;span class=&quot;span5 title&quot;&gt;&lt;a href=&quot;#&quot;&gt;Photo booth beard&lt;/a&gt;&lt;/span&gt;<br/>        &lt;span class=&quot;span2 date pull-right&quot;&gt;by John Doe - Nov 2011&lt;/span&gt;<br/>      &lt;/div&gt;</pre>
+
+  <%
+     labels = ["Comment", "Project", "Task"]
+     titles = ["Tight pants next level keffiyeh", "Photo booth beard raw denim letterpress vegan messenger", "A really ironic artisan whatever keytar"]
+     dates  = ["by John Doe - Nov 2011", "by Richard - Nov 2011"]
+  %>
+
+  <% %w(green orange red purple blue yellow pink normal).each do |color| %>
+      <div class="activity-line row">
+        <span class="span1 label <%= color == "normal" ? "" : color %> right"><%= labels.sample %></span>
+        <span class="span5 title"><a href="#"><%= titles.sample %></a></span>
+        <span class="span2 date pull-right"><%= dates.sample %></span>
+      </div>
+  <% end %>
+
+  <div class="btn" style="display: block">Load more activity</div>
+</div>

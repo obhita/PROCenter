@@ -1,0 +1,54 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@model ProCenter.Service.Message.Security.SystemAccountDto
+
+@{
+    var disable = Model.Key != Guid.Empty ? "true" : "false";
+}
+<div data-ajaxform-ignore="true" data-disabled="@disable" class="question-root system-account">
+    @if (Model.Key == Guid.Empty && Model.CreateNew)
+    {
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new {placeholder = Html.DisplayNameFor(m => m.Username)})
+        @Html.ValidationMessageFor(m => m.Username)
+    }
+    @Html.LabelFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email, new {type = "email", placeholder = Html.DisplayNameFor(m => m.Email)})
+    @Html.ValidationMessageFor(m => m.Email)
+</div>
+@if (Model.Roles != null)
+{
+    <div id="roles-container" class="question-root roles" data-ajax-container="true" data-ajaxform-ignore="true">
+        <div class="add-remove-roles" >
+            <div class="available-items-section roles">
+                @Html.Label("AvailableRoles", "Available Roles")
+                @Html.ListBox("AvailableRoles", (List<SelectListItem>) ViewData["AvailableRoles"], new {id = "available-roles"})
+                <div class="clear"></div>
+            </div>
+            <div class="add-remove-items-btn-section roles">
+                <div>
+                    @if (@Html.CanAccess("Staff","AddRoles","POST"))
+                    {
+                        @Html.ActionLink("Add >", "AddRoles", "Staff", new {key = Model.Key}, new {@class = "btn btn-primary disabled", id = "add-roles-btn"})
+                    }
+                </div>
+                <div>
+                    @if (@Html.CanAccess("Staff", "RemoveRoles", "POST"))
+                    {
+                        @Html.ActionLink("< Remove", "RemoveRoles", "Staff", new {key = Model.Key}, new {@class = "btn btn-primary disabled", id = "remove-roles-btn"})
+                    }
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="current-items-section roles">
+                @Html.Label("CurrentRoles", "Current Roles")
+                @{
+                    var currentRole = Model.Roles.Select(r => new SelectListItem {Selected = false, Text = r.Name, Value = r.Key.ToString()}).ToList();
+                }
+                @Html.ListBox("CurrentRoles", currentRole, new {id = "current-roles"})
+                <div class="clear"></div>
+            </div>
+            <div class="ajax-loading-indicator"><span>Saving...</span></div>
+            <div class="clear"></div>
+        </div>
+    </div>
+}

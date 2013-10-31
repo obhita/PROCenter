@@ -1,0 +1,60 @@
+@import "compass/css3";
+@import "variables";
+
+@mixin label {
+  border: 1px solid #dadada;
+  background: #f8f8f8;
+  @include box-shadow(0 0 1px #fff inset);
+  color: #404040;
+  @include text-shadow(0 1px #fff);
+  @include border-radius(2px,2px);
+}
+
+
+@mixin color-label($color, $text-color: #fff) {
+  border-top: 1px solid darken($color, 20);
+  border-left: 1px solid darken($color, 20);
+  border-right: 1px solid darken($color, 20);
+  border-bottom: 1px solid darken($color, 30);
+  background: $color;
+  @include background-image(linear-gradient(top, $color, darken($color, 10)));
+  @include text-shadow(0 -1px darken($color, 25));
+  color:$text-color;
+}
+
+.label {
+  @include label;
+
+  &.right {
+    text-align: right;
+  }
+
+  &.green {
+    @include color-label($green);
+  }
+
+  &.orange {
+    @include color-label($orange);
+  }
+
+  &.red {
+    @include color-label($red);
+  }
+
+  &.blue {
+    @include color-label($blue);
+  }
+
+  &.pink {
+    @include color-label($pink);
+  }
+
+  &.purple {
+    @include color-label($purple);
+  }
+
+  &.yellow {
+    @include color-label($yellow);
+  }
+
+}

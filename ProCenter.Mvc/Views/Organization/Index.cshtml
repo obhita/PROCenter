@@ -1,0 +1,271 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Common
+@using ProCenter.Primitive
+@using ProCenter.Service.Message.Security
+@model ProCenter.Service.Message.Organization.OrganizationSummaryDto
+
+
+@{
+    ViewBag.Title = "Organization Admin";
+}
+
+@section subnav{
+    <div class="sub-nav">
+        <div class="organization-header row-fluid">
+            @Html.DisplayForModel()
+            <input id="dashboard-filter" type="search" placeholder="Search" class="input-search" />
+        </div>
+    </div>
+}
+
+<div id="createStaffModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="staffModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="staffModalLabel">Create Staff</h3>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div>
+                <label>Name</label>
+            </div>
+            @{
+                var name = new PersonName();
+            }
+            @Html.EditorFor(m => name)
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <a id="create-staff-btn" href="@Url.Action("Create", "Staff")" role="button" class="btn btn-primary" aria-hidden="true" data-loadelementid="staff-loading-indicator" >Create</a>
+        </div>
+        <div id="staff-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
+    </form>
+</div>
+
+<div id="createTeamModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3>Create Team</h3>
+    </div>
+    <form>
+        <div class="modal-body">
+            <div>
+                <label>Name</label>
+            </div>
+            <input id="create-team-name" name="name" data-val="true" data-val-required="The Name field is required." />
+            <span class="field-validation-valid" data-valmsg-for="name" data-valmsg-replace="true"></span>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <a id="create-team-btn" href="@Url.Action("Create", "Team")" role="button" class="btn btn-primary" data-loadelementid="team-loading-indicator">Create</a>
+        </div>
+        <div id="team-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
+    </form>
+</div>
+
+<div id="createRoleModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="roleModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="roleModalLabel">Create Role</h3>
+    </div>
+    <form>
+        <div class="modal-body">
+            @{
+                var role = new RoleDto();
+            }
+            @Html.EditorFor(m => role)
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <a id="create-role-btn"  href="@Url.Action("Create", "Role")" class="btn btn-primary"  role="button" data-loadelementid="role-loading-indicator" >Create</a>
+        </div>
+        <div id="role-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
+    </form>
+</div>
+
+<div class="dashboard-wrapper">
+    <div class="organization-dashboard">
+        <div class="row-fluid">
+            <div>
+                <div id="staff-widget" class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Staff
+                        </div>
+                        <span class="tools">
+                            @if (Html.CanAccess("Staff", "Edit", "POST"))
+                            {
+                                <span class="tools">
+                                    <a href="#createStaffModal" class="fs1" data-toggle="modal" data-icon="&#xe102;" title="Add staff"></a>
+                                </span>
+                            }
+                        </span>
+                    </div>
+                    <div class="widget-body" data-layout-height="*">
+                        <div id="staff-table" class="dataTable_wrapper">
+                            <table id="staffSearchDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-15">First Name</th>
+                                        <th class="width-10">Last Name</th>
+                                        <th class="width-20">Email</th>
+                                        <th class="width-10">Location</th>
+                                        <th class="width-10">NPI</th>
+                                        <th class="width-10"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="staff-editor"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div id="team-widget" class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Team
+                        </div>
+                        <span class="tools">
+                            @if (Html.CanAccess("Team", "Edit", "POST"))
+                            {
+                                <span class="tools">
+                                    <a href="#createTeamModal" class="fs1" data-toggle="modal" data-icon="&#xe102;" title="Add team"></a>
+                                </span>
+                            }
+                        </span>
+                    </div>
+                    <div class="widget-body" data-layout-height="*">
+                        <div id="team-table" class="dataTable_wrapper">
+                            <table id="teamDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-90">Name</th>
+                                        <th class="width-10"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="team-editor"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div id="role-widget" class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Role
+                        </div>
+                        <span class="tools">
+                            @if (Html.CanAccess("Role", "Edit", "POST"))
+                            {
+                                <span class="tools">
+                                    <a href="#createRoleModal" class="fs1" data-toggle="modal" data-icon="&#xe102;" title="Add role"></a>
+                                </span>
+                            }
+                        </span>
+                    </div>
+                    <div class="widget-body" data-layout-height="*">
+                        <div id="role-table" class="dataTable_wrapper">
+                            <table id="roleSearchDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-80">Name</th>
+                                        <th class="width-20"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="role-editor"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+
+                <div id="assessment-widget" class="widget">
+                    <div class="widget-header">
+                        <div class="title">
+                            Active Assessments
+                        </div>
+                        <span class="tools assessment-definition">
+                            @if (Html.CanAccess("Organization", "Edit", "POST"))
+                            {
+                                <input type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Organization/FinderSearch" data-finder-display="AssessmentName" />
+                                <a class="add-btn btn btn-success" data-icon="&#xe102;" disabled="disabled"></a>
+                            }
+                        </span>
+                        <div class="clear"></div>
+                    </div>
+                    <div class="widget-body" data-layout-height="*" >
+                        <div id="assessment-table" class="dataTable_wrapper">
+                            <table id="assessmentSearchDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-80">Name</th>
+                                        <th class="width-20"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="assessment-editor"></div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="ajax-loader" style="display: none"></div>
+</div>
+@section scripts
+{
+    @Scripts.Render("~/bundles/organization")
+    <script>
+        $(document).ready(function() {
+            var checkDisabled = function() {
+                $('[data-disabled="false"]').each(function() {
+                    $(this).find(":input").prop('disabled', false);
+                });
+                $('[data-disabled="true"]').each(function() {
+                    $(this).find(":input").prop('disabled', true);
+                });
+            };
+
+            checkDisabled();
+
+            var updateTableSizes = function() {
+                $('.dataTable_wrapper .dataTables_scroll,.dataTable_wrapper .dataTables_scroll .dataTables_scrollBody').attr("data-layout-height", "*");
+                fixSizes(true);
+            };
+
+            $("#dashboard-filter").on("keyup search", function() {
+                var tables = $.fn.dataTable.fnTables(true);
+                for (var i = 0; i < tables.length; i++) {
+                    $(tables[i]).dataTable().fnFilter(this.value);
+                }
+            });
+            $('#dashboard-filter').clearable();
+
+            //staff 
+            var canAccessStaffEdit = @Html.CanAccess("Staff", "Edit").ToString().ToLower();
+            window.procenter.InitializeStaff('@Url.Content("~/Staff/")', '@Url.Content("~/api/StaffSearchDataTable")', '@Url.Content("~/Team")', '@Url.Content("~/api/Team")', updateTableSizes, checkDisabled, canAccessStaffEdit);
+
+            // Team
+            var canAccessTeamEdit = @Html.CanAccess("Team", "Edit").ToString().ToLower();
+            window.procenter.InitializeTeam('@Url.Content("~/Team")', '@Url.Content("~/api/Team")', '@Url.Content("~/api/StaffSearchDataTable")', '@Url.Content("~/api/Patient/DataTableSearch/")'+ '@UserContext.Current.OrganizationKey', updateTableSizes, checkDisabled, canAccessTeamEdit);
+
+            // Role
+            var canAccessRoleEdit = @Html.CanAccess("Role", "Edit").ToString().ToLower();
+            window.procenter.InitializeRole('@Url.Content("~/Role")', '@Url.Content("~/api/RoleSearchDataTable")', updateTableSizes, checkDisabled, canAccessRoleEdit);
+
+            //Assessment Definitions
+            var canAccessOrganizationEdit = @Html.CanAccess("Organization", "Edit").ToString().ToLower();
+            window.procenter.InitializeAssessment('@Url.Content("~/Organization")','@Url.Content("~/api/Organization")', updateTableSizes, checkDisabled, canAccessOrganizationEdit);
+           
+        });
+    </script>
+    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+}

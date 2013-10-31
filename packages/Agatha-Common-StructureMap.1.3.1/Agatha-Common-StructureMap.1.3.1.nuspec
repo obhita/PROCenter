@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Agatha-Common-StructureMap</id>
+    <version>1.3.1</version>
+    <title>Agatha-Common-StructureMap</title>
+    <authors>Davy Brion</authors>
+    <owners>Davy Brion</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
+    <projectUrl>http://github.com/davybrion/agatha</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Agatha Request/Response Service Layer - Common, for StructureMap. Don't forget to install Agatha-ServiceLayer-StructureMap as well for the server-side bits</description>
+    <releaseNotes />
+    <copyright />
+    <language />
+    <dependencies>
+      <dependency id="structuremap" version="2.6.4" />
+    </dependencies>
+    <references>
+      <reference file="Agatha.Common.dll" />
+      <reference file="Agatha.StructureMap.dll" />
+    </references>
+  </metadata>
+</package>

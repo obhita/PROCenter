@@ -1,0 +1,38 @@
+﻿@using ProCenter.Common
+@using ProCenter.Mvc.Models
+
+<div id="changePasswordModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="changePasswordModalLabel">Change Password</h3>
+    </div>
+    <form>
+        <div id="change-password-message" class="field-validation-error hidden modal-error">
+        </div>
+        <div class="modal-body">
+            @{
+                var changePasswordViewModel = new ChangePasswordViewModel();
+            }
+            @Html.EditorFor(m => changePasswordViewModel)
+            @Html.ValidationMessageFor(m => changePasswordViewModel)
+        </div>
+        <div class="modal-footer">
+            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+            <a id="change-password-btn" href="@Url.Action("ChangPassword", "Staff")" class="btn btn-primary" aria-hidden="true" data-loadelementid="change-password-loading-indicator">Change</a>
+        </div>
+        <div id="change-password-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
+    </form>
+</div>
+
+<a data-toggle="dropdown" class="dropdown-toggle">
+    <span class="fs1" aria-hidden="true" data-icon="&#xe074;">@UserContext.Current.DisplayName</span>
+    <span class="caret"></span>
+</a>
+<ul class="dropdown-menu pull-right">
+    <li>
+        <a href="#changePasswordModal" data-toggle="modal">Change Password</a>
+    </li>
+    <li>
+        @Html.ActionLink("Logout", "Logout", "Account")
+    </li>
+</ul>

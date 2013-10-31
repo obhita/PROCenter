@@ -1,0 +1,65 @@
+﻿/* BASE RULES
+----------------------------------------------------------
+Base Rules are all default elements that use element 
+selectors, a descendant selector, or child selector, along 
+with pseudo-classes. Base Rules define the default styling 
+for how a base element should look in all occurrences on 
+the page. Do not use class or ID selectors with Base Rules.  
+----------------------------------------------------------*/
+
+html {
+    .position-absolute;
+
+}
+
+body {
+    .position-absolute;
+    .reset-spacing;
+
+}
+
+header {
+    min-height:48px;
+    /*.main-header-style;*/
+}
+
+body header {
+    margin-bottom: 10px;
+
+    .user-profile {
+        margin-top: 10px;
+        position: relative;
+
+        .widget.expanded {
+            margin: 10px 5px;
+            display: inline-block;
+        }
+
+        a {
+            color: @light-foreground-color;
+            display: block;
+            background-color: transparent;
+        }
+    }
+}
+
+p
+{
+    .reset-spacing;
+}
+
+input[type="search"] {
+    box-sizing: content-box;
+    margin: 5px;
+
+    &:focus::-webkit-search-cancel-button:after {
+        content: '\e0fd';
+        font-family: 'icomoon';
+        display: block;
+        font-size: 80%;
+    }
+
+    &::-webkit-search-cancel-button {
+        -webkit-appearance: none;
+    }
+}

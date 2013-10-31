@@ -1,0 +1,91 @@
+@import "compass/css3";
+
+.padded {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.header {
+  background: #22557A;
+  @include background-image(linear-gradient(top, #3F7D9F, lighten(#22557A, 10)));
+  background-size: auto auto;
+  height: 135px;
+  width: 100%;
+  @include box-shadow(0 -3px 7px -3px rgba(0, 0, 0, 0.3) inset);
+}
+
+.footer {
+  @include text-shadow(0 1px #fff);
+  margin-top: 15px;
+  .left {
+    text-align: left;
+  }
+  .right {
+    text-align: right;
+  }
+
+}
+
+.main {
+  > .container {
+    position: relative;
+    top: -69px;
+  }
+}
+
+.wrapper {
+  @include box-shadow(0 0 3px 1px rgba(0, 0, 0, 0.1));
+  @include border-radius(4px, 4px);
+  background: $wrapper_bg;
+  overflow: hidden;
+  margin-left: 0; //cancel bootstrap's row left margin
+}
+
+.main-left {
+  border-right: 1px solid #cdcdcd;
+  @include box-sizing(border-box);
+  background: #fff;
+  @include box-shadow(0 0 2px 1px rgba(0,0,0,.1));
+  margin-left: 0; //cancel bootstrap's span left margin
+  position: relative; //to work with zindex
+  z-index: 100; //to stay on top with box shadows
+  @include border-radius(4px 0 0 4px, 4px 0 0 4px);
+  padding-bottom: 20px;
+
+
+  .heading-bar:first-child {
+    @include border-radius(4px 0 0 0, 4px 0 0 0);
+  }
+}
+
+.sidebar-right {
+  padding-top: 20px;
+  margin-left: 10px;
+  margin-right: 10px;
+
+  .inset-margin, .btn-action {
+    display: block;
+    @include box-sizing(border-box);
+  }
+
+  .heading-bar {
+    @include heading-bar-dark;
+    @include heading-bar-small;
+    position: relative;
+    left: -10px;
+    margin: 20px 0;
+    margin-right: -30px;
+  }
+}
+
+.sidebar-helper {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  right: 40px;
+  z-index: 1000;
+  .btn {
+    @include border-radius(4px 4px 0 0, 4px 4px 0 0);
+  }
+
+}

@@ -1,0 +1,35 @@
+@import "compass/css3";
+@import "variables";
+
+@mixin btn-text-dark($color: #f9f9f9) {
+  color: #666;
+  @include text-shadow(0 1px #fefefe);
+  font-weight: normal;
+}
+
+@mixin btn-text-light($color) {
+  color: #fff;
+  @include text-shadow(0 -1px darken($color, 22));
+  font-weight: normal;
+}
+
+@mixin btn2($color: #fefefe) {
+  border: 1px solid darken($color, 20);
+  background: $color;
+  @include background-image(linear-gradient(top, lighten($color,2), darken($color, 9)));
+
+  &:hover {
+    border: 1px solid darken($color, 25);
+    background: $color;
+    @include background-image(linear-gradient(top, $color, darken($color, 14)));
+  }
+
+  &:active {
+    background: darken($color, 7);
+  }
+}
+
+@mixin btn-light($color) {
+  @include btn2($color);
+  @include btn-text-light($color);
+}

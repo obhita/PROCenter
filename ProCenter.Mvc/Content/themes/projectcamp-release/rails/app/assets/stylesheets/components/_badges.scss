@@ -1,0 +1,40 @@
+@mixin badge-color($color) {
+  background: $color;
+  border-color: darken($color, 12);
+  @include background-image(linear-gradient(top, lighten($color, 15%), $color));
+}
+
+.badge {
+  line-height: 16px;
+  height: 16px;
+  //padding: 0 5px;
+  padding: 1px 6px;
+  font-family: Arial, sans-serif;
+  color: #fff;
+  text-shadow: 0 1px rgba(0, 0, 0, .25);
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 10px;
+  @include box-shadow(0 1px 1px rgba(0, 0, 0, .08), 0 1px rgba(255, 255, 255, .3) inset);
+  z-index: 300;
+
+  @include badge-color(#67c1ef);
+
+  &.green {
+    @include badge-color(#77cc51);
+  }
+
+  &.yellow {
+    @include badge-color(#faba3e);
+  }
+
+  &.red {
+    @include badge-color(#fa623f);
+  }
+
+  &.top {
+    position: absolute;
+    top: -14px;
+    right: 7px;
+  }
+}

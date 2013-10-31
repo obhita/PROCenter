@@ -1,0 +1,138 @@
+﻿@using Pillar.Common.Utility
+@using ProCenter.Mvc.Infrastructure.Extension
+@model ProCenter.Service.Message.Organization.TeamDto
+
+@{
+    var disable = !Html.CanAccess("Team", "Edit", "POST") ? "true" : "false"; 
+}
+
+<div class="team-editor dashboard-wrapper">
+    <div class="editor-content container-fluid" data-disabled="@disable">
+        <div class="questions">
+            @Html.HiddenFor( m => m.Key, new { id = "current-team-key"} )
+            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Name)" data-ajax-container="true">
+                <div class="question-answer-wrapper">
+                    @Html.TextBoxFor(m => m.Name, new { placeholder = Html.DisplayNameFor(m => m.Name) })
+                    <div class="ajax-loading-indicator"><span>Saving...</span></div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+            <div class="staff-list-editor">
+                <fieldset>
+                    <legend>@Html.DisplayNameFor(m => m.Staff)</legend>
+                    <div class="row-fluid">
+                        <div class="span6 available-list dataTable-wrapper">
+                            @Html.Label("Available", "All Staff")
+                            <table id="staffAvailableDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-40">First Name</th>
+                                        <th class="width-60">Last Name</th>
+                                        <th class="width-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="clear"></div>
+                            <a role="button" class="add btn btn-primary disabled hidden"><span>Add To Team</span></a>
+                        </div>
+                        <div class="span6 current-list dataTable-wrapper">
+                            @Html.Label("Current", "Current Team")
+                            <table id="staffCurrentDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-40">First Name</th>
+                                        <th class="width-60">Last Name</th>
+                                        <th class="width-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Staff != null)
+                                    {
+                                        foreach (var staff in Model.Staff)
+                                        {
+                                            <tr>
+                                                <td>@staff.Name.FirstName</td>
+                                                <td>@staff.Name.LastName</td>
+                                                <td class="hide">@staff.Key</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clear"></div>
+                            <a role="button" class="remove btn btn-primary disabled hidden"><span>Remove From Team</span></a>
+                        </div>
+                    </div>
+                    <div class="row-fluid buttons-row">
+                        <div class="span6">
+                            <a role="button" class="add btn btn-primary disabled"><span>Add To Team</span></a>
+                        </div>
+                        <div class="span6">
+                            <a role="button" class="remove btn btn-primary disabled"><span>Remove From Team</span></a>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="patient-list-editor">
+                <fieldset>
+                    <legend>@Html.DisplayNameFor(m => m.Patients)</legend>
+                    <div class="row-fluid">
+                        <div class="span6 available-list dataTable-wrapper">
+                            @Html.Label("Available", "All Patients")
+                            <table id="patientAvailableDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-40">First Name</th>
+                                        <th class="width-60">Last Name</th>
+                                        <th class="width-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            <div class="clear"></div>
+                            <a role="button" class="add btn btn-primary disabled hidden"><span>Add To Team</span></a>
+                        </div>
+                        <div class="span6 current-list dataTable-wrapper">
+                            @Html.Label("Current", "Current Team")
+                            <table id="patientCurrentDataTable">
+                                <thead>
+                                    <tr>
+                                        <th class="width-40">First Name</th>
+                                        <th class="width-60">Last Name</th>
+                                        <th class="width-0"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if (Model.Patients != null)
+                                    {
+                                        foreach (var patient in Model.Patients)
+                                        {
+                                            <tr>
+                                                <td>@patient.Name.FirstName</td>
+                                                <td>@patient.Name.LastName</td>
+                                                <td class="hide">@patient.Key</td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                            <div class="clear"></div>
+                            <a role="button" class="remove btn btn-primary disabled hidden"><span>Remove From Team</span></a>
+                        </div>
+                    </div>
+                    <div class="row-fluid buttons-row">
+                        <div class="span6">
+                            <a role="button" class="add btn btn-primary disabled"><span>Add To Team</span></a>
+                        </div>
+                        <div class="span6">
+                            <a role="button" class="remove btn btn-primary disabled"><span>Remove From Team</span></a>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>

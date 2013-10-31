@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.FluentRuleEngine.Castle</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.FluentRuleEngine.CheckRulesInterceptor">
+            <summary>
+                Interceptor for executing rules when a Command is Executed.
+            </summary>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.CheckRulesInterceptor.#ctor(Pillar.FluentRuleEngine.IRuleEngineFactory)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.FluentRuleEngine.CheckRulesInterceptor"/> class.
+            </summary>
+            <param name="ruleEngineFactory">The rule engine factory.</param>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.CheckRulesInterceptor.GetInterceptorOptions``1(Pillar.Common.Commands.IFrameworkCommandInfo)">
+            <summary>
+                Gets the interceptor options.
+            </summary>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <param name="frameworkCommandInfo">The framework command info.</param>
+            <returns>Options object to add to Command.</returns>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.CheckRulesInterceptor.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+                Intercepts the specified invocation.
+            </summary>
+            <param name="invocation">The invocation.</param>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.CommandFactoryExtensions">
+            <summary>
+                Extension methods for <see cref="T:Pillar.Common.Commands.ICommandFactory"/>
+            </summary>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.CommandFactoryExtensions.Build``2(Pillar.Common.Commands.ICommandFactory,``1,System.Linq.Expressions.Expression{System.Func{System.Windows.Input.ICommand}},System.Linq.Expressions.Expression{System.Func{System.Object}},System.Action,System.Func{System.Boolean})">
+            <summary>
+                Builds the specified command factory.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <param name="owner">The owner.</param>
+            <param name="commandPropertyExpression">The command property expression.</param>
+            <param name="propertyExpressionForRulesToRun">The property expression for rules to run.</param>
+            <param name="executeMethod">The execute method.</param>
+            <param name="canExecuteMethod">The can execute method.</param>
+            <returns>
+                The built command.
+            </returns>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.CommandFactoryExtensions.Build``3(Pillar.Common.Commands.ICommandFactory,``1,System.Linq.Expressions.Expression{System.Func{System.Windows.Input.ICommand}},System.Linq.Expressions.Expression{System.Func{System.Object}},System.Action{``2},System.Func{``2,System.Boolean})">
+            <summary>
+                Builds the specified command factory.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <typeparam name="TParameter">The type of the parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <param name="owner">The owner.</param>
+            <param name="commandPropertyExpression">The command property expression.</param>
+            <param name="propertyExpressionForRulesToRun">The property expression for rules to run.</param>
+            <param name="executeMethod">The execute method.</param>
+            <param name="canExecuteMethod">The can execute method.</param>
+            <returns>
+                The build command.
+            </returns>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.CommandFactoryExtensions.Build``3(Pillar.Common.Commands.ICommandFactory,``1,System.Linq.Expressions.Expression{System.Func{System.Windows.Input.ICommand}},System.Func{``2,System.String},System.Action{``2},System.Func{``2,System.Boolean})">
+            <summary>
+                Builds the specified command factory.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <typeparam name="TParameter">The type of the parameter.</typeparam>
+            <param name="commandFactory">The command factory.</param>
+            <param name="owner">The owner.</param>
+            <param name="commandPropertyExpression">The command property expression.</param>
+            <param name="memberNameFunc">The member name func.</param>
+            <param name="executeMethod">The execute method.</param>
+            <param name="canExecuteMethod">The can execute method.</param>
+            <returns>
+                The build command.
+            </returns>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.IExecuteRules">
+            <summary>
+                Interface to executing rules.
+            </summary>
+        </member>
+        <member name="P:Pillar.FluentRuleEngine.IExecuteRules.ExecuteRules">
+            <summary>
+                Gets the execute rules <see cref="T:System.Func`2"/>.
+            </summary>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.IRuleCommandInfo">
+            <summary>
+                Interface for rule specific command information.
+            </summary>
+        </member>
+        <member name="P:Pillar.FluentRuleEngine.IRuleCommandInfo.RuleSelector">
+            <summary>
+                Gets the rule selector.
+            </summary>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.FluentRuleEngine"/> namespace contains RuleEngine interfaces, classes and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.Registry">
+            <summary>
+                This class defines dependency mapping for this Pillar assembly.
+                These mappings will be registered when <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Bootstrap method is called.
+            </summary>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.Registry.Register">
+            <summary>
+                Registers dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.RuleCommandInfo">
+            <summary>
+                Info object for executing rules on commands.
+            </summary>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.RuleCommandInfo.#ctor(System.Object,System.String,Pillar.FluentRuleEngine.RuleSelectors.IRuleSelector)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.FluentRuleEngine.RuleCommandInfo"/> class.
+            </summary>
+            <param name="owner">The owner of the command.</param>
+            <param name="name">The name of the command.</param>
+            <param name="ruleSelector">The rule selector.</param>
+        </member>
+        <member name="P:Pillar.FluentRuleEngine.RuleCommandInfo.RuleSelector">
+            <summary>
+                Gets the rule selector.
+            </summary>
+        </member>
+        <member name="T:Pillar.FluentRuleEngine.RuleExecutor">
+            <summary>
+                Class that has function that executes rules.
+            </summary>
+        </member>
+        <member name="P:Pillar.FluentRuleEngine.RuleExecutor.ExecuteRules">
+            <summary>
+                Gets the execute rules <see cref="T:System.Func`2"/>.
+            </summary>
+        </member>
+    </members>
+</doc>

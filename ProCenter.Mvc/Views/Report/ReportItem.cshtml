@@ -1,0 +1,39 @@
+﻿@using Pillar.Common.Metadata
+@using ProCenter.Domain.AssessmentModule
+@model ProCenter.Service.Message.Report.ReportItemDto
+
+@{
+    var reportItemDto = Model;
+    reportItemDto.ItemMetadata = reportItemDto.ItemMetadata ?? new ItemMetadata ();
+}
+
+@if ( !reportItemDto.ItemMetadata.MetadataItemExists<HiddenMetadataItem> () || !reportItemDto.ItemMetadata.FindMetadataItem<HiddenMetadataItem> ().IsHidden )
+{
+    if ( reportItemDto.ItemMetadata.MetadataItemExists<ReadonlyMetadataItem> () && reportItemDto.ItemMetadata.FindMetadataItem<ReadonlyMetadataItem> ().IsReadonly )
+    {
+        <span class="@reportItemDto.Name">@reportItemDto.Text</span>
+    }
+    else
+    {
+        <div class="report-item-wrapper" data-ajax-container="true">
+            @Html.HiddenFor(m => reportItemDto.Name)
+            @if ( reportItemDto.ShouldShow.HasValue )
+            {
+                @Html.CheckBox("reportItemDto.ShouldShow", reportItemDto.ShouldShow.Value)
+            }
+            @Html.TextAreaFor( m => reportItemDto.Text, new { maxlength = 500 } )
+            <div class="ajax-loading-indicator"><span>Saving...</span></div>
+        </div>
+    }
+    if ( reportItemDto.ReportItems != null )
+    {
+        <ul>
+            @foreach ( var subReportItemDto in reportItemDto.ReportItems )
+            {
+                <li>
+                    @Html.Partial( "ReportItem", subReportItemDto )
+                </li>
+            }
+        </ul>
+    }
+}

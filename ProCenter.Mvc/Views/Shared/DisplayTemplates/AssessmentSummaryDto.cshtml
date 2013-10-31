@@ -1,0 +1,26 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@model ProCenter.Service.Message.Assessment.AssessmentSummaryDto
+
+@{
+    var percent = Math.Round(Model.PercentComplete * 100, MidpointRounding.AwayFromZero);
+    var displayText = (Model.IsSubmitted ? "Latest Assessment:" : "Current Assessment:");
+}
+<div class="assessment-summary">
+    <div class="feed-left">
+        <div class="pie-chart" data-percent="@percent">
+            <div class="percentage"><span>@percent</span>%</div>
+        </div>
+    </div>
+    <div class="feed-right" >
+        <div class="title">
+            <span>@displayText</span>
+            <span>@Html.GetAssessmentResource(Model.AssessmentCode)</span>
+        </div>
+        <div class="info">
+            <span>@Html.DisplayNameFor( m => m.LastModifiedTime )</span>
+            <span>@Model.LastModifiedTime.ToShortDateString()</span>
+        </div>
+        @Html.ActionLink(" ", "Edit", "Assessment", new {key = Model.Key, patientKey = Model.PatientKey}, new {@class = "btn btn-info", data_icon="\ue10a"})
+    </div>
+    <div class="clear"></div>
+</div>

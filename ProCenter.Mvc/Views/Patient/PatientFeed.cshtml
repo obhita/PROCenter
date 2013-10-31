@@ -1,0 +1,14 @@
+﻿@model IEnumerable<object>
+
+@{
+    if (Model != null)
+    {
+        foreach (var obj in Model)
+        {
+            <div class="patient-feed-content">
+                @Html.DisplayFor(m => obj)
+                <div class="clear"></div>
+            </div>
+        }
+    }
+}

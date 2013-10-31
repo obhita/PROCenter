@@ -1,0 +1,12 @@
+(function() {
+
+  $(function() {
+    return $(".sidebar-helper a").click(function() {
+      console.log(";a;a;a");
+      return $('html, body').animate({
+        scrollTop: $("#sidebar").offset().top
+      }, 500);
+    });
+  });
+
+}).call(this);

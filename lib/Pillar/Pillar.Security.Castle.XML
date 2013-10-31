@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.Security.Castle</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.Security.CheckAccessInterceptor">
+            <summary>
+                Interceptor that checks for security access when attempting to Execute or CanExecute a rule.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.CheckAccessInterceptor.#ctor(Pillar.Security.AccessControl.IAccessControlManager)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Security.CheckAccessInterceptor"/> class.
+            </summary>
+            <param name="accessControlManager">The access control manager.</param>
+        </member>
+        <member name="M:Pillar.Security.CheckAccessInterceptor.GetInterceptorOptions``1(Pillar.Common.Commands.IFrameworkCommandInfo)">
+            <summary>
+                Gets the interceptor options.
+            </summary>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <param name="frameworkCommandInfo">The framework command info.</param>
+            <returns>Null because has no options.</returns>
+        </member>
+        <member name="M:Pillar.Security.CheckAccessInterceptor.Intercept(Castle.DynamicProxy.IInvocation)">
+            <summary>
+                Intercepts the specified invocation.
+            </summary>
+            <param name="invocation">The invocation.</param>
+        </member>
+        <member name="T:Pillar.Security.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Security"/> namespace contains Security interfaces, classes and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Security.Registry">
+            <summary>
+                This class defines dependency mapping for this Pillar assembly.
+                These mappings will be registered when <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Bootstrap method is called.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.Registry.Register">
+            <summary>
+                Registers dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+    </members>
+</doc>

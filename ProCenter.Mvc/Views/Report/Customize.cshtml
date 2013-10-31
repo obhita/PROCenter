@@ -1,0 +1,13 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@model ProCenter.Service.Message.Report.ReportModelDto
+@{
+    var reportModel = Model;
+}
+<div class="report-customizer" data-ajax-url="@Url.Action( "Customize", "Report", new { Model.Key, ReportName = reportModel.Name } )">
+    <h1>@Html.GetResource( reportModel.Name )</h1>
+    @foreach ( var reportItemDto in reportModel.ReportItems )
+    {
+        @Html.Partial( "ReportItem", reportItemDto )
+    }
+    @Html.ActionLink( "View Report", "Get", "Report", new { Model.Key, ReportName = reportModel.Name }, new { @class="btn btn-success", target = "_blank" } )
+</div>

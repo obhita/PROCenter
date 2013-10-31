@@ -1,0 +1,38 @@
+@model ProCenter.Primitive.PersonName
+<div class="person-name">
+    <div style="float:left; margin-right:10px;">
+        @Html.LabelFor(m => m.Prefix)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+        <div class="clear"></div>
+        @Html.TextBoxFor(m => m.Prefix, new { @class = ModelMetadata.FromLambdaExpression(m => m.Prefix, ViewData).PropertyName })
+    </div>
+    <div style="float:left; margin-right:10px;">
+        @Html.LabelFor(m => m.FirstName)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+        <div class="clear"></div>
+        @Html.TextBoxFor(m => m.FirstName, new { @class = ModelMetadata.FromLambdaExpression(m => m.FirstName, ViewData).PropertyName })
+    </div>
+    <div style="float:left; margin-right:10px;">
+        @Html.LabelFor(m => m.MiddleName)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+        <div class="clear"></div>
+        @Html.TextBoxFor(m => m.MiddleName, new { @class = ModelMetadata.FromLambdaExpression(m => m.MiddleName, ViewData).PropertyName })
+    </div>
+    <div style="float:left; margin-right:10px;">
+        @Html.LabelFor(m => m.LastName)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+        <div class="clear"></div>
+        @Html.TextBoxFor(m => m.LastName, new { @class = ModelMetadata.FromLambdaExpression(m => m.LastName, ViewData).PropertyName })
+    </div>
+    <div style="float:left; margin-right:10px;">
+        @Html.LabelFor(m => m.Suffix)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+        <div class="clear"></div>
+        @Html.TextBoxFor(m => m.Suffix, new { @class = ModelMetadata.FromLambdaExpression(m => m.Suffix, ViewData).PropertyName })
+    </div>
+    @Html.ValidationMessageFor(m => m.Prefix)
+    @Html.ValidationMessageFor(m => m.FirstName)
+    @Html.ValidationMessageFor(m => m.MiddleName)
+    @Html.ValidationMessageFor(m => m.LastName)
+    @Html.ValidationMessageFor(m => m.Suffix)
+</div>

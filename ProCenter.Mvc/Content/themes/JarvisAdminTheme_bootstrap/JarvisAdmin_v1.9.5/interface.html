@@ -1,0 +1,2124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    
+    <title>{JARVIS}Admin</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    
+	<!-- http://davidbcalhoun.com/2010/viewport-metatag -->
+	<meta name="HandheldFriendly" content="True">
+	<meta name="MobileOptimized" content="320">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<!--// OPTIONAL & CONDITIONAL CSS FILES //-->   
+	<!-- date picker css -->
+	<link rel="stylesheet" href="css/datepicker.css?v=1">
+	<!-- full calander css -->
+	<link rel="stylesheet" href="css/fullcalendar.css?v=1">
+	<!-- data tables extended CSS -->
+	<link rel="stylesheet" href="css/TableTools.css?v=1">
+	<!-- bootstrap wysimhtml5 editor -->
+	<link rel="stylesheet" href="css/bootstrap-wysihtml5.css?v=1">
+	<link rel="stylesheet" href="css/wysiwyg-color.css">
+	<!-- custom/responsive growl messages -->
+	<link rel="stylesheet" href="css/toastr.custom.css?v=1">
+	<link rel="stylesheet" href="css/toastr-responsive.css?v=1">
+	<link rel="stylesheet" href="css/jquery.jgrowl.css?v=1">
+	
+	<!-- // DO NOT REMOVE OR CHANGE ORDER OF THE FOLLOWING // -->
+	<!-- bootstrap default css (DO NOT REMOVE) -->
+	<link rel="stylesheet" href="css/bootstrap.min.css?v=1">
+	<link rel="stylesheet" href="css/bootstrap-responsive.min.css?v=1">
+	<!-- font awsome and custom icons -->
+	<link rel="stylesheet" href="css/font-awesome.min.css?v=1">
+	<link rel="stylesheet" href="css/cus-icons.css?v=1">
+	<!-- jarvis widget css -->
+	<link rel="stylesheet" href="css/jarvis-widgets.css?v=1">
+	<!-- Data tables, normal tables and responsive tables css -->
+	<link rel="stylesheet" href="css/DT_bootstrap.css?v=1">
+	<link rel="stylesheet" href="css/responsive-tables.css?v=1">
+	<!-- used where radio, select and form elements are used -->
+	<link rel="stylesheet" href="css/uniform.default.css?v=1">
+	<link rel="stylesheet" href="css/select2.css?v=1">
+	<!-- main theme files -->
+	<link rel="stylesheet" href="css/theme.css?v=1">
+	<link rel="stylesheet" href="css/theme-responsive.css?v=1">
+    
+	<!-- // THEME CSS changed by javascript: the CSS link below will override the rules above // -->
+	<!-- For more information, please see the documentation for "THEMES" -->
+    <link rel="stylesheet" id="switch-theme-js" href="css/themes/default.css?v=1">   
+	
+   	<!-- To switch to full width -->
+    <link rel="stylesheet" id="switch-width" href="css/full-width.css?v=1">
+    
+	<!-- Webfonts -->
+	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400,700' type='text/css'>
+	
+	<!-- All javascripts are located at the bottom except for HTML5 Shim -->
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+   		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+   		<script src="js/include/respond.min.js"></script>
+   	<![endif]-->
+
+	<!-- For Modern Browsers -->
+	<link rel="shortcut icon" href="img/favicons/favicon.png">
+	<!-- For everything else -->
+	<link rel="shortcut icon" href="img/favicons/favicon.ico">
+	<!-- For retina screens -->
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/favicons/apple-touch-icon-retina.png">
+	<!-- For iPad 1-->
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/favicons/apple-touch-icon-ipad.png">
+	<!-- For iPhone 3G, iPod Touch and Android -->
+	<link rel="apple-touch-icon-precomposed" href="img/favicons/apple-touch-icon.png">
+	
+	<!-- iOS web-app metas -->
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<!-- Add your custom home screen title: -->
+	<meta name="apple-mobile-web-app-title" content="Jarvis"> 
+
+	<!-- Startup image for web apps -->
+	<link rel="apple-touch-startup-image" href="img/splash/ipad-landscape.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:landscape)">
+	<link rel="apple-touch-startup-image" href="img/splash/ipad-portrait.png" media="screen and (min-device-width: 481px) and (max-device-width: 1024px) and (orientation:portrait)">
+	<link rel="apple-touch-startup-image" href="img/splash/iphone.png" media="screen and (max-device-width: 320px)">
+	
+  </head>
+
+  <body>
+  	<!-- .height-wrapper -->
+	<div class="height-wrapper">
+		
+		<!-- header -->
+		<header>
+			<!-- tool bar -->
+			<div id="header-toolbar" class="container-fluid">
+				<!-- .contained -->
+				<div class="contained">
+					
+					<!-- theme name -->
+					<h1> {JARVIS} <span class="hidden-phone">- Smart Admin Template</span> </h1>
+					<!-- end theme name -->
+					
+					<!-- span4 -->
+					<div class="pull-right">
+						<!-- demo theme switcher-->
+						<div id="theme-switcher" class="btn-toolbar">
+							
+							<!-- search and log off button for phone devices -->
+							<div class="btn-group pull-right visible-phone">
+								<a href="javascript:void(0)" class="btn btn-inverse btn-small"><i class="icon-search"></i></a>
+								<a href="login.html" class="btn btn-inverse btn-small"><i class="icon-off"></i></a>
+							</div>
+							<!-- end buttons for phone device -->
+							
+							<!-- dropdown mini-inbox-->
+							<div class="btn-group">
+								<!-- new mail ticker -->
+								<a href="javascript:void(0)" class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown">
+									<span class="mail-sticker">3</span>
+									<i class="cus-email"></i>
+								</a>
+								<!-- end new mail ticker -->
+								
+								<!-- email lists -->
+								<div class="dropdown-menu toolbar pull-right">
+									<h3>Inbox</h3>
+									<ul id="mailbox-slimscroll-js" class="mailbox">
+										<li>
+											<a href="javascript:void(0)" class="unread">
+												<img src="img/email-important.png" alt="important mail">
+												From: David Simpson
+												<i class="icon-paper-clip"></i>
+												<span>Dear Victoria, Congratulations! Your work has been uploaded to wrapbootstrap.com...</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="unread attachment">
+												
+												<img src="img/email-unread.png" alt="important mail">
+												Re:Last Year sales
+												<i class="icon-paper-clip"></i>
+												<span>Hey Vicky, find attached! Thx :-)</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="unread">
+												<img src="img/email-unread.png" alt="important mail">
+												Company Party
+												<i class="icon-paper-clip"></i>
+												<span>Hi, You have been cordially invited to join new year after party.</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="read">
+												<img src="img/email-read.png" alt="important mail">
+												RE: 2 Bugs found...
+												<i class="icon-paper-clip"></i>
+												<span>I have found two more bugs in this your beta version, maybe its not working...</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="read">
+												<img src="img/email-read.png" alt="important mail">
+												2 Bugs found...
+												<i class="icon-paper-clip"></i>
+												<span>Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales.</span>
+											</a>
+										</li>
+										<li>
+											<a href="javascript:void(0)" class="read">
+												<img src="img/email-read.png" alt="important mail">
+												Welcome to Jarvis!
+												<i class="icon-paper-clip"></i>
+												<span>Feugiat a, tellus. Phasellus viverra nulla ut metus varius. Quisque rutrum. Aenean imperdiet... </span>
+											</a>
+										</li>
+									</ul>
+									<a href="javascript:void(0);" id="go-to-inbox">Go to Inbox <i class="icon-double-angle-right"></i></a>
+								</div>
+								<!-- end email lists -->
+							</div>
+							<!-- end dropdown mini-inbox-->
+							
+							<!-- Tasks -->
+							<div class="btn-group hidden-phone">
+								<a href="javascript:void(0)" class="btn btn-inverse btn-small">My Tasks</a>
+								<a href="javascript:void(0)" class="btn btn-inverse dropdown-toggle btn-small" data-toggle="dropdown"><span class="caret"></span></a>
+					
+								<div class="dropdown-menu toolbar pull-right">
+									<h3>Showing All Tasks</h3>
+									<ul class="progressbox">
+						                <li>
+						                    <strong><i class="online pull-left"></i>Urgent Bug Fixes</strong><b>Complete</b>
+						                    <div class="progress progress-success slim"><div class="bar" style="width: 100%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong>Added functionality</strong><b>70%</b>
+						                    <div class="progress progress-info slim"><div class="bar" style="width: 70%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong>CAD Changes</strong><b>50%</b>
+						                    <div class="progress progress-info slim"><div class="bar" style="width: 50%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong>Marketing Campaign Mocup</strong><b>22%</b>
+						                    <div class="progress progress-danger slim"><div class="bar" style="width: 22%;"></div></div>
+						                </li>
+						                <li>
+						                    <strong><i class="offline pull-left"></i>Proposal</strong><b>Pending</b>
+						                    <div class="progress progress-info slim"><div class="bar" style="width: 0%;"></div></div>
+						                </li>
+						            </ul>
+								</div>
+
+							</div>
+							<!-- end Tasks -->
+							
+							<!-- theme dropdown -->
+							<div class="btn-group hidden-phone">
+								<a href="javascript:void(0)" class="btn btn-small btn-inverse" id="reset-widget"><i class="icon-refresh"></i></a>
+								<a href="javascript:void(0)" class="btn btn-small btn-inverse dropdown-toggle" data-toggle="dropdown">Themes <span class="caret"></span></a>
+								<ul id="theme-links-js" class="dropdown-menu toolbar pull-right">
+									<li>
+										<a href="javascript:void(0)" data-rel="purple"><i class="icon-sign-blank purple-icon"></i>Royal Purple</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="blue"><i class="icon-sign-blank navyblue-icon"></i>Navy Blue</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="green"><i class="icon-sign-blank green-icon "></i>Emerald</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="darkred"><i class="icon-sign-blank red-icon "></i>Dark Rose</a>
+									</li>
+									<li>
+										<a href="javascript:void(0)" data-rel="default"><i class="icon-sign-blank grey-icon"></i>Default</a>
+									</li>
+								</ul>
+							</div>
+							<!-- end theme dropdown-->
+							
+						</div>
+					  	<!-- end demo theme switcher-->
+					</div>
+					<!-- end span4 -->
+				</div>
+				<!-- end .contained -->
+			</div>
+			<!-- end tool bar -->
+			
+		</header>
+		<!-- end header -->
+		
+		
+	    <div id="main" role="main" class="container-fluid">
+			<div class="contained">
+				<!-- aside -->	
+				<aside>	
+					
+					<!-- search box -->
+					<div class="main-search">
+						<label for="main-search"><i class="icon-search"></i></label>
+	                    <input id="main-search" type="text" placeholder="Search..." />
+                	</div>
+					<div class="divider"></div>
+					<!-- end search box -->
+										
+					<!-- aside item: Mini profile -->
+					<div class="my-profile">
+						<a href="javascript:void(0)" class="my-profile-pic">
+							<img src="img/avatar/avatar_0.jpg" alt="" />
+						</a>
+						<span class="first-child">Welcome <strong>Victoria!</strong></span>
+						<span><a href="javascript:void(0);">Edit Profile </a></span>
+					</div>
+					<div class="divider"></div>
+					<!-- end aside item: Mini profile -->
+
+					<!-- aside item: Menu -->
+					<div class="sidebar-nav-fixed">
+						
+						<ul class="menu" id="accordion-menu-js">
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-off"></i>Dashboard <span class="badge">2</span></a>
+								<ul>
+									<li class="current">
+										<a href="index.html">Dashboard</a>
+									</li>
+									<li>
+										<a href="javascript:void(0);" class="logout-js" data-rel="login.html">Logout</a>
+									</li>
+								</ul>
+							</li>
+							<li class="">
+								<a href="inbox.html"><i class="icon-envelope"></i>Inbox</a>
+							</li>
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-check"></i>Forms<span class="badge">3</span></a>
+								<ul>
+									<li>
+										<a href="forms.html">Form Elements</a>
+									</li>
+									<li>
+										<a href="validation.html">Validation</a>
+									</li>
+									<li>
+										<a href="wizard.html">Wizards</a>
+									</li>
+								</ul>
+							</li>
+							<li class="current">
+								<a href="javascript:void(0)"><i class="icon-user"></i>Interface<span class="badge">3</span></a>
+								<ul>
+									<li>
+										<a href="interface.html" class="expanded">Interface Elements</a>
+									</li>
+									<li>
+										<a href="buttons.html">Buttons &amp; Icons</a>
+									</li>
+									<li>
+										<a href="tables.html">Tables</a>
+									</li>
+								</ul>
+							</li>
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-signal"></i>Charts &amp; Graphs<span class="badge">3</span></a>
+								<ul>
+									<li>
+										<a href="basic_charts.html">Basic Charts</a>
+									</li>
+									<li>
+										<a href="adv_charts.html">Advanced Charts</a>
+									</li>
+									<li>
+										<a href="raphael.html">Raphael Engine</a>
+									</li>
+								</ul>
+							</li>
+							<li class="">
+								<a href="widgets.html"><i class="icon-refresh"></i>Smart Widgets</a>
+							</li>
+							<li class="">
+								<a href="javascript:void(0)"><i class="icon-plus"></i>Bonus<span class="badge">4</span></a>
+								<ul>
+									<li>
+										<a href="invoice.html">Invoice</a>
+									</li>
+									<li>
+										<a href="typography.html">Typography</a>
+									</li>
+									<li>
+										<a href="chat.html">Chat</a>
+									</li>
+									<li>
+										<a href="error-page.html">Error Page</a>
+									</li>
+								</ul>
+							</li>
+						</ul>
+						
+					</div>
+					<div class="divider"></div>
+					<!-- end aside item: Menu -->
+					
+					<!-- aside buttons -->
+					<div class="aside-buttons">
+		                <a href="javascript:void(0)" title="" class="btn btn-primary">Create an Invoice</a>
+		            </div>
+		            <div class="divider"></div>
+		            <!-- end aside buttons -->
+		            
+					
+					<!-- aside progress bars -->
+					<ul class="indented aside-progress-stats">
+		                <li>
+		                    <strong>Data Restored</strong><strong class="pull-right">90%</strong>
+		                    <div class="progress progress-danger slim"><div class="bar" data-percentage="90"></div></div>
+		                </li>
+		                <li>
+		                    <strong>Recovering IDE</strong><strong class="pull-right">66%</strong>
+		                    <div class="progress progress-info slim"><div class="bar" data-percentage="66"></div></div>
+		                </li>
+		                <li>
+		                    <strong>DLL Construction</strong><strong class="pull-right">48%</strong>
+		                    <div class="progress progress-info slim"><div class="bar" data-percentage="48"></div></div>
+		                </li>
+		                <li>
+		                    <strong>Machine Req</strong><strong class="pull-right">33%</strong>
+		                    <div class="progress progress-info slim"><div class="bar" data-percentage="33"></div></div>
+		                </li>
+		            </ul>
+		            <div class="divider"></div>
+		            <!-- end aside progress bars -->
+		            
+				</aside>
+				<!-- aside end -->
+				
+				<!-- main content -->
+				<div id="page-content">
+					
+					<!-- breadcrumb -->
+					<ul class="breadcrumb">
+						<li>
+							<a href="javascript:void(0);"><i class="icon-off"></i> Dashboard</a><span class="divider">/</span>
+						</li>
+						<li>
+							<a href="javascript:void(0);">Library</a><span class="divider">/</span>
+						</li>
+						<li class="active">
+							Current Page
+						</li>
+					</ul>
+					<!-- end breadcrumb -->
+					
+					<!-- page header -->
+					<h1 id="page-header">Interface > Interface Elements</h1>	
+					
+					<!-- Main Alerts -->
+					<div class="alert adjusted alert-warning">
+						<button class="close" data-dismiss="alert">×</button>
+						<i class="cus-exclamation-octagon-fram"></i>
+						<strong>Warning</strong> Your monthly traffic is reaching limit.
+					</div>
+					
+					<div class="alert adjusted alert-success">
+						<button class="close" data-dismiss="alert">×</button>
+						<i class="cus-accept"></i>
+						<strong>Success</strong> The page has been added.
+					</div>
+					
+					<div class="alert adjusted alert-info">
+						<button class="close" data-dismiss="alert">×</button>
+						<i class="cus-exclamation"></i>
+						<strong>Info!</strong> You have 198 unread messages.
+					</div>
+					
+					<div class="alert adjusted alert-error">
+						<button class="close" data-dismiss="alert">×</button>
+						<i class="cus-cross-octagon"></i>
+						<strong>Error!</strong> The daily cronjob has failed.
+					</div>
+					<!-- end main alerts -->
+					
+					<div class="fluid-container">
+						
+						<!-- start icons -->
+						<div id="start">
+							<ul>
+								<li>
+									<label>+999 </label>
+									<a href="javascript:void(0)" title="">
+										<img src="img/start-icons/add-user.png" alt="">
+										<span>Add New User</span>
+									</a>
+								</li>
+								<li>
+									<label>999 </label>
+									<a href="javascript:void(0)" title="">
+										<img src="img/start-icons/orders.png" alt="">
+										<span>View Orders</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" title="">
+										<img src="img/start-icons/mass.png" alt="">
+										<span>Broadcast</span>
+									</a>
+								</li>
+								<li>
+									<label>999</label>
+									<a href="javascript:void(0)" title="">
+										<img src="img/start-icons/stats.png" alt="">
+										<span>Show Statistics</span>
+									</a>
+								</li>
+								<li>
+									<label>999</label>
+									<a href="javascript:void(0)" title="">
+										<img src="img/start-icons/pending-message.png" alt="">
+										<span>Comments</span>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)" title="">
+										<img src="img/start-icons/upgrade.png" alt="">
+										<span>Service Upgrade</span>
+									</a>
+								</li>
+							</ul>
+
+						</div>						
+						<!-- end start icons -->
+						
+						<!-- widget grid -->
+						<section id="widget-grid" class="">
+							
+							<!-- row-fluid -->
+							<div class="row-fluid">
+								
+								<article class="span12">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-0">
+									    <header>
+									        <h2>Bootstrap Progress Bars</h2>                           
+									    </header>
+									    <div>
+									    
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+            
+											<div class="inner-spacer widget-content-padding row-fluid"> 
+									        <!-- content -->	
+									        		<!-- span6 -->
+					                                <div class="span6">
+
+				                                        <h6><code>.progress .right</code></h6>
+				                                        <div class="well">
+															<div class="progress right progress-info">
+																<div class="bar filled-text" data-percentage="25">
+																	25%
+																</div>
+															</div>
+															<div class="progress right progress-success">
+																<div class="bar filled-text" data-percentage="50">
+																	50%
+																</div>
+															</div>
+															<div class="progress right progress-warning">
+																<div class="bar filled-text" data-percentage="75">
+																	75%
+																</div>
+															</div>
+															<div class="progress right progress-danger">
+																<div class="bar filled-text" data-percentage="100">
+																	100%
+																</div>
+															</div>
+				                                        </div>
+					                                    
+					                                </div>
+													<!-- end span6 -->
+													
+													<!-- span6 -->
+					                                <div class="span6">
+					
+				                                        <h6><code>.progress</code></h6>
+				                                        <div class="well">
+															<div class="progress progress-info">
+																<div class="bar filled-text" data-percentage="25">
+																	25%
+																</div>
+															</div>
+															<div class="progress progress-success">
+																<div class="bar filled-text" data-percentage="50">
+																	50%
+																</div>
+															</div>
+															<div class="progress progress-warning">
+																<div class="bar filled-text" data-percentage="75">
+																	75%
+																</div>
+															</div>
+															<div class="progress progress-danger">
+																<div class="bar filled-text" data-percentage="100">
+																	100%
+																</div>
+															</div>
+				                                        </div>
+					
+					                                </div>
+					                                <!-- end span6 -->
+					                           
+										       		
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									</div>
+									<!-- end widget -->
+
+								</article>
+							
+							</div>
+							
+							<!-- end row-fluid -->
+							
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+
+								<article class="span12">
+
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-1">
+									    <header>
+									        <h2>Animated bars</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer"> 
+									        <!-- content goes here -->
+												<form class="form-horizontal">
+                                                    <div class="control-group">
+                                                        <label class="control-label">
+                                                            Default Progress Bar
+                                                        </label>
+                                                        <div class="controls">
+                                                            <div class="progress active progress-striped">
+                                                                <div class="bar" style="width: 67%; "></div>
+                                                            </div>
+                                                            <span class="help-block"><code>progress active progress-striped</code></span>
+                                                        </div>
+                                                    </div>
+                                                	<div class="control-group">
+                                                    	<label class="control-label">
+                                                            Info Progress Bar
+                                                        </label>
+                                                        <div class="controls">
+                                                        	<div class="progress active-bar-info active progress-striped">
+                                                                <div class="bar" style="width: 67%; "></div>
+                                                            </div>
+                                                            <span class="help-block"><code>progress progress-info active progress-striped</code></span>
+                                                        </div>
+                                                    </div>
+                                                	<div class="control-group">
+                                                    	<label class="control-label">
+                                                            Success Progress Bar
+                                                        </label>
+                                                        <div class="controls">
+                                                            <div class="progress active-bar-success active progress-striped">
+                                                                <div class="bar" style="width: 55%; "></div>
+                                                            </div>
+                                                            <span class="help-block"><code>progress progress-success active progress-striped</code></span>
+                                                        </div>
+                                                    </div>
+                                                	<div class="control-group">
+                                                    	<label class="control-label">
+                                                            Warning Progress Bar
+                                                        </label>
+                                                        <div class="controls">
+                                                            <div class="progress active-bar-warning active progress-striped">
+                                                                <div class="bar" style="width: 75%; "></div>
+                                                            </div>
+                                                            <span class="help-block"><code>progress progress-warning active progress-striped</code></span>
+                                                        </div>
+                                                    </div>
+                                                	<div class="control-group">
+                                                    	<label class="control-label">
+                                                            Danger Progress Bar
+                                                        </label>
+                                                        <div class="controls">
+                                                            <div class="progress active-bar-danger active progress-striped">
+                                                                <div class="bar" style="width: 32%; "></div>
+                                                            </div>
+                                                            <span class="help-block"><code>progress progress-danger active progress-striped</code></span>
+                                                        </div>
+                                                    </div>
+                                                </form>
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-2">
+									    <header>
+									        <h2>Tabs Default</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding"> 
+									        <!-- content -->	
+												<ul id="myTab" class="nav nav-tabs default-tabs">
+													<li class="active">
+														<a href="#s1" data-toggle="tab">Tab Item 1</a>
+													</li>
+													<li>
+														<a href="#s2" data-toggle="tab">Tab Item 2</a>
+													</li>
+													<li class="dropdown">
+														<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+														<ul class="dropdown-menu">
+															<li>
+																<a href="#s3" data-toggle="tab">@fat</a>
+															</li>
+															<li>
+																<a href="#s4" data-toggle="tab">@mdo</a>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												<div id="myTabContent" class="tab-content">
+													<div class="tab-pane fade in active" id="s1">
+														<p>
+															Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+														</p>
+													</div>
+													<div class="tab-pane fade" id="s2">
+														<p>
+															Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+														</p>
+													</div>
+													<div class="tab-pane fade" id="s3">
+														<p>
+															Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+														</p>
+													</div>
+													<div class="tab-pane fade" id="s4">
+														<p>
+															Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.
+														</p>
+													</div>
+												</div>
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-3">
+									    <header>
+									        <h2>Tabs right</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding"> 
+									        <!-- content -->	
+												<ul id="myTab2" class="nav nav-tabs default-tabs rt">
+													<li class="active">
+														<a href="#s1-1" data-toggle="tab">Tab Item 1</a>
+													</li>
+													<li>
+														<a href="#s2-1" data-toggle="tab">Tab Item 2</a>
+													</li>
+													<li class="dropdown">
+														<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+														<ul class="dropdown-menu">
+															<li>
+																<a href="#s3-1" data-toggle="tab">@fat</a>
+															</li>
+															<li>
+																<a href="#s4-1" data-toggle="tab">@mdo</a>
+															</li>
+														</ul>
+													</li>
+												</ul>
+												<div id="myTabContent2" class="tab-content">
+													<div class="tab-pane fade in active" id="s1-1">
+														<p>
+															Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.
+														</p>
+													</div>
+													<div class="tab-pane fade" id="s2-1">
+														<p>
+															Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit. Keytar helvetica VHS salvia yr, vero magna velit sapiente labore stumptown. Vegan fanny pack odio cillum wes anderson 8-bit, sustainable jean shorts beard ut DIY ethical culpa terry richardson biodiesel. Art party scenester stumptown, tumblr butcher vero sint qui sapiente accusamus tattooed echo park.
+														</p>
+													</div>
+													<div class="tab-pane fade" id="s3-1">
+														<p>
+															Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.
+														</p>
+													</div>
+													<div class="tab-pane fade" id="s4-1">
+														<p>
+															Trust fund seitan letterpress, keytar raw denim keffiyeh etsy art party before they sold out master cleanse gluten-free squid scenester freegan cosby sweater. Fanny pack portland seitan DIY, art party locavore wolf cliche high life echo park Austin. Cred vinyl keffiyeh DIY salvia PBR, banh mi before they sold out farm-to-table VHS viral locavore cosby sweater. Lomo wolf viral, mustache readymade thundercats keffiyeh craft beer marfa ethical. Wolf salvia freegan, sartorial keffiyeh echo park vegan.
+														</p>
+													</div>
+												</div>
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+							
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-4">
+									    <header>
+									        <h2>Accordion default with icon</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer"> 
+									        <!-- content -->	
+												<div class="accordion" id="accordion1">
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle active" data-toggle="collapse" data-parent="#accordion1" href="#collapse1">
+																<i class="icon-plus-sign"></i> Collapsible Group Item #1 </a>
+														</div>
+														<div id="collapse1" class="accordion-body in collapse" style="height: auto; ">
+															<div class="accordion-inner">
+																Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse2">
+																<i class="icon-plus-sign"></i> Collapsible Group Item #2 </a>
+														</div>
+														<div id="collapse2" class="accordion-body collapse" style="height: 0px; ">
+															<div class="accordion-inner">
+																Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion1" href="#collapse3">
+																<i class="icon-plus-sign"></i> Collapsible Group Item #3 </a>
+														</div>
+														<div id="collapse3" class="accordion-body collapse" style="height: 0px; ">
+															<div class="accordion-inner">
+																Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+															</div>
+														</div>
+													</div>
+												</div>
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-5">
+									    <header>
+									        <h2>Accordion right with no icon</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer"> 
+									        <!-- content -->	
+												<div class="accordion rt" id="accordion2">
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse4">
+															 Collapsible Group Item #1 </a>
+														</div>
+														<div id="collapse4" class="accordion-body in collapse" style="height: auto; ">
+															<div class="accordion-inner">
+																Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse5">
+															 Collapsible Group Item #2 </a>
+														</div>
+														<div id="collapse5" class="accordion-body collapse" style="height: 0px; ">
+															<div class="accordion-inner">
+																Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+															</div>
+														</div>
+													</div>
+													<div class="accordion-group">
+														<div class="accordion-heading">
+															<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapse6">
+															 Collapsible Group Item #3 </a>
+														</div>
+														<div id="collapse6" class="accordion-body collapse" style="height: 0px; ">
+															<div class="accordion-inner">
+																Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+															</div>
+														</div>
+													</div>
+												</div>
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+							
+							<!-- bread crumb -->
+							<ul class="breadcrumb">
+								<li>
+									<a href="javascript:void(0);"><i class="icon-off"></i> Dashboard</a><span class="divider">/</span>
+								</li>
+								<li>
+									<a href="javascript:void(0);">Library</a><span class="divider">/</span>
+								</li>
+								<li>
+									<a href="javascript:void(0);">Interface Elments</a><span class="divider">/</span>
+								</li>
+								<li class="active">
+									Current Page
+								</li>
+							</ul>
+							<!-- end bread crumb -->
+							
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-6">
+									    <header>
+									        <h2>Labels</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer"> 
+									        <!-- content -->	
+											<table class="table table-bordered table-striped responsive">
+														<thead>
+															<tr>
+																<th>Labels</th>
+																<th>Markup</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td><span class="label">Default</span></td>
+																<td><code>
+																	&lt;span class="label"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-success">Success</span></td>
+																<td><code>
+																	&lt;span class="label label-success"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-warning">Warning</span></td>
+																<td><code>
+																	&lt;span class="label label-warning"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-important">Important</span></td>
+																<td><code>
+																	&lt;span class="label label-important"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-info">Info</span></td>
+																<td><code>
+																	&lt;span class="label label-info"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-inverse">Inverse</span></td>
+																<td><code>
+																	&lt;span class="label label-inverse"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-important special">Important Special</span></td>
+																<td><code>
+																	&lt;span class="label label-important special"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-warning special">Warning Special</span></td>
+																<td><code>
+																	&lt;span class="label label-warning"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-success special">Success Special</span></td>
+																<td><code>
+																	&lt;span class="label label-success special"&gt;</code></td>
+															</tr>
+															<tr>
+																<td><span class="label label-info special">Info Special</span></td>
+																<td><code>
+																	&lt;span class="label label-inverse"&gt;</code></td>
+															</tr>
+														</tbody>
+													</table>
+										       		
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-7">
+									    <header>
+									        <h2>Badges</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer"> 
+									        <!-- content -->	
+												<table class="table table-bordered table-striped responsive">
+														<thead>
+															<tr>
+																<th>Name</th>
+																<th>Example</th>
+																<th>Markup</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td> Default </td>
+																<td><span class="badge">2</span></td>
+																<td><code>
+																	&lt;span class="badge"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Success </td>
+																<td><span class="badge badge-success">3</span></td>
+																<td><code>
+																	&lt;span class="badge badge-success"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Warning </td>
+																<td><span class="badge badge-warning">4</span></td>
+																<td><code>
+																	&lt;span class="badge badge-warning"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Important </td>
+																<td><span class="badge badge-important">5</span></td>
+																<td><code>
+																	&lt;span class="badge badge-important"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Info </td>
+																<td><span class="badge badge-info">6</span></td>
+																<td><code>
+																	&lt;span class="badge badge-info"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Inverse </td>
+																<td><span class="badge badge-inverse">7</span></td>
+																<td><code>
+																	&lt;span class="badge badge-inverse"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Important Special </td>
+																<td><span class="badge badge-important special">8</span></td>
+																<td><code>
+																	&lt;span class="badge badge-important special"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Warning Special </td>
+																<td><span class="badge badge-warning special">9</span></td>
+																<td><code>
+																	&lt;span class="badge badge-warning special"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Success Special </td>
+																<td><span class="badge badge-success special">10</span></td>
+																<td><code>
+																	&lt;span class="badge badge-success special"&gt;</code></td>
+															</tr>
+															<tr>
+																<td> Info Special </td>
+																<td><span class="badge badge-info special">11</span></td>
+																<td><code>
+																	&lt;span class="badge badge-info special"&gt;</code></td>
+															</tr>
+														</tbody>
+												</table>
+										       		
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									</div>
+									<!-- end widget -->
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+							
+							<div class="row-fluid">
+									<div class="span12">
+										<div class="alert adjusted alert-block">
+											<a class="close">×</a>
+											<h4 class="alert-heading">Warning Alert block</h4>
+											<p>
+												Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+											</p>
+											<button class="btn btn-small btn-warning" style="margin-top:20px">
+												Yes, I agree
+											</button>
+										</div>
+										<div class="alert alert-success adjusted alert-block">
+											<a class="close">×</a>
+											<h4 class="alert-heading">Success Alert block</h4>
+											<p>
+												Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+											</p>
+											<button class="btn btn-small btn-success" style="margin-top:20px">
+												Yes, I agree
+											</button>
+										</div>
+										<div class="alert alert-info adjusted alert-block">
+											<a class="close">×</a>
+											<h4 class="alert-heading">Info Alert block</h4>
+											<p>
+												Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+											</p>
+											<button class="btn btn-small btn-info" style="margin-top:20px">
+												Yes, I agree
+											</button>
+										</div>
+										<div class="alert alert-error adjusted alert-block">
+											<a class="close">×</a>
+											<h4 class="alert-heading">Error Alert block</h4>
+											<p>
+												Best check yo self, you're not looking too good. Nulla vitae elit libero, a pharetra augue. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
+											</p>
+											<div style="text-align:right">
+												<button class="btn medium btn-danger">
+													Yes, I agree
+												</button>
+												<button class="btn medium btn-inverse">
+													Never!
+												</button>
+											</div>
+
+										</div>
+										
+									</div>
+							</div>
+							
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span12">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-8">
+										<header>
+											<h2>Paging</h2>
+										</header>
+										<!-- wrap div -->
+										<div>
+
+											<div class="jarviswidget-editbox">
+												<div>
+													<label>Title:</label>
+													<input type="text" />
+												</div>
+												<div>
+													<label>Styles:</label>
+													<span data-widget-setstyle="purple" class="purple-btn"></span>
+													<span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+													<span data-widget-setstyle="green" class="green-btn"></span>
+													<span data-widget-setstyle="yellow" class="yellow-btn"></span>
+													<span data-widget-setstyle="orange" class="orange-btn"></span>
+													<span data-widget-setstyle="pink" class="pink-btn"></span>
+													<span data-widget-setstyle="red" class="red-btn"></span>
+													<span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+													<span data-widget-setstyle="black" class="black-btn"></span>
+												</div>
+											</div>
+
+											<div class="inner-spacer widget-content-padding">
+												<!-- content goes here -->
+
+												<!-- .row-fluid -->
+												<div class="row-fluid">
+
+													<!-- span6 -->
+													<div class="span6">
+
+														<!-- .well -->
+														<div class="well light">
+
+															<div class="pagination pagination-large">
+																<h6>
+																<code>
+																	.pagination-large
+																</code></h6>
+																<ul>
+																	<li>
+																		<a href="javascript:void(0);">«</a>
+																	</li>
+																	<li class="active">
+																		<a href="javascript:void(0);">1</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">2</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">3</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">4</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">5</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">»</a>
+																	</li>
+																</ul>
+															</div>
+
+															<div class="pagination">
+																<h6>
+																<code>
+																	.pagination
+																</code></h6>
+																<ul>
+																	<li>
+																		<a href="javascript:void(0);">«</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">1</a>
+																	</li>
+																	<li class="active">
+																		<a href="javascript:void(0);">2</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">3</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">4</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">5</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">»</a>
+																	</li>
+																</ul>
+															</div>
+
+															<div class="pagination pagination-small">
+																<h6>
+																<code>
+																	.pagination-small
+																</code></h6>
+																<ul>
+																	<li>
+																		<a href="javascript:void(0);">«</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">1</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">2</a>
+																	</li>
+																	<li class="active">
+																		<a href="javascript:void(0);">3</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">4</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">5</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">»</a>
+																	</li>
+																</ul>
+															</div>
+
+															<div class="pagination pagination-mini">
+																<h6>
+																<code>
+																	.pagination-mini
+																</code></h6>
+																<ul>
+																	<li>
+																		<a href="javascript:void(0);">«</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">1</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">2</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">3</a>
+																	</li>
+																	<li class="active">
+																		<a href="javascript:void(0);">4</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">5</a>
+																	</li>
+																	<li>
+																		<a href="javascript:void(0);">»</a>
+																	</li>
+																</ul>
+															</div>
+
+														</div>
+														<!-- end well -->
+
+													</div>
+													<!-- end span6 -->
+
+													<!-- span6 -->
+													<div class="span6">
+
+														<div class="row-fluid">
+															<div class="well light spacing">
+																<h6>
+																<code>
+																	.pagination
+																</code></h6>
+																<div class="pagination">
+																	<ul>
+																		<li class="disabled">
+																			<a href="javascript:void(0);">Prev</a>
+																		</li>
+																		<li class="active">
+																			<a href="javascript:void(0);">1</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">2</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">3</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">4</a>
+																		</li>
+																		<li>
+																			<a href="javascript:void(0);">Next</a>
+																		</li>
+																	</ul>
+																</div>
+															</div>
+
+															<div class="semi-block">
+
+																<div class="well light spacing">
+																	<code>
+																		.pagination-centered
+																	</code>
+																	<div class="pagination pagination-centered">
+																		<ul>
+																			<li>
+																				<a href="javascript:void(0);">Prev</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">1</a>
+																			</li>
+																			<li class="active">
+																				<a href="javascript:void(0);">2</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">3</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">4</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">Next</a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+
+															<div class="semi-block">
+																<div class="well light">
+																	<code>
+																		.pagination-right
+																	</code>
+																	<div class="pagination pagination-right">
+																		<ul>
+																			<li>
+																				<a href="javascript:void(0);">Prev</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">1</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">2</a>
+																			</li>
+																			<li class="active">
+																				<a href="javascript:void(0);">3</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">4</a>
+																			</li>
+																			<li>
+																				<a href="javascript:void(0);">Next</a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+															</div>
+
+														</div>
+														<!-- end row-fluid -->
+
+													</div>
+													<!-- end span6 -->
+
+												</div>
+												<!-- end content-->
+											</div>
+											<!-- end wrap div -->
+										</div>
+										<!-- end widget -->
+									</div>	
+									<!-- end widget -->
+								</article>
+								
+							</div>
+							
+							<!-- end row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-9">
+									    <header>
+									        <h2>Jarvis Notification</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding" style="text-align:center"> 
+									        <!-- content -->	
+												
+			                                        <button type="button" class="btn medium btn-primary" onclick="$.jGrowl('Hello world!');">Basic notice</button>
+			                                        <button type="button" class="btn medium btn-primary" onclick="$.jGrowl('Stick this!', { sticky: true });">Sticky notice</button>
+			                                        <button type="button" class="btn medium btn-primary" onclick="$.jGrowl('A message with a header', { header: 'Important' });">Message with header</button>
+			                                        <button type="button" class="btn medium btn-primary" onclick="$.jGrowl('A message that will live a little longer.', { life: 10000 });">Long live message</button>
+			                                    
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    <!-- end widget div -->
+									    
+									</div>
+									<!-- end widget -->
+								</article>
+								
+								<article class="span6">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-10">
+									    <header>
+									        <h2>Toastr Notification</h2>                           
+									    </header>
+									    
+									    <!-- widget div-->
+									    <div>
+									    	<!-- widget edit box -->
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+									        <!-- end widget edit box -->
+            
+									        <div class="inner-spacer widget-content-padding" style="text-align:center"> 
+									        <!-- content -->	
+									
+		                                        <button type="button" class="btn medium btn-primary" onclick="toastr.info('Are you the six fingered man?')">Info notice</button>
+		                                        <button type="button" class="btn medium btn-success" onclick="toastr.success('Have fun storming the castle!', 'Miracle Max Says');">Success notice</button>
+		                                        <button type="button" class="btn medium btn-warning" onclick="toastr.warning('My name is Inigo Montoya. You Killed my father, prepare to die!')">Warning notice</button>
+		                                    	<button type="button" class="btn medium btn-danger" onclick="toastr.error('I do not think that word means what you think it means.', 'Inconceivable!')">Error notice</button>
+											<!-- end content -->	
+									        </div>
+									        
+									    </div>
+									    
+									    <!-- end widget div -->
+									</div>
+									
+									<!-- end widget -->
+								</article>
+								
+							</div>
+
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span12">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-11">
+									    <header>
+									        <h2>Popover</h2>                           
+									    </header>
+									    <!-- wrap div -->
+									    <div>
+									    
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+            
+											<div class="inner-spacer widget-content-padding">
+												<!-- content goes here -->
+												<div style="text-align:center;">
+													
+													<a href="javascript:void(0);" class="btn popover-js" data-toggle="popover" data-placement="top" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on top">Popover on top</a>
+	
+													<a href="javascript:void(0);" class="btn popover-js" data-toggle="popover" data-placement="right" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on right">Popover on right</a>
+	
+													<a href="javascript:void(0);" class="btn popover-js" data-toggle="popover" data-placement="bottom" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on bottom">Popover on bottom</a>
+	
+													<a href="javascript:void(0);" class="btn popover-js" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." title="" data-original-title="Popover on left">Popover on left</a>
+												
+												</div>
+												<!-- end content-->
+											</div>
+									    
+									    </div>
+									    <!-- end wrap div -->
+									</div>
+									<!-- end widget -->
+								</article>
+							
+							</div>
+							<!-- end row-fluid -->
+														
+							<!-- row-fluid -->
+							
+							<div class="row-fluid">
+								
+								<article class="span12">
+									<!-- new widget -->
+									<div class="jarviswidget" id="widget-id-12">
+									    <header>
+									        <h2>Model Box</h2>                           
+									    </header>
+									    <!-- wrap div -->
+									    <div>
+									    
+									        <div class="jarviswidget-editbox">
+									            <div>
+									                <label>Title:</label>
+									                <input type="text" />
+									            </div>
+									            <div>
+									                <label>Styles:</label>
+									                <span data-widget-setstyle="purple" class="purple-btn"></span>
+									                <span data-widget-setstyle="navyblue" class="navyblue-btn"></span>
+									                <span data-widget-setstyle="green" class="green-btn"></span>
+									                <span data-widget-setstyle="yellow" class="yellow-btn"></span>
+									                <span data-widget-setstyle="orange" class="orange-btn"></span>
+									                <span data-widget-setstyle="pink" class="pink-btn"></span>
+									                <span data-widget-setstyle="red" class="red-btn"></span>
+									                <span data-widget-setstyle="darkgrey" class="darkgrey-btn"></span>
+									                <span data-widget-setstyle="black" class="black-btn"></span>
+									            </div>
+									        </div>
+            
+									        <div class="inner-spacer widget-content-padding"> 
+									        <!-- content goes here -->
+									        
+									        	<!-- row-fluid -->
+										        <div class="row-fluid">
+										        	
+										        	<!-- span6 -->
+										        	<div class="span6">
+															
+											            <ul class="nav nav-list well light" id="bootbox-js">
+											              <li class="nav-header">jQuery Usage</li>
+											              <li><a href="javascript:void(0);" id="bootbox-basic-js">Alert (basic)</a></li>
+											              <li><a href="javascript:void(0);" id="bootbox-confirm-js">Confirm</a></li>
+											              <li><a href="javascript:void(0);" id="bootbox-prompt-js">Prompt (with input box)</a></li>
+											              <li><a href="javascript:void(0);" id="bootbox-cust-js">Custom Dialog</a></li>
+											              <li><a href="javascript:void(0);" id="bootbox-icon-js">Alert with Icon</a></li>
+											            </ul>
+												        
+										        	</div>
+										        	<!-- end span6 -->
+										        	
+										        	<!-- span6-->
+										        	<div class="span6">
+										        		<!-- well -->
+														<div class="well light" style="margin-bottom:0;">
+															<div class="modal" style="position: relative; top: auto; left: auto; right: auto; margin: 0 auto; z-index: 1; max-width: 100%;">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+																		×
+																	</button>
+																	<h3>Modal header</h3>
+																</div>
+																<div class="modal-body">
+																	<p>
+																		One fine body…
+																	</p>
+																</div>
+																<div class="modal-footer">
+																	<a href="javascript:void(0);" class="btn medium">Close</a>
+																	<a href="javascript:void(0);" class="btn medium btn-primary">Save changes</a>
+																</div>
+															</div>
+														</div>
+														<!-- end .well -->
+														
+										        	</div>
+										        	<!-- end span6-->
+										        	
+										        </div>
+									        	<!-- end row-fluid -->
+
+										    <!-- end content-->
+										    </div>
+									    
+									    </div>
+									    <!-- end wrap div -->
+									</div>
+									<!-- end widget -->
+								</article>
+							
+							</div>
+							<!-- end row-fluid -->
+
+						</section>
+						<!-- end widget grid -->
+					</div>
+					<!-- end container-fluid-->		
+				</div>
+				<!-- end main content -->
+			
+				<!-- aside right on high res -->
+				<aside class="right">
+					
+					<!-- sparkline stats -->
+					<ul class="mystats indented">
+		                <li class="first">
+		                    <h1><span>My Balance:</span>$17,349</h1>
+		                    <div class="mychart" id="balance" style="width:35px"></div>
+		                </li>
+		                <li>
+		                    <h1><span>Impressions:</span>145k+</h1>
+		                    <div class="mychart" id="clicks" style="width:35px"></div>
+		                </li>
+		                <li>
+		                    <h1><span>Subscribers:</span>1,120</h1>
+		                    <div class="mychart" id="subscribe" style="width:35px"></div>
+		                </li>
+		                <li class="last">
+		                    <h1><span>Support Ticket:</span>945+</h1>
+		                    <div class="mychart" id="support" style="width:35px"></div>
+		                </li>
+		            </ul>
+		            <div class="divider"></div>
+		            <!-- end sparkline stats -->
+
+					<!-- Progress bars -->
+					<div class="progressbars">
+			           
+						<div class="progress progress-info slim">
+							<div class="bar" style="width:25%"></div>
+						</div>
+						
+						<div class="progress progress-success slim">
+							<div class="bar" style="width:50%"></div>
+						</div>
+						
+						<div class="progress progress-warning slim">
+							<div class="bar" style="width:75%"></div>
+						</div>
+						
+						<div class="progress progress-danger slim">
+							<div class="bar" style="width:100%"></div>
+						</div>
+						
+						<div class="progress progress-info">
+							<div class="bar filled-text" style="width:25%">
+								25%
+							</div>
+						</div>
+						
+						<div class="progress progress-success">
+							<div class="bar filled-text" style="width:50%">
+								50%
+							</div>
+						</div>
+						
+						<div class="progress progress-warning">
+							<div class="bar filled-text" style="width:75%">
+								75%
+							</div>
+						</div>
+						
+						<div class="progress progress-danger">
+							<div class="bar filled-text" style="width:100%">
+								100%
+							</div>
+						</div>
+						
+					</div>
+					<div class="divider"></div>
+					<!-- end progress bars -->
+					
+					<!-- date picker -->
+					<div id="datepicker"></div>
+					<div class="divider"></div>
+					<!-- end date picker -->
+					
+					<!-- aside buttons -->
+					<div class="aside-buttons">
+		                <a href="javascript:void(0);" title="" class="btn btn-info">Create an Invoice</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-success">New Campaign</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-warning">Stop All Process</a>
+		                <a href="javascript:void(0);" title="" class="btn btn-danger">Restart Server</a>
+		            </div>
+		            <div class="divider"></div>
+		            <!-- end aside buttons -->
+				</aside>
+				
+				<!-- end aside right -->
+			</div>
+			
+	    </div><!--/.fluid-container-->
+		<div class="push"></div>
+	</div>
+	<!-- end .height-wrapper -->	
+	
+	<!-- footer -->
+	
+	<!-- if you like you can insert your footer here -->
+	
+	<!-- end footer -->
+
+    <!--================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    
+    <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/libs/jquery.min.js"><\/script>')</script>
+    	<!-- OPTIONAL: Use this migrate scrpit for plugins that are not supported by jquery 1.9+ -->
+		<!-- DISABLED <script src="js/libs/jquery.migrate-1.0.0.min.js"></script> -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+    <script>window.jQuery.ui || document.write('<script src="js/libs/jquery.ui.min.js"><\/script>')</script>
+    
+    <!-- IMPORTANT: Jquery Touch Punch is always placed under Jquery UI -->
+    <script src="js/include/jquery.ui.touch-punch.min.js"></script>
+    
+    <!-- REQUIRED: Mobile responsive menu generator -->
+	<script src="js/include/selectnav.min.js"></script>
+
+	<!-- REQUIRED: Datatable components -->
+    <script src="js/include/jquery.accordion.min.js"></script>
+
+	<!-- REQUIRED: Toastr & Jgrowl notifications  -->
+    <script src="js/include/toastr.min.js"></script>
+    <script src="js/include/jquery.jgrowl.min.js"></script>
+    
+    <!-- REQUIRED: Sleek scroll UI  -->
+    <script src="js/include/slimScroll.min.js"></script>
+	
+	<!-- REQUIRED: Datatable components -->
+	<script src="js/include/jquery.dataTables.min.js"></script>
+	<script src="js/include/DT_bootstrap.min.js"></script>
+
+    <!-- REQUIRED: Form element skin  -->
+    <script src="js/include/jquery.uniform.min.js"></script> 
+
+	<!-- REQUIRED: AmCharts  -->
+    <script src="js/include/amchart/amcharts.js"></script>
+	<script src="js/include/amchart/amchart-draw1.js"></script>
+
+	<script type="text/javascript">
+		var ismobile = (/iphone|ipad|ipod|android|blackberry|mini|windows\sce|palm/i.test(navigator.userAgent.toLowerCase()));	
+	    if(!ismobile){
+	    	
+	    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS FALSE **/
+	    	
+	    	/* REQUIRED: Datatable PDF/Excel output componant */
+	    	
+	    	document.write('<script src="js/include/ZeroClipboard.min.js"><\/script>');
+	    	document.write('<script src="js/include/TableTools.min.js"><\/script>'); 
+	    	document.write('<script src="js/include/select2.min.js"><\/script>'); 
+	    	document.write('<script src="js/include/jquery.excanvas.min.js"><\/script>');
+	    	document.write('<script src="js/include/jquery.placeholder.min.js"><\/script>');
+	    }else{
+	    	
+	    	/** ONLY EXECUTE THESE CODES IF MOBILE DETECTION IS TRUE **/
+
+	    	document.write('<script src="js/include/responsive-tables.min.js"><\/script>');
+	    }
+	</script>
+
+	<!-- REQUIRED: iButton -->
+    <script src="js/include/jquery.ibutton.min.js"></script>
+	
+	<!-- REQUIRED: Justgage animated charts -->
+	<script src="js/include/raphael.2.1.0.min.js"></script>
+    <script src="js/include/justgage.min.js"></script>
+    
+    <!-- REQUIRED: Morris Charts -->
+    <script src="js/include/morris.min.js"></script> 
+    <script src="js/include/morris-chart-settings.js"></script> 
+    
+    <!-- REQUIRED: Animated pie chart -->
+    <script src="js/include/jquery.easy-pie-chart.min.js"></script>
+    
+    <!-- REQUIRED: Functional Widgets -->
+    <script src="js/include/jarvis.widget.min.js"></script>
+    <script src="js/include/mobiledevices.min.js"></script>
+    <!-- DISABLED (only needed for IE7 <script src="js/include/json2.js"></script> -->
+	
+	<!-- REQUIRED: Full Calendar -->
+    <script src="js/include/jquery.fullcalendar.min.js"></script>		
+    
+    <!-- REQUIRED: Flot Chart Engine -->
+    <script src="js/include/jquery.flot.cust.min.js"></script>			
+    <script src="js/include/jquery.flot.resize.min.js"></script>		
+    <script src="js/include/jquery.flot.tooltip.min.js"></script>		
+    <script src="js/include/jquery.flot.orderBar.min.js"></script> 	
+    <script src="js/include/jquery.flot.fillbetween.min.js"></script>	
+    <script src="js/include/jquery.flot.pie.min.js"></script> 	 
+    
+    <!-- REQUIRED: Sparkline Charts -->
+    <script src="js/include/jquery.sparkline.min.js"></script>
+
+	<!-- REQUIRED: Infinite Sliding Menu (used with inbox page) -->
+	<script src="js/include/jquery.inbox.slashc.sliding-menu.js"></script> 
+
+	<!-- REQUIRED: Form validation plugin -->
+    <script src="js/include/jquery.validate.min.js"></script>
+    
+    <!-- REQUIRED: Progress bar animation -->
+    <script src="js/include/bootstrap-progressbar.min.js"></script>
+    
+    <!-- REQUIRED: wysihtml5 editor -->
+    <script src="js/include/wysihtml5-0.3.0.min.js"></script>
+    <script src="js/include/bootstrap-wysihtml5.min.js"></script>
+
+	<!-- REQUIRED: Masked Input -->
+    <script src="js/include/jquery.maskedinput.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap Date Picker -->
+    <script src="js/include/bootstrap-datepicker.min.js"></script>
+
+    <!-- REQUIRED: Bootstrap Wizard -->
+    <script src="js/include/bootstrap.wizard.min.js"></script> 
+    
+	<!-- REQUIRED: Bootstrap Color Picker -->
+    <script src="js/include/bootstrap-colorpicker.min.js"></script>
+
+    
+	<!-- REQUIRED: Bootstrap Time Picker -->
+    <script src="js/include/bootstrap-timepicker.min.js"></script> 
+    
+    <!-- REQUIRED: Bootstrap Prompt -->
+    <script src="js/include/bootbox.min.js"></script>
+    
+    <!-- REQUIRED: Bootstrap engine -->
+    <script src="js/include/bootstrap.min.js"></script>
+    
+    <!-- DO NOT REMOVE: Theme Config file -->
+    <script src="js/config.js"></script>
+    
+    <!-- d3 library placed at the bottom for better performance -->
+    <!-- DISABLED  <script src="js/include/d3.v3.min.js"></script> -->
+    <!-- DISABLED  <script src="js/include/adv_charts/d3-chart-1.js"></script> -->
+    <!-- DISABLED  <script src="js/include/adv_charts/d3-chart-2.js"></script> -->
+
+    <!-- Google Geo Chart -->
+    <!-- DISABLED <script src="http://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script> -->
+    <!-- DISABLED <script type='text/javascript' src='https://www.google.com/jsapi'></script>-->
+    <!-- DISABLED <script src="js/include/adv_charts/geochart.js"></script> -->
+    
+    <!-- end scripts -->
+  </body>
+</html>

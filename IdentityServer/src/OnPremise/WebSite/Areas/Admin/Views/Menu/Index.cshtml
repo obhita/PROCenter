@@ -1,0 +1,59 @@
+﻿@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.Menu
+@model MenuViewModel
+
+<h1>@Index_cshtml.Configuration</h1>
+<ul>
+    <li>@Html.ActionLink(Index_cshtml.GeneralConfiguration, "Index", "General")</li>
+    <li>@Html.ActionLink(Index_cshtml.KeyConfiguration, "Index", "KeyConfiguration")</li>
+    <li>
+        @Html.ActionLink(Index_cshtml.Protocols, "Index", "Protocol")
+        @Html.Action("ChildMenu", "Menu", new{controllerName="Protocol"})
+    </li>
+    <li>@Html.ActionLink(Index_cshtml.Diagnostics, "Index", "Diagnostics")</li>
+    <li>@Html.ActionLink(Index_cshtml.ApplicationRecycle, "Recycle", "General")</li>
+</ul>
+<ul>
+    <li>
+        @Html.ActionLink(Index_cshtml.RelyingPartiesResources, "Index", "RP")
+        @Html.Action("ChildMenu", "Menu", new{controllerName="RP"})
+    </li>
+    @if(Model.ShowIdentityProviders)
+    {
+        <li>
+            @Html.ActionLink(Index_cshtml.IdentityProviders, "Index", "IP")
+            @Html.Action("ChildMenu", "Menu", new{controllerName="IP"})
+        </li>
+    }
+    @if(Model.ShowOAuthClients)
+    {
+        <li>
+            @Html.ActionLink(Index_cshtml.OAuthClients, "Index", "OAuthClient")
+            @Html.Action("ChildMenu", "Menu", new{controllerName="OAuthClient"})
+        </li>
+        if (Model.ShowOAuthTokens)
+        {
+        <li>
+            @Html.ActionLink("OAuth Tokens", "Index", "OAuthRefreshToken")
+        </li>
+        }
+    }
+    @if(Model.ShowOpenIdConnectClients)
+    {
+        <li>
+            @Html.ActionLink("OpenID Connect Clients", "Index", "OpenIdConnectClient")
+            @Html.Action("ChildMenu", "Menu", new{controllerName="OpenIdConnectClient"})
+        </li>
+    }
+</ul>
+<ul>
+    <li>@Html.ActionLink(Index_cshtml.Roles, "Index", "Role")</li>
+    <li>@Html.ActionLink(Index_cshtml.Users, "Index", "User")</li>
+    @if(Model.ShowClientCerts)
+    {
+        <li>@Html.ActionLink(Index_cshtml.ClientCertificates, "Index", "ClientCertificate")</li>
+    }
+    @if(Model.ShowIdentityDelegation)
+    {
+        <li>@Html.ActionLink(Index_cshtml.IdentityDelegation, "Index", "Delegation")</li>
+    }
+</ul>

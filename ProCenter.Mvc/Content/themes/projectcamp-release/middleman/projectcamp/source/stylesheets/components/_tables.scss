@@ -1,0 +1,9 @@
+@import "compass/css3";
+
+.table-header {
+  thead tr th {
+    @include background-image(linear-gradient(top, #f8f8f8, #e8e8e8));
+    @include box-shadow(0 1px #fff inset);
+    @include text-shadow(0 1px #fff);
+  }
+}

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 15.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="15.391px" height="15.334px" viewBox="0 0 15.391 15.334" enable-background="new 0 0 15.391 15.334" xml:space="preserve">
+<symbol  id="Selected_Saved" viewBox="-7.329 -7.34 14.386 14.387">
+	<g>
+		<path fill="#8DC63F" d="M6.531-0.147c0-3.667-3-6.667-6.667-6.667c-3.667,0-6.667,3-6.667,6.667s3,6.667,6.667,6.667
+			C3.531,6.52,6.531,3.52,6.531-0.147z"/>
+		<path fill="none" stroke="#D1D3D4" stroke-width="1.0527" stroke-miterlimit="10" d="M6.531-0.147c0-3.667-3-6.667-6.667-6.667
+			c-3.667,0-6.667,3-6.667,6.667s3,6.667,6.667,6.667C3.531,6.52,6.531,3.52,6.531-0.147z"/>
+	</g>
+	<g>
+		<polygon fill="#FFFFFF" points="-4.537,-0.836 -4.537,-0.836 -2.837,0.864 -1.325,-0.646 2.403,3.082 4.104,1.382 -1.325,-4.047 
+			-4.537,-0.836 		"/>
+	</g>
+</symbol>
+<use xlink:href="#Selected_Saved"  width="14.386" height="14.387" x="-7.329" y="-7.34" transform="matrix(1 0 0 -1 7.8027 7.4487)" overflow="visible"/>
+</svg>

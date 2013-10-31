@@ -1,0 +1,30 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@model ProCenter.Service.Message.Patient.PatientDto
+
+@{
+    var dateOfBirth = Model.DateOfBirth == null ? string.Empty : Model.DateOfBirth.Value.ToString("MM/dd/yyyy");
+    var allowEdit = ViewData["CanEdit"] is bool && (bool)ViewData["CanEdit"];
+}
+
+<div class="patient-details">
+    <img id="personiconlarge" src="@Href("~/Images/defaultperson.png")"/>
+    <div class="info">
+        <h5>@Model.Name.FirstName @Model.Name.LastName</h5>
+        <span>@Model.Gender</span>
+        <span>@dateOfBirth</span>
+    </div>
+    @if (allowEdit)
+    {
+        <div class="tools">
+            @if (Html.CanAccess("Patient", "Edit", "Post"))
+            {
+                @Html.ActionLink("Edit", "Edit", "Patient", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = "\ue005"})
+            } 
+            else if (Html.CanAccess("Patient", "Edit"))
+            {
+                @Html.ActionLink("View", "Edit", "Patient", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = "\ue07f"})
+            }
+        </div>
+    }
+    <div class="clear"></div>
+</div>

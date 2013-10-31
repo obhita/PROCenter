@@ -1,0 +1,13 @@
+﻿@model ProCenter.Service.Message.Common.AddressDto
+
+@if ( Model != null )
+{
+    <div class="address">
+        <span class="first">@Model.FirstStreetAddress</span>
+        <span class="second">@Model.SecondStreetAddress</span>
+        <span class="city">@Model.CityName</span><span>, </span>
+        <span class="state">@Model.StateProvince</span>
+        <span class="postalcode">@Model.PostalCode</span>
+    </div>
+}
+

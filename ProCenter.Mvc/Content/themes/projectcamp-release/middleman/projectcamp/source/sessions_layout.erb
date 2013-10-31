@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Projectcamp</title>
+  <%= stylesheet_link_tag    "site", :media => "all" %>
+  <%= javascript_include_tag "site" %>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+</head>
+<body>
+
+<%= partial "partials/sessions_navbar" %>
+
+<div class="header"></div>
+
+<div class="main">
+  <%= yield %>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+@import "compass/css3";
+
+@mixin heading-bar-height($height: 40px) {
+  h1, h2, h3, h4, h5, h6, .subheading, li, a {
+    line-height: $height;
+  }
+  min-height: $height;
+  @include clearfix;
+  ul {margin: 0;}
+}
+
+@mixin heading-bar-small {
+  @include heading-bar-height(25px);
+}
+
+@mixin heading-bar-dark {
+  border-top: 1px solid #e8e8e8;
+  border-bottom: 1px solid #d3d3d3;
+  @include box-shadow(0 1px 1px rgba(0,0,0,.05));
+  @include background-image(linear-gradient(top, #f7f7f7, #e3e3e3));
+}
+
+@mixin heading-bar($height: 40px) {
+  @include heading-bar-height;
+
+  .nav-links {
+    display: block;
+    list-style: none;
+
+    .divider-vertical {
+      height: 16px;
+      border-right: 1px solid #ccc;
+      padding-left: 10px;
+      margin-right: 10px;
+      margin-top: 12px;
+    }
+
+    li {
+      float: left;
+    }
+  }
+
+
+  padding: 0 20px;
+  background: #fefefe;
+  @include background-image(linear-gradient(top, #fefefe, #f2f2f2));
+  @include box-shadow(0 0px 1px 1px #fff inset, 0 1px 2px rgba(0,0,0,.1));
+  @include text-shadow(0 1px #fff);
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 20px;
+
+  &.bordered {
+    border-top: 1px solid #ececec;
+    margin-top: 20px;
+  }
+}
+
+.subheading {
+  color: #bbb;
+  @include text-shadow(0 1px #fff);
+  font-size: 80%;
+  font-weight: normal;
+}

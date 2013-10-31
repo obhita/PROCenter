@@ -1,0 +1,194 @@
+@import "compass/css3";
+@import "variables";
+@import "components/buttons_mixins";
+
+//$buttonColors: red #e35355, green #50BE50, yellow #F4DE21, orange #FF7F00, pink #EA40EA, blue #67A6E5, purple #C04CBB;
+
+
+
+.btn {
+  @include btn2;
+  cursor: default;
+  padding: 6px 10px;
+  @include btn-text-dark;
+  @include border-radius(2px, 2px);
+  @include transition(box-shadow .3s);
+
+  i {
+    font-size: 16px;
+    position: relative;
+    top: 2px;
+  }
+
+  &:hover {
+    background-position: 0;
+  }
+
+  &:active {
+    @include box-shadow(0px 0px 3px 1px rgba(0, 0, 0, 0.2) inset);
+  }
+
+  &.red {
+    @include btn-light($red);
+  }
+
+  &.green {
+    @include btn-light($green);
+  }
+
+  &.yellow {
+    @include btn-light($yellow);
+  }
+
+  &.orange {
+    @include btn-light($orange);
+  }
+
+  &.pink {
+    @include btn-light($pink);
+  }
+
+  &.blue {
+    @include btn-light($blue);
+  }
+
+  &.purple {
+    @include btn-light($purple);
+  }
+
+  &.btn-twitter {
+    @include btn-light(#00ACEE);
+  }
+
+  &.btn-facebook {
+    @include btn-light(lighten(#3B5998, 10));
+  }
+
+  //this doesnt precompile. no idea why :(
+  //@each $pair in $buttonColors {
+  //  &.#{nth($pair, 1)} {
+  //    @include btn-light(nth($pair, 2));
+  //  }
+  //}
+
+  &.mini {
+    padding: 3px 6px;
+    font-size: 85%;
+  }
+
+  &.large {
+    padding: 10px 15px;
+    font-size: 120%;
+  }
+
+  &.rounded {
+    @include border-radius(25px, 25px);
+  }
+}
+
+
+
+.btn-group > .btn {
+  position: relative;
+  float: left;
+  margin-left: -1px;
+  @include border-radius(0);
+  padding: 5px 12px;
+}
+
+.btn-group > .btn:first-child {
+  margin-left: 0;
+  @include border-radius(2px 0 0 2px, 2px 0 0 2px);
+}
+
+.btn-group > .btn:last-child, .btn-group > .dropdown-toggle {
+  @include border-radius(0 2px 2px 0, 0 2px 2px 0);
+}
+
+.btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active {
+  z-index: 2;
+}
+
+.btn-group .dropdown-toggle:active, .btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+
+.btn-group > .dropdown-toggle {
+  padding-left: 8px;
+  padding-right: 8px;
+  *padding-top: 4px;
+  *padding-bottom: 4px;
+}
+
+.btn-group.open {
+  btn.dropdown-toggle {
+    @include box-shadow(none);
+    background: none;
+  }
+
+  //this doesnt precompile :(
+  //@each $pair in $buttonColors {
+  //  .btn.#{nth($pair, 1)}.dropdown-toggle {
+  //    $color: nth($pair, 2);
+  //    background-color: $color;
+  //  }
+  //}
+
+
+
+  .btn {
+    &.red {
+      background-color: $red;
+    }
+
+    &.green {
+      background-color: $green;
+    }
+
+    &.yellow {
+      background-color: $yellow;
+    }
+
+    &.orange {
+      background-color: $orange;
+    }
+
+    &.pink {
+      background-color: $pink;
+    }
+
+    &.blue {
+      background-color: $blue;
+    }
+
+    &.purple {
+      background-color: $purple;
+    }
+  }
+
+}
+
+.btn .caret {
+  margin-top: 7px;
+  margin-left: 0;
+}
+.btn:hover .caret, .open.btn-group .caret {
+  @include opacity(1);
+}
+
+.inset-margin {
+  position: relative;
+  display: inline-block;
+  @include box-shadow(#aaa 0 0 1px inset, #fff 0 1px 0);
+  background: #EEE;
+  padding: 7px;
+  @include border-radius(4px,4px);
+
+  li {
+    margin-bottom: 7px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+}

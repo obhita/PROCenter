@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="_0000000" xml:space="preserve">
+    <value>NIDA Assess Further</value>
+  </data>
+  <data name="_2928115" xml:space="preserve">
+    <value>In the past three months, how often have you used any of the following drugs (do not include medications which you took as prescribed to you)?</value>
+    <comment>DrugTypeandFrequencyofUse[C]</comment>
+  </data>
+  <data name="_2928120" xml:space="preserve">
+    <value>Ask about SUD treatment/status:</value>
+    <comment>SUDTreatment/Status[C]</comment>
+  </data>
+  <data name="_3269973" xml:space="preserve">
+    <value>Ask about injection drug use:</value>
+    <comment>InjectionDrugUse[C]</comment>
+  </data>
+  <data name="_3269976" xml:space="preserve">
+    <value>Are you currently in treatment for substance abuse?</value>
+    <comment>SubstanceAbuseSubstance-RelatedDisorderCurrentTherapyPersonalMedicalHistoryInd-2</comment>
+  </data>
+  <data name="_3269977" xml:space="preserve">
+    <value>Have you ever been in treatment for drug/alcohol abuse?</value>
+    <comment>RelatedDisorderPriorTherapyPersonalMedicalHistoryInd-2</comment>
+  </data>
+  <data name="_3269978" xml:space="preserve">
+    <value>Have you ever used any drug by injection (non-medical use only)?</value>
+    <comment>SubstanceAbuseIllicitSubstanceIntravenousRouteofAdministrationPersonalMedicalHistoryInd-2</comment>
+  </data>
+  <data name="_3269979" xml:space="preserve">
+    <value>Cannabis</value>
+    <comment>SubstanceAbuseIllicitSubstanceMarijuanaPersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_3269980" xml:space="preserve">
+    <value>Cocaine</value>
+    <comment>SubstanceAbuseIllicitSubstanceCocainePersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_3269981" xml:space="preserve">
+    <value>Opioids</value>
+    <comment>SubstanceAbuseIllicitSubstanceOpioidPersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_3269982" xml:space="preserve">
+    <value>Stimulants</value>
+    <comment>SubstanceAbuseIllicitSubstanceStimulantPersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_3269983" xml:space="preserve">
+    <value>Sedatives</value>
+    <comment>SubstanceAbuseIllicitSubstanceSedativePersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_3269984" xml:space="preserve">
+    <value>Other Drugs - Specify</value>
+    <comment>SubstanceAbuseIllicitSubstanceOtherSubstanceofAbusePersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_3269985" xml:space="preserve">
+    <value>Other Drugs - Specify</value>
+    <comment>SubstanceAbuseIllicitSubstanceOtherSubstanceofAbusePersonalMedicalHistorySpecify</comment>
+  </data>
+  <data name="_3269986" xml:space="preserve">
+    <value>When was the last time you injected?</value>
+    <comment>SubstanceAbuseIllicitSubstanceIntravenousRouteofAdministrationPersonalMedicalHistoryFrequency</comment>
+  </data>
+  <data name="_C25515_0" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="_C25515_1" xml:space="preserve">
+    <value>Daily or Almost Daily</value>
+  </data>
+  <data name="_C25515_2" xml:space="preserve">
+    <value>Weekly</value>
+  </data>
+  <data name="_C25515_3" xml:space="preserve">
+    <value>Monthly or Less Often</value>
+  </data>
+  <data name="_C25515_4" xml:space="preserve">
+    <value>In the past 90 days</value>
+  </data>
+  <data name="_C25515_5" xml:space="preserve">
+    <value>In the past year</value>
+  </data>
+  <data name="_C25515_6" xml:space="preserve">
+    <value>Over a year ago</value>
+  </data>
+  <data name="_report_current_treatment_no" xml:space="preserve">
+    <value>are not currently in treatment</value>
+  </data>
+  <data name="_report_current_treatment_yes" xml:space="preserve">
+    <value>are currently in treatment</value>
+  </data>
+  <data name="_report_daily_use" xml:space="preserve">
+    <value>use {0} on a daily basis</value>
+  </data>
+  <data name="_report_injection_in_last_3_months" xml:space="preserve">
+    <value>have injected drugs with the past 3 months</value>
+  </data>
+  <data name="_report_injection_in_past_year" xml:space="preserve">
+    <value>have injected drugs within the past year</value>
+  </data>
+  <data name="_report_injection_never" xml:space="preserve">
+    <value>have never injected drugs</value>
+  </data>
+  <data name="_report_injection_over_a_year_ago" xml:space="preserve">
+    <value>have injected drugs over a year ago</value>
+  </data>
+  <data name="_report_monthly_use" xml:space="preserve">
+    <value>use {0} on a monthly basis</value>
+  </data>
+  <data name="_report_never_use" xml:space="preserve">
+    <value>never use {0}</value>
+  </data>
+  <data name="_report_prefix" xml:space="preserve">
+    <value>{0} indicated that they </value>
+  </data>
+  <data name="_report_previously_treatment_no" xml:space="preserve">
+    <value>and have not previously been in treatment</value>
+  </data>
+  <data name="_report_previously_treatment_yes" xml:space="preserve">
+    <value>and have previously been in treatment</value>
+  </data>
+  <data name="_report_weekly_use" xml:space="preserve">
+    <value>use {0} on a weekly basis</value>
+  </data>
+</root>

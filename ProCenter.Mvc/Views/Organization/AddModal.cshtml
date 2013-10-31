@@ -1,0 +1,24 @@
+﻿
+@{
+    var modalId = ViewData["ModalId"].ToString();
+    var addId = @modalId + "-add-btn";
+    var title = ViewData["Title"].ToString();
+    var loadingId = modalId + "-loading";
+}
+
+<a href="#@modalId" role="button" class="btn btn-small btn-success" data-toggle="modal" data-icon="&#xe102;"></a>
+
+<div id="@modalId" class="modal hide fade" role="dialog" aria-hidden="true">
+    <div class="modal-header">
+        <a href="#" role="button" class="close" data-dismiss="modal">×</a>
+        <h3>Add @title</h3>
+    </div>
+    <div class="modal-body">
+        @Html.EditorForModel()
+    </div>
+    <div class="modal-footer">
+        <a href="#" role="button" class="btn" data-dismiss="modal">Cancel</a>
+        <a id="@addId" role="button" class="btn btn-primary" data-loadelementid="@loadingId">Add</a>
+    </div>
+    <div id="@loadingId" class="modal-loading-indicator" style="display: none"></div>
+</div>

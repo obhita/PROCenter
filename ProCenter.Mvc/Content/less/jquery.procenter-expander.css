@@ -1,0 +1,43 @@
+﻿.expander-root {
+  position: relative;
+  margin-bottom: 5px;
+  color: #ffffff;
+}
+.expander-root .expand-content {
+  background: #6492a5;
+  padding: 15px;
+  -o-box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+  -moz-box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+  -webkit-box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+  box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+}
+.expander-root .expander-summary {
+  background: #6492a5;
+  padding: 5px 15px;
+  -o-box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+  -moz-box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+  -webkit-box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+  box-shadow: inset 0.1px -0.5px 10px 0.1px #000000;
+}
+.expander-root .expander-summary .left-summary {
+  float: left;
+}
+.expander-root .expander-summary .right-summary {
+  float: right;
+}
+.expander-root .expander-button {
+  position: absolute;
+  left: 40%;
+  bottom: -15px;
+  background-color: #6492a5;
+  border: none;
+  height: 15px;
+  width: 80px;
+  -webkit-border-radius: 0 0 15px 15px;
+  border-radius: 0 0 15px 15px;
+}
+.expander-root .expander-button:before {
+  font-family: 'icomoon';
+  content: "\e065";
+  padding-left: 34px;
+}

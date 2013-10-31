@@ -1,0 +1,45 @@
+<%= render "heading", title: "Comments" %>
+
+<div class="padded">
+
+  <div class="codehint">Here's a comments list with a hardline</div>
+  <pre>&lt;div class=&quot;comment&quot;&gt;<br/>    &lt;div class=&quot;box-left avatar&quot;&gt;<br/>      &lt;%= image_tag &quot;avatar1.png&quot; %&gt;<br/>    &lt;/div&gt;<br/><br/>    &lt;div class=&quot;box-right&quot;&gt;<br/>      &lt;div class=&quot;meta&quot;&gt;<br/>        &lt;div class=&quot;left-side&quot;&gt;&lt;span&gt;John Doe&lt;/span&gt; said&lt;/div&gt;<br/>        &lt;div class=&quot;right-side&quot;&gt;2 hours ago&lt;/div&gt;<br/>      &lt;/div&gt;<br/><br/>      &lt;div class=&quot;text&quot;&gt;<br/>        Nullam quis risus eget urna mollis ornare vel eu leo.<br/>      &lt;/div&gt;<br/>    &lt;/div&gt;<br/>  &lt;/div&gt;<br/><br/>  &lt;hr class=&quot;heavy&quot;/&gt;</pre>
+
+  <div class="comment">
+    <div class="box-left avatar">
+      <%= image_tag "avatar1.png" %>
+    </div>
+
+    <div class="box-right">
+      <div class="meta">
+        <div class="left-side"><span>John Doe</span> said</div>
+        <div class="right-side">2 hours ago</div>
+      </div>
+
+      <div class="text">
+        Nullam quis risus eget urna mollis ornare vel eu leo.
+      </div>
+    </div>
+  </div>
+
+  <hr class="heavy"/>
+
+  <div class="comment">
+    <div class="box-left avatar">
+      <%= image_tag "avatar2.png" %>
+    </div>
+
+    <div class="box-right">
+      <div class="meta">
+        <div class="left-side"><span><a href="#">Mickey Mouse</a></span> said</div>
+        <div class="right-side">3 hours ago</div>
+      </div>
+
+      <div class="text">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante venenatis.
+      </div>
+    </div>
+
+  </div>
+
+</div>

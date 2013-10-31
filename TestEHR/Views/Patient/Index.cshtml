@@ -1,0 +1,23 @@
+﻿@model TestEHR.Models.RequestModel
+
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Patient Redirect</title>
+    </head>
+    <body>
+        <form method="POST" name="hiddenform" action="@Model.Url">
+            @Html.HiddenFor(m => m.PatientId)
+            @Html.HiddenFor(m => m.EhrId)
+            @Html.HiddenFor(m => m.ReturnUrl)
+            @Html.HiddenFor(m => m.UserId)
+            @Html.HiddenFor(m => m.UserName)
+            @Html.HiddenFor(m => m.UserEmail)
+            @Html.HiddenFor(m => m.Timestamp)
+            @Html.HiddenFor(m => m.AssessmentId)
+            @Html.HiddenFor(m => m.Token)
+        </form>
+        <script language="javascript"> window.setTimeout('document.forms[0].submit()', 0); </script>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+﻿@model DelegationSettingsForUserViewModel
+@using Thinktecture.IdentityServer.Web.Areas.Admin.App_LocalResources.Delegation
+@using Thinktecture.IdentityServer.Web.Utility
+
+@{
+    if (Model.IsNew)
+    {
+        ViewBag.Title = Configure_cshtml.NewDelegationConfiguration;
+    }
+    else
+    {
+        ViewBag.Title = string.Format(Configure_cshtml.DelegationConfigurationForUser, Model.UserName);
+    }
+}
+
+
+@Html.ValidationSummary(Configure_cshtml.ErrorCreatingDelegationConfiguration)
+
+<fieldset class="editor small">
+    <legend>@ViewBag.Title</legend>
+    @using (Html.BeginForm("Add", "Delegation"))
+    {
+        @Html.AntiForgeryToken()
+        var model = new Thinktecture.IdentityServer.Models.DelegationSetting()
+        {
+            UserName = Model.UserName
+        };
+
+        if (Model.IsNew)
+        {
+            <div class="edit-prop">
+                @Html.LabelFor(x => model.UserName)
+                @Html.DropDownListFor(x => model.UserName, Model.AllUserNames)
+                @Html.ValidatorFor(x => model.UserName)
+            </div>
+        }
+        else
+        {
+            <div class="edit-prop">
+                @Html.HiddenFor(x => model.UserName)
+                @Html.LabelFor(x => model.UserName)
+                @Html.DisplayFor(x => model.UserName)
+            </div>
+        }
+        
+        <div class="edit-prop">
+            @Html.LabelFor(x => model.Description)
+            @Html.EditorFor(x => model.Description)
+            @Html.ValidatorFor(x => model.Description)
+        </div>
+        <div class="edit-prop">
+            @Html.LabelFor(x => model.Realm)
+            @Html.EditorFor(x => model.Realm)
+            @Html.ValidatorFor(x => model.Realm)
+        </div>
+        <div class="buttons">
+            <button type="submit">@Configure_cshtml.AddRealm</button>
+            <button type="reset">@Configure_cshtml.Cancel</button>
+        </div>
+    }
+    <hr />
+
+    @foreach (var model in Model.DelegationSettings)
+    {
+        using (Html.BeginForm("Remove", "Delegation"))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => model.UserName)
+            <div class="edit-prop">
+                @Html.LabelFor(x => model.Description)
+                @Html.DisplayFor(x => model.Description)
+                @Html.HiddenFor(x => model.Description)
+            </div>
+            <div class="edit-prop">
+                @Html.LabelFor(x => model.Realm)
+                @Html.DisplayFor(x => model.Realm)
+                @Html.HiddenFor(x => model.Realm)
+            </div>
+            <div class="buttons">
+                <button type="submit">@Configure_cshtml.DeleteRealm</button>
+            </div>            
+        }
+    }
+
+</fieldset>

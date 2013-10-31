@@ -1,0 +1,82 @@
+@import "compass/css3";
+
+@mixin smooth-border($color) {
+  @include border-radius(3px,3px);
+  @include box-shadow(0 0 1px #fff inset, 0 1px 1px rgba(0,0,0,.1));
+  border: 1px solid $color;
+}
+
+
+.avatar {
+  padding: 4px;
+  display: inline-block;
+  background: #F8F8F8;
+  width: 48px; //this is for IE8
+
+  @include smooth-border(#dadada);
+
+  img {
+    @include border-radius(3px,3px);
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@mixin boxed-layout($left_size) {
+  .box-left {
+    display: block;
+    float: left;
+  }
+
+  .box-right {
+    padding-top: 4px;
+    margin-left: $left_size + 22px;
+
+    .meta {
+      height: 20px;
+
+      .left-side {
+        float: left;
+        span {
+          font-size: 100%;
+          font-weight: bold;
+        }
+      }
+
+      .right-side {
+        float: right;
+      }
+    }
+  }
+  @include clearfix;
+}
+
+.comment {
+  min-height: 52px;
+  @include boxed-layout(48px);
+}
+
+.slate {
+  @include text-shadow(0 1px #fff);
+  padding: 20px;
+  background: #EBF3FB;
+  @include smooth-border(#CDE1F5);
+
+  .slate-content {
+    @include boxed-layout(65px);
+    .text {
+      padding-top: 10px;
+    }
+  }
+
+  .btn-slate-action {
+    margin-top: 10px;
+  }
+}
+
+hr.heavy {
+  height: 3px;
+  @include background-image(linear-gradient(top, #F5F5F5, #EDEDED));
+  @include border-radius(3px, 3px);
+  border: 1px solid #E2E2E2;
+}

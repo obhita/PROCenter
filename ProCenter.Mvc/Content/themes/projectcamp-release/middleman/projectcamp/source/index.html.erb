@@ -1,0 +1,24 @@
+
+<%= partial "partials/typography.html" %>
+<%= partial "partials/layouting.html" %>
+
+<%= partial "partials/heading", locals: { title: "New table styles, messages and buttons"} %>
+<div class="padded">
+ <%= partial "partials/tables" %>
+ <%= partial "partials/buttons" %>
+</div>
+
+<%= partial "partials/alerts" %>
+<%= partial "partials/comments" %>
+<%= partial "partials/blank_slate" %>
+<%= partial "partials/activity" %>
+<%= partial "partials/navigation" %>
+<%= partial "partials/pagination" %>
+<%= partial "partials/accordion" %>
+
+<%= partial "partials/heading", locals: {title: "Modal window"} %>
+
+<div class="padded">
+ <a class="btn" data-toggle="modal" href="#modal" >Launch Modal</a>
+</div>
+

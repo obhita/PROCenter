@@ -1,0 +1,23 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Patient
+@model ProCenter.Service.Message.Message.WorkflowMessageDto
+
+@{
+    var patient = ViewData["Patient"] as PatientDto;
+    var message = string.Format("Because patient {0} scored {1} on {2} it is recommended that the patient takes {3}.",
+                                patient.FullName(),
+                                Model.InitiatingAssessmentScore.Value,
+                                Html.GetAssessmentResource(Model.InitiatingAssessmentCode),
+                                Html.GetAssessmentResource(Model.RecommendedAssessmentDefinitionCode));
+}
+
+<div class="workflow-message">
+    <div class="feed-left"></div>
+    <div class="feed-right" data-icon="&#xe0c4;">
+        <div class="title">@message</div>
+        <div class="tools">
+            @Html.ActionLink("Administer Assessment Now", "AdministerAssessment", "WorkflowMessage", new {key = Model.Key, patientKey = Model.PatientKey, assessmentDefinitionKey = Model.RecommendedAssessmentDefinitionKey, workflowKey = Model.Key}, new {@class = "btn btn-success"})
+            @Html.ActionLink("Reject", "Reject", "WorkflowMessage", new {key = Model.Key, assessmentKey = Model.InitiatingAssessmentKey, patientKey = Model.PatientKey}, new {@class = "btn btn-danger"})
+        </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+﻿@using ProCenter.Mvc.Infrastructure
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Metadata
+@model ProCenter.Service.Message.Assessment.ItemDto
+
+@{
+    var groupClass = Model.Metadata == null ? null :
+                         Model.Metadata.MetadataItemExists<ClassMetadataItem> () ? Model.Metadata.FindMetadataItem<ClassMetadataItem> ().Class : null;
+}
+
+<fieldset class="@groupClass">
+    <legend>@Html.GetResource(Model)</legend>
+    <h4>@Html.GetResource(Model, SharedStringNames.Instructions)</h4>
+    @foreach (var item in Html.GetItemsToRender(Model))
+    {
+        @Html.Partial(item.ItemType, item)
+    }
+</fieldset>
+<div class="clear"></div>
+

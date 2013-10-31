@@ -1,0 +1,11 @@
+﻿@using DevExpress.Web.Mvc.UI
+@using DevExpress.XtraReports.UI
+@model XtraReport
+
+@Html.DevExpress().ReportViewer(settings =>
+    {
+        settings.Name = "reportViewer1";
+        settings.Report = Model;
+        settings.CallbackRouteValues = new { Controller = "Report", Action = "ReportViewerPartial", Key = ViewData["SourceKey"], ReportName = ViewData["ReportName"] };
+        settings.ExportRouteValues = new { Controller = "Report", Action = "ExportReportViewer", Key = ViewData["SourceKey"], ReportName = ViewData["ReportName"] };
+    }).GetHtml()

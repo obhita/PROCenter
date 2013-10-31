@@ -1,0 +1,87 @@
+###Version 1.9.5: (April 24th, 2013) ###
+
+- **NEW        :** A new menu design was added to increase page space (see config.js on how to turn this menu on for all pages)
+- **NEW        :** Added error page with CSS3 animation with customizable message
+- **CSS        :** All classes from "full-width.css" is moved to "theme-responsive.css" making "full-width.css" redundant 
+- **CSS        :** iPad vertical view now has an improved menu
+- **JQUERY     :** New function added to turn on/off the newly implemented menu, making asides fixed, and both asides collapse
+- **REMOVED    :** File: full-width.css
+
+
+Update instructions: 
+
+###Version 1.9.4: (April 15th, 2013) ###
+
+- **NEW        :** Added a FREE version of the AMCharts (displayed on the home page) 
+- **CSS        :** Fixed minor CSS bugs
+- **CSS        :** Added a combined CSS file (see the CSS folder)
+- **LESS       :** Updated variable.less file, optimized theme.less, fixed typos that previously stopped rendering 
+- **JQUERY     :** New functions have been added to the config.js for turning on RTL menu support and 
+		   turning off right side panel. (see config.js on line 64 and 67 for more details)
+
+
+###Version 1.9.3: (March 30th, 2013)###
+
+- **NEW        :** 12 additional unique charts are now introduced using the complex Raphael Engine, working on IE8+ 
+- **NEW        :** Bundled with the existing CSS, Jarvis now includes **LESS** (You should be able to control and manipulate 
+		   most of the basic components by editing variables. It is advised to compile your LESS to CSS before deployment). 
+		   ***This LESS version will improved further in the next release that will host much more dynamic 
+		      control over the theme elements.***
+
+		NOTES ON {LESS}:
+		===============
+		You should be able to control and manipulate most of the basic components by editing 'variable.less' 
+		file. Please note on IE8, you will not be able to see the media queries.
+
+		This was a turn around conversion from CSS to LESS due to the popular demand for a LESS version 
+		of Jarvis Theme. There will be significant improvements in the future of the LESS file structure. 
+
+- **JQUERY     :** Upgraded to **jQuery 1.9.1** (Although jquery.migrate.js is there for your use -  it is not required 
+		   with the current plugins)
+- **JQUERY     :** Upgraded to **bootstrap 2.3.1**
+- **JQUERY     :** Added save to MySQL call function for SmartWidgets
+- **JQUERY     :** Replaced the plugin "**iButton**" with "**bootstrapSwitch**" - serves as an increased performance
+- **CSS        :** Updated Minor CSS issues
+- **CSS        :** Upgraded to bootstrap 2.3.1
+- **CSS        :** The class ".**widget.alert.adjusted**" is now just ".**widget.alert**"
+- **DOM        :** Chat interface tab close icon 'x' is now replaced with a font face icon (CSS is adjusted accordingly)
+- **DOM        :** Added a new meta tag for iOS webapp title (Line 78 - 82)
+- **Fixed all reported bugs and issues**
+		
+
+###Version 1.4: (March 07th, 2013)###
+- **CSS	       :** Responsive menu now appears during browser re-size as opposed to mobile screens only 
+		   (to clear confusions)
+- **CSS        :** Added/amended CSS for the following devices:
+
+		
+		** Tablet
+		   - Kindle Fire HD 8.9
+		   - Kindle Fire HD 7+
+		   - Kindle Fire
+		   - Google Nexus 7 +
+		   - Apple iPad 1-3/Min
+
+		** Mobile
+		   - BlackBerry 8300
+		   - Apple iPhone 3, 4 & 5
+		   - LG Optimus
+		   - Samsung Galaxy SII
+		   - ASUS Galaxy 7
+		   - Samsung Galaxy SIII
+
+###Version 1.0.4: (Feb 24th, 2013)###
+- **Added     :** Registration page
+- **CSS       :** Fixed firefox bug for 'My Tasks' dropdown
+
+
+###Version 1.0.3: (Feb 21th, 2013)###
+- **IE BUG    :** Console.log IE BUGs that was lurking in the config.js file is now exterminated
+- **Added     :** Ajax loaders (gif animations - see buttons.html)
+- **Added     :** New Column Filter function for tables
+- **CSS	      :** Some CSS classes were adjusted for IE
+- **CSS	      :** CSS class structure optimized (theme.css), and removed all unnecessary classes
+
+
+###Version 1.0.2: (Feb 18th, 2013)###
+- Initial Release

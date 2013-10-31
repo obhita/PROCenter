@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.Domain.FluentRuleEngine</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.Domain.FluentRuleEngine.DomainRuleViolationCollection">
+            <summary>
+                An override of the RuleViolationCollection class that supports publishing rule violations via
+                a RuleViolationEvent.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.FluentRuleEngine.DomainRuleViolationCollection.Publish">
+            <summary>
+                Publishes rule violations.
+            </summary>
+        </member>
+        <member name="T:Pillar.Domain.FluentRuleEngine.Event.RuleViolationEvent">
+            <summary>
+                Domain Event for Rule Violations.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.FluentRuleEngine.Event.RuleViolationEvent.Raise(Pillar.FluentRuleEngine.RuleViolation[])">
+            <summary>
+                The Raise method raises a RuleViolationEvent with one or more RuleViolations.
+            </summary>
+            <param name="ruleViolations"> The rule violations to be raised. </param>
+        </member>
+        <member name="M:Pillar.Domain.FluentRuleEngine.Event.RuleViolationEvent.Raise(System.String[])">
+            <summary>
+                The Raise method raises a RuleViolationEvent with one or more RuleViolations.
+            </summary>
+            <param name="ruleViolationMessages">A list of rule violation messages.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if a null or empty list of rule violation messages is provided.</exception>
+        </member>
+        <member name="P:Pillar.Domain.FluentRuleEngine.Event.RuleViolationEvent.RuleViolations">
+            <summary>
+                Gets or sets the rule violations.
+            </summary>
+            <value> The rule violations. </value>
+        </member>
+        <member name="T:Pillar.Domain.FluentRuleEngine.RuleEngineExtensions">
+            <summary>
+                Extension methods for rule engine.
+            </summary>
+        </member>
+        <member name="M:Pillar.Domain.FluentRuleEngine.RuleEngineExtensions.IsViolated(Pillar.Domain.FluentRuleEngine.Event.RuleViolationEvent,System.String)">
+            <summary>
+                Determines whether the specified rule is violated.
+            </summary>
+            <param name="ruleViolationEvent">The rule violation event.</param>
+            <param name="ruleName">Name of the rule.</param>
+            <returns>
+                <c>true</c> if the specified rule violations is violated; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.FluentRuleEngine.RuleEngineExtensions.NoDuplicates``2(Pillar.FluentRuleEngine.Rules.IRuleBuilderInitializer{``0,``1},System.Func{``0,System.Collections.Generic.IEnumerable{``1}})">
+            <summary>
+                Checks for duplicates.
+            </summary>
+            <typeparam name="TContext">The type of the context.</typeparam>
+            <typeparam name="TSubject">The type of the subject.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="collectionFunc">The collection func.</param>
+            <returns>
+                A <see cref="T:Pillar.FluentRuleEngine.Rules.IRuleBuilder`2"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Domain.FluentRuleEngine.RuleEngineExtensions.NoDuplicates``3(Pillar.FluentRuleEngine.Rules.IContextObjectProviderRuleBuilder{``0,``1,``2},System.Func{``0,System.Collections.Generic.IEnumerable{``2}})">
+            <summary>
+                Adds a WhenClause to the rule checking for duplicates, and Adds A ThenClause that will report the violation if it occurs.
+            </summary>
+            <typeparam name="TContext">The type of the context.</typeparam>
+            <typeparam name="TSubject">The type of the subject.</typeparam>
+            <typeparam name="TContextObject">The type of the context object.</typeparam>
+            <param name="ruleBuilder">The rule builder.</param>
+            <param name="collectionFunc">The collection func.</param>
+            <returns>
+                A <see cref="T:Pillar.FluentRuleEngine.Rules.IRuleBuilder`2"/>
+            </returns>
+        </member>
+    </members>
+</doc>

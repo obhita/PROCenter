@@ -1,0 +1,3478 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Pillar.Common</name>
+    </assembly>
+    <members>
+        <member name="T:Pillar.Common.Bootstrapper.IAssemblyLocator">
+            <summary>
+                Interface for locating assemblies.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Bootstrapper.IAssemblyLocator.LocateDomainAssemblies">
+            <summary>
+                Locates the domain assemblies.
+            </summary>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Bootstrapper.IAssemblyLocator.LocateInfrastructureAssemblies">
+            <summary>
+                Locates the infrastructure assemblies.
+            </summary>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Bootstrapper.IAssemblyLocator.LocateWebServiceAssemblies">
+            <summary>
+                Locates the web service assemblies.
+            </summary>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Bootstrapper.IBootstrapperTask">
+            <summary>
+                Interface for <see cref="T:Pillar.Common.Bootstrapper.IBootstrapperTask"/> task.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Bootstrapper.IBootstrapperTask.Execute">
+            <summary>
+                Executes this instance.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Collections.ISoftDelete">
+            <summary>
+                An interface for keeping track of deleted items.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Collections.ISoftDeleted">
+            <summary>
+                An interface that provides an event handler that fires when an item is 'soft deleted' from a list.
+            </summary>
+        </member>
+        <member name="E:Pillar.Common.Collections.ISoftDeleted.SoftDeleted">
+            <summary>
+                Occurs when an item is soft deleted from a list.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.ISoftDelete.CurrentItems">
+            <summary>
+                Gets the current items.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.ISoftDelete.RemovedItems">
+            <summary>
+                Gets the removed items.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Collections.ISoftDelete`1">
+            <summary>
+                An interface for keeping track of deleted items.
+            </summary>
+            <typeparam name="T">The type of object stored in the list.</typeparam>
+        </member>
+        <member name="P:Pillar.Common.Collections.ISoftDelete`1.CurrentItems">
+            <summary>
+                Gets the current items.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.ISoftDelete`1.RemovedItems">
+            <summary>
+                Gets the removed items.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Collections.SoftDeletedEventArgs">
+            <summary>
+                The event arguments for the <see cref="E:Pillar.Common.Collections.ISoftDeleted.SoftDeleted"/> event.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeletedEventArgs.#ctor(System.Collections.IList)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Collections.SoftDeletedEventArgs"/> class.
+            </summary>
+            <param name="softDeletedItems">The soft deleted items.</param>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeletedEventArgs.SoftDeletedItems">
+            <summary>
+                Gets the soft deleted items.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Collections.SoftDeletedEventHandler">
+            <summary>
+                The signature for the soft delete event handler.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">
+                The <see cref="T:Pillar.Common.Collections.SoftDeletedEventArgs"/> instance containing the event data.
+            </param>
+        </member>
+        <member name="T:Pillar.Common.Collections.SoftDeleteObservableCollection`1">
+            <summary>
+                An <see cref="T:System.Collections.IList"/> implementation that tracks objects that are deleted by storing them in a separate list.
+            </summary>
+            <typeparam name="T">The type of object stored in the list.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Collections.SoftDeleteObservableCollection`1"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.#ctor(System.Collections.Generic.IEnumerable{`0})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Collections.SoftDeleteObservableCollection`1"/> class.
+            </summary>
+            <param name="collection">The collection.</param>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.#ctor(System.Collections.Generic.List{`0})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Collections.SoftDeleteObservableCollection`1"/> class.
+            </summary>
+            <param name="list">The list to observe.</param>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Add(`0)">
+            <summary>
+                Adds an item to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">
+                The object to add to the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </param>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Clear">
+            <summary>
+                Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Contains(`0)">
+            <summary>
+                Determines whether the <see cref="T:System.Collections.Generic.ICollection`1"/> contains a specific value.
+            </summary>
+            <param name="item">
+                The object to locate in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </param>
+            <returns>
+                True if <paramref name="item"/> is found in the <see cref="T:System.Collections.Generic.ICollection`1"/>; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.CopyTo(`0[],System.Int32)">
+            <summary>
+                Copies the elements of the <see cref="T:System.Collections.ICollection"/> to an <see cref="T:System.Array"/>, starting at a particular
+                <see cref="T:System.Array"/>
+                index.
+            </summary>
+            <param name="array">The array.</param>
+            <param name="arrayIndex">Index of the array.</param>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through the collection.
+            </summary>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerable`1"/> that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.IndexOf(`0)">
+            <summary>
+                Determines the index of a specific item in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </summary>
+            <param name="item">
+                The object to locate in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </param>
+            <returns>
+                The index of <paramref name="item"/> if found in the list; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Insert(System.Int32,`0)">
+            <summary>
+                Inserts an item to the <see cref="T:System.Collections.Generic.IList`1"/> at the specified index.
+            </summary>
+            <param name="index">
+                The zero-based index at which <paramref name="item"/> should be inserted.
+            </param>
+            <param name="item">
+                The object to insert into the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.IList`1"/> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Remove(`0)">
+            <summary>
+                Removes the first occurrence of a specific object from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <param name="item">
+                The object to remove from the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </param>
+            <returns>
+                True if <paramref name="item"/> was successfully removed from the <see cref="T:System.Collections.Generic.ICollection`1"/>;
+                otherwise, false. This method also returns false if <paramref name="item"/> is not found
+                in the original <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.ICollection`1"/> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.RemoveAt(System.Int32)">
+            <summary>
+                Removes the <see cref="T:System.Collections.Generic.IList`1"/> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.IList`1"/> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#Add(System.Object)">
+            <summary>
+                Adds an item to the <see cref="T:System.Collections.IList" />.
+            </summary>
+            <param name="value">
+                The object to add to the <see cref="T:System.Collections.IList" />.
+            </param>
+            <returns>The position into which the new element was inserted, or -1 to indicate that the item was not inserted into the collection.</returns>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#Clear">
+            <summary>
+                Removes all items from the <see cref="T:System.Collections.Generic.ICollection`1" />.
+            </summary>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#Contains(System.Object)">
+            <summary>
+                Determines whether the <see cref="T:System.Collections.IList" /> contains a specific value.
+            </summary>
+            <param name="value">
+                The object to locate in the <see cref="T:System.Collections.IList" />.
+            </param>
+            <returns>
+                True if the <see cref="T:System.Object" /> is found in the <see cref="T:System.Collections.IList" />; otherwise, false.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#ICollection#CopyTo(System.Array,System.Int32)">
+            <summary>
+                Copies the elements of the <see cref="T:System.Collections.ICollection" /> to an <see cref="T:System.Array" />, starting at a particular
+                <see
+                    cref="T:System.Array" />
+                index.
+            </summary>
+            <param name="array">
+                The one-dimensional <see cref="T:System.Array" /> that is the destination of the elements copied from
+                <see
+                    cref="T:System.Collections.ICollection" />
+                . The <see cref="T:System.Array" /> must have zero-based indexing.
+            </param>
+            <param name="index">
+                The zero-based index in <paramref name="array" /> at which copying begins.
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                <paramref name="array" /> is null.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="index" /> is less than zero.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                <paramref name="array" /> is multidimensional.-or- The number of elements in the source
+                <see
+                    cref="T:System.Collections.ICollection" />
+                is greater than the available space from <paramref name="index" /> to the end of the destination
+                <paramref
+                    name="array" />
+                .
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                The type of the source <see cref="T:System.Collections.ICollection" /> cannot be cast automatically to the type of the destination
+                <paramref
+                    name="array" />
+                .
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#IndexOf(System.Object)">
+            <summary>
+                Determines the index of a specific item in the <see cref="T:System.Collections.IList" />.
+            </summary>
+            <param name="value">
+                The object to locate in the <see cref="T:System.Collections.IList" />.
+            </param>
+            <returns>
+                The index of <paramref name="value" /> if found in the list; otherwise, -1.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#Insert(System.Int32,System.Object)">
+            <summary>
+                Inserts an item to the <see cref="T:System.Collections.IList" /> at the specified index.
+            </summary>
+            <param name="index">
+                The zero-based index at which <paramref name="value" /> should be inserted.
+            </param>
+            <param name="value">
+                The object to insert into the <see cref="T:System.Collections.IList" />.
+            </param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                Index is not a valid index in the <see cref="T:System.Collections.IList" />.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size.
+            </exception>
+            <exception cref="T:System.NullReferenceException">
+                Value is null reference in the <see cref="T:System.Collections.IList" />.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#Remove(System.Object)">
+            <summary>
+                Removes the first occurrence of a specific object from the <see cref="T:System.Collections.IList" />.
+            </summary>
+            <param name="value">
+                The object to remove from the <see cref="T:System.Collections.IList" />.
+            </param>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.IList" /> is read-only.-or- The <see cref="T:System.Collections.IList" /> has a fixed size.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#RemoveAt(System.Int32)">
+            <summary>
+                Removes the <see cref="T:System.Collections.Generic.IList`1" /> item at the specified index.
+            </summary>
+            <param name="index">The zero-based index of the item to remove.</param>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1" />.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+                The <see cref="T:System.Collections.Generic.IList`1" /> is read-only.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+                Returns an enumerator that iterates through a collection.
+            </summary>
+            <returns>
+                An <see cref="T:System.Collections.IEnumerator" /> object that can be used to iterate through the collection.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.CurrentItemsCollectionChanged(System.Object,System.Collections.Specialized.NotifyCollectionChangedEventArgs)">
+            <summary>
+                Currents the items collection changed.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">
+                The <see cref="T:System.Collections.Specialized.NotifyCollectionChangedEventArgs"/> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Initialize">
+            <summary>
+                Initializes this instance.
+            </summary>
+        </member>
+        <member name="E:Pillar.Common.Collections.SoftDeleteObservableCollection`1.CollectionChanged">
+            <summary>
+                Occurs when the collection changes.
+            </summary>
+        </member>
+        <member name="E:Pillar.Common.Collections.SoftDeleteObservableCollection`1.SoftDeleted">
+            <summary>
+                Occurs when an item is soft deleted from a list.
+            </summary>
+        </member>
+        <member name="E:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#ComponentModel#INotifyPropertyChanged#PropertyChanged">
+            <summary>
+                Occurs when a property value changes.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Count">
+            <summary>
+                Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </summary>
+            <returns>
+                The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1"/>.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.CurrentItems">
+            <summary>
+                Gets or sets the current items.
+            </summary>
+            <value>The current items.</value>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.RemovedItems">
+            <summary>
+                Gets or sets the removed items.
+            </summary>
+            <value>The removed items.</value>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#ICollection#Count">
+            <summary>
+                Gets the number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+            </summary>
+            <returns>
+                The number of elements contained in the <see cref="T:System.Collections.Generic.ICollection`1" />.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#IsFixedSize">
+            <summary>
+                Gets a value indicating whether the <see cref="T:System.Collections.IList" /> has a fixed size.
+            </summary>
+            <returns>
+                true if the <see cref="T:System.Collections.IList" /> has a fixed size; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#IsReadOnly">
+            <summary>
+                Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+            </summary>
+            <returns>
+                true if the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#ICollection#IsSynchronized">
+            <summary>
+                Gets a value indicating whether access to the <see cref="T:System.Collections.ICollection" /> is synchronized (thread safe).
+            </summary>
+            <returns>
+                true if access to the <see cref="T:System.Collections.ICollection" /> is synchronized (thread safe); otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#ICollection#SyncRoot">
+            <summary>
+                Gets an object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection" />.
+            </summary>
+            <returns>
+                An object that can be used to synchronize access to the <see cref="T:System.Collections.ICollection" />.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#Generic#ICollection{T}#IsReadOnly">
+            <summary>
+                Gets a value indicating whether the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only.
+            </summary>
+            <returns>
+                true if the <see cref="T:System.Collections.Generic.ICollection`1" /> is read-only; otherwise, false.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Pillar#Common#Collections#ISoftDelete#CurrentItems">
+            <summary>
+                Gets the current items.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Pillar#Common#Collections#ISoftDelete#RemovedItems">
+            <summary>
+                Gets the removed items.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Pillar#Common#Collections#ISoftDelete{T}#CurrentItems">
+            <summary>
+                Gets the current items.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Pillar#Common#Collections#ISoftDelete{T}#RemovedItems">
+            <summary>
+                Gets the removed items.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.Item(System.Int32)">
+            <summary>
+                Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">Index to get.</param>
+            <returns>
+                The element at the specified index.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="index"/> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1"/>.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+                The property is set and the <see cref="T:System.Collections.Generic.IList`1"/> is read-only.
+            </exception>
+        </member>
+        <member name="P:Pillar.Common.Collections.SoftDeleteObservableCollection`1.System#Collections#IList#Item(System.Int32)">
+            <summary>
+                Gets or sets the element at the specified index.
+            </summary>
+            <param name="index">Index to get.</param>
+            <returns>
+                The element at the specified index.
+            </returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                <paramref name="index" /> is not a valid index in the <see cref="T:System.Collections.Generic.IList`1" />.
+            </exception>
+            <exception cref="T:System.NotSupportedException">
+                The property is set and the <see cref="T:System.Collections.Generic.IList`1" /> is read-only.
+            </exception>
+        </member>
+        <member name="T:Pillar.Common.Commands.FrameworkCommandInfo">
+            <summary>
+                Object for holding info about command.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Commands.IFrameworkCommandInfo">
+            <summary>
+                Object for holding info about command.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Commands.IFrameworkCommandInfo.Name">
+            <summary>
+                Gets the name.
+            </summary>
+            <value>
+                The name.
+            </value>
+        </member>
+        <member name="P:Pillar.Common.Commands.IFrameworkCommandInfo.Owner">
+            <summary>
+                Gets the owner.
+            </summary>
+            <value>
+                The owner.
+            </value>
+        </member>
+        <member name="M:Pillar.Common.Commands.FrameworkCommandInfo.#ctor(System.Object,System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Commands.FrameworkCommandInfo"/> class.
+            </summary>
+            <param name="owner">The owner.</param>
+            <param name="name">The name of the command.</param>
+        </member>
+        <member name="M:Pillar.Common.Commands.FrameworkCommandInfo.op_Equality(Pillar.Common.Commands.FrameworkCommandInfo,Pillar.Common.Commands.FrameworkCommandInfo)">
+            <summary>
+                Implements the operator ==.
+            </summary>
+            <param name="left">The left operand.</param>
+            <param name="right">The right operand.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Commands.FrameworkCommandInfo.op_Inequality(Pillar.Common.Commands.FrameworkCommandInfo,Pillar.Common.Commands.FrameworkCommandInfo)">
+            <summary>
+                Implements the operator !=.
+            </summary>
+            <param name="left">The left operand.</param>
+            <param name="right">The right operand.</param>
+            <returns>
+                The result of the operator.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Commands.FrameworkCommandInfo.Equals(Pillar.Common.Commands.FrameworkCommandInfo)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
+        <member name="M:Pillar.Common.Commands.FrameworkCommandInfo.Equals(System.Object)">
+            <summary>
+                Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
+            </summary>
+            <returns>
+                True if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.
+            </returns>
+            <param name="obj">
+                The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" />.
+            </param>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="M:Pillar.Common.Commands.FrameworkCommandInfo.GetHashCode">
+            <summary>
+                Serves as a hash function for a particular type.
+            </summary>
+            <returns>
+                A hash code for the current <see cref="T:System.Object" />.
+            </returns>
+            <filterpriority>2</filterpriority>
+        </member>
+        <member name="P:Pillar.Common.Commands.FrameworkCommandInfo.Name">
+            <summary>
+                Gets the name.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Commands.FrameworkCommandInfo.Owner">
+            <summary>
+                Gets the owner.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Commands.ICommandFactory">
+            <summary>
+                Interface for factory that builds commands.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Commands.ICommandFactory.Build``2(``1,System.Linq.Expressions.Expression{System.Func{System.Windows.Input.ICommand}},System.Action,System.Func{System.Boolean})">
+            <summary>
+                Builds the specified command type.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <param name="owner">The owner.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <param name="executeMethod">The execute method.</param>
+            <param name="canExecuteMethod">The can execute method.</param>
+            <returns>
+                The <see cref="T:System.Windows.Input.ICommand"/> that was built.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Commands.ICommandFactory.Build``3(``1,System.Linq.Expressions.Expression{System.Func{System.Windows.Input.ICommand}},System.Action{``2},System.Func{``2,System.Boolean})">
+            <summary>
+                Builds the specified command type.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <typeparam name="TParameter">The type of the parameter.</typeparam>
+            <param name="owner">The owner.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <param name="executeMethod">The execute method.</param>
+            <param name="canExecuteMethod">The can execute method.</param>
+            <returns>
+                The <see cref="T:System.Windows.Input.ICommand"/> that was built.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Commands.ICommandFactory.Build``2(Pillar.Common.Commands.IFrameworkCommandInfo,``0)">
+            <summary>
+                Builds the specified framework command info.
+            </summary>
+            <typeparam name="TCommand">The type of the command.</typeparam>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <param name="frameworkCommandInfo">The framework command info.</param>
+            <param name="commandInstance">The command instance.</param>
+            <returns>
+                Built command.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Configuration.AppSettingsConfiguration">
+            <summary>
+                Implementation of the IConfigurationPropertiesProvider that uses the
+                (web.config-based) .NET ConfigurationManager AppSettings as its store.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Configuration.IConfigurationPropertiesProvider">
+            <summary>
+                Interface for providing configuration properties.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Configuration.IConfigurationPropertiesProvider.GetProperty``1(System.String)">
+            <summary>
+                Gets a property from the system configuration.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="propertyName">Name of the property.</param>
+            <returns>
+                An object of the given type.
+            </returns>
+            <exception cref="T:System.FormatException">Thrown if the parameter is in the wrong format.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the parameter does not exist.</exception>
+        </member>
+        <member name="M:Pillar.Common.Configuration.IConfigurationPropertiesProvider.GetProperty``1(System.String,``0)">
+            <summary>
+                Gets a property from the system configuration.  If the property does not exist then a default value is returned.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="propertyName">Name of the property.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>
+                An object of the given type.
+            </returns>
+            <exception cref="T:System.FormatException">Thrown if the parameter is in the wrong format.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the parameter does not exist.</exception>
+        </member>
+        <member name="M:Pillar.Common.Configuration.IConfigurationPropertiesProvider.SetProperty(System.String,System.String)">
+            <summary>
+                Sets the property.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="propertyValue">The property value.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if the propertyName or propertyValue are null.</exception>
+        </member>
+        <member name="M:Pillar.Common.Configuration.AppSettingsConfiguration.#ctor(System.Collections.Specialized.NameValueCollection)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Configuration.AppSettingsConfiguration"/> class.
+            </summary>
+            <param name="appSettings">The app settings.</param>
+        </member>
+        <member name="M:Pillar.Common.Configuration.AppSettingsConfiguration.GetProperty``1(System.String)">
+            <summary>
+                Gets a property from the system configuration.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="propertyName">Name of the property.</param>
+            <returns>
+                An object of the given type.
+            </returns>
+            <exception cref="T:System.FormatException">Thrown if the parameter is in the wrong format.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the parameter does not exist.</exception>
+        </member>
+        <member name="M:Pillar.Common.Configuration.AppSettingsConfiguration.GetProperty``1(System.String,``0)">
+            <summary>
+                Gets a property from the system configuration.  If the property does not exist then a default value is returned.
+            </summary>
+            <typeparam name="T">The type of the parameter.</typeparam>
+            <param name="propertyName">Name of the property.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns>
+                An object of the given type.
+            </returns>
+            <exception cref="T:System.FormatException">Thrown if the parameter is in the wrong format.</exception>
+            <exception cref="T:System.InvalidOperationException">Thrown if the parameter does not exist.</exception>
+        </member>
+        <member name="M:Pillar.Common.Configuration.AppSettingsConfiguration.SetProperty(System.String,System.String)">
+            <summary>
+                Sets the property.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <param name="propertyValue">The property value.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if the propertyName or propertyValue are null.</exception>
+        </member>
+        <member name="T:Pillar.Common.Cryptography.AesEncryptionUtility">
+            <summary>
+                Utility for Advanced Encryption Standard (AES) encryption.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Cryptography.IEncryptionUtility">
+            <summary>
+                Interface for utility that encrypts data.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.IEncryptionUtility.Decrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+                Decrypts the specified data.
+            </summary>
+            <param name="data">The data Decrypt.</param>
+            <param name="key">The key to use when Decrypting.</param>
+            <param name="iv">The iv to use when Decrypting.</param>
+            <returns>The decrypted byte[].</returns>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.IEncryptionUtility.Encrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+                Encrypts the specified data.
+            </summary>
+            <param name="data">The data Encrypt.</param>
+            <param name="key">The key to use when Encrypting.</param>
+            <param name="iv">The iv to use when Encrypting.</param>
+            <returns>Encrypted byte array.</returns>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.IEncryptionUtility.LoaderKeyFromConfiguration">
+            <summary>
+                Loaders the key from configuration.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.IEncryptionUtility.IsKeyLoaded">
+            <summary>
+                Gets a value indicating whether this instance is key loaded.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.IEncryptionUtility.IvCypher">
+            <summary>
+                Gets or sets the iv cypher.
+            </summary>
+            <value>The iv cypher.</value>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.IEncryptionUtility.IvSize">
+            <summary>
+                Gets the size of the iv.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.IEncryptionUtility.KeyCypher">
+            <summary>
+                Gets or sets the key cypher.
+            </summary>
+            <value>The key cypher.</value>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.IEncryptionUtility.KeySize">
+            <summary>
+                Gets the size of the key.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.AesEncryptionUtility.#ctor(Pillar.Common.Configuration.IConfigurationPropertiesProvider)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Cryptography.AesEncryptionUtility"/> class.
+            </summary>
+            <param name="configurationPropertiesProvider"> The configuration properties provider. </param>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.AesEncryptionUtility.Decrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+                Performs symmetric decryption on the payload provided. If key or iv are not provided, it uses the
+                pre-configured cryptographic key and IV retrieved from the Configuration Store.
+            </summary>
+            <param name="data"> Byte[] containing the data to be decrypted. </param>
+            <param name="keyCypher"> A byte[] containing the symmetric key. </param>
+            <param name="ivCypher"> A byte[] containing the initialization vector. </param>
+            <returns> A byte[] containing the clear text data.</returns>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.AesEncryptionUtility.Encrypt(System.Byte[],System.Byte[],System.Byte[])">
+            <summary>
+                Performs symmetric encryption on the payload provided. If key or iv are not provided, it uses the
+                pre-configured cryptographic key and IV retrieved from the Configuration Store.
+            </summary>
+            <param name="data"> Byte[] containing the data to be encrypted. </param>
+            <param name="keyCypher"> A byte[] containing the symmetric key. </param>
+            <param name="ivCypher"> A byte[] containing the initialization vector. </param>
+            <returns> A byte[] containing the cyphered data.</returns>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.AesEncryptionUtility.LoaderKeyFromConfiguration">
+            <summary>
+                Loaders the key from configuration.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.AesEncryptionUtility.ConfigureEncryptionProvider(System.Security.Cryptography.AesManaged,System.Byte[],System.Byte[])">
+            <summary>
+                Configures the encryption provider.
+            </summary>
+            <param name="aes"> The managed Advanced Encryption Standard algorithm. </param>
+            <param name="keyCypher"> The key cypher. </param>
+            <param name="ivCypher"> The iv cypher. </param>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.AesEncryptionUtility.IsKeyLoaded">
+            <summary>
+                Gets a value indicating whether this instance is key loaded.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.AesEncryptionUtility.IvCypher">
+            <summary>
+                Gets or sets the iv cypher.
+            </summary>
+            <value>
+                The iv cypher.
+            </value>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.AesEncryptionUtility.IvSize">
+            <summary>
+                Gets the size of the iv.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.AesEncryptionUtility.KeyCypher">
+            <summary>
+                Gets or sets the key cypher.
+            </summary>
+            <value>
+                The key cypher.
+            </value>
+        </member>
+        <member name="P:Pillar.Common.Cryptography.AesEncryptionUtility.KeySize">
+            <summary>
+                Gets the size of the key.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Cryptography.HashingUtility">
+            <summary>
+                Utility for hashing.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Cryptography.IHashingUtility">
+            <summary>
+                Interface for Utility that can compute a hash from data.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.IHashingUtility.ComputeHash(System.Byte[])">
+            <summary>
+                Computes the hash.
+            </summary>
+            <param name="data">The data to compute hash.</param>
+            <returns>The computed hash for the data.</returns>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.HashingUtility.ComputeHash(System.Byte[])">
+            <summary>
+                Computes the hash.
+            </summary>
+            <param name="data">The data to hash.</param>
+            <returns>The computed hash for the data.</returns>
+        </member>
+        <member name="T:Pillar.Common.Cryptography.X509CertificateUtility">
+            <summary>
+                Utility for X509 certificate.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.Cryptography.X509CertificateUtility.CertificateNameUsedForEncryptionThumbPrint">
+            <summary>
+                Certificate Name Used For Encryption ThumbPrint.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.X509CertificateUtility.GetCertificate(System.Security.Cryptography.X509Certificates.StoreName,System.Security.Cryptography.X509Certificates.StoreLocation,System.String)">
+            <summary>
+                Gets the certificate.
+            </summary>
+            <param name="name">The store name.</param>
+            <param name="location">The location.</param>
+            <param name="identifier">The identifier.</param>
+            <returns>
+                A <see cref="T:System.Security.Cryptography.X509Certificates.X509Certificate2"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Cryptography.X509CertificateUtility.GetDefaultCertificate">
+            <summary>
+                Gets the default certificate.
+            </summary>
+            <returns>
+                A <see cref="T:System.Security.Cryptography.X509Certificates.X509Certificate2"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.EditStatus">
+            <summary>
+                Status for editing.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.EditStatus.Noop">
+            <summary>
+                No Changes.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.EditStatus.Create">
+            <summary>
+                Create status.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.EditStatus.Update">
+            <summary>
+                Update status.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.EditStatus.Delete">
+            <summary>
+                Delete status.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.KeyedDataTransferObject`1">
+            <summary>
+                The KeyedDataTransferObject class defines a dto that has a primary key.
+            </summary>
+            <typeparam name="T">The type of the key.</typeparam>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.IKeyedDataTransferObject`1">
+            <summary>
+                Interface for a Data transfer object with a key.
+            </summary>
+            <typeparam name="T">Type of the key.</typeparam>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.IKeyedDataTransferObject`1.Key">
+            <summary>
+                Gets or sets the key.
+            </summary>
+            <value>
+                The key.
+            </value>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.KeyedDataTransferObject`1.Key">
+            <summary>
+                Gets or sets the key.
+            </summary>
+            <value>
+                The key.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.NotificationDataTransferObject">
+            <summary>
+                The NotificationDataTransferObject object defines a dto that implements the
+                <see cref="T:Pillar.Common.DataTransferObject.INotificationDataTranferObject"/>
+                interface.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.INotificationDataTranferObject">
+            <summary>
+                The <see cref="T:Pillar.Common.DataTransferObject.INotificationDataTranferObject"/> interface that provides data error information management.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.INotificationDataTranferObject.AddNotification(Pillar.Common.DataTransferObject.Notification)">
+            <summary>
+                Adds a notification.
+            </summary>
+            <param name="notification">
+                The notification message.
+            </param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.INotificationDataTranferObject.ClearAllNotifications">
+            <summary>
+                Clears all notifications.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.INotificationDataTranferObject.GetNotifications(System.String)">
+            <summary>
+                Gets all notifications for the given property.
+            </summary>
+            <param name="propertyName">
+                The property to get notifications for.
+            </param>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/> for the given property.
+                If null returns notifications not associated with a property.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.INotificationDataTranferObject.RemoveNotification(Pillar.Common.DataTransferObject.Notification)">
+            <summary>
+                Removes the notification.
+            </summary>
+            <param name="notification">The notification to remove.</param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.INotificationDataTranferObject.RemoveNotifications(System.Collections.Generic.IEnumerable{Pillar.Common.DataTransferObject.Notification})">
+            <summary>
+                Removes the notifications specified.
+            </summary>
+            <param name="notifications">The notifications to remove.</param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.INotificationDataTranferObject.RemoveNotificationsForProperty(System.String)">
+            <summary>
+                Removes all notifications for a property.
+            </summary>
+            <param name="propertyName">
+                Name of the property to remove notifications for.
+            </param>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.INotificationDataTranferObject.Notifications">
+            <summary>
+                Gets the notification messages.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataProvider">
+            <summary>
+                Interface for providing metadata.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.IMetadataProvider.MetadataDto">
+            <summary>
+                Gets or sets the metadata dto.
+            </summary>
+            <value>The metadata dto.</value>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.AddNotification(Pillar.Common.DataTransferObject.Notification)">
+            <summary>
+                Adds a notification.
+            </summary>
+            <param name="notification">The notification message.</param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.ClearAllNotifications">
+            <summary>
+                Clears all notifications.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.GetNotifications(System.String)">
+            <summary>
+                Gets all notifications for the given property.
+            </summary>
+            <param name="propertyName">The property to get notifications for.</param>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/> for the given property.
+                If null returns notifications not associated with a property.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.RemoveNotification(Pillar.Common.DataTransferObject.Notification)">
+            <summary>
+                Removes the notification.
+            </summary>
+            <param name="notification">The notification to remove.</param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.RemoveNotifications(System.Collections.Generic.IEnumerable{Pillar.Common.DataTransferObject.Notification})">
+            <summary>
+                Removes the notifications specified.
+            </summary>
+            <param name="notifications">The notifications to remove.</param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.RemoveNotificationsForProperty(System.String)">
+            <summary>
+                Removes all notifications for a property.
+            </summary>
+            <param name="propertyName">Name of the property to remove notifications for.</param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.NotificationDataTransferObject.ValidatePropertyExists(System.String)">
+            <summary>
+                Validates the property exists.
+            </summary>
+            <param name="propertyName">Name of the property.</param>
+            <exception cref="T:System.InvalidOperationException">Property name does not exist for type.</exception>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.NotificationDataTransferObject.MetadataDto">
+            <summary>
+                Gets or sets the metadata dto.
+            </summary>
+            <value>
+                The metadata dto.
+            </value>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.NotificationDataTransferObject.Notifications">
+            <summary>
+                Gets the notification messages.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.Notification">
+            <summary>
+                The <see cref="T:Pillar.Common.DataTransferObject.Notification"/> class implements the classic notification design pattern.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.Notification.#ctor(System.String,Pillar.Common.DataTransferObject.NotificationType)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.DataTransferObject.Notification"/> class.
+            </summary>
+            <param name="message">
+                The message.
+            </param>
+            <param name="notificationType">
+                The error level.
+            </param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.Notification.#ctor(System.String,Pillar.Common.DataTransferObject.NotificationType,System.String[])">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.DataTransferObject.Notification"/> class.
+            </summary>
+            <param name="message">
+                The message.
+            </param>
+            <param name="notificationType">
+                The notification type.
+            </param>
+            <param name="propertyNames">
+                The property names.
+            </param>
+        </member>
+        <member name="M:Pillar.Common.DataTransferObject.Notification.ToString">
+            <summary>
+                Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.Notification.HasProperties">
+            <summary>
+                Gets a value indicating whether the notification message is associated with properties or not.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.Notification.Message">
+            <summary>
+                Gets the message.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.Notification.NotificationType">
+            <summary>
+                Gets the notification type.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.DataTransferObject.Notification.Properties">
+            <summary>
+                Gets the property names.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.DataTransferObject.NotificationType">
+            <summary>
+                The <see cref="T:Pillar.Common.DataTransferObject.NotificationType"/> is the type of the notification.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.NotificationType.Error">
+            <summary>
+                Error indicates the type of notification is an error.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.NotificationType.Warning">
+            <summary>
+                Warning indicates the type of notification is a warning.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.DataTransferObject.NotificationType.Info">
+            <summary>
+                Info indicates the type of notification is informational.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Extension.DateTimeExtensions">
+            <summary>
+                Extension methods for the <see cref="T:System.DateTime"/> type.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Extension.DateTimeExtensions.GetAge(System.DateTime)">
+            <summary>
+                Gets the age based on Birthday.
+            </summary>
+            <param name="birthday">The birth date.</param>
+            <returns>A integer for age.</returns>
+        </member>
+        <member name="T:Pillar.Common.Extension.EnumerableExtension">
+            <summary>
+                Extension methods for <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Extension.EnumerableExtension.DistinctBy``2(System.Collections.Generic.IEnumerable{``0},System.Func{``0,``1})">
+            <summary>
+                Returns an <see cref="T:System.Collections.Generic.IEnumerable`1"/> of the items in <paramref name="source"/> that are distinct by the
+                field returned by the <paramref name="keySelector"/>.
+            </summary>
+            <typeparam name="TSource">
+                The type of item stored in the <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </typeparam>
+            <typeparam name="TKey">The key property.</typeparam>
+            <param name="source">
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of items that are filtered by the method.
+            </param>
+            <param name="keySelector">
+                A delegate that receives a <typeparamref name="TSource"/> and should return the key property.
+            </param>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/> containing the items from <paramref name="source"/> that are distinct according
+                to the property returned by the <paramref name="keySelector"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.EnumerableExtension.ForEach``1(System.Collections.Generic.IEnumerable{``0},System.Action{``0})">
+            <summary>
+                Iterates over the elements of the <see cref="T:System.Collections.Generic.IEnumerable`1"/> and applies the provided <paramref name="action"/>.
+            </summary>
+            <typeparam name="T">The element type.</typeparam>
+            <param name="enumerable">
+                The <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </param>
+            <param name="action">The action that should be applied.</param>
+        </member>
+        <member name="M:Pillar.Common.Extension.EnumerableExtension.ToDelimitedString``1(System.Collections.Generic.IEnumerable{``0},System.String)">
+            <summary>
+                Iterates over the elements of an <see cref="T:System.Collections.Generic.IEnumerable`1"/> and creates a single string by
+                calling <see cref="M:System.Object.ToString"/> on the elements and separating them with the provided
+                <paramref name="delimiter"/>
+                .
+            </summary>
+            <typeparam name="T">
+                Type type of element in the <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </typeparam>
+            <param name="enumerable">The items to join together.</param>
+            <param name="delimiter">The delimiter.</param>
+            <returns>
+                A string containing the string representation of the elements in the <see cref="T:System.Collections.Generic.IEnumerable`1"/> separated by the
+                <paramref name="delimiter"/>
+                .
+            </returns>
+            <exception cref="T:System.ArgumentNullException">
+                Thrown if given a null <see cref="T:System.Collections.Generic.IEnumerable`1"/>.
+            </exception>
+        </member>
+        <member name="T:Pillar.Common.Extension.ListExtensions">
+            <summary>
+                ListExtensions class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Extension.ListExtensions.Delete``1(System.Collections.Generic.IList{``0},``0)">
+            <summary>
+                Deletes the specified item from the item list.
+                Throws exception if the item is not found in the list.
+            </summary>
+            <typeparam name="T">The type of the item.</typeparam>
+            <param name="itemList">The item list.</param>
+            <param name="item">The item to be deleted.</param>
+        </member>
+        <member name="T:Pillar.Common.Extension.PropertyInfoExtensions">
+            <summary>
+                Extension methods for <see cref="T:System.Reflection.PropertyInfo">PropertyInfo</see> type.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Extension.PropertyInfoExtensions.IsAutoProperty(System.Reflection.PropertyInfo)">
+            <summary>
+                Gets whether <see cref="T:System.Reflection.PropertyInfo">propertyInfo</see> is an Auto Property.
+            </summary>
+            <param name="propertyInfo">Property Info to check.</param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.PropertyInfoExtensions.IsReadonly(System.Reflection.PropertyInfo)">
+            <summary>
+                Gets Whether property info is settable.
+            </summary>
+            <param name="propertyInfo">Property info to check.</param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Extension.StringExtensions">
+            <summary>
+                Extension methods for the <see cref="T:System.String"/> type.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.SeparatePascalCaseWords(System.String)">
+            <summary>
+                Extension method that receives an incoming pascal case string and separates the words.
+            </summary>
+            <param name="pascalCaseString">Incoming pascal case word.</param>
+            <returns>The separated string.</returns>
+            <example>
+                <code>
+            String str = "PascalCaseWord";
+            string result = str.SeparatePascalCaseWords ();
+            -- result = "Pascal Case Word";
+            </code>
+            </example>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.InjectSingleValue(System.String,System.String,System.Object)">
+            <summary>
+                Replaces all instances of a 'key' (e.g. {foo} or {foo:SomeFormat}) in a string with an optionally formatted value, and returns the result.
+            </summary>
+            <param name="formatString">The string containing the key; unformatted ({foo}), or formatted ({foo:SomeFormat}).</param>
+            <param name="key">The key name (foo).</param>
+            <param name="replacementValue">The replacement value; if null is replaced with an empty string.</param>
+            <returns>The input string with any instances of the key replaced with the replacement value.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.SplitIntoDistinctWords(System.String)">
+            <summary>
+                Splits the string the into distinct words.
+            </summary>
+            <param name="phrase">The given string.</param>
+            <returns>
+                An <see cref="T:System.Collections.Generic.IEnumerable`1"/> of strings.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.Inject(System.String,System.Collections.IDictionary)">
+            <summary>
+                Extension method that replaces keys in a string with the values of matching hash table entries.
+                <remarks>
+                    Uses <see cref="M:System.String.Format(System.String,System.Object)"/> internally; custom formats should match those used for that method.
+                </remarks>
+            </summary>
+            <param name="formatString">The format string, containing keys like {foo} and {foo:SomeFormat}.</param>
+            <param name="attributes">
+                A <see cref="T:System.Collections.IDictionary"/> with keys and values to inject into the string.
+            </param>
+            <returns>A version of the formatString string with hash table keys replaced by (formatted) key values.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.Inject(System.String,System.Object)">
+            <summary>
+            Extension method that replaces keys in a string with the values of matching object properties.
+            </summary>
+            <param name="formatString">The format string, containing keys like {foo} and {foo:SomeFormat}.</param>
+            <param name="injectionObject">The object whose properties should be injected in the string.</param>
+            <returns>A version of the formatString string with keys replaced by (formatted) key values.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.GetPropertyHash(System.Object)">
+            <summary>
+            Creates a HashTable based on current object state.
+            <remarks>Copied from the MVCToolkit HtmlExtensionUtility class.</remarks>
+            </summary>
+            <param name="properties">The object from which to get the properties.</param>
+            <returns>A <see cref="T:System.Collections.Hashtable"/> containing the object instance's property names and their values.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.RemoveNonAlphanumericChar(System.String)">
+            <summary>
+                Removes the non alphanumeric characters.
+            </summary>
+            <param name="phoneNumber">The phone number.</param>
+            <returns>A string without alphanumeric char.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.TrimStart(System.String,System.String)">
+            <summary>
+                Removes the given text from the beginning of the string if it exists.
+            </summary>
+            <param name="target">The target.</param>
+            <param name="trimString">The trim string.</param>
+            <returns>The trimmed string.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.StringExtensions.TrimEnd(System.String,System.String)">
+            <summary>
+                Removes the given text from the end of the string if it exists.
+            </summary>
+            <param name="target">The target.</param>
+            <param name="trimString">The trim string.</param>
+            <returns>The trimmed string.</returns>
+        </member>
+        <member name="T:Pillar.Common.Extension.TypeExtensions">
+            <summary>
+                Extensions for objects of type <see cref="T:System.Type">Type</see>
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.AllPropertiesAreReadonly(System.Type,System.Reflection.PropertyInfo[]@)">
+            <summary>
+                Gets whether and of the given <see cref="T:System.Reflection.PropertyInfo"/> objects are of a certain type are readonly.
+            </summary>
+            <param name="type">
+                Type that contains <paramref name="writableProperties">PropertyInfo</paramref> properties.
+            </param>
+            <param name="writableProperties">
+                Out array of <see cref="T:System.Reflection.PropertyInfo">PropertyInfo</see>.
+            </param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.DeepCopy``1(``0)">
+            <summary>
+                Gets the deep copy of an object.
+            </summary>
+            <typeparam name="T">Type of object.</typeparam>
+            <param name="obj">Object to deep copy.</param>
+            <returns>A copy of type T.</returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.GetDefault(System.Type)">
+            <summary>
+                Gets default value of type.
+            </summary>
+            <param name="type">Type to get default value for.</param>
+            <returns>
+                An <see cref="T:System.Object">object</see> that is the default value of the <paramref name="type"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.GetPropertiesOfType``1(System.Type)">
+            <summary>
+                Gets a list of <see cref="T:System.Reflection.PropertyInfo"/> where the property type is of type T.
+            </summary>
+            <typeparam name="T">The type of properties to find.</typeparam>
+            <param name="type">The type to find properties on.</param>
+            <returns>
+                List of <see cref="T:System.Reflection.PropertyInfo"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.IsNullable(System.Type)">
+            <summary>
+                Gets whether type is nullable or not.
+            </summary>
+            <param name="type">The type .</param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.IsNullableEnum(System.Type)">
+            <summary>
+                Gets whether type is a nullable enum.
+            </summary>
+            <param name="type">The type .</param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Extension.TypeExtensions.IsSubclassOfBaseGeneric(System.Type,System.Type)">
+            <summary>
+                Gets whether a type is a subclass of a generic type.
+            </summary>
+            <param name="toCheck">Type to check.</param>
+            <param name="generic">Base Generic Type.</param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Interceptors.IIntercept`1">
+            <summary>
+                Marker Interface for interceptor of a certain type.
+            </summary>
+            <typeparam name="T">Type of object I Intercept.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Interceptors.IIntercept`1.GetInterceptorOptions``1(Pillar.Common.Commands.IFrameworkCommandInfo)">
+            <summary>
+                Gets the interceptor options.
+            </summary>
+            <typeparam name="TOwner">The type of the owner.</typeparam>
+            <param name="frameworkCommandInfo">The framework command info.</param>
+            <returns>
+                Object that contains options for interceptor or <c>Null</c> if has no options.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.ContainerExtensions">
+            <summary>
+                The ContainerExtensions defines extension methods for the <see cref="T:Pillar.Common.InversionOfControl.IContainer"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.RegisterInstance``1(Pillar.Common.InversionOfControl.IContainer,``0)">
+            <summary>
+                Register an instance with the container.
+            </summary>
+            <typeparam name="TComponent">Type of instance to register.</typeparam>
+            <param name="container">The container.</param>
+            <param name="instance">Object to returned.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.RegisterInstance``1(Pillar.Common.InversionOfControl.IContainer,``0,System.String)">
+            <summary>
+                Registers an instance with the container. The registration is given a name.
+            </summary>
+            <typeparam name="TComponent">Type of instance to register.</typeparam>
+            <param name="container">The container.</param>
+            <param name="instance">Object to returned.</param>
+            <param name="registrationName">The name of the registration.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.RegisterType``2(Pillar.Common.InversionOfControl.IContainer,Pillar.Common.InversionOfControl.Lifestyle)">
+            <summary>
+                Registers a type mapping with the container, where the created instances will use
+                the given <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/>.
+            </summary>
+            <typeparam name="TComponent">The type that will be requested.</typeparam>
+            <typeparam name="TImplementation">The type that will actually be returned.</typeparam>
+            <param name="container">The container.</param>
+            <param name="lifestyle">
+                The <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/> that controls the lifetime
+                of the returned instance.
+            </param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.RegisterType``2(Pillar.Common.InversionOfControl.IContainer,Pillar.Common.InversionOfControl.Lifestyle,System.String)">
+            <summary>
+                Registers a type mapping with the container, where the created instances will use
+                the given <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/>. The registration is given a name.
+            </summary>
+            <typeparam name="TComponent">The type that will be requested.</typeparam>
+            <typeparam name="TImplementation">The type that will actually be returned.</typeparam>
+            <param name="container">The container.</param>
+            <param name="lifestyle">
+                The <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/> that controls the lifetime
+                of the returned instance.
+            </param>
+            <param name="registrationName">The name of the registration.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.Resolve``1(Pillar.Common.InversionOfControl.IContainer)">
+            <summary>
+                Resolves an instance of the requested type from the container.
+                Throws exception if no registration is found in the container.
+            </summary>
+            <typeparam name="TComponent">The type of object to get from the container.</typeparam>
+            <param name="container">The container.</param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.Resolve``1(Pillar.Common.InversionOfControl.IContainer,System.String)">
+            <summary>
+                Resolves an instance of the requested type with the given name from the container.
+                Throws exception if no registration is found in the container.
+            </summary>
+            <typeparam name="TComponent">The type of object to get from the container.</typeparam>
+            <param name="container">The container.</param>
+            <param name="registrationName">Name of the registration.</param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.ResolveAll``1(Pillar.Common.InversionOfControl.IContainer)">
+            <summary>
+                Get all instances of the given <typeparamref name="TComponentType" /> currently
+                registered in the container.
+            </summary>
+            <typeparam name="TComponentType">Type of object requested.</typeparam>
+            <param name="container">The container.</param>
+            <returns>
+                A list of instances of the requested <typeparamref name="TComponentType" />.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.TryResolve``1(Pillar.Common.InversionOfControl.IContainer)">
+            <summary>
+                Tries to resolve an instance of the requested type from the container.
+                No exception will be thrown if no registration is found in the container.
+            </summary>
+            <typeparam name="TComponent">The type of object to get from the container.</typeparam>
+            <param name="container">The container.</param>
+            <returns>
+                The retrieved object
+                or the default value for the requested type if no registration is found in the container.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.ContainerExtensions.TryResolve``1(Pillar.Common.InversionOfControl.IContainer,System.String)">
+            <summary>
+                Tries to resolve an instance of the requested type with the given name from the container.
+                No exception will be thrown if no registration is found in the container.
+            </summary>
+            <typeparam name="TComponent">The type of object to get from the container.</typeparam>
+            <param name="container">The container.</param>
+            <param name="registrationName">Name of the registration.</param>
+            <returns>
+                The retrieved object
+                or the default value for the requested type if no registration is found in the container.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.ContainerProvider">
+            <summary>
+                This delegate type is used to provide a method that will
+                return the current container. Used with the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>
+                static accessor class.
+            </summary>
+            <returns>
+                An <see cref="T:Pillar.Common.InversionOfControl.IContainer"/>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.IContainer">
+            <summary>
+                The IContainer interface is an abstraction of Inversion of Control (Dependency Injection) container.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.RegisterInstance(System.Type,System.Object)">
+            <summary>
+                Registers an instance with the container.
+            </summary>
+            <remarks>
+                <para>
+                    Instance registration is much like setting a type as a singleton, except that instead
+                    of the container creating the instance the first time it is requested, the user
+                    creates the instance ahead of registration and adds that instance to the container.
+                </para>
+            </remarks>
+            <param name="componentType">Type of instance to register (may be an implemented interface instead of the full type).</param>
+            <param name="instance">Object to returned.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.RegisterInstance(System.Type,System.Object,System.String)">
+            <summary>
+                Registers an instance with the container. The registration is given a name.
+            </summary>
+            <remarks>
+                <para>
+                    Instance registration is much like setting a type as a singleton, except that instead
+                    of the container creating the instance the first time it is requested, the user
+                    creates the instance ahead of registration and adds that instance to the container.
+                </para>
+            </remarks>
+            <param name="componentType">Type of instance to register (may be an implemented interface instead of the full type).</param>
+            <param name="instance">Instance to be registered in the container.</param>
+            <param name="registrationName">The name of the registration.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.RegisterType(System.Type,System.Type,Pillar.Common.InversionOfControl.Lifestyle)">
+            <summary>
+                Registers a type mapping with the container, where the created instances will use
+                the given <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/>.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> that will be requested.
+            </param>
+            <param name="implementationType">
+                The <see cref="T:System.Type"/> that will actually be returned.
+            </param>
+            <param name="lifestyle">
+                The <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/> that controls the lifetime
+                of the returned instance.
+            </param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.RegisterType(System.Type,System.Type,Pillar.Common.InversionOfControl.Lifestyle,System.String)">
+            <summary>
+                Registers a type mapping with the container, where the created instances will use
+                the given <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/>. The registration is given a name.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> that will be requested.
+            </param>
+            <param name="implementationType">
+                The <see cref="T:System.Type"/> that will actually be returned.
+            </param>
+            <param name="lifestyle">
+                The <see cref="T:Pillar.Common.InversionOfControl.Lifestyle"/> that controls the lifetime
+                of the returned instance.
+            </param>
+            <param name="registrationName">The name of the registration.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.Release(System.Object)">
+            <summary>
+                Releases the specified component from the container.
+            </summary>
+            <param name="component">The component to release.</param>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.Resolve(System.Type)">
+            <summary>
+                Resolves an instance of the requested type from the container.
+                Throws exception if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.Resolve(System.Type,System.String)">
+            <summary>
+                Resolves an instance of the requested type with the given name from the container.
+                Throws exception if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <param name="registrationName">Name of the registration.</param>
+            <returns>The retrieved object.</returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.ResolveAll(System.Type)">
+            <summary>
+                Get all instances of the given <paramref name="componentType" /> currently
+                registered in the container.
+            </summary>
+            <param name="componentType">Type of object requested.</param>
+            <returns>
+                A list of instances of the requested <paramref name="componentType" />.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.TryResolve(System.Type)">
+            <summary>
+                Tries to resolve an instance of the requested type from the container.
+                No exception will be thrown if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <returns>
+                The retrieved object
+                or the default value for the requested type if no registration is found in the container.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IContainer.TryResolve(System.Type,System.String)">
+            <summary>
+                Tries to resolve an instance of the requested type with the given name from the container.
+                No exception will be thrown if no registration is found in the container.
+            </summary>
+            <param name="componentType">
+                The <see cref="T:System.Type"/> of object to get from the container.
+            </param>
+            <param name="registrationName">Name of the registration.</param>
+            <returns>
+                The retrieved object
+                or the default value for the requested type if no registration is found in the container.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.IoC">
+            <summary>
+                This class provides the ambient container for this application. If your
+                framework defines such an ambient container, use IoC.CurrentContainer
+                to get it.
+                Follow these two steps to use this class:
+                1. Call SetContainerProvider() to set the container provider;
+                2. Call Bootstrap() to register dependencies in all Pillar libraries.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IoC.Bootstrap">
+            <summary>
+                Bootstraps to register dependencies in all Pillar libraries.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IoC.SetContainerProvider(Pillar.Common.InversionOfControl.ContainerProvider)">
+            <summary>
+                Set the delegate that is used to retrieve the current container.
+            </summary>
+            <param name="newProvider">
+                Delegate that, when called, will return
+                the current ambient container.
+            </param>
+        </member>
+        <member name="P:Pillar.Common.InversionOfControl.IoC.CurrentContainer">
+            <summary>
+                Gets the current container.
+            </summary>
+            <value>
+                The current container.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.IRegistry">
+            <summary>
+                The IRegistry interface is used by each Pillar library to register dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.InversionOfControl.IRegistry.Register">
+            <summary>
+                Registers dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.Lifestyle">
+            <summary>
+                The Life style is used to control the life of returned object from the <see cref="T:Pillar.Common.InversionOfControl.IContainer"/>.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.InversionOfControl.Lifestyle.Singleton">
+            <summary>
+                The returned object from the<see cref="T:Pillar.Common.InversionOfControl.IContainer"/> is a singleton.
+                i.e. the <see cref="T:Pillar.Common.InversionOfControl.IContainer"/> will always return the same object.
+            </summary>
+        </member>
+        <member name="F:Pillar.Common.InversionOfControl.Lifestyle.Transient">
+            <summary>
+                The returned object from the container is transient.
+                i.e. the container will return different object each time upon request.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.IValuesEquatable">
+            <summary>
+                Interface for object that is values equatable.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.IValuesEquatable.ValuesEqual(System.Object)">
+            <summary>
+                Checks if all the values of the object are equal.
+            </summary>
+            <param name="obj">The object to check equality with.</param>
+            <returns>A boolean indicating whether objects are equal.</returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.DisplayNameMetadataItem">
+            <summary>
+                Metadata for specifying Display Name.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.DisplayNameMetadataItemBase">
+            <summary>
+                Base class for DisplayNameMetadataItem.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.UiMetadataItem">
+            <summary>
+                UiMetadataItem class.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataItem">
+            <summary>
+                IMetadataItem interface.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.DisplayNameMetadataItemBase.GetDisplayValue">
+            <summary>
+                Gets the display value.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.DisplayNameMetadataItem.GetDisplayValue">
+            <summary>
+                Gets the display value.
+            </summary>
+            <returns>
+                A <see cref="T:System.String"/>
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Metadata.DisplayNameMetadataItem.Name">
+            <summary>
+                Gets or sets the name.
+            </summary>
+            <value>The name of the item.</value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.DisabledMetadataItem">
+            <summary>
+                Data transfer object for DisabledMetadataItem class.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.DisabledMetadataItem.IsDisabled">
+            <summary>
+                Gets or sets a value indicating whether this instance is disabled.
+            </summary>
+            <value>
+                <c>true</c> if this instance is disabled; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.Dtos.HiddenMetadataItemDto">
+            <summary>
+                Data transfer object for HiddenMetadataItem class.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.Dtos.IMetadataItemDto">
+            <summary>
+                IMetadataItemDto marker interface.
+                <see href="http://msdn.microsoft.com/en-us/library/ms575141.aspx" />
+                See IKnowTypeProvider and MetadataKnownTypeProvider.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.Dtos.HiddenMetadataItemDto.IsHidden">
+            <summary>
+                Gets or sets a value indicating whether this instance is hidden.
+            </summary>
+            <value>
+                <c>true</c> if this instance is hidden; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataDto">
+            <summary>
+                Data transfer object for Metadata class.
+            </summary>
+            <summary>
+                Data transfer object for Metadata class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataDto"/> class.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.AddChildMetadata(System.String)">
+            <summary>
+                Adds the child metadata.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.MetadataDto"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.AddMetadataItem(Pillar.Common.Metadata.IMetadataItem)">
+            <summary>
+                Adds the metadata item.
+            </summary>
+            <param name="metadataItemDto">The metadata item dto.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.AddMetadataItemRange(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.IMetadataItem})">
+            <summary>
+                Adds the metadata item range.
+            </summary>
+            <param name="metadataItemDtos">The metadata item dtos.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.ChildMetadataExists(System.String)">
+            <summary>
+                Childs the metadata exists.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.FindMetadataItem``1">
+            <summary>
+                Finds the metadata item.
+            </summary>
+            <typeparam name="TMetadataItem">The type of the metadata item.</typeparam>
+            <returns>The metadata item or null.</returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.GetChildMetadata(System.String)">
+            <summary>
+                Gets the child metadata.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>The metadata item or null.</returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.MetadataItemExists``1">
+            <summary>
+                Determines whether metadata items exists.
+            </summary>
+            <typeparam name="TMetadataItem">The type of the metadata item.</typeparam>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.OnDeserialization(System.Runtime.Serialization.StreamingContext)">
+            <summary>
+                Called on deserialization.
+            </summary>
+            <param name="context">The context.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.RemoveChildMetadata(System.String)">
+            <summary>
+                Removes the child metadata.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.RemoveMetadataItem``1">
+            <summary>
+                Removes the metadata item.
+            </summary>
+            <typeparam name="TMetadataItem">The type of the metadata item.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.InitializeChildrenAndMetadataItemsDtos">
+            <summary>
+                Initializes the children and metadata items dtos.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataDto.AddChildMetadata(Pillar.Common.Metadata.MetadataDto)">
+            <summary>
+                Adds the child metadata.
+            </summary>
+            <param name="metadataDto">The metadata dto.</param>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataDto.Children">
+            <summary>
+                Gets the children.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataDto.ChildrenList">
+            <summary>
+                Gets the children list.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataDto.MetadataItemDtoList">
+            <summary>
+                Gets the metadata item dto list.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataDto.MetadataItemDtos">
+            <summary>
+                Gets the metadata item dtos.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataDto.ResourceName">
+            <summary>
+                Gets the name of the resource.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.FilterLookupMetadataItem">
+            <summary>
+                FilterLookupMetadataItem class.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.FilterLookupMetadataItem.WellKnownNames">
+            <summary>
+                Gets or sets the well known names.
+            </summary>
+            <value>The well known names.</value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.HiddenMetadataItem">
+            <summary>
+                Metadata for marking as hidden or not.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.HiddenMetadataItem.IsHidden">
+            <summary>
+                Gets or sets a value indicating whether this is hidden.
+            </summary>
+            <value>
+                <c>true</c> if this is hidden; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadata">
+            <summary>
+                IMetadata interface.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadata.AddChild(System.String)">
+            <summary>
+                Adds the child.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadata.AddMetadataItem(Pillar.Common.Metadata.IMetadataItem)">
+            <summary>
+                Adds the given metadata item.
+            </summary>
+            <param name="metadataItem">The item to add.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadata.ClearChildren">
+            <summary>
+                Clears all children.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadata.FindChildMetadata(System.String)">
+            <summary>
+                Finds the child metadata.
+            </summary>
+            <param name="childResourceName">Name of the child resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadata.HasChild(System.String)">
+            <summary>
+                Determines whether the specified child resource name has child.
+            </summary>
+            <param name="childResourceName">Name of the child resource.</param>
+            <returns>
+                <c>true</c> if the specified child resource name has child; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadata.ToDto">
+            <summary>
+                Maps the metadata to a <see cref="T:Pillar.Common.Metadata.MetadataDto"/>.
+            </summary>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.MetadataDto"/>.
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Metadata.IMetadata.Children">
+            <summary>
+                Gets the children.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.IMetadata.MetadataItems">
+            <summary>
+                Gets or sets the metadata items.
+            </summary>
+            <value>The metadata items.</value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.IMetadata.ResourceName">
+            <summary>
+                Gets the name of the resource.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataFactory">
+            <summary>
+                Interface of factory for metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataFactory.CreateMetadataRoot(System.String,Pillar.Common.Metadata.MetadataLayer)">
+            <summary>
+                Creates the metadata root.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <param name="metadataLayer">The metadata layer.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataFactory.DestroyMetadataRoot(Pillar.Common.Metadata.IMetadata)">
+            <summary>
+                Destroys the metadata root.
+            </summary>
+            <param name="metadata">The metadata.</param>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataLayerFactory">
+            <summary>
+                Interface of factory for metadata layer.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataLayerFactory.CreateMetadataLayer(System.String,System.Int32)">
+            <summary>
+                Creates the metadata layer.
+            </summary>
+            <param name="layerName">Name of the layer.</param>
+            <param name="layerLevel">The layer level.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.MetadataLayer"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataLayerFactory.DestroyMetadataLayer(Pillar.Common.Metadata.MetadataLayer)">
+            <summary>
+                Destroys the metadata layer.
+            </summary>
+            <param name="metadataLayer">The metadata layer.</param>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataLayerRepository">
+            <summary>
+                Interface of repository for metadata layer.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IRepository`1">
+            <summary>
+                Interface of a repository.
+            </summary>
+            <typeparam name="TEntity">The type of the T entity.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IRepository`1.GetById(System.Int64)">
+            <summary>
+                Gets the entity by id.
+            </summary>
+            <param name="id">The id to get.</param>
+            <returns>The entity.</returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IRepository`1.MakePersistent(`0)">
+            <summary>
+                Makes the entity persistent.
+            </summary>
+            <param name="entity">The entity.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IRepository`1.MakeTransient(`0)">
+            <summary>
+                Makes the entity transient.
+            </summary>
+            <param name="entity">The entity.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataLayerRepository.GetAllMetadataLayers">
+            <summary>
+                Gets all metadata layers.
+            </summary>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataLayerRepository.GetMetadataLayerByName(System.String)">
+            <summary>
+                Gets the name of the metadata layer by.
+            </summary>
+            <param name="layerName">Name of the layer.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.MetadataLayer"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataMerger">
+            <summary>
+                Interface for merging metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataMerger.MergeMetadata(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataRoot})">
+            <summary>
+                Merges the metadata.
+            </summary>
+            <param name="metadataRootList">The metadata root list.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.IMetadataRepository">
+            <summary>
+                Interface of repository for metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataRepository.FindMetadata(System.String)">
+            <summary>
+                Finds the metadata.
+            </summary>
+            <param name="searchString">The search string.</param>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataRepository.FindMetadata(System.String,System.String)">
+            <summary>
+                Finds the metadata.
+            </summary>
+            <param name="searchString">The search string.</param>
+            <param name="layerName">Name of the layer.</param>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataRepository.GetMetadata(System.String)">
+            <summary>
+                Gets the metadata.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.IMetadataRepository.GetMetadata(System.String,System.String)">
+            <summary>
+                Gets the metadata.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <param name="layerName">Name of the layer.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataBase">
+            <summary>
+                Base class for Metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataBase"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataBase"/> class.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.AddChild(System.String)">
+            <summary>
+                Adds the child.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.AddMetadataItem(Pillar.Common.Metadata.IMetadataItem)">
+            <summary>
+                Adds the given metadata item.
+            </summary>
+            <param name="metadataItem">The item to add.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.ClearChildren">
+            <summary>
+                Clears all children.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.FindChildMetadata(System.String)">
+            <summary>
+                Finds the child metadata.
+            </summary>
+            <param name="childResourceName">Name of the child resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.HasChild(System.String)">
+            <summary>
+                Determines whether the specified child resource name has child.
+            </summary>
+            <param name="childResourceName">Name of the child resource.</param>
+            <returns>
+                <c>true</c> if the specified child resource name has child; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.ToDto">
+            <summary>
+                Maps the metadata to a <see cref="T:Pillar.Common.Metadata.MetadataDto"/>.
+            </summary>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.MetadataDto"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataBase.AddChild(Pillar.Common.Metadata.IMetadata)">
+            <summary>
+                Adds the child.
+            </summary>
+            <param name="metadata">The metadata.</param>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataBase.Children">
+            <summary>
+                Gets the children.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataBase.MetadataItems">
+            <summary>
+                Gets or sets the metadata items.
+            </summary>
+            <value>The metadata items.</value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataBase.ResourceName">
+            <summary>
+                Gets the name of the resource.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataExtensions">
+            <summary>
+                MetadataExtensions class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Disable(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Disables the specified metadata provider.
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Disable``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Disables the specified metadata provider.
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Enable(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Enables the specified metadata provider.
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Enable``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Enables the specified metadata provider.
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.FilterLkp(Pillar.Common.Metadata.IMetadataProvider,System.String[])">
+            <summary>
+                Filters the LKP.
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="wellKnownNames">The well known names.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.FilterLkp``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}},System.String[])">
+            <summary>
+                Filters the LKP.
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <param name="wellKnownNames">The well known names.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Hide(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Hides the specified metadata provider.
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Hide``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Hides the specified metadata provider.
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.IsNotReadOnly(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Determines whether [is not read only] [the specified metadata provider].
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                <c>true</c> if [is not read only] [the specified metadata provider]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.IsNotReadOnly``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Determines whether [is not read only] [the specified metadata provider].
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                <c>true</c> if [is not read only] [the specified metadata provider]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.IsReadOnly(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Determines whether [is read-only] [the specified metadata provider].
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                <c>true</c> if [is ready only] [the specified metadata provider]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.IsReadOnly``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Determines whether [is read-only] [the specified metadata provider].
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                <c>true</c> if [is ready only] [the specified metadata provider]; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Show(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Shows the specified metadata provider.
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.Show``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Shows the specified metadata provider.
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.UnFilterLkp(Pillar.Common.Metadata.IMetadataProvider)">
+            <summary>
+                Un-filters the lookup.
+            </summary>
+            <param name="metadataProvider">The metadata provider.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.UnFilterLkp``2(``0,System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Un-filters the lookup.
+            </summary>
+            <typeparam name="TProvider">The type of the provider.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="metadataProvider">The metadata provider.</param>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataExtensions.HandleMetadataItem``1(Pillar.Common.Metadata.MetadataDto,System.String,System.Boolean,``0)">
+            <summary>
+                Handles the metadata item dto.
+            </summary>
+            <typeparam name="T">The type of metadata item dto.</typeparam>
+            <param name="metadataDto">The metadata dto.</param>
+            <param name="resourceName">Name of the resource.</param>
+            <param name="apply">
+                If set to <c>true</c> apply.
+            </param>
+            <param name="metaDataItemToApply">The meta data item to apply.</param>
+            <returns>
+                A <see cref="T:System.Boolean"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataFactory">
+            <summary>
+                Factory for metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataFactory.#ctor(Pillar.Common.Metadata.IMetadataRepository)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataFactory"/> class.
+            </summary>
+            <param name="metadataRepository">The metadata repository.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataFactory.CreateMetadataRoot(System.String,Pillar.Common.Metadata.MetadataLayer)">
+            <summary>
+                Creates the metadata root.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <param name="metadataLayer">The metadata layer.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataFactory.DestroyMetadataRoot(Pillar.Common.Metadata.IMetadata)">
+            <summary>
+                Destroys the metadata root.
+            </summary>
+            <param name="metadata">The metadata.</param>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataItemWrapper">
+            <summary>
+                Class for wrapping metadata item.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataItemWrapper.#ctor(Pillar.Common.Metadata.IMetadataItem,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataItemWrapper"/> class.
+            </summary>
+            <param name="metadataItem">The metadata item.</param>
+            <param name="metadataLayerLevel">The metadata layer level.</param>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataItemWrapper.MetadataItem">
+            <summary>
+                Gets the metadata item.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataItemWrapper.MetadataLayerLevel">
+            <summary>
+                Gets the metadata layer level.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataLayer">
+            <summary>
+                Layer of metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataLayer.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataLayer"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataLayer.#ctor(System.String,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataLayer"/> class.
+            </summary>
+            <param name="name">The name of the layer.</param>
+            <param name="level">The level of the layer.</param>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataLayer.Id">
+            <summary>
+                Gets or sets the id.
+            </summary>
+            <value>The id of the layer.</value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataLayer.Level">
+            <summary>
+                Gets or sets the level.
+            </summary>
+            <value>The level of the layer.</value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataLayer.Name">
+            <summary>
+                Gets or sets the name.
+            </summary>
+            <value>The name of the layer.</value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataLayerFactory">
+            <summary>
+                Factory for metadata layer.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataLayerFactory.#ctor(Pillar.Common.Metadata.IMetadataLayerRepository)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataLayerFactory"/> class.
+            </summary>
+            <param name="metadataLayerRepository">The metadata layer repository.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataLayerFactory.CreateMetadataLayer(System.String,System.Int32)">
+            <summary>
+                Creates the metadata layer.
+            </summary>
+            <param name="layerName">Name of the layer.</param>
+            <param name="layerLevel">The layer level.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.MetadataLayer"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataLayerFactory.DestroyMetadataLayer(Pillar.Common.Metadata.MetadataLayer)">
+            <summary>
+                Destroys the metadata layer.
+            </summary>
+            <param name="metadataLayer">The metadata layer.</param>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataMerger">
+            <summary>
+                Class for merging metadata.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.#ctor(Pillar.Common.Metadata.IMetadataLayerRepository)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataMerger"/> class.
+            </summary>
+            <param name="metadataLayerRepository">The metadata layer repository.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.MergeMetadata(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataRoot})">
+            <summary>
+                Merges Metadata.
+            </summary>
+            <param name="metadataRootList">These metadatas are from all levels. They have same resource name.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.BuildMetadataItemWrapperList(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataWrapper})">
+            <summary>
+                Builds the metadata item wrapper list.
+            </summary>
+            <param name="metadataWrappers">The metadata wrappers.</param>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.BuildMetadataWrapperList(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataRoot})">
+            <summary>
+                Builds the metadata wrapper list.
+            </summary>
+            <param name="metadataRootList">The metadata root list.</param>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IEnumerable`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.DoMergeMetadata(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataWrapper},Pillar.Common.Metadata.IMetadata)">
+            <summary>
+                Does the merge metadata.
+            </summary>
+            <param name="metadataWrappers">The metadata wrappers.</param>
+            <param name="metadataRoot">The metadata root.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.ExtractMergedMetadataItems(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataItemWrapper})">
+            <summary>
+                Extracts the merged metadata items.
+            </summary>
+            <param name="metadataItemWrapperList">The metadata item wrapper list.</param>
+            <returns>
+                A <see cref="T:System.Collections.Generic.IList`1"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataMerger.MergeMetadata(System.Collections.Generic.IEnumerable{Pillar.Common.Metadata.MetadataWrapper},Pillar.Common.Metadata.IMetadata)">
+            <summary>
+                Merges the metadata.
+            </summary>
+            <param name="metadataWrapperList">The metadata wrapper list.</param>
+            <param name="metadataRoot">The metadata root.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataNode">
+            <summary>
+                MetadataNode class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataNode.#ctor(System.String)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataNode"/> class.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataNode.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataNode"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataNode.AddChild(System.String)">
+            <summary>
+                Adds the child.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataRoot">
+            <summary>
+                MetadataRoot class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataRoot.#ctor(System.String,System.Int64)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataRoot"/> class.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <param name="metadataLayerId">The metadata layer id.</param>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataRoot.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Metadata.MetadataRoot"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Metadata.MetadataRoot.AddChild(System.String)">
+            <summary>
+                Adds the child.
+            </summary>
+            <param name="resourceName">Name of the resource.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Metadata.IMetadata"/>
+            </returns>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataRoot.Id">
+            <summary>
+                Gets or sets the id.
+            </summary>
+            <value>The id of the root.</value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataRoot.MetadataLayerId">
+            <summary>
+                Gets the metadata layer id.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.MetadataWrapper">
+            <summary>
+                Class for wrapping metadata.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataWrapper.Metadata">
+            <summary>
+                Gets or sets the metadata.
+            </summary>
+            <value>The metadata.</value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.MetadataWrapper.MetadataLayerId">
+            <summary>
+                Gets or sets the metadata layer id.
+            </summary>
+            <value>The metadata layer id.</value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.ReadonlyMetadataItem">
+            <summary>
+                Metadata for marking as read-only or not.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.ReadonlyMetadataItem.IsReadonly">
+            <summary>
+                Gets or sets a value indicating whether this is readonly.
+            </summary>
+            <value>
+                <c>true</c> if this is readonly; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.RequiredMetadataItem">
+            <summary>
+                Metadata for marking as required or not.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.RequiredMetadataItem.IsRequired">
+            <summary>
+                Gets or sets a value indicating whether this is required.
+            </summary>
+            <value>
+                <c>true</c> if this is required; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.Metadata.StringLengthMetadataItem">
+            <summary>
+                Metadata for marking a maximum and minimum length for a string property.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Metadata.StringLengthMetadataItem.MaximumLength">
+            <summary>
+                Gets or sets the maximum length.
+            </summary>
+            <value>
+                The maximum length.
+            </value>
+        </member>
+        <member name="P:Pillar.Common.Metadata.StringLengthMetadataItem.MinimumLength">
+            <summary>
+                Gets or sets the minimum length.
+            </summary>
+            <value>
+                The minimum length.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common"/> namespace contains common general functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Collections.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Collections"/> namespace contains common collections classes and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Commands.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Commands"/> namespace contains common command classes and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Extension.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Extension"/> namespace contains common extensions to various classes.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Interceptors.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Interceptors"/> namespace contains common interceptor classes and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Specification.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Specification"/> namespace contains common specification classes and functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Utility.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Utility"/> namespace contains common general utility functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Bootstrapper.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Bootstrapper"/> namespace contains common bootstrapping functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Configuration.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Configuration"/> namespace contains common application settings configuration functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Cryptography.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Cryptography"/> namespace contains common utilities for cryptography functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Metadata"/> namespace contains common utilities and classes for metadata functionality.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Metadata.Dtos.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.Metadata.Dtos"/> namespace contains data transfer objects for metadata.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.InversionOfControl.NamespaceDoc">
+            <summary>
+                The <see cref="N:Pillar.Common.InversionOfControl"/> namespace contains abstraction of IoC container.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Registry">
+            <summary>
+                This class defines dependency mapping for this Pillar assembly.
+                These mappings will be registered when <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Bootstrap method is called.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Registry.Register">
+            <summary>
+                Registers dependencies using the <see cref="T:Pillar.Common.InversionOfControl.IoC"/>.Container.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Specification.AndSpecification`1">
+            <summary>
+                And Specification class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="T:Pillar.Common.Specification.ISpecification`1">
+            <summary>
+                Interface for class that specifies a Specification that can be satisfied by a <typeparamref name="TEntity">Entity</typeparamref>.
+            </summary>
+            <typeparam name="TEntity">Type specification is written for.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Specification.ISpecification`1.IsSatisfiedBy(`0)">
+            <summary>
+                Gets whether <paramref name="entity">Entity</paramref> meets specification.
+            </summary>
+            <param name="entity">Entity to test.</param>
+            <returns>
+                A <see cref="T:System.Boolean">Boolean</see>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Specification.AndSpecification`1.#ctor(Pillar.Common.Specification.ISpecification{`0},Pillar.Common.Specification.ISpecification{`0})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Specification.AndSpecification`1"/> class.
+            </summary>
+            <param name="s1">The first specification.</param>
+            <param name="s2">The second specification.</param>
+        </member>
+        <member name="M:Pillar.Common.Specification.AndSpecification`1.IsSatisfiedBy(`0)">
+            <summary>
+                Determines whether is satisfied by the specified candidate.
+            </summary>
+            <param name="candidate">The candidate.</param>
+            <returns>
+                <c>true</c> if is satisfied by the specified candidate; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Specification.ExtensionMethods">
+            <summary>
+                Extension methods for <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Specification.ExtensionMethods.And``1(Pillar.Common.Specification.ISpecification{``0},Pillar.Common.Specification.ISpecification{``0})">
+            <summary>
+                Creates an <see cref="T:Pillar.Common.Specification.AndSpecification`1">AndSpecification</see>.
+            </summary>
+            <typeparam name="TEntity">Type of entity the specification is written for.</typeparam>
+            <param name="s1">
+                First <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see> to and.
+            </param>
+            <param name="s2">
+                Second <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see> to and.
+            </param>
+            <returns>
+                An <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Specification.ExtensionMethods.Not``1(Pillar.Common.Specification.ISpecification{``0})">
+            <summary>
+                Creates a <see cref="T:Pillar.Common.Specification.NotSpecification`1">NotSpecification</see>
+            </summary>
+            <typeparam name="TEntity">Type of entity the specification is written for.</typeparam>
+            <param name="s">
+                <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see> to not.
+            </param>
+            <returns>
+                An <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Specification.ExtensionMethods.Or``1(Pillar.Common.Specification.ISpecification{``0},Pillar.Common.Specification.ISpecification{``0})">
+            <summary>
+                Creates an <see cref="T:Pillar.Common.Specification.OrSpecification`1">OrSpecification</see>.
+            </summary>
+            <typeparam name="TEntity">Type of entity the specification is written for.</typeparam>
+            <param name="s1">
+                First <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see> to or.
+            </param>
+            <param name="s2">
+                Second <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see> to or.
+            </param>
+            <returns>
+                An <see cref="T:Pillar.Common.Specification.ISpecification`1">ISpecification&lt;TEntity&gt;</see>
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Specification.NotSpecification`1">
+            <summary>
+                Not Specification class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Specification.NotSpecification`1.#ctor(Pillar.Common.Specification.ISpecification{`0})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Specification.NotSpecification`1"/> class.
+            </summary>
+            <param name="x">The specification to not.</param>
+        </member>
+        <member name="M:Pillar.Common.Specification.NotSpecification`1.IsSatisfiedBy(`0)">
+            <summary>
+                Determines whether is satisfied by the specified candidate.
+            </summary>
+            <param name="candidate">The candidate.</param>
+            <returns>
+                <c>true</c> if is satisfied by the specified candidate; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Specification.OrSpecification`1">
+            <summary>
+                Or Specification class.
+            </summary>
+            <typeparam name="TEntity">The type of the entity.</typeparam>
+        </member>
+        <member name="M:Pillar.Common.Specification.OrSpecification`1.#ctor(Pillar.Common.Specification.ISpecification{`0},Pillar.Common.Specification.ISpecification{`0})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Specification.OrSpecification`1"/> class.
+            </summary>
+            <param name="s1">The first specification.</param>
+            <param name="s2">The second specification.</param>
+        </member>
+        <member name="M:Pillar.Common.Specification.OrSpecification`1.IsSatisfiedBy(`0)">
+            <summary>
+                Determines whether is satisfied by the specified candidate.
+            </summary>
+            <param name="candidate">The candidate.</param>
+            <returns>
+                <c>true</c> if is satisfied by the specified candidate; otherwise, <c>false</c>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.Check">
+            <summary>
+                Provides a series of static methods used to implement 'design-by-contract'.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsInList``1(System.Nullable{System.Int32},System.Collections.Generic.IEnumerable{System.Int32},System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+                Tests whether the given <paramref name="intValue" /> is in the list of integers in <paramref name="valueList" />.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="intValue">The int value.</param>
+            <param name="valueList">The value list.</param>
+            <param name="propertyExpression">The property expression.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsInRange``1(System.Nullable{System.Int32},System.Int32,System.Int32,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+                Tests whether the given <paramref name="intValue"/> is between <paramref name="startValue"/> and
+                <paramref name="endValue"/>
+                .  If it
+                is not then an <see cref="T:System.ArgumentException"/> is thrown.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="intValue">The int value.</param>
+            <param name="startValue">The start value.</param>
+            <param name="endValue">The end value.</param>
+            <param name="propertyExpression">The property expression.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsNotNull``1(System.Object,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+                Asserts that the given object 'is not null'.  If the object is null then an <see cref="T:System.ArgumentException"/> is thrown.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="obj">The object that is being compared to null.</param>
+            <param name="propertyExpression">
+                An expression that should return a property.  This is used in the text of the thrown exception to identify the name of
+                a property that would have been set to the given object value.
+            </param>
+            <exception cref="T:System.ArgumentException">Thrown if the object is equal to null.</exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsNotNull(System.Object,System.String)">
+            <summary>
+                Asserts that the given object 'is not null'.  If the object is null then an <see cref="T:System.ArgumentException"/> is thrown.
+            </summary>
+            <param name="obj">The object that is being compared to null.</param>
+            <param name="message">The message that will be added to the exception if thrown.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the object is equal to null.</exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsNotNullAndAssign``1(``0,System.String)">
+            <summary>
+                Asserts that the given object 'is not null'.  If the object is null then an <see cref="T:System.ArgumentException"/> is thrown; otherwise it returns the non-null value.
+            </summary>
+            <typeparam name="T">The type of the object being checked.</typeparam>
+            <param name="obj">The object that is being compared to null.</param>
+            <param name="message">The message that will be added to the exception if thrown.</param>
+            <returns>The non-null value of the object being checked.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the object is equal to null.</exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsNotNullOrWhitespace``1(System.String,System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+                Asserts that the given string is not equal to null and does not contain 'all whitespace'.
+                If this is not true then an <see cref="T:System.ArgumentException"/> is thrown.
+            </summary>
+            <typeparam name="TProperty">The type of property returned by the expression.</typeparam>
+            <param name="str">The given string.</param>
+            <param name="propertyExpression">
+                An expression that should return a property.  This is used in the text of the thrown exception to identify the name of
+                a property that would have been set to the given object value.
+            </param>
+            <exception cref="T:System.ArgumentException">Thrown if the given string is null or contains nothing but whitespace.</exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsNotNullOrWhitespace(System.String,System.String)">
+            <summary>
+                Asserts that the given string is not equal to null and does not contain 'all whitespace'.
+                If this is not true then an <see cref="T:System.ArgumentException"/> is thrown.
+            </summary>
+            <param name="str">The given string.</param>
+            <param name="message">The message that will be added to the exception if thrown.</param>
+            <exception cref="T:System.ArgumentException">Thrown if the given string is null or contains nothing but whitespace.</exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsNotNullOrWhitespaceAndAssign(System.String,System.String)">
+            <summary>
+                Asserts that the given string is not equal to null and does not contain 'all whitespace'.
+                If this is not true then an <see cref="T:System.ArgumentException"/> is thrown; otherwise, it returns the given string.
+            </summary>
+            <param name="str">The given string.</param>
+            <param name="message">The message that will be added to the exception if thrown.</param>
+            <returns>The string.</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the given string is null or contains nothing but whitespace.</exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.Check.IsZero(System.Int64,System.String)">
+            <summary>
+                Determines whether the specified <paramref name="longValue" /> is zero.
+            </summary>
+            <param name="longValue">The int value.</param>
+            <param name="message">The message.</param>
+        </member>
+        <member name="T:Pillar.Common.Utility.TimeSpanBuilder">
+            <summary>
+                The <see cref="T:Pillar.Common.Utility.TimeSpanBuilder"/> is a builder for a <see cref="T:System.TimeSpan"/>.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.TimeSpanBuilder.Build">
+            <summary>
+                Builds a <see cref="T:System.TimeSpan"/> with the days, hours, minutes, seconds, and milliseconds that have been set.
+            </summary>
+            <returns>
+                A <see cref="T:System.TimeSpan"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.TimeSpanBuilder.WithDays(System.Int32)">
+            <summary>
+                Sets the days value.
+            </summary>
+            <param name="days">The days.</param>
+            <returns>
+                The <see cref="T:Pillar.Common.Utility.TimeSpanBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.TimeSpanBuilder.WithHours(System.Int32)">
+            <summary>
+                Sets the hours value.
+            </summary>
+            <param name="hours">The hours.</param>
+            <returns>
+                The <see cref="T:Pillar.Common.Utility.TimeSpanBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.TimeSpanBuilder.WithMilliseconds(System.Int32)">
+            <summary>
+                Sets the milliseconds value.
+            </summary>
+            <param name="milliseconds">The milliseconds.</param>
+            <returns>
+                The <see cref="T:Pillar.Common.Utility.TimeSpanBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.TimeSpanBuilder.WithMinutes(System.Int32)">
+            <summary>
+                Sets the minutes value.
+            </summary>
+            <param name="minutes">The minutes.</param>
+            <returns>
+                The <see cref="T:Pillar.Common.Utility.TimeSpanBuilder"/>.
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.TimeSpanBuilder.WithSeconds(System.Int32)">
+            <summary>
+                Sets the seconds value.
+            </summary>
+            <param name="seconds">The seconds.</param>
+            <returns>
+                The <see cref="T:Pillar.Common.Utility.TimeSpanBuilder"/>.
+            </returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.CombGuid">
+            <summary>
+                A utility class for generating a Guid using the Comb Guid algorithm.
+            </summary>
+            <remarks>
+                This algorithm was designed by Jimmy Nilsson and is explained
+                <a href="http://www.informit.com/articles/article.aspx?p=25862">here</a>.
+                This implementation was stolen from NHibernate.
+            </remarks>
+        </member>
+        <member name="M:Pillar.Common.Utility.CombGuid.NewCombGuid">
+            <summary>
+            Creates the comb GUID.
+            </summary>
+            <returns>A <see cref="T:System.Guid"/>.</returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.EmbeddedResourceUtil">
+            <summary>
+                Utility methods for embedded resources.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.EmbeddedResourceUtil.GetEmbeddedResourceValue(System.String,System.Reflection.Assembly)">
+            <summary>
+                Gets the embedded resource with the given name from the given assembly.
+            </summary>
+            <param name="resourceName">
+                Resource name is the name of the {complete namespace under with the file exists}.{filename with extension}
+                For example: <code>Mynamespace.MyNestedNameSpace.MyEmbeddedResourceTextFile.txt</code>
+            </param>
+            <param name="assembly">Assembly containing the resource.</param>
+            <returns>Returns the embedded resource value as string.</returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.DelegateReference">
+            <summary>
+                Represents a reference to a <see cref="T:System.Delegate"/> that may contain a
+                <see cref="T:System.WeakReference"/> to the target. This class is used
+                internally by the Composite Application Library.
+            </summary>
+        </member>
+        <member name="T:Pillar.Common.Utility.IDelegateReference">
+            <summary>
+                Represents a reference to a <see cref="T:System.Delegate"/>.
+            </summary>
+        </member>
+        <member name="P:Pillar.Common.Utility.IDelegateReference.Target">
+            <summary>
+                Gets the referenced <see cref="T:System.Delegate"/> object.
+            </summary>
+            <value>
+                A <see cref="T:System.Delegate"/> instance if the target is valid; otherwise <see langword="null"/>.
+            </value>
+        </member>
+        <member name="M:Pillar.Common.Utility.DelegateReference.#ctor(System.Delegate,System.Boolean)">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Utility.DelegateReference"/> class.
+            </summary>
+            <param name="delegate">The delegate.</param>
+            <param name="keepReferenceAlive">
+                If set to <c>true</c> [keep reference alive].
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                If the passed <paramref name="delegate"/> is not assignable to <see cref="T:System.Delegate"/>.
+            </exception>
+        </member>
+        <member name="P:Pillar.Common.Utility.DelegateReference.Target">
+            <summary>
+                Gets the <see cref="T:System.Delegate"/> (the target) referenced by the current <see cref="T:Pillar.Common.Utility.DelegateReference"/> object.
+            </summary>
+            <value>
+                <see langword="null"/> if the object referenced by the current <see cref="T:Pillar.Common.Utility.DelegateReference"/> object has
+                been garbage collected; otherwise, a reference to the <see cref="T:System.Delegate"/> referenced by the current
+                <see cref="T:Pillar.Common.Utility.DelegateReference"/>
+                object.
+            </value>
+        </member>
+        <member name="T:Pillar.Common.Utility.ExpressionTreeWalker">
+            <summary>
+                Walks an expression tree.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.ExpressionTreeWalker.Find``1(System.Linq.Expressions.Expression,System.Func{``0,System.Boolean})">
+            <summary>
+                Walks the expression tree and calls a callback when expressions of type T are found.
+            </summary>
+            <typeparam name="T">Type of expression to find.</typeparam>
+            <param name="exp">The expression tree to search.</param>
+            <param name="foundCallback">Callback for when expression is found, should return true if should continue searching false if should stop.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.ExpressionTreeWalker.FindFirst``1(System.Linq.Expressions.Expression)">
+            <summary>
+                Finds the first expression of type T in the expression tree.
+            </summary>
+            <typeparam name="T">Type of expression to find.</typeparam>
+            <param name="expression">The expression tree to search.</param>
+            <returns>The found Expression.</returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.ExpressionUtil">
+            <summary>
+                Utility methods for various expressions.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.ExpressionUtil.AddBox``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Creates a boxed expression from the given expression.
+            </summary>
+            <typeparam name="TInput">
+                The input type for the <see cref="T:System.Func`2"/> expression.
+            </typeparam>
+            <typeparam name="TOutput">
+                The result type of the <see cref="T:System.Func`2"/> expression.
+            </typeparam>
+            <param name="expression">The given expression.</param>
+            <returns>A boxed expression.</returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.ExpressionUtil.GetMemberExpression``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+                Returns a <see cref="T:System.Linq.Expressions.MemberExpression"/> for the given expression.
+            </summary>
+            <typeparam name="T">
+                The input type for the <see cref="T:System.Func`2"/> expression.
+            </typeparam>
+            <param name="expression">The given expression.</param>
+            <returns>
+                A <see cref="T:System.Linq.Expressions.MemberExpression"/>.
+            </returns>
+            <exception cref="T:System.ArgumentException">
+                Thrown if the given expression is not a <see cref="T:System.Linq.Expressions.MemberExpression"/>.
+            </exception>
+        </member>
+        <member name="T:Pillar.Common.Utility.LogicalTreeWalker">
+            <summary>
+                Walks the logical tree of an object.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Common.Utility.LogicalTreeWalker"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.Walk``1(System.Object,System.Action{``0})">
+            <summary>
+                Walks the specified root.
+            </summary>
+            <typeparam name="T">Type of objects to recurse and apply actions on.</typeparam>
+            <param name="root">The root object.</param>
+            <param name="action">The action.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.RegisterAction``1(System.Action{``0})">
+            <summary>
+                Registers an action for when walking the tree.
+            </summary>
+            <typeparam name="T">Type of object to call action on.</typeparam>
+            <param name="action">The action.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Utility.LogicalTreeWalker"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.RegisterAction``1(System.Action{``0,System.Object,System.Reflection.PropertyInfo})">
+            <summary>
+                Registers an action for when walking the tree.
+            </summary>
+            <typeparam name="T">Type of object to call action on.</typeparam>
+            <param name="action">The action.</param>
+            <returns>
+                A <see cref="T:Pillar.Common.Utility.LogicalTreeWalker"/>
+            </returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.Walk``1(System.Object)">
+            <summary>
+                Walks the specified root.
+            </summary>
+            <typeparam name="T">Type of objects to recurse and apply actions on.</typeparam>
+            <param name="root">The root object.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.CheckActions(System.Object,System.Object,System.Reflection.PropertyInfo)">
+            <summary>
+                Checks the actions.
+            </summary>
+            <param name="item">The item to check.</param>
+            <param name="parentItem">The parent item.</param>
+            <param name="propertyInfo">The property info.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.LogicalTreeWalker.WalkerHelper``1(System.Object,System.Object,System.Reflection.PropertyInfo)">
+            <summary>
+                Helper for recursively walking tree.
+            </summary>
+            <typeparam name="T">The type to walk.</typeparam>
+            <param name="currentItem">The current item.</param>
+            <param name="parentItem">The parent item.</param>
+            <param name="propertyInfo">The property info.</param>
+        </member>
+        <member name="T:Pillar.Common.Utility.MethodUtil">
+            <summary>
+                Method utilities.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.MethodUtil.GetMethodName(System.Delegate)">
+            <summary>
+                Gets the method name.
+            </summary>
+            <param name="method">The method.</param>
+            <returns>The method name.</returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.PropertyUtil">
+            <summary>
+                Property Utilities.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.PropertyUtil.ExtractProperty``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Extracts the <see cref="T:System.Reflection.PropertyInfo"/> from propertyExpression.
+            </summary>
+            <typeparam name="T">The type of object.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>PropertyInfo of the propertyExpression.</returns>
+            <exception cref="T:System.ArgumentNullException">
+                Property Expression cannot be null.
+            </exception>
+            <exception cref="T:System.ArgumentException">
+                The expression is not a member access expression.
+            </exception>
+        </member>
+        <member name="M:Pillar.Common.Utility.PropertyUtil.ExtractProperty(System.Type,System.String)">
+            <summary>
+                Extracts the <see cref="T:System.Reflection.PropertyInfo"/> from propertyExpression.
+            </summary>
+            <param name="type">The type of object.</param>
+            <param name="propertyName">The property name.</param>
+            <returns>PropertyInfo of the propertyExpression.</returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.PropertyUtil.ExtractPropertyName``2(System.Linq.Expressions.Expression{System.Func{``0,``1}})">
+            <summary>
+                Extracts Property Name from propertyExpression.
+            </summary>
+            <typeparam name="T">The type of the object.</typeparam>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>The extracted property name.</returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.PropertyUtil.ExtractPropertyName``1(System.Linq.Expressions.Expression{System.Func{``0}})">
+            <summary>
+                Extracts Property Name from propertyExpression.
+            </summary>
+            <typeparam name="TProperty">The type of the property.</typeparam>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>The extracted property name.</returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.PropertyUtil.ExtractPropertyName(System.Linq.Expressions.Expression{System.Func{System.Object}})">
+            <summary>
+                Extracts Property Name from propertyExpression.
+            </summary>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>The extracted property name.</returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.PropertyUtil.ExtractPropertyName(System.Linq.Expressions.LambdaExpression)">
+            <summary>
+                Extracts the name of the property.
+            </summary>
+            <param name="propertyExpression">The property expression.</param>
+            <returns>The extracted property name.</returns>
+        </member>
+        <member name="T:Pillar.Common.Utility.WeakDelegatesManager">
+            <summary>
+                Class for managing weak delegates.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.WeakDelegatesManager.AddListener(System.Delegate,System.Boolean)">
+            <summary>
+                Adds the listener.
+            </summary>
+            <param name="listener">The listener.</param>
+            <param name="keepReferenceAlive">
+                If set to <c>true</c> [keep reference alive].
+            </param>
+        </member>
+        <member name="M:Pillar.Common.Utility.WeakDelegatesManager.Raise(System.Object[])">
+            <summary>
+                Raises the event.
+            </summary>
+            <param name="args">The args to use when raising.</param>
+        </member>
+        <member name="M:Pillar.Common.Utility.WeakDelegatesManager.RemoveListener(System.Delegate)">
+            <summary>
+                Removes the listener.
+            </summary>
+            <param name="listener">The listener.</param>
+        </member>
+        <member name="T:Pillar.Common.Utility.X12Utility">
+            <summary>
+                Utility for X12 parsing and generation.
+            </summary>
+        </member>
+        <member name="M:Pillar.Common.Utility.X12Utility.BuildCompositeElement(System.Char,System.String[])">
+            <summary>
+                Builds the composite element.
+            </summary>
+            <param name="compositeDelimiter">The composite delimiter.</param>
+            <param name="components">The components.</param>
+            <returns>A composite element.</returns>
+        </member>
+        <member name="M:Pillar.Common.Utility.X12Utility.ConvertToDecimalString(System.Decimal)">
+            <summary>
+                Converts to decimal string.
+            </summary>
+            <param name="decimalValue">The decimal value.</param>
+            <returns>The decimal string.</returns>
+            <remarks>
+                What are the X12 syntax rules for decimal numbers? Is the example above correct?
+                According to the X12 standards syntax rules, the decimal numbers above are correct for reporting.
+                In the X12 standards, these types of numbers are R data types. Below are some of the syntax rules (the ones that seem to apply in this case)
+                from the X12.6 Application Architecture Controls Standard.
+                • The decimal point always appears in the character stream if the decimal point is at any place other than the right end.
+                • If the value is an integer (decimal point at the right end), the decimal point should be omitted.
+                • Trailing zeros following the decimal point should be suppressed unless necessary to indicate precision.
+                Sample:
+                <code>
+                $100.00 reported as 100
+                $100.70 reported as 100.7
+                $100.75 reported as 100.75
+                $.99 reported as .99
+                $.90 reported as .9
+            </code>
+            </remarks>
+        </member>
+    </members>
+</doc>

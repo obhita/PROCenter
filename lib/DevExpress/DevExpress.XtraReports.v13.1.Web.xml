@@ -1,0 +1,3355 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DevExpress.XtraReports.v13.1.Web</name>
+    </assembly>
+    <members>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarItemKind">
+
+            <summary>
+                <para>Specifies the type of a particular <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/>.
+</para>
+            </summary>
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.Custom">
+            <summary>
+                <para>Represents any custom toolbar item. Note that you may add any custom item to the collection returned by the <see cref="P:DevExpress.XtraReports.Web.ReportToolbar.Items"/> property.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.FirstPage">
+            <summary>
+                <para>Represents a button to display the first page of a report.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.LastPage">
+            <summary>
+                <para>Represents a button to display the last page of a report.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.NextPage">
+            <summary>
+                <para>Represents a button to display the next page of a report.
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.OfLabel">
+            <summary>
+                <para>Represents the "of" caption before the edit box that displays the total number of report pages.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.PageCount">
+            <summary>
+                <para>Represents an edit box that displays the total number of report pages.
+
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.PageLabel">
+            <summary>
+                <para>Represents the "Page" caption before the drop-down list that allows end-users to select the page to be shown. 
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.PageNumber">
+            <summary>
+                <para>Represents a drop-down list that allows end-users to select the page to be shown.
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.PreviousPage">
+            <summary>
+                <para>Represents a button used to display the previous page of a report.
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.PrintPage">
+            <summary>
+                <para>Represents a button used to print the current page.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.PrintReport">
+            <summary>
+                <para>Represents a button used to print the entire report.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveFormat">
+            <summary>
+                <para>Represents a drop-down list, allowing end-users to choose an export format for the report. The report can be exported by clicking on either the <see cref="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveToDisk"/> or <see cref="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveToWindow"/> toolbar button.
+
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveToDisk">
+            <summary>
+                <para>Represents a button to export a report and save it to the disk. The export format is specified by the <see cref="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveFormat"/> toolbar item.
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveToWindow">
+            <summary>
+                <para>Represents a button to export a report and show it in a new window. The export format is specified by the <see cref="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.SaveFormat"/> toolbar item.
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbarItemKind.Search">
+            <summary>
+                <para>Represents a button to invoke the <b>Search</b> dialog, allowing end-users to search for specific text in a report.
+
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarLabel">
+
+            <summary>
+                <para>Represents a text label within the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> control.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarLabel.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarLabel class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarLabel.#ctor(System.String)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarLabel class with the specified text.
+
+
+</para>
+            </summary>
+            <param name="text">
+		A <see cref="T:System.String"/> value which specifies label text. This value is assigned to the <see cref="P:DevExpress.XtraReports.Web.ReportToolbarLabel.Text"/> property.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarLabel.#ctor(DevExpress.XtraReports.Web.ReportToolbarItemKind)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarLabel class with the specified item's kind.
+
+
+</para>
+            </summary>
+            <param name="itemKind">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which defines the type of a toolbar label.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarLabel.Assign(DevExpress.Web.ASPxClasses.CollectionItem)">
+            <summary>
+                <para>Copies all the settings from the ReportToolbarLabel object passed as the parameter.
+
+</para>
+            </summary>
+            <param name="source">
+		A ReportToolbarLabel object whose settings are assigned to the current object. If <b>null</b> (<b>Nothing</b> in Visual Basic), then a <see cref="T:System.ArgumentNullException"/> will be thrown.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarLabel.AssociatedItemName">
+            <summary>
+                <para>Specifies the name of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> item associated with the ReportToolbarLabel object.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value specifying the <see cref="P:DevExpress.XtraReports.Web.ReportToolbarItem.Name"/>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarLabel.ItemKind">
+            <summary>
+                <para>Gets or sets the type of a particular report toolbar label.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which defines the type of a toolbar label.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarLabel.Name">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.XtraReports.Web.ReportToolbarItem.Name"/> property.
+</para>
+            </summary>
+            <value>Always <see cref="F:System.String.Empty"/>.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarLabel.Text">
+            <summary>
+                <para>Gets or sets the text caption displayed within the toolbar label.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value representing the text within the toolbar label.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventHandler">
+
+            <summary>
+                <para>Represents a method that will handle the <see cref="E:DevExpress.XtraReports.Web.ReportViewer.RestoreReportDocumentFromCache"/> event.
+
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventHandler.Invoke(System.Object,DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs)">
+            <summary>
+                <para>Represents a method that will handle the <see cref="E:DevExpress.XtraReports.Web.ReportViewer.RestoreReportDocumentFromCache"/> event.
+
+</para>
+            </summary>
+            <param name="sender">
+		The event source. This parameter identifies the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> which raised the event.
+
+            </param>
+            <param name="e">
+		A <see cref="T:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs"/> object which contains event data.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs">
+
+            <summary>
+                <para>Provides data for the <see cref="E:DevExpress.XtraReports.Web.ReportViewer.RestoreReportDocumentFromCache"/> event.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.#ctor(DevExpress.XtraReports.UI.XtraReport,System.String)">
+            <summary>
+                <para>Initializes a new instance of the RestoreReportDocumentFromCacheEventArgs class with the specified report and key.
+</para>
+            </summary>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> instance whose report document to restore.
+
+            </param>
+            <param name="key">
+		A <see cref="T:System.String"/> value, which represents a unique key used when retrieving a report document from the cache. This value is assigned to the <see cref="P:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.Key"/> property.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.Key">
+            <summary>
+                <para>Gets a string value, which represents a unique key used when retrieving a report document from the cache.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value which represents a unique key.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.RestoreDocumentFromFile(System.String)">
+            <summary>
+                <para>Loads a report document from the specified file.
+</para>
+            </summary>
+            <param name="fileName">
+		A <see cref="T:System.String"/> value specifying the PRNX file, from which the document should be loaded.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.RestoreDocumentFromStream(System.IO.Stream)">
+            <summary>
+                <para>Loads a report document from the specified stream.
+</para>
+            </summary>
+            <param name="stream">
+		A <see cref="T:System.IO.Stream"/> object, from which the report document should be loaded.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.RestoreExportOptionsFromFile(System.String)">
+            <summary>
+                <para>Loads export options from the specified file.
+</para>
+            </summary>
+            <param name="fileName">
+		A <see cref="T:System.String"/> value specifying the XML file, from which the export options should be loaded.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.RestoreReportDocumentFromCacheEventArgs.RestoreExportOptionsFromStream(System.IO.Stream)">
+            <summary>
+                <para>Loads export options from the specified stream.
+</para>
+            </summary>
+            <param name="stream">
+		A <see cref="T:System.IO.Stream"/> object, from which the export options should be loaded.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.CacheReportDocumentEventHandler">
+
+            <summary>
+                <para>A method that will handle the <see cref="E:DevExpress.XtraReports.Web.ReportViewer.CacheReportDocument"/> event.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventHandler.Invoke(System.Object,DevExpress.XtraReports.Web.CacheReportDocumentEventArgs)">
+            <summary>
+                <para>Represents a method that will handle the <see cref="E:DevExpress.XtraReports.Web.ReportViewer.CacheReportDocument"/> event.
+
+</para>
+            </summary>
+            <param name="sender">
+		The event source. This parameter identifies the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> which raised the event.
+
+            </param>
+            <param name="e">
+		A <see cref="T:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs"/> object which contains event data.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs">
+
+            <summary>
+                <para>Provides data for the <see cref="E:DevExpress.XtraReports.Web.ReportViewer.CacheReportDocument"/> event.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.#ctor(DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Initializes a new instance of the CacheReportDocumentEventArgs class with the specified report.
+</para>
+            </summary>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object which represents a report to be cached. This object can be saved via the <see cref="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveDocumentToFile"/> and <see cref="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveDocumentToMemoryStream"/> methods.
+
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.Key">
+            <summary>
+                <para>Gets or sets a string value, which represents a unique key used when storing a report document to the cache.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value which represents a unique key.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveDocumentToFile(System.String)">
+            <summary>
+                <para>Saves the current document to the specified file.
+</para>
+            </summary>
+            <param name="fileName">
+		A <see cref="T:System.String"/> value specifying the PRNX file, to which the document should be saved.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveDocumentToMemoryStream">
+            <summary>
+                <para>Saves the current document to a memory stream.
+</para>
+            </summary>
+            <returns>A <see cref="T:System.IO.MemoryStream"/> object, which contains the saved document as a byte array.
+
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveExportOptionsToFile(System.String)">
+            <summary>
+                <para>Saves the current report's export options to the specified file.
+</para>
+            </summary>
+            <param name="fileName">
+		A <see cref="T:System.String"/> value specifying the XML file to which the export options should be saved.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveExportOptionsToMemoryStream">
+            <summary>
+                <para>Saves the current report's export options to a memory stream.
+
+</para>
+            </summary>
+            <returns>A <see cref="T:System.IO.MemoryStream"/> object  which contains the saved export options as a byte array.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.CacheReportDocumentEventArgs.SaveExportOptionsToStream(System.IO.Stream)">
+            <summary>
+                <para>Saves the current report's export options to the specified stream.
+
+</para>
+            </summary>
+            <param name="stream">
+		A <see cref="T:System.IO.Stream"/> object to which the export options should be saved.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.SiteMapBookmarkFiller">
+
+            <summary>
+                <para>Provides the capability to fill the <see cref="T:DevExpress.Web.ASPxSiteMapControl.ASPxSiteMapDataSource"/> object with the hierarchy of report bookmarks.
+
+
+
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.SiteMapBookmarkFiller.FillSiteMapWithBookmarks(DevExpress.Web.ASPxSiteMapControl.ASPxSiteMapDataSource,DevExpress.XtraReports.Web.ReportViewer)">
+            <summary>
+                <para>Fills the specified <see cref="T:DevExpress.Web.ASPxSiteMapControl.ASPxSiteMapDataSource"/> with the hierarchy of bookmarks obtained from the report associated with the specified <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/>.
+</para>
+            </summary>
+            <param name="dataSource">
+		An <see cref="T:DevExpress.Web.ASPxSiteMapControl.ASPxSiteMapDataSource"/> object.
+
+            </param>
+            <param name="reportViewer">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> object.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.BookmarkFiller`1">
+
+            <summary>
+                <para>The base class for all classes that provide the capability to obtain a hierarchy of bookmarks for a particular report.
+
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.BookmarkFiller`1.#ctor(DevExpress.XtraReports.Web.ReportViewer)">
+            <summary>
+                <para>Initializes a new instance of the BookmarkFiller@lt;T@gt; class using the specified report viewer.
+
+</para>
+            </summary>
+            <param name="reportViewer">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> object, displaying a report whose bookmarks should fill the created BookmarkFiller@lt;T@gt; instance.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.BookmarkFiller`1.Fill(DevExpress.XtraReports.Web.T)">
+            <summary>
+                <para>Fills the parent object with the hierarchy of a report's bookmarks.
+</para>
+            </summary>
+            <param name="parent">
+		A type of the <i>parent</i> object.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportViewerClientSideEvents">
+
+            <summary>
+                <para>Contains a client-side Report Viewer's event list.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewerClientSideEvents.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportViewerClientSideEvents class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewerClientSideEvents.BeginCallback">
+            <summary>
+                <para>Gets or sets the name of the JavaScript function or the entire code which will handle a web control's client <b>BeginCallback</b> event.
+</para>
+            </summary>
+            <value>A string that represents either the name of a JavaScript function or the entire JavaScript function code used to handle an event.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewerClientSideEvents.CallbackError">
+            <summary>
+                <para>Gets or sets the name of the JavaScript function or the entire code which will handle a web control's client <b>CallbackError</b> event.
+</para>
+            </summary>
+            <value>A string that represents either the name of a JavaScript function or the entire JavaScript function code used to handle an event.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewerClientSideEvents.EndCallback">
+            <summary>
+                <para>Gets or sets the name of the JavaScript function or the entire code which will handle a web control's client <b>EndCallback</b> event.
+</para>
+            </summary>
+            <value>A string that represents either the name of a JavaScript function or the entire JavaScript function code used to handle an event.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewerClientSideEvents.Init">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ClientSideEvents.Init"/> property to hide it.
+</para>
+            </summary>
+            <value>Always <see cref="F:System.String.Empty"/>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewerClientSideEvents.PageLoad">
+            <summary>
+                <para>Gets or sets the name of the JavaScript function or the entire code which will handle a client Report Viewer's <see cref="E:DevExpress.XtraReports.Web.Scripts.ASPxClientReportViewer.PageLoad"/> event.
+</para>
+            </summary>
+            <value>A string that represents either the name of a JavaScript function or the entire JavaScript function code used to handle an event.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarImages">
+
+            <summary>
+                <para>Contains settings that allow images to be defined for the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s specific elements.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarImages.#ctor(DevExpress.Web.ASPxClasses.Internal.ISkinOwner)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarImages class with the specified owner.
+</para>
+            </summary>
+            <param name="owner">
+		An object that implements the <b>ISkinOwner</b> interface.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnFirstPage">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>First Page</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnLastPage">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Last Page</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnNextPage">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Next Page</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnPrevPage">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Previous Page</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnPrint">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Print</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnPrintPage">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Print Page</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnSave">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Save to Disk</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnSaveWindow">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Save to Window</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.BtnSearch">
+            <summary>
+                <para>Provides access to the settings of the image displayed for the <b>Search</b> button of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ItemImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.EnableDefaultImages">
+            <summary>
+                <para>Gets or sets a value that specifies whether the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> control displays a predefined set of button images, or some of these images should be changed.
+</para>
+            </summary>
+            <value><b>true</b> if the default images should be used; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarImages.GetImageProperties(System.Web.UI.Page,System.String,System.Boolean)">
+            <summary>
+                <para>Returns an object containing settings for the image with the specified name on the specified Web page. For internal use only.
+
+
+</para>
+            </summary>
+            <param name="page">
+		 
+
+            </param>
+            <param name="imageName">
+		 
+
+            </param>
+            <param name="encode">
+		 @nbsp;
+
+            </param>
+            <returns> 
+</returns>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarImages.LoadingPanel">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ImagesBase.LoadingPanel"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarImages.ToString">
+            <summary>
+                <para>Returns the textual representation of ReportToolbarImages.
+</para>
+            </summary>
+            <returns>Always <see cref="F:System.String.Empty"/>.
+</returns>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarItem">
+
+            <summary>
+                <para>Represents an item within the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> control.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItem.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarItem class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItem.#ctor(DevExpress.XtraReports.Web.ReportToolbarItemKind)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarItem class with the specified kind of toolbar item.
+
+
+</para>
+            </summary>
+            <param name="itemKind">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which specifies the kind of a toolbar item being created. This value is assigned to the <see cref="P:DevExpress.XtraReports.Web.ReportToolbarItem.ItemKind"/> property.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItem.Assign(DevExpress.Web.ASPxClasses.CollectionItem)">
+            <summary>
+                <para>Copies all the settings from the ReportToolbarItem object passed as the parameter.
+
+</para>
+            </summary>
+            <param name="source">
+		A ReportToolbarItem object whose settings are assigned to the current object. If <b>null</b> (<b>Nothing</b> in Visual Basic), then a <see cref="T:System.ArgumentNullException"/> will be thrown.
+
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarItem.ItemKind">
+            <summary>
+                <para>Gets or sets the type of a particular report toolbar item.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which defines the type of a toolbar item.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarItem.Name">
+            <summary>
+                <para>Gets or sets the name of the toolbar item.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value representing the name of the toolbar item.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItem.ToString">
+            <summary>
+                <para>Returns the textual representation of ReportToolbarItem.
+</para>
+            </summary>
+            <returns>A <see cref="T:System.String"/> value, which is the textual representation of the toolbar item.
+</returns>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbar">
+
+            <summary>
+                <para>Provides navigation to the report displayed by the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> and contains print, export and other options.
+
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbar.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbar class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.AccessibilityCompliant">
+            <summary>
+                <para>Enables support for Section 508.
+</para>
+            </summary>
+            <value><b>true</b> to enable support for Section 508; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.BorderColor">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.BorderColor"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Drawing.Color"/> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.BorderStyle">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.BorderStyle"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.BorderStyle"/> enumeration value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.BorderWidth">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.BorderWidth"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ClientInstanceName">
+            <summary>
+                <para>Gets or sets the ReportToolbar's client programmatic identifier.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value that specifies the ReportToolbar's client identifier.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ClientSideEvents">
+            <summary>
+                <para>Gets an object that lists the client-side events specific to the ReportToolbar.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents"/> object which allows assigning handlers to the client-side events available to the ReportToolbar.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbar.CreateDefaultItemCollection">
+            <summary>
+                <para>Creates a collection of default report toolbar items.
+
+</para>
+            </summary>
+            <returns>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemCollection"/> object which represents a collection of default <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> objects.
+
+</returns>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.CssFilePath">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.CssFilePath"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.CssPostfix">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.CssPostfix"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbar.CssResourcePath">
+            <summary>
+                <para>Identifies that a plain CSS resource file is to be used for the ReportToolbar.
+</para>
+            </summary>
+            <returns>@nbsp;
+</returns>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.EnableDefaultAppearance">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.EnableDefaultAppearance"/> property to hide it.
+</para>
+            </summary>
+            <value>Always <b>false</b>.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.EncodeHtml">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.EncodeHtml"/> property to hide it.
+</para>
+            </summary>
+            <value>Always <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.HorizontalAlign">
+            <summary>
+                <para>This property is now obsolete and is no longer in use.
+</para>
+            </summary>
+            <value> 
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ImageFilesPath">
+            <summary>
+                <para>Gets or sets a virtual path (a path to a virtual directory in IIS) to the default images.
+</para>
+            </summary>
+            <value>Always <see cref="F:System.String.Empty"/>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.Images">
+            <summary>
+                <para>Provides access to a list of images used in a <b>ReportToolbar</b>.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarImages"/> object, containing a list of images with additional information.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.Items">
+            <summary>
+                <para>Provides access to the report toolbar's collection of items.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemCollection"/> object representing the report toolbar's collection of items.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ItemSpacing">
+            <summary>
+                <para>Gets or sets the distance between the items in the <b>ReportToolBar</b>.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> structure that represents the space length in pixels.
+
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.Paddings">
+            <summary>
+                <para>Gets the padding settings of the ReportToolbar.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.Paddings"/> object that contains padding settings.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbar.RegisterStyleSheets">
+            <summary>
+                <para>Registers a style sheet which defines specific styles for the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>. For internal use.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ReportViewer">
+            <summary>
+                <para>Specifies the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> instance with which a ReportToolbar is associated.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ReportViewerID">
+            <summary>
+                <para>Specifies the ID of the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> instance with which a ReportToolbar is associated.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value, specifying the Report Viewer's ID.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ScriptFilesPath">
+            <summary>
+                <para>Gets or sets a virtual path (a path to a virtual directory in IIS) to the default images.
+</para>
+            </summary>
+            <value>Always <see cref="F:System.String.Empty"/>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.SeparatorBackgroundImage">
+            <summary>
+                <para>Gets the background image use to paint a ReportToolbar's separator element.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.BackgroundImage"/> object that represents a separator's background image.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.SeparatorColor">
+            <summary>
+                <para>Gets or sets the color used to paint a separator element of a ReportToolbar.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Drawing.Color"/> object that specifies a separator's color. 
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.SeparatorHeight">
+            <summary>
+                <para>Gets or sets the height of the separator element in a ReportToolbar.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> structure, specifying the height of a separator in pixels.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.SeparatorPaddings">
+            <summary>
+                <para>Gets the padding settings of separators.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.Paddings"/> object that contains padding settings.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.SeparatorWidth">
+            <summary>
+                <para>Gets or sets the width of separators that divide the toolbar items.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> structure, that specifies the separator's width.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ShowDefaultButtons">
+            <summary>
+                <para>Gets or sets a value indicating whether the default or custom set of toolbar buttons must be displayed in the ReportToolbar.
+</para>
+            </summary>
+            <value><b>true</b> to display the default set of buttons; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.ReportToolbar.SpriteCssResourcePath">
+            <summary>
+                <para>Identifies that a <i>sprite</i> CSS resource file is to be used for the ReportToolbar.
+</para>
+            </summary>
+            <returns> [To be supplied] </returns>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.Styles">
+            <summary>
+                <para>Provides access to style settings that control the appearance of the <b>Report Toolbar</b> control.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarStyles"/> object that provides style settings for the toobar elements.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbar.ToolTip">
+            <summary>
+                <para>Overrides the <see cref="P:System.Web.UI.WebControls.WebControl.ToolTip"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportViewer">
+
+            <summary>
+                <para>Renders and displays a report document on a Web page.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportViewer class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.AutoSize">
+            <summary>
+                <para>Specifies whether a report's size is defined by the bounds of a report viewer, or of a report page.
+</para>
+            </summary>
+            <value><b>true</b> to use the report page's size; otherwise, <b>false</b>.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.BackgroundImage">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.BackgroundImage"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.BackgroundImage"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.BookmarkSelectionBorder">
+            <summary>
+                <para>Gets the settings of borders being displayed around the part of a report page selected when an end-user navigates using the appropriate bookmark.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.Border"/> object, which contains settings of a selection border.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.BorderColor">
+            <summary>
+                <para>Gets or sets the color of the control's border.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Drawing.Color"/> object that represents the border color.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.BorderStyle">
+            <summary>
+                <para>Gets or sets the control's border style.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.BorderStyle"/> enumeration value, specifying the border location.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.BorderWidth">
+            <summary>
+                <para>Gets or sets the width of a control's border.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> structure, representing the border width.
+</value>
+
+
+        </member>
+        <member name="E:DevExpress.XtraReports.Web.ReportViewer.CacheReportDocument">
+            <summary>
+                <para>Occurs when a report document is created, and it's possible to store it to the cache.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.ClientInstanceName">
+            <summary>
+                <para>Gets or sets the ReportViewer's client programmatic identifier.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value that specifies the ReportViewer's client identifier.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.ClientSideEvents">
+            <summary>
+                <para>Gets an object that lists the client-side events specific to the ReportViewer.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportViewerClientSideEvents"/> object which allows assigning handlers to the client-side events available to the ReportViewer.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.Cursor">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.Cursor"/> property to hide it.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.DataBind">
+            <summary>
+                <para>Associates the report defined in markup with ReportViewer.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.Dispose">
+            <summary>
+                <para>Enables a server control to perform final clean up before it is released from memory.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.EnableCallbackCompression">
+            <summary>
+                <para>Gets or sets whether callback result compression is enabled.
+</para>
+            </summary>
+            <value><b>true</b> to enable callback result compression; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.Enabled">
+            <summary>
+                <para>Overrides the <see cref="P:System.Web.UI.WebControls.WebControl.Enabled"/> property to hide it.
+</para>
+            </summary>
+            <value>A <b>Boolean</b> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.EnableDefaultAppearance">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.EnableDefaultAppearance"/> property to hide it.
+</para>
+            </summary>
+            <value>Always <b>false</b>.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.EnableRequestParameters">
+            <summary>
+                <para>When a report has parameters, defines whether or not a report document is auto-created when <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> is rendered on a Web page without submitting parameter value(s) via <see cref="T:DevExpress.XtraReports.Web.ReportParametersPanel"/>.
+
+
+</para>
+            </summary>
+            <value><b>true</b> to not generate a report document until a user submits its parameter value(s); otherwise <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.EncodeHtml">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ASPxWebControl.EncodeHtml"/> property to hide it.
+</para>
+            </summary>
+            <value>Always <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.Height">
+            <summary>
+                <para>Gets or sets the height of the ReportViewer.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> value representing the control's height.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.ImageFolder">
+            <summary>
+                <para>Gets the path to the common folder where editors' images are located.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> which represents the path to the images' directory.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.LoadingPanelDelay">
+            <summary>
+                <para>Gets or sets the delay between starting an asynchronous operation and displaying the loading panel.
+</para>
+            </summary>
+            <value>An integer value that specifies the delay before displaying the loading panel, in milliseconds.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.LoadingPanelImage">
+            <summary>
+                <para>Gets the settings of an image to be displayed within a specific <b>loading panel</b> while waiting for a callback response.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ImageProperties"/> object that contains the image's settings.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.LoadingPanelImagePosition">
+            <summary>
+                <para>Gets or sets the position of an image displayed within a Loading Panel with respect to the panel's text content.
+</para>
+            </summary>
+            <value>One of the <see cref="T:DevExpress.Web.ASPxClasses.ImagePosition"/> enumeration values.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.LoadingPanelStyle">
+            <summary>
+                <para>Gets the style settings used to paint the Loading Panel.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.LoadingPanelStyle"/> object that contains style settings.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.LoadingPanelText">
+            <summary>
+                <para>Gets or sets the text to be displayed within a loading panel while waiting for a callback response.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> that specifies the descriptive text displayed within a loading panel.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.Paddings">
+            <summary>
+                <para>Gets the padding settings of the ReportViewer.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.Paddings"/> object that contains padding settings.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.PageByPage">
+            <summary>
+                <para>Specifies whether a report should be displayed page-by-page, or an entire report's content should be displayed at once.
+
+</para>
+            </summary>
+            <value><b>true</b> if the ReportViewer displays only one report page at a time; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.PrintUsingAdobePlugIn">
+            <summary>
+                <para>Gets or sets a value indicating whether XtraReports, when printing a report on the client side, should try to print it via the Adobe Reader plug-in installed in Internet Explorer.
+
+</para>
+            </summary>
+            <value><b>true</b> to print via <b>Adobe Reader</b> plug-in; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.Report">
+            <summary>
+                <para>Specifies a report instance, associated with ReportViewer.
+
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.ReportName">
+            <summary>
+                <para>For internal use only. Gets or sets the fully qualified type name of the report, whose instance is displayed by this ReportViewer object.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> containing the report's type name (including its namespace).
+
+</value>
+
+
+        </member>
+        <member name="E:DevExpress.XtraReports.Web.ReportViewer.RestoreReportDocumentFromCache">
+            <summary>
+                <para>Occurs when a Report Viewer requires a report to display, and it's possible to restore an existing report document from the cache.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SearchDialogButtonStyles">
+            <summary>
+                <para>Provides access to the style settings of the <b>Search</b> dialog's buttons.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxEditors.ButtonControlStyles"/> object that defines the appearance of buttons.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SearchDialogEditorsImages">
+            <summary>
+                <para>Provides access to the image settings of the <b>Search</b> dialog's editors.
+
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxEditors.EditorImages"/> object that defines the image settings of editors.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SearchDialogEditorsStyles">
+            <summary>
+                <para>Provides access to the style settings of the <b>Search</b> dialog's editors.
+
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxEditors.EditorStyles"/> object that defines the appearance of editors.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SearchDialogFormImages">
+            <summary>
+                <para>Provides access to the image settings of the <b>Search</b> dialog's form.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ImagesDialogForm"/> object that defines the form's image settings.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SearchDialogFormStyles">
+            <summary>
+                <para>Provides access to the style settings of the <b>Search</b> dialog's form.
+
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxPopupControl.PopupControlStyles"/> object that defines the form's appearance.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.ShowLoadingPanelImage">
+            <summary>
+                <para>Gets or sets whether the image can be displayed within a Loading Panel.
+</para>
+            </summary>
+            <value><b>true</b> if the image is allowed to be displayed within a Loading Panel; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SpriteCssFilePath">
+            <summary>
+                <para>Specifies the path to the CSS file, storing styles for the <b>Search</b> dialog of the ReportViewer and its associated <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value, representing the path to the CSS file.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.SpriteImageUrl">
+            <summary>
+                <para>Specifies the URL of the <i>sprite</i> image file, storing images for the <b>Search</b> dialog of the ReportViewer and its associated <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value, representing the sprite image file URL.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.UseIFrame">
+            <summary>
+                <para>For internal use.
+</para>
+            </summary>
+            <value>A Boolean value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportViewer.Width">
+            <summary>
+                <para>Gets or sets the width of the ReportViewer.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> value representing the control's width.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteBmpImageTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to an image in BMP file format, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteGifImageTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to an image in GIF file format, and writes the output to the specified HTTP response.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteHtmlTo(System.String)">
+            <summary>
+                <para>Creates an HTML file that contains a Web representation of the report. The destination directory for the created file will be determined by the specified path.
+
+</para>
+            </summary>
+            <param name="filePath">
+		A <see cref="T:System.String"/> value containing the full path to the HTML file to be created.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteHtmlTo(System.Web.HttpResponse,DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Creates an HTML file that contains a Web representation of the report, and writes the output to the specified HTTP response.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object to be represented as an HTML file.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteHtmlTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Creates an HTML file that contains a Web representation of the report, and writes the output to the specified HTTP response.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteJpgImageTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to an image in JPG file format, and writes the output to the specified HTTP response.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteMhtTo(System.Web.HttpResponse,DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Writes the MHT version of a report to the specified HTTP response. An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object should be passed to this method as a parameter.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object to be represented as an MHT file.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteMhtTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to the MHT format, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WritePdfTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to the PDF, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WritePdfTo(System.Web.HttpResponse,DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Exports the report to the PDF, and writes the output to the specified HTTP response. An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object should be passed to this method as a parameter.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object to be represented as an PDF file.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WritePngImageTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to an image in PNG file format, and writes the output to the specified HTTP response.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteRtfTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to the RTF format, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteRtfTo(System.Web.HttpResponse,DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Exports the report to the RTF format, and writes the output to the specified HTTP response. An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object should be passed to this method as a parameter.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object to be represented as an RTF file.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteTextTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to text, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteTextTo(System.Web.HttpResponse,System.String,DevExpress.XtraPrinting.TextExportOptions)">
+            <summary>
+                <para>Exports the report to text using the specified export type and text-specific export options, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="exportType">
+		A <see cref="T:System.String"/> specifying the appropriate file extension (e.g. "<b>txt</b>" or "<b>csv</b>").
+
+
+
+            </param>
+            <param name="options">
+		A <see cref="T:DevExpress.XtraPrinting.TextExportOptions"/> object which contains Text-specific export options.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteTextTo(System.Web.HttpResponse,System.String,System.String,System.Boolean,System.Text.Encoding)">
+            <summary>
+                <para>Writes the text version of the current report to the specified HTTP response using the specified separator string, quotation and text encoding settings.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="exportType">
+		A <see cref="T:System.String"/> specifying the appropriate file extension (e.g. "<b>txt</b>" or "<b>csv</b>").
+
+
+
+            </param>
+            <param name="separator">
+		A <see cref="T:System.String"/> containing the symbols which will be used to separate the text elements of the report in the created text document. The default value is "<b>\t</b>".
+
+
+            </param>
+            <param name="quoteStringsWithSeparators">
+		<b>true</b> to quote (place quotation marks around) text elements which contain symbols that are the same as the specified separator string; otherwise, <b>false</b>. The default value is <b>false</b>.
+
+
+            </param>
+            <param name="encoding">
+		A <see cref="T:System.Text.Encoding"/> class descendant specifying the encoding of the created text document. The default value is <b>System.Text.Encoding.Default</b>.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteTiffImageTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to an image in TIFF file format, and writes the output to the specified HTTP response.
+
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteXlsTo(System.Web.HttpResponse,DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Exports the report to the XLS format, and writes the output to the specified HTTP response. An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object should be passed to this method as a parameter.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object to be represented as an XLS file.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteXlsTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to the XLS format, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteXlsxTo(System.Web.HttpResponse,DevExpress.XtraReports.UI.XtraReport)">
+            <summary>
+                <para>Exports the report to the XLSX format, and writes the output to the specified HTTP response. An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object should be passed to this method as a parameter.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+            </param>
+            <param name="report">
+		An <see cref="T:DevExpress.XtraReports.UI.XtraReport"/> object to be represented as an XLSX file.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportViewer.WriteXlsxTo(System.Web.HttpResponse)">
+            <summary>
+                <para>Exports the report to the XLSX format, and writes the output to the specified HTTP response.
+</para>
+            </summary>
+            <param name="response">
+		A <see cref="T:System.Web.HttpResponse"/> object specifying the HTTP response to which the file should be written.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarButton">
+
+            <summary>
+                <para>Represents a button within the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> control.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarButton.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarButton class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarButton.#ctor(DevExpress.XtraReports.Web.ReportToolbarItemKind)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarButton class with the specified item type.
+</para>
+            </summary>
+            <param name="itemKind">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which defines the type of a toolbar item. 
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarButton.#ctor(DevExpress.XtraReports.Web.ReportToolbarItemKind,System.Boolean)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarButton class with the specified item type and a value indicating whether the item is enabled.
+</para>
+            </summary>
+            <param name="itemKind">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which defines the type of a toolbar item. 
+
+            </param>
+            <param name="enabled">
+		<b>true</b> if the button is enabled; otherwise, <b>false</b>. 
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarButton.Assign(DevExpress.Web.ASPxClasses.CollectionItem)">
+            <summary>
+                <para>Copies all the settings from the ReportToolbarButton object passed as the parameter.
+
+</para>
+            </summary>
+            <param name="source">
+		A ReportToolbarButton object whose settings are assigned to the current object. If <b>null</b> (<b>Nothing</b> in Visual Basic), then a <see cref="T:System.ArgumentNullException"/> will be thrown.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.Enabled">
+            <summary>
+                <para>Gets or sets a value that indicates whether the button is enabled, allowing it to respond to end-user interactions.
+
+</para>
+            </summary>
+            <value><b>true</b> if the button is enabled; otherwise, <b>false</b>. 
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.ImageUrl">
+            <summary>
+                <para>Gets or sets the URL of the image source for the ReportToolbarButton object.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value specifying the URL representing the path to the image displayed within the ReportToolbarButton.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.ImageUrlDisabled">
+            <summary>
+                <para>Gets or sets the URL of the image source, which is used when the ReportToolbarButton object is disabled (its <see cref="P:DevExpress.XtraReports.Web.ReportToolbarButton.Enabled"/> property returns <b>false</b>).
+
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value specifying the URL representing the path to the image displayed within the disabled ReportToolbarButton.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.ItemKind">
+            <summary>
+                <para>Gets or sets the type of a particular report toolbar button.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItemKind"/> enumeration value which defines the type of a toolbar button.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.OnClientClick">
+            <summary>
+                <para>Gets or sets the client-side script that executes when a button is clicked. 
+</para>
+            </summary>
+            <value>The client-side script that executes when a button is clicked.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.Text">
+            <summary>
+                <para>Gets or sets the text displayed within the button.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value representing the text displayed within the button.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButton.ToolTip">
+            <summary>
+                <para>Gets or sets the current toolbar button's tooltip text.
+
+</para>
+            </summary>
+            <value>A string value which specifies the text content of the current toolbar button's tooltip.
+
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.Localization.ASPxReportsResLocalizer">
+
+            <summary>
+                <para>Represents a default localizer to translate the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s resources.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.Localization.ASPxReportsResLocalizer.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ASPxReportsResLocalizer class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarLabelStyle">
+
+            <summary>
+                <para>Provides options that control the appearance of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s labels.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarLabelStyle.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarLabelStyle class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarLabelStyle.Margins">
+            <summary>
+                <para>Gets the margin settings of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s labels.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.Margins"/> object.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarComboBoxStyle">
+
+            <summary>
+                <para>Provides options that control the appearance of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo boxes.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarComboBoxStyle.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarComboBoxStyle class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarComboBoxStyle.AssignCellSpacingToControl(DevExpress.Web.ASPxEditors.ASPxComboBox)">
+            <summary>
+                <para>Applies the value of the <see cref="P:DevExpress.XtraReports.Web.ReportToolbarComboBoxStyle.CellSpacing"/> property to the specified control.
+</para>
+            </summary>
+            <param name="control">
+		An <see cref="T:DevExpress.Web.ASPxEditors.ASPxComboBox"/> object.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarComboBoxStyle.CellSpacing">
+            <summary>
+                <para>Specifies the spacing between items in a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo boxes (in pixels).
+</para>
+            </summary>
+            <value>An integer value.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarComboBoxButtonStyle">
+
+            <summary>
+                <para>Provides options that control the appearance of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo box buttons.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarComboBoxButtonStyle.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarComboBoxButtonStyle class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarComboBoxButtonStyle.DropDownButtonImage">
+            <summary>
+                <para>Gets the image that is shown for the drop-down button of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo boxes.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.ButtonImageProperties"/> object.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarButtonStyle">
+
+            <summary>
+                <para>Provides options that control the appearance of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s buttons.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarButtonStyle.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarButtonStyle class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButtonStyle.Height">
+            <summary>
+                <para>Specifies the height of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s buttons.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> structure.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarButtonStyle.Width">
+            <summary>
+                <para>Specifies the width of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s buttons.
+</para>
+            </summary>
+            <value>A <see cref="T:System.Web.UI.WebControls.Unit"/> structure.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarBoxStyle">
+
+            <summary>
+                <para>The base class for classes that control the appearance of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo boxes.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarBoxStyle.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarBoxStyle class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarBoxStyle.Margins">
+            <summary>
+                <para>Gets the margin settings of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo boxes.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.Margins"/> object.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarStyles">
+
+            <summary>
+                <para>Provides options that control the appearance of a <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarStyles.#ctor(DevExpress.XtraReports.Web.ReportToolbar)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarStyles class with the specified Report Toolbar.
+</para>
+            </summary>
+            <param name="toolBar">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> object.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.ButtonStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s buttons.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarButtonStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.ComboBoxButtonStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo box buttons.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarComboBoxButtonStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.ComboBoxItemStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s list box items.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxEditors.ListBoxItemStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.ComboBoxListStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo box lists.
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxClasses.AppearanceStyleBase"/> descendant.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.ComboBoxStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s combo boxes.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarComboBoxStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.EditorStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s editors.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarButtonStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.LabelStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s labels.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarLabelStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarStyles.TextBoxStyle">
+            <summary>
+                <para>Gets the style settings of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s text boxes.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarBoxStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportDocumentMapStyles">
+
+            <summary>
+                <para>Contains settings that define the appearance of a Document Map's elements. 
+
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportDocumentMapStyles.#ctor(DevExpress.XtraReports.Web.ReportDocumentMap)">
+            <summary>
+                <para>Initializes a new instance of the ReportDocumentMapStyles class with the specified owner.
+</para>
+            </summary>
+            <param name="owner">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportDocumentMap"/> object.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMapStyles.Disabled">
+            <summary>
+                <para>Gets the style of a Document Map's elements that are in the disabled state.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.DisabledStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMapStyles.Link">
+            <summary>
+                <para>Gets the style of a Document Map's links. 
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.LinkStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMapStyles.NodeCheckBox">
+            <summary>
+                <para>Gets the style settings of a Document Map's nodes.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxTreeView.TreeViewNodeCheckBoxStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMapStyles.NodeCheckBoxFocused">
+            <summary>
+                <para>Gets the style settings of a Document Map's nodes that receive the focus.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxTreeView.TreeViewNodeCheckBoxStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMapStyles.NodeImage">
+            <summary>
+                <para>Gets the general style settings of a Document Map's elements.
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxClasses.AppearanceStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.Localization.ASPxReportsLocalizer">
+
+            <summary>
+                <para>Represents an object providing a means to localize the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.Localization.ASPxReportsLocalizer.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ASPxReportsLocalizer class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.Localization.ASPxReportsLocalizer.CreateDefaultLocalizer">
+            <summary>
+                <para>Returns an <b>XtraLocalizer</b> object storing resources based on the thread's language and regional settings (culture).
+</para>
+            </summary>
+            <returns>An <b>XtraLocalizer</b> object, storing resources based on the thread's culture.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.Localization.ASPxReportsLocalizer.CreateResXLocalizer">
+            <summary>
+                <para>Returns an <b>XtraLocalizer</b> object representing resources based on the thread's language and regional settings (culture).
+</para>
+            </summary>
+            <returns>A <see cref="T:DevExpress.Utils.Localization.XtraLocalizer`1"/> object representing resources based on the thread's culture.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.Localization.ASPxReportsLocalizer.GetString(DevExpress.XtraReports.Web.Localization.ASPxReportsStringId)">
+            <summary>
+                <para>Returns a localized string for the given string identifier.
+</para>
+            </summary>
+            <param name="id">
+		An <see cref="T:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId"/> enumeration value identifying the string to localize.
+
+
+            </param>
+            <returns>A <see cref="T:System.String"/> corresponding to the specified identifier.
+</returns>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarItemCollection">
+
+            <summary>
+                <para>Represents a collection of <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> objects.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.#ctor(DevExpress.XtraReports.Web.ReportToolbar)">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarItemCollection class using the specified report toolbar. 
+
+</para>
+            </summary>
+            <param name="reportToolbar">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/> object which specifies the owner report toolbar. This value is assigned to the <see cref="P:DevExpress.Web.ASPxClasses.Collection.Owner"/> property.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.Add(DevExpress.XtraReports.Web.ReportToolbarItem)">
+            <summary>
+                <para>Appends the specified <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object to the current collection.
+</para>
+            </summary>
+            <param name="toolbarItem">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object to append to the collection.
+
+            </param>
+            <returns>An integer value indicating the position into which a new element was inserted.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.AddRange(DevExpress.XtraReports.Web.ReportToolbarItem[])">
+            <summary>
+                <para>Appends an array of toolbar items to the collection.
+</para>
+            </summary>
+            <param name="toolbarItems">
+		An array of <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> objects to append to the collection.
+
+            </param>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.Contains(DevExpress.XtraReports.Web.ReportToolbarItem)">
+            <summary>
+                <para>Determines whether the collection contains the specified toolbar item.
+</para>
+            </summary>
+            <param name="toolbarItem">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object to locate in the collection.
+
+            </param>
+            <returns><b>true</b> if the collection contains the specified toolbar item; otherwise, <b>false</b>.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.IndexOf(DevExpress.XtraReports.Web.ReportToolbarItem)">
+            <summary>
+                <para>Returns the specified object's position within the collection.
+</para>
+            </summary>
+            <param name="toolbarItem">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object to locate in the collection.
+
+            </param>
+            <returns>A zero-based integer which represents the object's position within the collection. <b>-1</b> if the object doesn't belong to the collection.
+</returns>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.Insert(System.Int32,DevExpress.XtraReports.Web.ReportToolbarItem)">
+            <summary>
+                <para>Adds the specified toolbar item to the collection at the specified position.
+</para>
+            </summary>
+            <param name="index">
+		A zero-based integer which specifies the position at which the toolbar item is to be inserted.
+
+            </param>
+            <param name="toolbarItem">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object that specifies the toolbar item to insert into the collection.
+
+            </param>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarItemCollection.Item(System.Int32)">
+            <summary>
+                <para>Provides indexed access to individual items in the collection.
+</para>
+            </summary>
+            <param name="index">
+		A zero-based integer specifying the desired item's position within the collection. If it's negative or exceeds the last available index, an exception is raised.
+
+            </param>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object which represents the toolbar item at the specified position.
+</value>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarItemCollection.Remove(DevExpress.XtraReports.Web.ReportToolbarItem)">
+            <summary>
+                <para>Removes the specified <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object from the collection.
+</para>
+            </summary>
+            <param name="toolbarItem">
+		A <see cref="T:DevExpress.XtraReports.Web.ReportToolbarItem"/> object to be removed from the collection.
+
+            </param>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents">
+
+            <summary>
+                <para>Contains a client-side Report Toolbar's event list.
+    
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportToolbarClientSideEvents class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents.GetStartupScript(System.String)">
+            <summary>
+                <para>For internal use only.
+</para>
+            </summary>
+            <param name="objectVarName">
+		 
+
+            </param>
+            <returns> 
+</returns>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents.Init">
+            <summary>
+                <para>Overrides the <see cref="P:DevExpress.Web.ASPxClasses.ClientSideEvents.Init"/> property to hide it.
+</para>
+            </summary>
+            <value>Always <see cref="F:System.String.Empty"/>.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents.ItemClick">
+            <summary>
+                <para>Gets or sets the name of the JavaScript function or the entire code which will handle a client Report Toolbar's <b>ItemClick</b> event.
+</para>
+            </summary>
+            <value>A string that represents either the name of a JavaScript function or the entire JavaScript function code used to handle an event.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportToolbarClientSideEvents.ItemValueChanged">
+            <summary>
+                <para>Gets or sets the name of the JavaScript function or the entire code which will handle a client Report Toolbar's <b>ItemValueChanged</b> event.
+</para>
+            </summary>
+            <value>A string that represents either the name of a JavaScript function or the entire JavaScript function code used to handle an event.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId">
+
+            <summary>
+                <para>Contains values corresponding to strings that can be localized for the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>.
+</para>
+            </summary>
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_csv">
+            <summary>
+                <para><para>The name of the CSV format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Csv"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_html">
+            <summary>
+                <para><para>The name of the MHT format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Html"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_mht">
+            <summary>
+                <para><para>The name of the MHT format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Mht"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_pdf">
+            <summary>
+                <para><para>The name of the PDF that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Pdf"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_png">
+            <summary>
+                <para><para>The name of the PNG format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Png"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_rtf">
+            <summary>
+                <para><para>The name of the RTF format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Rtf"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_txt">
+            <summary>
+                <para><para>The name of the TXT format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Txt"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_xls">
+            <summary>
+                <para><para>The name of the XLS format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Xls"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ExportName_xlsx">
+            <summary>
+                <para><para>The name of the XLSX format that is shown in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s drop-down list of export formats.</para>
+
+<para><b>Default value</b>: "Xlsx"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ParametersPanel_False">
+            <summary>
+                <para><para>The caption of the negative value displayed in the <see cref="T:DevExpress.Web.ASPxEditors.ASPxComboBox"/> that is shown for Boolean parameters in the <b>Parameters</b> user interface.</para>
+
+<para><b>Default Value</b>: "False"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ParametersPanel_Reset">
+            <summary>
+                <para><para>The caption of the <b>Reset</b> button in the <b>Parameters</b> user interface.</para>
+
+<para><b>Default Value</b>: "Reset"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ParametersPanel_Submit">
+            <summary>
+                <para><para>The caption of the <b>Submit</b> button in the <b>Parameters</b> user interface.</para>
+
+<para><b>Default Value</b>: "Submit"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ParametersPanel_True">
+            <summary>
+                <para><para>The caption of the positive value displayed in the <see cref="T:DevExpress.Web.ASPxEditors.ASPxComboBox"/> that is shown for Boolean parameters in the <b>Parameters</b> user interface.</para>
+
+<para><b>Default Value</b>: "True"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Cancel">
+            <summary>
+                <para><para>The caption of the <b>Cancel</b> button in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Cancel"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Case">
+            <summary>
+                <para><para>The caption of the <b>Match case</b> check box in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Match <u>c</u>ase"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Case_AccessKey">
+            <summary>
+                <para><para>The access key of the <b>Match case</b> option in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "c"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Down">
+            <summary>
+                <para><para>The caption of the <b>Down</b> search direction check box in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "<u>D</u>own"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Down_AccessKey">
+            <summary>
+                <para><para>The access key of the <b>Down</b> search direction option in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "d"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_FindNext">
+            <summary>
+                <para><para>The caption of the <b>Find Next</b> button in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Find Next"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_FindWhat">
+            <summary>
+                <para><para>The caption of the <b>Find What</b> field in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Fi<u>n</u>d@nbsp;what"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_FindWhat_AccessKey">
+            <summary>
+                <para><para>The access key of the <b>Find What</b> field in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "n"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Finished">
+            <summary>
+                <para><para>The caption shown after the searching is finished in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Finished searching the document."</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Header">
+            <summary>
+                <para><para>The caption of the header in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Search"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Up">
+            <summary>
+                <para><para>The caption of the <b>Up</b> search direction check box in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "<u>U</u>p"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_Up_AccessKey">
+            <summary>
+                <para><para>The access key of the <b>Up</b> search direction option in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "u"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_WholeWord">
+            <summary>
+                <para><para>The caption of the <b>Whole Word</b> check box in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "Match <u>w</u>hole word only"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.SearchDialog_WholeWord_AccessKey">
+            <summary>
+                <para><para>The access key of the <b>Whole Word</b> option in the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s Search dialog.</para>
+
+<para><b>Default Value</b>: "w"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_FirstPage">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s navigation button.</para>
+
+<para><b>Default value</b>: "First Page"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_LastPage">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s navigation button.</para>
+
+<para><b>Default value</b>: "Last Page"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_NextPage">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s navigation button.</para>
+
+<para><b>Default value</b>: "Next Page"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_OfLabel">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s label.</para>
+
+<para><b>Default value</b>: "of"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_PageLabel">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s label.</para>
+
+<para><b>Default value</b>: "Page"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_PreviousPage">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s navigation button.</para>
+
+<para><b>Default value</b>: "Previous Page"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_PrintPage">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s button.</para>
+
+<para><b>Default value</b>: "Print the current page"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_PrintReport">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s button.</para>
+
+<para><b>Default value</b>: "Print the report"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_SaveToDisk">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s button.</para>
+
+<para><b>Default value</b>: "Export a report and save it to the disk"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_SaveToWindow">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s button.</para>
+
+<para><b>Default value</b>: "Export a report and show it in a new window"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="F:DevExpress.XtraReports.Web.Localization.ASPxReportsStringId.ToolBarItemText_Search">
+            <summary>
+                <para><para>The caption of the <see cref="T:DevExpress.XtraReports.Web.ReportToolbar"/>'s button.</para>
+
+<para><b>Default value</b>: "Display the search window"</para>
+</para>
+            </summary>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.CustomizeParameterEditorsEventArgs">
+
+            <summary>
+                <para>Provides data for the <see cref="E:DevExpress.XtraReports.Web.ReportParametersPanel.CustomizeParameterEditors"/> event.
+
+</para>
+            </summary>
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.CustomizeParameterEditorsEventArgs.Editor">
+            <summary>
+                <para>Specifies a custom editor for the parameter.
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxEditors.ASPxEdit"/> descendant that is the parameter's editor.
+
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.CustomizeParameterEditorsEventArgs.Parameter">
+            <summary>
+                <para>Gets the parameter, for which a custom editor is being provided.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Parameters.Parameter"/> object. 
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.CustomizeParameterEditorsEventArgs.ShouldSetParameterValue">
+            <summary>
+                <para>For internal use.
+</para>
+            </summary>
+            <value>A Boolean value.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportParametersPanel">
+
+            <summary>
+                <para>Provides user interface for showing the parameters panel on a Web page, to request report parameters on the client-side.
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportParametersPanel.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportParametersPanel class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.AccessibilityCompliant">
+            <summary>
+                <para>Enables support for Section 508.
+</para>
+            </summary>
+            <value><b>true</b> to enable support for Section 508; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.ClientInstanceName">
+            <summary>
+                <para>Specifies the name of a client-side instance of the ReportParametersPanel.
+
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.ControlButtonsContainerWidth">
+            <summary>
+                <para>Specifies the width of the ReportParametersPanel control's buttons container, in percents. 
+</para>
+            </summary>
+            <value>An <see cref="T:System.Web.UI.WebControls.Unit"/> structure.
+</value>
+
+
+        </member>
+        <member name="E:DevExpress.XtraReports.Web.ReportParametersPanel.CustomizeParameterEditors">
+            <summary>
+                <para>Occurs when standard editors are created for the report parameters, according to their types.
+
+</para>
+            </summary>
+
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportParametersPanel.Dispose">
+            <summary>
+                <para>Disposes of the ReportParametersPanel object.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.ReportViewer">
+            <summary>
+                <para>Specifies the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> instance with which a ReportParametersPanel is associated.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.ReportViewerID">
+            <summary>
+                <para>Specifies the ID of the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> instance with which a ReportParametersPanel is associated.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value, specifying the Report Viewer's ID.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.SpriteCssFilePath">
+            <summary>
+                <para>Specifies the path to the CSS file, storing styles for a Document Map's elements.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value, representing the path to the CSS file.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.StylesButton">
+            <summary>
+                <para>Provides access to the style settings that define the appearance of button elements used by the ReportParametersPanel control. 
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxEditors.ButtonControlStyles"/> object that contains style settings.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportParametersPanel.StylesEditors">
+            <summary>
+                <para>Provides access to style settings of a Document Map's editors.
+
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxEditors.EditorStyles"/> object.
+</value>
+
+
+        </member>
+        <member name="T:DevExpress.XtraReports.Web.ReportDocumentMap">
+
+            <summary>
+                <para>Provides a user interface for showing the document map on a Web page, to provide client-side navigation through a report.
+
+</para>
+            </summary>
+
+        </member>
+        <member name="M:DevExpress.XtraReports.Web.ReportDocumentMap.#ctor">
+            <summary>
+                <para>Initializes a new instance of the ReportDocumentMap class with default settings.
+</para>
+            </summary>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.AccessibilityCompliant">
+            <summary>
+                <para>Enables support for Section 508.
+</para>
+            </summary>
+            <value><b>true</b> to enable support for Section 508; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.AllowSelectNode">
+            <summary>
+                <para>Specifies whether or not the node selection is available to the Document Map.
+</para>
+            </summary>
+            <value><b>true</b> if nodes can be selected; otherwise <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.ClientInstanceName">
+            <summary>
+                <para>Specifies the name of a client-side instance of the ReportDocumentMap.
+
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.DisabledStyle">
+            <summary>
+                <para>This property is not in effect for the ReportDocumentMap class.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxClasses.DisabledStyle"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.EnableAnimation">
+            <summary>
+                <para>Specifies whether or not animation is available when expanding/collapsing nodes in a Document Map.
+</para>
+            </summary>
+            <value><b>true</b> if animation is used; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.EnableHotTrack">
+            <summary>
+                <para>Specifies whether or not nodes of a Document Map can visually respond to mouse hovering.
+</para>
+            </summary>
+            <value><b>true</b> if nodes can be hot-tracked; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.Images">
+            <summary>
+                <para>Provides access to the images that define the look of a Document Map's nodes.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.Web.ASPxTreeView.TreeViewImages"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.LoadingPanelDelay">
+            <summary>
+                <para>Gets or sets the delay between starting an asynchronous operation and displaying the loading panel.
+</para>
+            </summary>
+            <value>An integer value that specifies the delay before displaying the loading panel, in milliseconds.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.LoadingPanelImagePosition">
+            <summary>
+                <para>Specifies the position of an image displayed within a loading panel with respect to the panel's text content.
+
+</para>
+            </summary>
+            <value>An <see cref="T:DevExpress.Web.ASPxClasses.ImagePosition"/> enumeration value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.LoadingPanelText">
+            <summary>
+                <para>Specifies the text displayed within a loading panel while waiting for a callback response.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.ReportViewer">
+            <summary>
+                <para>Specifies the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> instance with which a ReportDocumentMap is associated.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> object.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.ReportViewerID">
+            <summary>
+                <para>Specifies the ID of the <see cref="T:DevExpress.XtraReports.Web.ReportViewer"/> instance with which a ReportDocumentMap is associated.
+</para>
+            </summary>
+            <value>A <see cref="T:System.String"/> value, specifying the Report Viewer's ID.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.ShowLoadingPanel">
+            <summary>
+                <para>Specifies whether or not a Loading Panel is displayed within a Document Map while waiting for a callback response.
+</para>
+            </summary>
+            <value><b>true</b> if a Loading Panel is allowed to be displayed; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.ShowLoadingPanelImage">
+            <summary>
+                <para>Specifies whether or not the image can be displayed within a loading panel while waiting for a callback response.
+</para>
+            </summary>
+            <value><b>true</b> if an image is allowed to be displayed within the loading panel; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.ShowTreeLines">
+            <summary>
+                <para>Specifies whether or not tree lines are displayed within a Document Map.
+
+</para>
+            </summary>
+            <value><b>true</b> to display tree lines; otherwise, <b>false</b>.
+</value>
+
+
+        </member>
+        <member name="P:DevExpress.XtraReports.Web.ReportDocumentMap.Styles">
+            <summary>
+                <para>Provides access to the style settings that control the appearance of a Document Map's elements.
+</para>
+            </summary>
+            <value>A <see cref="T:DevExpress.XtraReports.Web.ReportDocumentMapStyles"/> object.
+</value>
+
+
+        </member>
+    </members>
+</doc>
