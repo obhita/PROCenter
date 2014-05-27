@@ -4,7 +4,7 @@ PRO Center
 PRO Center is an open source software applicatin sponsored by the U.S. Substance Abuse and Mental Health Administration (SAMHSA) which is designed to be a platform for hosting standardized assessments/screeners. PRO Center is an acronym for Patient Reported Outcomes Center which states one of the goals of the system. 
 
 <b>Watch Demo Video:</b>
-<a href='http://obhita.github.io/PROCenter/'>PRO Center Demo</a>
+<a href='http://obhita.github.io/PROCenter/' target="_blank">PRO Center Demo</a>
 
 <b>Key features:</b>
  - Patient Portal
