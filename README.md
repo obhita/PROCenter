@@ -3,6 +3,9 @@ PRO Center
 
 PRO Center is an open source software applicatin sponsored by the U.S. Substance Abuse and Mental Health Administration (SAMHSA) which is designed to be a platform for hosting standardized assessments/screeners. PRO Center is an acronym for Patient Reported Outcomes Center which states one of the goals of the system. 
 
+<b>Watch online Demo Video:</b>
+<a href='http://obhita.github.io/PROCenter/'>PRO Center Demo</a>
+
 <b>Key features:</b>
  - Patient Portal
  - Standardized Assessments
@@ -15,10 +18,10 @@ PRO Center is an open source software applicatin sponsored by the U.S. Substance
 <li>SOLID Principles:
    <ul>
    <li>Single Responsibility Principle - Each Class should have a unique responsibility or feature.</li>
-   <li>Open Closed Principle – A class must be open to extensions but closed to modifications.</li>
-   <li>Liskov Substitution Principle – Sub-types must be able to be replaced by their base types.</li>
-   <li>Interface Segregation Principle – The class interface implementers should not be obliged to implement methods that are not used.</li>
-   <li>Dependency Inversion Principle – Abstractions should not depend on details; the details should depend on abstractions.</li>
+   <li>Open Closed Principle ï¿½ A class must be open to extensions but closed to modifications.</li>
+   <li>Liskov Substitution Principle ï¿½ Sub-types must be able to be replaced by their base types.</li>
+   <li>Interface Segregation Principle ï¿½ The class interface implementers should not be obliged to implement methods that are not used.</li>
+   <li>Dependency Inversion Principle ï¿½ Abstractions should not depend on details; the details should depend on abstractions.</li>
    </ul>
 </li>
 <li>DDD Application Layers: Per DDD principles, PRO Center is designed with the following five layers: the presentation layer, the controller layer, the application layer, the domain layer, and the infrastructure layer. The goal is to avoid the following anti-patterns typically found in many software systems: a fat application layer, an anemic domain model, and a tangled mess in general.</li>
