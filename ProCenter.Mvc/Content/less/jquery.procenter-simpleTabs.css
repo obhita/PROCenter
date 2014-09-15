@@ -1,0 +1,33 @@
+.simpleTabs-container .tabs {
+  list-style: none;
+  margin: 12px 0px 0px 0px;
+  padding: 0 0 3px 0;
+  border-bottom: #2b6588 solid 2px;
+}
+.simpleTabs-container .tabs li {
+  float: left;
+  margin-left: 1px;
+}
+.simpleTabs-container .tabs li:first-child {
+  margin-left: 0;
+}
+.simpleTabs-container .tabs li.clear {
+  float: none;
+}
+.simpleTabs-container .tabs li a {
+  background: #c8e4f7;
+  padding: 5px;
+  margin-left: 4px;
+  text-decoration: none;
+}
+.simpleTabs-container .tabs li a span {
+  color: #2b6588;
+}
+.simpleTabs-container .tabs li a.selected,
+.simpleTabs-container .tabs li a:hover {
+  background: #2b6588;
+}
+.simpleTabs-container .tabs li a.selected span,
+.simpleTabs-container .tabs li a:hover span {
+  color: white;
+}

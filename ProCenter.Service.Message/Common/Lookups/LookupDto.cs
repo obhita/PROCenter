@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common.Lookups
 {
     #region Using Statements
@@ -33,61 +36,125 @@ namespace ProCenter.Service.Message.Common.Lookups
 
     #endregion
 
-    /// <summary>
-    ///     Data transfer object for Lookup.
-    /// </summary>
+    /// <summary>Data transfer object for Lookup.</summary>
     public class LookupDto : IEquatable<LookupDto>, IComparable<LookupDto>
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the code.
+        /// </summary>
+        /// <value>
+        /// The code.
+        /// </value>
         public string Code { get; set; }
 
-        public string Name { get; set; }
-
-        public int Value { get; set; }
-
+        /// <summary>
+        /// Gets or sets a value indicating whether [is default].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is default]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsDefault { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the sort order.
+        /// </summary>
+        /// <value>
+        /// The sort order.
+        /// </value>
         public int? SortOrder { get; set; }
 
-        #region IEquatable<LookupDto> Members
-
-        public bool Equals(LookupDto other)
-        {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return string.Equals(Code, other.Code);
-        }
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public int Value { get; set; }
 
         #endregion
 
-        public int CompareTo(LookupDto other)
+        #region Public Methods and Operators
+
+        /// <summary>Compares the current object with another object of the same type.</summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        /// A value that indicates the relative order of the objects being compared. 
+        /// The return value has the following meanings: Value Meaning Less than zero This object is less than the <paramref name="other" /> parameter.Zero 
+        /// This object is equal to <paramref name="other" />. Greater than zero This object is greater than <paramref name="other" />.
+        /// </returns>
+        public int CompareTo ( LookupDto other )
         {
-            if (Code == null && other.Code == null)
+            if ( Code == null && other.Code == null )
             {
                 return 0;
             }
-            if (Code == null)
+            if ( Code == null )
             {
-                return other.Code.CompareTo(Code);
+                return other.Code.CompareTo ( Code );
             }
-            return Code.CompareTo(other.Code);
+            return Code.CompareTo ( other.Code );
         }
 
-        public override bool Equals(object obj)
+        /// <summary>Indicates whether the current object is equal to another object of the same type.</summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.</returns>
+        public bool Equals ( LookupDto other )
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != GetType()) return false;
-            return Equals((LookupDto) obj);
+            if ( ReferenceEquals ( null, other ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, other ) )
+            {
+                return true;
+            }
+            return string.Equals ( Code, other.Code );
         }
 
-        public override int GetHashCode()
+        /// <summary>Determines whether the specified <see cref="System.Object" />, is equal to this instance.</summary>
+        /// <param name="obj">The <see cref="System.Object" /> to compare with this instance.</param>
+        /// <returns><c>True</c> if the specified <see cref="System.Object" /> is equal to this instance; otherwise, <c>False</c>.</returns>
+        public override bool Equals ( object obj )
         {
-            return (Code != null ? Code.GetHashCode() : 0);
+            if ( ReferenceEquals ( null, obj ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, obj ) )
+            {
+                return true;
+            }
+            if ( obj.GetType () != GetType () )
+            {
+                return false;
+            }
+            return Equals ( (LookupDto)obj );
         }
 
-        public override string ToString()
+        /// <summary>Returns a hash code for this instance.</summary>
+        /// <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table. </returns>
+        public override int GetHashCode ()
+        {
+            return ( Code != null ? Code.GetHashCode () : 0 );
+        }
+
+        /// <summary>Returns a <see cref="System.String" /> that represents this instance.</summary>
+        /// <returns>A <see cref="System.String" /> that represents this instance.</returns>
+        public override string ToString ()
         {
             return Name;
         }
+
+        #endregion
     }
 }

@@ -53,30 +53,19 @@
     <Reference Include="Dapper">
       <HintPath>..\packages\Dapper-Async.1.03\lib\net45\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="EventStore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EventStore.3.2.0.28\lib\net40\EventStore.dll</HintPath>
+    <Reference Include="NEventStore">
+      <HintPath>..\packages\NEventStore.4.0.0.15\lib\net40\NEventStore.dll</HintPath>
     </Reference>
-    <Reference Include="EventStore.Persistence.RavenPersistence, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EventStore.Persistence.RavenPersistence.3.2.0.28\lib\net40\EventStore.Persistence.RavenPersistence.dll</HintPath>
+    <Reference Include="NEventStore.Persistence.RavenPersistence">
+      <HintPath>..\packages\NEventStore.Persistence.RavenPersistence.4.1.0.10\lib\net40\NEventStore.Persistence.RavenPersistence.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus">
-      <HintPath>..\packages\NServiceBus.Interfaces.4.0.3\lib\net40\NServiceBus.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.Core">
-      <HintPath>..\packages\NServiceBus.4.0.3\lib\net40\NServiceBus.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NServiceBus.ObjectBuilder.StructureMap">
-      <HintPath>..\packages\NServiceBus.StructureMap.4.0.3\lib\net40\NServiceBus.ObjectBuilder.StructureMap.dll</HintPath>
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Common">
       <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
@@ -100,13 +89,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+    <Reference Include="Raven.Abstractions, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+    <Reference Include="Raven.Client.Lightweight, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -116,11 +105,23 @@
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.IdentityModel" />
+    <Reference Include="System.IdentityModel.Services" />
+    <Reference Include="System.IdentityModel.Tokens.Jwt, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Thinktecture.IdentityModel, Version=3.4.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Thinktecture.IdentityModel.3.4.6\lib\net45\Thinktecture.IdentityModel.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\VersionInfo.cs">
@@ -134,8 +135,10 @@
     <Compile Include="Domain\Repositories\AssessmentDefinitionRepository.cs" />
     <Compile Include="Domain\Repositories\AssessmentInstanceRepository.cs" />
     <Compile Include="Domain\Repositories\AssessmentReminderRepository.cs" />
+    <Compile Include="Domain\Repositories\RecentReportRepository.cs" />
     <Compile Include="Domain\Repositories\OrganizationRepository.cs" />
     <Compile Include="Domain\Repositories\PatientRepository.cs" />
+    <Compile Include="Domain\Repositories\ReportTemplateRepository.cs" />
     <Compile Include="Domain\Repositories\RepositoryBase.cs" />
     <Compile Include="Domain\Repositories\RoleRepository.cs" />
     <Compile Include="Domain\Repositories\StaffRepository.cs" />
@@ -152,6 +155,7 @@
     <Compile Include="EventStore\IEventStoreRepository.cs" />
     <Compile Include="EventStore\PersistenceException.cs" />
     <Compile Include="EventStore\PipelineHook\AuditPipelineHook.cs" />
+    <Compile Include="EventStore\ProCenterJsonSerializer.cs" />
     <Compile Include="EventStore\UnitOfWork.cs" />
     <Compile Include="EventStore\UnitOfWorkProvider.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
@@ -161,41 +165,26 @@
     <Compile Include="IUnitOfWorkProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Security\IInternalPermissionDescriptor.cs" />
-    <Compile Include="Security\SetupSystemAdminBootstrapperTask.cs" />
     <Compile Include="Security\SystemAdministrationPermission.cs" />
-    <Compile Include="Service\AggregateConverter.cs" />
     <Compile Include="Service\AllowPrivateSetterContractResolver.cs" />
     <Compile Include="Service\Completeness\AssessmentCompletenessManager.cs" />
-    <Compile Include="Service\Completeness\CompletenessResults.cs" />
     <Compile Include="Service\Completeness\CompletenessRuleCollectionFactory.cs" />
     <Compile Include="Service\Completeness\IAssessmentCompletenessManager.cs" />
     <Compile Include="Service\Completeness\ICompletenessRuleCollectionFactory.cs" />
     <Compile Include="Service\Completeness\PropertyRuleExtensions.cs" />
+    <Compile Include="Service\IdentityServiceResponse.cs" />
+    <Compile Include="Service\ISystemAccountIdentityServiceManager.cs" />
     <Compile Include="Service\LookupProvider.cs" />
     <Compile Include="Service\PropertyNameMapper.cs" />
-    <Compile Include="Service\ReadSideService\AssessmentDefinitionUpdater.cs" />
-    <Compile Include="Service\ReadSideService\AssessmentInstanceUpdater.cs" />
-    <Compile Include="Service\ReadSideService\AssessmentReminderUpdater.cs" />
-    <Compile Include="Service\ReadSideService\ConnectionStringConfigurationProvider.cs" />
-    <Compile Include="Service\ReadSideService\IConnectionStringConfigurationProvider.cs" />
-    <Compile Include="Service\ReadSideService\IDbConnectionFactory.cs" />
-    <Compile Include="Service\ReadSideService\IHandleMessages.cs" />
-    <Compile Include="Service\ReadSideService\OrganizationUpdater.cs" />
-    <Compile Include="Service\ReadSideService\PatientUpdater.cs" />
-    <Compile Include="Service\ReadSideService\ReadSidePersistenceDispatcher.cs" />
-    <Compile Include="Service\ReadSideService\WorkflowReportUpdater.cs" />
-    <Compile Include="Service\ReadSideService\RoleUpdater.cs" />
-    <Compile Include="Service\ReadSideService\SqlConnectionFactory.cs" />
-    <Compile Include="Service\ReadSideService\StaffUpdater.cs" />
-    <Compile Include="Service\ReadSideService\TeamUpdater.cs" />
-    <Compile Include="Service\ReadSideService\SystemAcountUpdater.cs" />
-    <Compile Include="Service\ReadSideService\WorkflowMessageUpdater.cs" />
     <Compile Include="Service\RequestProcessorBase.cs" />
     <Compile Include="Service\RuleViolationEventInterceptor.cs" />
+    <Compile Include="Service\SystemAccountIdentityServiceManager.cs" />
     <Compile Include="Service\UnitOfWorkRequestProcessor.cs" />
     <Compile Include="IUserContextService.cs" />
+    <Compile Include="UserContextRederer.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -207,9 +196,21 @@
       <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
       <Name>ProCenter.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.GainShortScreener\ProCenter.Domain.GainShortScreener.csproj">
+      <Project>{c6a13400-f0f0-483d-96db-641722256341}</Project>
+      <Name>ProCenter.Domain.GainShortScreener</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Gpra\ProCenter.Domain.Gpra.csproj">
+      <Project>{3558dd1b-328c-4eb3-a831-ac4986444fc8}</Project>
+      <Name>ProCenter.Domain.Gpra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProCenter.Domain.Nida\ProCenter.Domain.Nida.csproj">
       <Project>{9a809ba5-55ff-4f25-a555-9aed08910998}</Project>
       <Name>ProCenter.Domain.Nida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Psc\ProCenter.Domain.Psc.csproj">
+      <Project>{9e38854f-81b2-4b7f-8b29-02ddaeb99a8b}</Project>
+      <Name>ProCenter.Domain.Psc</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProCenter.Domain\ProCenter.Domain.csproj">
       <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>
@@ -225,6 +226,7 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\lib\Shared\Stylecop\StyleCop.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

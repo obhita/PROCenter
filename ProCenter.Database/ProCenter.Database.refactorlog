@@ -49,4 +49,109 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="RoleType" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="081ccd1b-25c2-455e-9224-c47aa8407d20" ChangeDateTime="06/11/2014 16:41:48">
+    <Property Name="ElementName" Value="[dbo].[RecentReports].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecentReports]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="reportKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="867231b2-5193-48b0-8e9d-2d74e95373a6" ChangeDateTime="06/11/2014 16:42:37">
+    <Property Name="ElementName" Value="[dbo].[RecentReports].[reportKey]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecentReports]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReportKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5770b6e2-4497-497e-a00c-8028287ccd99" ChangeDateTime="06/11/2014 16:43:01">
+    <Property Name="ElementName" Value="[dbo].[RecentReports].[ReportName]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[RecentReports]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Name" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="1d85e364-e909-460d-8e2a-692fa0bbfa07" ChangeDateTime="06/12/2014 19:41:53">
+    <Property Name="ElementName" Value="[OrganizationModule].[RecentReports].[StaffKey]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[OrganizationModule].[RecentReports]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SystemAccountKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="3d42380e-8f6f-44a3-8b06-fa34a8e23b73" ChangeDateTime="06/12/2014 19:42:14">
+    <Property Name="ElementName" Value="[ReportModule].[ReportTemplate].[StaffKey]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[ReportModule].[ReportTemplate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SystemAccountKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="43ab0a94-94bd-457f-878b-c7e3a3a7bafc" ChangeDateTime="06/19/2014 18:19:23">
+    <Property Name="ElementName" Value="[MessageModule].[AssessmentReminder].[OrganizationKey]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[MessageModule].[AssessmentReminder]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AssessmentInstanceKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="39d1e889-0040-4b5a-a62a-84196c255187" ChangeDateTime="06/25/2014 13:38:44">
+    <Property Name="ElementName" Value="[ReportModule].[PatientScoreRangeReport].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[ReportModule].[PatientScoreRangeReport]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="AssessmentInstanceKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="71873de4-413a-4eda-960b-a2ebb7a38d85" ChangeDateTime="06/26/2014 21:16:05">
+    <Property Name="ElementName" Value="[AssessmentModule].[AssessmentDefinition].[ScoreKey]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[AssessmentModule].[AssessmentDefinition]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ScoreType" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="5d363862-b613-4de2-ad8d-697fde01b9b3" ChangeDateTime="06/30/2014 20:16:20">
+    <Property Name="ElementName" Value="[dbo].[ReportDefinition].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[ReportDefinition]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReportDefinitionKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="ca2bc4ce-06a8-4158-83ea-44f4be020de2" ChangeDateTime="06/30/2014 21:01:10">
+    <Property Name="ElementName" Value="[ReportModule].[ReportDefinition].[Name]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[ReportModule].[ReportDefinition]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="ReportName" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="339d1b9f-9757-42c7-8d01-0faf6148fbf4" ChangeDateTime="07/08/2014 14:16:14">
+    <Property Name="ElementName" Value="[dbo].[NotCompletedAssessmentReport].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NotCompletedAssessmentReport]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="PatientKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="9774ea8c-d4d1-462d-b09f-40908d26ccec" ChangeDateTime="07/08/2014 14:20:45">
+    <Property Name="ElementName" Value="[dbo].[NotCompletedAssessmentReport].[ScoreDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[NotCompletedAssessmentReport]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="SubmittedDate" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="35543510-1fd9-4fc8-a0f6-e2c48a668717" ChangeDateTime="07/09/2014 16:59:53">
+    <Property Name="ElementName" Value="[PatientModule].[Patient].[BirthDate]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[PatientModule].[Patient]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="DateOfBirth" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="383d659f-e1a5-4237-bda6-92050b87162e" ChangeDateTime="07/14/2014 13:11:45">
+    <Property Name="ElementName" Value="[EmailModule].[EmailTemplate].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[EmailModule].[EmailTemplate]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="EmailTemplateKey" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="0dd50d2b-43e1-4d66-8b1c-144f240e07f9" ChangeDateTime="08/25/2014 19:41:53">
+    <Property Name="ElementName" Value="[AssessmentModule].[AssessmentInstanceResponse].[Value]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[AssessmentModule].[AssessmentInstanceResponse]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="CodeValue" />
+  </Operation>
 </Operations>

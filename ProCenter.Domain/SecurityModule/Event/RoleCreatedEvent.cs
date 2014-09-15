@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,16 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
@@ -42,17 +46,19 @@ namespace ProCenter.Domain.SecurityModule.Event
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="RoleCreatedEvent" /> class.
+        ///     Initializes a new instance of the <see cref="RoleCreatedEvent" /> class.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="version">The version.</param>
         /// <param name="name">The name.</param>
+        /// <param name="organizationKey">The organization key.</param>
         /// <param name="roleType">Type of the role.</param>
-        public RoleCreatedEvent(Guid key, int version, string name, RoleType roleType)
-            : base(key, version)
+        public RoleCreatedEvent ( Guid key, int version, string name, Guid? organizationKey, RoleType roleType )
+            : base ( key, version )
         {
             Name = name;
             RoleType = roleType;
+            OrganizationKey = organizationKey;
         }
 
         #endregion
@@ -68,10 +74,10 @@ namespace ProCenter.Domain.SecurityModule.Event
         public string Name { get; private set; }
 
         /// <summary>
-        /// Gets the type of the role.
+        ///     Gets the type of the role.
         /// </summary>
         /// <value>
-        /// The type of the role.
+        ///     The type of the role.
         /// </value>
         public RoleType RoleType { get; private set; }
 

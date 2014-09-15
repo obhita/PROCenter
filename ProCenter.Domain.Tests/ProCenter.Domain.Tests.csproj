@@ -53,6 +53,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
+    </Reference>
     <Reference Include="Pillar.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
@@ -63,11 +66,13 @@
     <Reference Include="Pillar.Domain">
       <HintPath>..\lib\Pillar\Pillar.Domain.dll</HintPath>
     </Reference>
-    <Reference Include="Pillar.Domain.FluentRuleEngine">
-      <HintPath>..\..\..\Asam.Ppc\Trunk\lib\Pillar\Pillar.Domain.FluentRuleEngine.dll</HintPath>
+    <Reference Include="Pillar.Domain.FluentRuleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Pillar\Pillar.Domain.FluentRuleEngine.dll</HintPath>
     </Reference>
-    <Reference Include="Pillar.FluentRuleEngine">
-      <HintPath>..\..\..\Asam.Ppc\Trunk\lib\Pillar\Pillar.FluentRuleEngine.dll</HintPath>
+    <Reference Include="Pillar.FluentRuleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Pillar\Pillar.FluentRuleEngine.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.IoC.StructureMap, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -97,10 +102,20 @@
     </Compile>
     <Compile Include="AssessmentModule\AssessmenInstanceTests.cs" />
     <Compile Include="AssessmentModule\AssessmentDefinitionTests.cs" />
+    <Compile Include="AssessmentModule\Rules\ConstraintExtensionTests.cs" />
+    <Compile Include="AssessmentModule\Rules\ItemSkippingRuleTests.cs" />
+    <Compile Include="AssessmentModule\Rules\AbstractAssessmentRuleCollectionTests.cs" />
+    <Compile Include="AssessmentModule\Rules\SingleRuleSelector.cs" />
+    <Compile Include="AssessmentModule\Rules\TestAssessmentRuleCollection.cs" />
+    <Compile Include="AssessmentModule\Rules\AssessmentRuleEngineExecutorTests.cs" />
     <Compile Include="MessageModule\WorkflowMessageTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ProCenter.Common\ProCenter.Common.csproj">
+      <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
+      <Name>ProCenter.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProCenter.Domain\ProCenter.Domain.csproj">
       <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>
       <Name>ProCenter.Domain</Name>

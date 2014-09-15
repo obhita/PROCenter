@@ -1,0 +1,5 @@
+﻿@{
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+@Html.TextBoxFor( m => m, new { type = "text", pattern = "[-0-9]*", @class = "number", id = ViewData["id"], aria_label=@ariaLabel }  )
+

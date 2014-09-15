@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,25 +25,26 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
     #region Using Statements
 
     using System;
-    using AssessmentModule;
+
+    using ProCenter.Domain.AssessmentModule;
 
     #endregion
 
-    /// <summary>
-    /// Event for when workflow is completed.
-    /// </summary>
+    /// <summary>Event for when workflow is completed.</summary>
     public class WorkflowMessageReportReadyEvent : MessageEventBase
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WorkflowMessageReportReadyEvent" /> class.
+        ///     Initializes a new instance of the <see cref="WorkflowMessageReportReadyEvent" /> class.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="messageType">Type of the message.</param>
@@ -60,20 +62,20 @@ namespace ProCenter.Domain.MessageModule.Event
         #region Public Properties
 
         /// <summary>
-        /// Gets the workflow report.
+        ///     Gets the patient key.
         /// </summary>
         /// <value>
-        /// The workflow report.
-        /// </value>
-        public ReportModel WorkflowReport { get; private set; }
-
-        /// <summary>
-        /// Gets the patient key.
-        /// </summary>
-        /// <value>
-        /// The patient key.
+        ///     The patient key.
         /// </value>
         public Guid PatientKey { get; private set; }
+
+        /// <summary>
+        ///     Gets the workflow report.
+        /// </summary>
+        /// <value>
+        ///     The workflow report.
+        /// </value>
+        public ReportModel WorkflowReport { get; private set; }
 
         #endregion
     }

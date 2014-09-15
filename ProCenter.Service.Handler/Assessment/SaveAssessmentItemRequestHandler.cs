@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,54 +25,68 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Assessment
 {
     #region Using Statements
 
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
     using System.Linq;
     using Common;
     using Domain.AssessmentModule;
     using Domain.CommonModule.Lookups;
     using Infrastructure.Service.Completeness;
+
+    using ProCenter.Domain.CommonModule;
+
     using Service.Message.Assessment;
     using Service.Message.Common.Lookups;
 
     #endregion
 
+    /// <summary>The save assessment item request handler class.</summary>
     internal class SaveAssessmentItemRequestHandler :
         ServiceRequestHandler<SaveAssessmentItemRequest, SaveAssessmentItemResponse>
     {
-        private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
-        private readonly IAssessmentInstanceRepository _assessmentInstanceRepository;
-        private readonly IAssessmentCompletenessManager _assessmentCompletenessManager;
-
         #region Fields
 
+        private readonly IAssessmentCompletenessManager _assessmentCompletenessManager;
+
+        private readonly ILookupProvider _lookupProvider;
+
+        private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
+        private readonly IAssessmentInstanceRepository _assessmentInstanceRepository;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public SaveAssessmentItemRequestHandler(IAssessmentDefinitionRepository assessmentDefinitionRepository,
+        public SaveAssessmentItemRequestHandler ( IAssessmentDefinitionRepository assessmentDefinitionRepository,
             IAssessmentInstanceRepository assessmentInstanceRepository,
-            IAssessmentCompletenessManager assessmentCompletenessManager)
+            IAssessmentCompletenessManager assessmentCompletenessManager,
+            ILookupProvider lookupProvider)
         {
             _assessmentDefinitionRepository = assessmentDefinitionRepository;
             _assessmentInstanceRepository = assessmentInstanceRepository;
             _assessmentCompletenessManager = assessmentCompletenessManager;
+            _lookupProvider = lookupProvider;
         }
 
         #endregion
 
         #region Methods
 
-        protected override void Handle(SaveAssessmentItemRequest request, SaveAssessmentItemResponse response)
+        protected override void Handle ( SaveAssessmentItemRequest request, SaveAssessmentItemResponse response )
         {
-            var assessmentInstance = _assessmentInstanceRepository.GetByKey( request.Key );
+            var assessmentInstance = _assessmentInstanceRepository.GetByKey ( request.Key );
             var assessmentDefinition = _assessmentDefinitionRepository.GetByKey ( assessmentInstance.AssessmentDefinitionKey );
 
             var item = assessmentInstance.ItemInstances.FirstOrDefault ( i => i.ItemDefinitionCode == request.Item.ItemDefinitionCode );
+            var itemDefinition = assessmentDefinition.GetItemDefinitionByCode ( request.Item.ItemDefinitionCode );
             var value = request.Item.Value;
             if ( value is LookupDto )
             {
@@ -82,9 +97,18 @@ namespace ProCenter.Service.Handler.Assessment
                 }
                 else
                 {
-                    var itemDefinition = assessmentDefinition.GetItemDefinitionByCode ( request.Item.ItemDefinitionCode );
                     value = itemDefinition.Options.Single ( l => l.CodedConcept.Code == lookupDto.Code );
                 }
+            }
+            else if ( value is IEnumerable<LookupDto> )
+            {
+                var lookupType = itemDefinition.Options.ElementAt ( 0 ).GetType ();
+                var lookupList = (IList)Activator.CreateInstance ( typeof(List<>).MakeGenericType ( lookupType ) );
+                foreach (var lookupDto in (value as IEnumerable<LookupDto>).Where ( l => !string.IsNullOrWhiteSpace(l.Code) ))
+                {
+                    lookupList.Add(itemDefinition.Options.Single(l => l.CodedConcept.Code == lookupDto.Code));
+                }
+                value = lookupList.Count == 0 ? null : lookupList;
             }
             var hasItemUpdated = HasItemUpdated ( item, value );
             if ( hasItemUpdated )
@@ -93,12 +117,19 @@ namespace ProCenter.Service.Handler.Assessment
                 {
                     value = string.IsNullOrEmpty ( value.ToString () ) ? null : value;
                 }
-                assessmentInstance.UpdateItem ( request.Item.ItemDefinitionCode, value );
+                assessmentInstance.UpdateItem ( itemDefinition, value );
             }
-
-            var completenessResults = _assessmentCompletenessManager.CalculateCompleteness(CompletenessCategory.Report, assessmentInstance, assessmentDefinition);
-            assessmentInstance.UpdatePercentComplete(completenessResults.PercentComplete);
-            response.CanSubmit = !assessmentInstance.IsSubmitted && completenessResults.NumberIncomplete == 0;
+            var assessmentCompleteness = assessmentInstance.CalculateCompleteness ();
+            response.CanSubmit = !assessmentInstance.IsSubmitted && assessmentCompleteness.IsComplete;
+            var containingSection = assessmentDefinition.GetContainingSection ( itemDefinition );
+            if ( containingSection is AssessmentDefinition )
+            {
+                response.PercentComplete = assessmentCompleteness.PercentComplete;
+            }
+            else if(containingSection is ItemDefinition)
+            {
+                response.PercentComplete = _assessmentCompletenessManager.CalculateCompleteness ( assessmentInstance, containingSection as ItemDefinition ).PercentComplete;
+            }
         }
 
         private static bool HasItemUpdated ( ItemInstance item, object value )

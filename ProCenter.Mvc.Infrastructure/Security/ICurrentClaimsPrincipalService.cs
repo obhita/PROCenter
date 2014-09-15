@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
     #region Using Statements
@@ -33,9 +36,7 @@ namespace ProCenter.Mvc.Infrastructure.Security
 
     #endregion
 
-    /// <summary>
-    ///     This interface serves the claims information for current user.
-    /// </summary>
+    /// <summary>This interface serves the claims information for current user.</summary>
     public interface ICurrentClaimsPrincipalService
     {
         #region Public Methods and Operators

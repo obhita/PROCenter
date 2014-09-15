@@ -44,11 +44,15 @@
     <Reference Include="Moq">
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
+    </Reference>
     <Reference Include="Pillar.Common">
       <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Pillar.Common.Tests">
-      <HintPath>..\bin\Debug\Pillar.Common.Tests.dll</HintPath>
+    <Reference Include="Pillar.Common.Tests, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Pillar\Pillar.Common.Tests.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Domain">
       <HintPath>..\ProCenter.Mvc\Bin\Pillar.Domain.dll</HintPath>

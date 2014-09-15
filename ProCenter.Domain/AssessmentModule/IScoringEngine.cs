@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
+    /// <summary>Interface for scoring engine.</summary>
     public interface IScoringEngine
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the name of the assessment.
+        /// </summary>
+        /// <value>
+        /// The name of the assessment.
+        /// </value>
         string AssessmentName { get; }
 
-        void CalculateScore(AssessmentInstance assessment);
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Calculates the score.</summary>
+        /// <param name="assessment">The assessment.</param>
+        void CalculateScore ( AssessmentInstance assessment );
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
@@ -36,19 +39,20 @@ namespace ProCenter.Domain.CommonModule
 
     #endregion
 
-    /// <summary>
-    ///     Convention based event router.
-    /// </summary>
+    /// <summary>Convention based event router.</summary>
     /// <remarks>
-    ///     Will automatically register event handlers for events by looking at the aggregate and registering methods named Apply
-    ///     that return void and take only one parameter that is an event.
+    /// Will automatically register event handlers for events by looking at the aggregate and registering methods named
+    /// Apply
+    /// that return void and take only one parameter that is an event.
     /// </remarks>
     public class ConventionEventRouter : IRouteEvents
     {
         #region Fields
 
         private readonly IDictionary<Type, Action<object>> _handlers = new Dictionary<Type, Action<object>> ();
+
         private readonly bool _throwOnApplyNotFound;
+
         private IAggregateRoot _registered;
 
         #endregion
@@ -67,7 +71,7 @@ namespace ProCenter.Domain.CommonModule
         ///     Initializes a new instance of the <see cref="ConventionEventRouter" /> class.
         /// </summary>
         /// <param name="throwOnApplyNotFound">
-        ///     if set to <c>true</c> throws exception if apply method not found.
+        ///     If set to <c>true</c> throws exception if apply method not found.
         /// </param>
         public ConventionEventRouter ( bool throwOnApplyNotFound )
         {
@@ -79,7 +83,7 @@ namespace ProCenter.Domain.CommonModule
         /// </summary>
         /// <param name="aggregate">The aggregate.</param>
         /// <param name="throwOnApplyNotFound">
-        ///     if set to <c>true</c> throws exception if apply method not found.
+        ///     If set to <c>true</c> throws exception if apply method not found.
         /// </param>
         public ConventionEventRouter ( IAggregateRoot aggregate, bool throwOnApplyNotFound = true )
             : this ( throwOnApplyNotFound )
@@ -92,65 +96,76 @@ namespace ProCenter.Domain.CommonModule
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Dispatches the specified event message.
+        /// Dispatches the specified event message.
         /// </summary>
         /// <param name="eventMessage">The event message.</param>
-        /// <exception cref="System.ArgumentNullException">eventMessage</exception>
-        /// <exception cref="System.InvalidOperationException"></exception>
+        /// <exception cref="System.ArgumentNullException">EventMessage null exception.</exception>
+        /// <exception cref="System.InvalidOperationException">Handler not found.</exception>
         public virtual void Dispatch ( object eventMessage )
         {
             if ( eventMessage == null )
+            {
                 throw new ArgumentNullException ( "eventMessage" );
+            }
 
             var eventType = eventMessage.GetType ();
 
             Action<object> handler;
             if ( _handlers.TryGetValue ( eventType, out handler ) )
+            {
                 handler ( eventMessage );
+            }
             else if ( _throwOnApplyNotFound )
+            {
                 throw new InvalidOperationException ( string.Format ( "Handler not found for event {0} on {1} aggregate", eventType, _registered.GetType () ) );
+            }
         }
 
         /// <summary>
         ///     Registers the specified handler.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Type of event.</typeparam>
         /// <param name="handler">The handler.</param>
-        /// <exception cref="System.ArgumentNullException">handler</exception>
+        /// <exception cref="System.ArgumentNullException">Handler null exception.</exception>
         public virtual void Register<T> ( Action<T> handler )
         {
             if ( handler == null )
+            {
                 throw new ArgumentNullException ( "handler" );
+            }
 
-            Register ( typeof(T), @event => handler ( (T) @event ) );
+            Register ( typeof(T), @event => handler ( (T)@event ) );
         }
 
         /// <summary>
         ///     Registers the specified aggregate.
         /// </summary>
         /// <param name="aggregate">The aggregate.</param>
-        /// <exception cref="System.ArgumentNullException">aggregate</exception>
+        /// <exception cref="System.ArgumentNullException">Aggregate null exception.</exception>
         public virtual void Register ( IAggregateRoot aggregate )
         {
             if ( aggregate == null )
+            {
                 throw new ArgumentNullException ( "aggregate" );
+            }
 
             _registered = aggregate;
 
             // Get instance methods named Apply with one parameter returning void
             var applyMethods = aggregate.GetType ()
-                                        .GetMethods ( BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance )
-                                        .Where ( m => m.Name == "Apply" && m.GetParameters ().Length == 1 && m.ReturnType == typeof(void) )
-                                        .Select ( m => new
-                                            {
-                                                Method = m,
-                                                MessageType = m.GetParameters ().Single ().ParameterType
-                                            } );
+                .GetMethods ( BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance )
+                .Where ( m => m.Name == "Apply" && m.GetParameters ().Length == 1 && m.ReturnType == typeof(void) )
+                .Select (
+                         m => new
+                              {
+                                  Method = m,
+                                  MessageType = m.GetParameters ().Single ().ParameterType
+                              } );
 
             foreach ( var apply in applyMethods )
             {
                 var applyMethod = apply.Method;
-                _handlers.Add ( apply.MessageType, m => applyMethod.Invoke ( aggregate, new[] {m} ) );
+                _handlers.Add ( apply.MessageType, m => applyMethod.Invoke ( aggregate, new[] { m } ) );
             }
         }
 

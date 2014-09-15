@@ -1,24 +1,27 @@
-﻿
-@{
-    var modalId = ViewData["ModalId"].ToString();
+﻿@{
+    var modalId = ViewData["ModalId"].ToString ();
     var addId = @modalId + "-add-btn";
-    var title = ViewData["Title"].ToString();
+    var title = ViewData["Title"].ToString ();
     var loadingId = modalId + "-loading";
 }
-
 <a href="#@modalId" role="button" class="btn btn-small btn-success" data-toggle="modal" data-icon="&#xe102;"></a>
-
-<div id="@modalId" class="modal hide fade" role="dialog" aria-hidden="true">
+<div id="@modalId" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="create-patient-label" aria-hidden="true">
     <div class="modal-header">
-        <a href="#" role="button" class="close" data-dismiss="modal">×</a>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>Add @title</h3>
+    </div>    
+    <div class="field-validation-error hidden modal-error">
     </div>
     <div class="modal-body">
-        @Html.EditorForModel()
+        <form>
+            <div class="container-fluid" data-ajaxform-ignore>
+                @Html.EditorForModel()
+            </div>
+        </form>
     </div>
     <div class="modal-footer">
-        <a href="#" role="button" class="btn" data-dismiss="modal">Cancel</a>
-        <a id="@addId" role="button" class="btn btn-primary" data-loadelementid="@loadingId">Add</a>
-    </div>
+        <button class="btn" role="button" data-dismiss="modal" aria-hidden="true">Cancel</button>
+        <input id="@addId" value="Create" type="submit" class="btn btn-primary" data-loadelementid="@loadingId" aria-hidden="true"/>
+    </div>    
     <div id="@loadingId" class="modal-loading-indicator" style="display: none"></div>
 </div>

@@ -1,0 +1,1410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="PatientHelpInformation" xml:space="preserve">
+    <value>The implemented GPRA Interview Tool (revised 06/01/2012 and expiration date 05/31/2015) is to support collecting the CSAT GPRA Core Client Outcome Measures for Discretionary Services Programs. The tool can be used at GPRA intake/baseline, 3-month follow up (for adolescent programs), 6-month follow up and at discharge. The windows to complete the GPRA interviews are described in the following. 
+Windows for GPRA Interview Completion
+ &lt;br/&gt; &lt;br/&gt;
+&lt;b&gt;Intake/Baseline:&lt;/b&gt;
+&lt;ul&gt;
+&lt;li&gt;For residential facilities, GPRA intake/baseline interviews must be completed within 3 days after the client enters the program.&lt;/li&gt;
+&lt;li&gt;For nonresidential programs, GPRA intake/baseline interviews must be completed within 4 days after the client enters the program.&lt;/li&gt;
+&lt;li&gt;For grants under the guidance for applicants (GFA) Recovery Community Services Program (RCSP), GPRA intake/baseline interviews must be completed within two to five contacts after the client enters the program. Program entry date should be the date which the client began receiving CSAT funded services.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;b&gt;Discharge:&lt;/b&gt;
+&lt;ul&gt;
+&lt;li&gt;Discharge interviews must be completed at the time of discharge. The CSAT GPRA definition of discharge should follow the grantee’s definition. &lt;/li&gt;
+&lt;/ul&gt;
+&lt;b&gt;Follow-Up:&lt;/b&gt;
+&lt;ul&gt;
+&lt;li&gt;Follow-up interviews should be completed by the number of months specified (3 or 6) from the GPRA intake/baseline interview date. CSAT provides a window period allowed for these GPRA follow-up interviews, it can be one month before the (3 or 6 month) anniversary date and up to two months after the (3 or 6 month) anniversary date.&lt;/li&gt;
+&lt;/ul&gt;
+More information can be found in SAMHSA document, Question-by-Question Instruction Guide for GPRA Client Outcome Measures for Discretionary Programs
+ &lt;br/&gt; &lt;br/&gt;
+https://www.samhsa-gpra.samhsa.gov/CSAT/view/docs/SAIS_GPRA_Services_Tool_QxQ_final.pdf</value>
+  </data>
+  <data name="_0000001" xml:space="preserve">
+    <value>Contract/Grant ID</value>
+    <comment>ContractGrantId</comment>
+  </data>
+  <data name="_0000002" xml:space="preserve">
+    <value>Client Type</value>
+    <comment>GpraPatientType</comment>
+  </data>
+  <data name="_0000003" xml:space="preserve">
+    <value>Interview Type</value>
+    <comment>GpraInterviewType</comment>
+  </data>
+  <data name="_0000004" xml:space="preserve">
+    <value>Did you conduct an interview?</value>
+    <comment>ConductedInterviewIndicator</comment>
+  </data>
+  <data name="_0000005" xml:space="preserve">
+    <value>Is this a methamphetamine client?</value>
+    <comment>MethamphetaminePatientIndicator</comment>
+  </data>
+  <data name="_0000006" xml:space="preserve">
+    <value>Was the client screened by your program for co-occurring mental health and substance use disorders?</value>
+    <comment>CooccuringMhSaScreenerIndicator</comment>
+  </data>
+  <data name="_0000007" xml:space="preserve">
+    <value>Did the client screen positive for co-occurring mental health and substance use disorders?</value>
+    <comment>PositiveCooccuringMhSaScreenerIndicator</comment>
+  </data>
+  <data name="_0000008" xml:space="preserve">
+    <value>Case Management</value>
+    <comment>ModalityCaseMgmtIndicator</comment>
+  </data>
+  <data name="_0000009" xml:space="preserve">
+    <value>Day Treatment </value>
+    <comment>ModalityDayTreatmentIndicator</comment>
+  </data>
+  <data name="_0000010" xml:space="preserve">
+    <value>Inpatient/Hospital (Other Than Detox) </value>
+    <comment>ModalityInpatientHospitalIndicator</comment>
+  </data>
+  <data name="_0000011" xml:space="preserve">
+    <value>Outpatient </value>
+    <comment>ModalityOutpatientIndicator</comment>
+  </data>
+  <data name="_0000012" xml:space="preserve">
+    <value>Outreach</value>
+    <comment>ModalityOutreachIndicator</comment>
+  </data>
+  <data name="_0000013" xml:space="preserve">
+    <value>Intensive Outpatient</value>
+    <comment>ModalityIntensiveOutpatientIndicator</comment>
+  </data>
+  <data name="_0000014" xml:space="preserve">
+    <value>Methadone</value>
+    <comment>ModalityMethadoneIndicator</comment>
+  </data>
+  <data name="_0000015" xml:space="preserve">
+    <value>Residential/Rehabilitation</value>
+    <comment>ModalityResidentialRehabilitationIndicator</comment>
+  </data>
+  <data name="_0000016" xml:space="preserve">
+    <value>Detoxification</value>
+    <comment>ModalityGpraDetoxificationLocation</comment>
+  </data>
+  <data name="_0000017" xml:space="preserve">
+    <value>After Care</value>
+    <comment>ModalityAfterCareIndicator</comment>
+  </data>
+  <data name="_0000018" xml:space="preserve">
+    <value>Recovery Support</value>
+    <comment>ModalityRecoverySupportIndicator</comment>
+  </data>
+  <data name="_0000019" xml:space="preserve">
+    <value>Other</value>
+    <comment>ModalityOtherSpecificationIndicator</comment>
+  </data>
+  <data name="_0000020" xml:space="preserve">
+    <value>Specify</value>
+    <comment>ModalitySpecificationNote</comment>
+  </data>
+  <data name="_0000021" xml:space="preserve">
+    <value>Screening</value>
+    <comment>TreatmentScreeningIndicator</comment>
+  </data>
+  <data name="_0000022" xml:space="preserve">
+    <value>Brief Intervention</value>
+    <comment>TreatmentBriefInterventionIndicator</comment>
+  </data>
+  <data name="_0000023" xml:space="preserve">
+    <value>Brief Treatment</value>
+    <comment>TreatmentBriefTreatmentIndicator</comment>
+  </data>
+  <data name="_0000024" xml:space="preserve">
+    <value>Referral to Treatment</value>
+    <comment>TreatmentReferralToTreatmentIndicator</comment>
+  </data>
+  <data name="_0000025" xml:space="preserve">
+    <value>Assessment</value>
+    <comment>TreatmentAssessmentIndicator</comment>
+  </data>
+  <data name="_0000026" xml:space="preserve">
+    <value>Treatment/Recovery Planning</value>
+    <comment>TreatmentRecoveryPlanningIndicator</comment>
+  </data>
+  <data name="_0000027" xml:space="preserve">
+    <value>Individual Counseling</value>
+    <comment>TreatmentIndividualCounselingIndicator</comment>
+  </data>
+  <data name="_0000028" xml:space="preserve">
+    <value>Group Counseling</value>
+    <comment>TreatmentGroupCounselingIndicator</comment>
+  </data>
+  <data name="_0000029" xml:space="preserve">
+    <value>Family/Marriage Counseling</value>
+    <comment>TreatmentFamilyCounselingIndicator</comment>
+  </data>
+  <data name="_0000030" xml:space="preserve">
+    <value>Co-Occurring Treatment/Recovery Services</value>
+    <comment>TreatmentCooccuringTreatmentIndicator</comment>
+  </data>
+  <data name="_0000031" xml:space="preserve">
+    <value>Pharmacological Interventions</value>
+    <comment>TreatmentPharmacologicalInterventionsIndicator</comment>
+  </data>
+  <data name="_0000032" xml:space="preserve">
+    <value>HIV/AIDS Counseling</value>
+    <comment>TreatmentHivAidsCounselingIndicator</comment>
+  </data>
+  <data name="_0000033" xml:space="preserve">
+    <value>Other Clinical Services</value>
+    <comment>TreatmentOtherSpecificationIndicator</comment>
+  </data>
+  <data name="_0000034" xml:space="preserve">
+    <value>Specify</value>
+    <comment>TreatmentSpecificationNote</comment>
+  </data>
+  <data name="_0000035" xml:space="preserve">
+    <value>Family Services (Including Marriage Education, Parenting, Child Development Services)</value>
+    <comment>CaseMgmtFamilyServicesIndicator</comment>
+  </data>
+  <data name="_0000036" xml:space="preserve">
+    <value>Child Care</value>
+    <comment>CaseMgmtChildCareIndicator</comment>
+  </data>
+  <data name="_0000037" xml:space="preserve">
+    <value>Employment Service.  A. Pre-employement</value>
+    <comment>CaseMgmtPreemploymentIndicator</comment>
+  </data>
+  <data name="_0000038" xml:space="preserve">
+    <value>Employment Service.  B. Employment Coaching</value>
+    <comment>CaseMgmtEmploymentCoachingIndicator</comment>
+  </data>
+  <data name="_0000039" xml:space="preserve">
+    <value>Individual Services Coordination</value>
+    <comment>CaseMgmtIndividualServicesCoordinationIndicator</comment>
+  </data>
+  <data name="_0000040" xml:space="preserve">
+    <value>Transportation</value>
+    <comment>CaseMgmtTransportationIndicator</comment>
+  </data>
+  <data name="_0000041" xml:space="preserve">
+    <value>HIV/AIDS Service</value>
+    <comment>CaseMgmtHivAidsServiceIndicator</comment>
+  </data>
+  <data name="_0000042" xml:space="preserve">
+    <value>Supportive Transitional Drug-Free Housing Services</value>
+    <comment>CaseMgmtTransitionalDrugFreeHousingIndicator</comment>
+  </data>
+  <data name="_0000043" xml:space="preserve">
+    <value>Other Case Management Services</value>
+    <comment>CaseMgmtOtherIndicator</comment>
+  </data>
+  <data name="_0000044" xml:space="preserve">
+    <value>Case Management Services Question 8 specification</value>
+    <comment>CaseMgmtSpecificationNote</comment>
+  </data>
+  <data name="_0000045" xml:space="preserve">
+    <value>Medical Care</value>
+    <comment>MedicalCareIndicator</comment>
+  </data>
+  <data name="_0000046" xml:space="preserve">
+    <value>Alcohol/Drug Testing</value>
+    <comment>MedicalAlcoholDrugTestIndicator</comment>
+  </data>
+  <data name="_0000047" xml:space="preserve">
+    <value>HIV/ AIDS Medical Support &amp; Testing</value>
+    <comment>MedicalHivAidsSupportAndTestingIndicator</comment>
+  </data>
+  <data name="_0000048" xml:space="preserve">
+    <value>Other Medical Services</value>
+    <comment>MedicalOtherIndicator</comment>
+  </data>
+  <data name="_0000049" xml:space="preserve">
+    <value>Specify</value>
+    <comment>MedicalSpecificationNote</comment>
+  </data>
+  <data name="_0000050" xml:space="preserve">
+    <value>Continuing Care</value>
+    <comment>AfterCareContinuingCareIndicator</comment>
+  </data>
+  <data name="_0000051" xml:space="preserve">
+    <value>Relapse Prevention</value>
+    <comment>AfterCareRelapsePreventionIndicator</comment>
+  </data>
+  <data name="_0000052" xml:space="preserve">
+    <value>Recovery Coaching</value>
+    <comment>AfterCareRecoveryCoachingIndicator</comment>
+  </data>
+  <data name="_0000053" xml:space="preserve">
+    <value>Self-Help and Support Groups</value>
+    <comment>AfterCareSelfHelpSupportGroupsIndicator</comment>
+  </data>
+  <data name="_0000054" xml:space="preserve">
+    <value>Spiritual Support</value>
+    <comment>AfterCareSpiritualSupportIndicator</comment>
+  </data>
+  <data name="_0000055" xml:space="preserve">
+    <value>Other After Care Services</value>
+    <comment>AfterCareOtherIndicator</comment>
+  </data>
+  <data name="_0000056" xml:space="preserve">
+    <value>Specify</value>
+    <comment>AfterCareSpecificationNote</comment>
+  </data>
+  <data name="_0000057" xml:space="preserve">
+    <value>Substance Abuse Education</value>
+    <comment>EducationSaIndicator</comment>
+  </data>
+  <data name="_0000058" xml:space="preserve">
+    <value>HIV/AIDS Education</value>
+    <comment>EducationHivAidsIndicator</comment>
+  </data>
+  <data name="_0000059" xml:space="preserve">
+    <value>Other Education Services</value>
+    <comment>EducationOtherIndicator</comment>
+  </data>
+  <data name="_0000060" xml:space="preserve">
+    <value>Specify</value>
+    <comment>EducationSpecificationNote</comment>
+  </data>
+  <data name="_0000061" xml:space="preserve">
+    <value>Peer Coaching or Mentoring</value>
+    <comment>PeerToPeerRecoverySupportCoachingIndicator</comment>
+  </data>
+  <data name="_0000062" xml:space="preserve">
+    <value>Housing Support</value>
+    <comment>PeerToPeerRecoverySupportHousingIndicator</comment>
+  </data>
+  <data name="_0000063" xml:space="preserve">
+    <value>Alcohol-and Drug-Free Social Activities</value>
+    <comment>PeerToPeerRecoverySupportAlcholDrugFreeActivitiesIndicator</comment>
+  </data>
+  <data name="_0000064" xml:space="preserve">
+    <value>Information and Referral</value>
+    <comment>PeerToPeerRecoverySupportInformationReferralIndicator</comment>
+  </data>
+  <data name="_0000065" xml:space="preserve">
+    <value>Other Peer-to-Peer Recovery Support Services</value>
+    <comment>PeerToPeerRecoverySupportOtherIndicator</comment>
+  </data>
+  <data name="_0000066" xml:space="preserve">
+    <value>Specify</value>
+    <comment>PeerToPeerRecoverySupportSpecificationNote</comment>
+  </data>
+  <data name="_0000067" xml:space="preserve">
+    <value>What is your gender?</value>
+    <comment>GpraPatientGender</comment>
+  </data>
+  <data name="_0000068" xml:space="preserve">
+    <value>Specify</value>
+    <comment>GpraPatientGenderSpecificationNote</comment>
+  </data>
+  <data name="_0000069" xml:space="preserve">
+    <value>Are you Hispanic or Latino? [IF YES] What ethnic group do you consider yourself? Please answer yes or no for each of the following. You may say yes to more than one.</value>
+    <comment>EthnicHispanicLatinoIndicator</comment>
+  </data>
+  <data name="_0000070" xml:space="preserve">
+    <value>Central American</value>
+    <comment>EthnicGroupCentralAmericanIndicator</comment>
+  </data>
+  <data name="_0000071" xml:space="preserve">
+    <value>Cuban</value>
+    <comment>EthnicGroupCubanIndicator</comment>
+  </data>
+  <data name="_0000072" xml:space="preserve">
+    <value>Dominican</value>
+    <comment>EthnicGroupDominicanIndicator</comment>
+  </data>
+  <data name="_0000073" xml:space="preserve">
+    <value>Mexican</value>
+    <comment>EthnicGroupMexicanIndicator</comment>
+  </data>
+  <data name="_0000074" xml:space="preserve">
+    <value>Puerto Rican</value>
+    <comment>EthnicGroupPuertoRicanIndicator</comment>
+  </data>
+  <data name="_0000075" xml:space="preserve">
+    <value>South American</value>
+    <comment>EthnicGroupSouthAmericanIndicator</comment>
+  </data>
+  <data name="_0000076" xml:space="preserve">
+    <value>Other (Specify)</value>
+    <comment>EthnicGroupOtherIndicator</comment>
+  </data>
+  <data name="_0000077" xml:space="preserve">
+    <value>Other specification</value>
+    <comment>EthnicGroupSpecificationNote</comment>
+  </data>
+  <data name="_0000078" xml:space="preserve">
+    <value>What is your race? Please answer yes or no for each of the following. You may say yes to more than one. Black or African American</value>
+    <comment>RaceBlackAfricanAmericanIndicator</comment>
+  </data>
+  <data name="_0000079" xml:space="preserve">
+    <value>Asian</value>
+    <comment>RaceAsianIndicator</comment>
+  </data>
+  <data name="_0000080" xml:space="preserve">
+    <value>Native Hawaiian or other Pacific Islander</value>
+    <comment>RaceNativeHawaiianOtherPacificIslanderIndicator</comment>
+  </data>
+  <data name="_0000081" xml:space="preserve">
+    <value>Alaska Native</value>
+    <comment>RaceAlaskaNativeIndicator</comment>
+  </data>
+  <data name="_0000082" xml:space="preserve">
+    <value>White</value>
+    <comment>RaceWhiteIndicator</comment>
+  </data>
+  <data name="_0000083" xml:space="preserve">
+    <value>American Indian</value>
+    <comment>RaceAmericanIndianIndicator</comment>
+  </data>
+  <data name="_0000084" xml:space="preserve">
+    <value>What is your date of birth?</value>
+    <comment>DateOfBirth</comment>
+  </data>
+  <data name="_0000085" xml:space="preserve">
+    <value>Are you a veteran?</value>
+    <comment>VeteranIndicator</comment>
+  </data>
+  <data name="_0000086" xml:space="preserve">
+    <value>During the past 30 days, how many days have you used the following:  A. Any alcohol</value>
+    <comment>AnyAlcoholDayCount</comment>
+  </data>
+  <data name="_0000087" xml:space="preserve">
+    <value>Alcohol to intoxication (5+ drinks in one sitting)</value>
+    <comment>AlcholIntoxicationFivePlusDrinksDayCount</comment>
+  </data>
+  <data name="_0000088" xml:space="preserve">
+    <value>Alcohol to intoxication (4 or fewer drinks in one sitting and felt high)</value>
+    <comment>AlcholIntoxicationFourOrFewerDrinksDayCount</comment>
+  </data>
+  <data name="_0000089" xml:space="preserve">
+    <value>Illegal drugs</value>
+    <comment>IllegaldrugsDayCount</comment>
+  </data>
+  <data name="_0000090" xml:space="preserve">
+    <value>Both alcohol and drugs (on the same day)</value>
+    <comment>SameDayAlcoholDrugsDayCount</comment>
+  </data>
+  <data name="_0000091" xml:space="preserve">
+    <value>During the past 30 days, how many days have you used any of the following: A. Cocaine/Crack</value>
+    <comment>CocaineCrackDayCount</comment>
+  </data>
+  <data name="_0000092" xml:space="preserve">
+    <value>During the past 30 days, how many days have you used any of the following: A. Cocaine/Crack Drug Route</value>
+    <comment>CocaineCrackGpraDrugRoute</comment>
+  </data>
+  <data name="_0000093" xml:space="preserve">
+    <value>Marijuana/Hashish</value>
+    <comment>MarijuanaHashishDayCount</comment>
+  </data>
+  <data name="_0000094" xml:space="preserve">
+    <value>Marijuana/Hashish Drug Route</value>
+    <comment>MarijuanaHashishGpraDrugRoute</comment>
+  </data>
+  <data name="_0000095" xml:space="preserve">
+    <value>Opiates 1. Heroin</value>
+    <comment>HerionDayCount</comment>
+  </data>
+  <data name="_0000096" xml:space="preserve">
+    <value>Opiates 1. Heroin Drug Route</value>
+    <comment>HerionGpraDrugRoute</comment>
+  </data>
+  <data name="_0000097" xml:space="preserve">
+    <value>Morphine</value>
+    <comment>MorphineDayCount</comment>
+  </data>
+  <data name="_0000098" xml:space="preserve">
+    <value>Morphine Drug Route</value>
+    <comment>MorphineGpraDrugRoute</comment>
+  </data>
+  <data name="_0000099" xml:space="preserve">
+    <value>Diluadid</value>
+    <comment>DiluadidDayCount</comment>
+  </data>
+  <data name="_0000100" xml:space="preserve">
+    <value>Diluadid Drug Route</value>
+    <comment>DiluadidGpraDrugRoute</comment>
+  </data>
+  <data name="_0000101" xml:space="preserve">
+    <value>Demerol</value>
+    <comment>DermerolDayCount</comment>
+  </data>
+  <data name="_0000102" xml:space="preserve">
+    <value>Demerol Drug Route</value>
+    <comment>DermerolGpraDrugRoute</comment>
+  </data>
+  <data name="_0000103" xml:space="preserve">
+    <value>Percocet</value>
+    <comment>PercocetDayCount</comment>
+  </data>
+  <data name="_0000104" xml:space="preserve">
+    <value>Percocet Drug Route</value>
+    <comment>PercocetGpraDrugRoute</comment>
+  </data>
+  <data name="_0000105" xml:space="preserve">
+    <value>Darvon</value>
+    <comment>DarvonDayCount</comment>
+  </data>
+  <data name="_0000106" xml:space="preserve">
+    <value>Darvon Drug Route</value>
+    <comment>DarvonGpraDrugRoute</comment>
+  </data>
+  <data name="_0000107" xml:space="preserve">
+    <value>Codeine</value>
+    <comment>CodeineDayCount</comment>
+  </data>
+  <data name="_0000108" xml:space="preserve">
+    <value>Codeine Drug Route</value>
+    <comment>CodeineGpraDrugRoute</comment>
+  </data>
+  <data name="_0000109" xml:space="preserve">
+    <value>Tylenol 2,3,4</value>
+    <comment>TylenolDayCount</comment>
+  </data>
+  <data name="_0000110" xml:space="preserve">
+    <value>Tylenol 2,3,4 Drug Route</value>
+    <comment>TylenolGpraDrugRoute</comment>
+  </data>
+  <data name="_0000111" xml:space="preserve">
+    <value>Oxycontin/Oxycodone</value>
+    <comment>OxycontinOxycodoneDayCount</comment>
+  </data>
+  <data name="_0000112" xml:space="preserve">
+    <value>Oxycontin/Oxycodone Drug Route</value>
+    <comment>OxycontinOxycodoneGpraDrugRoute</comment>
+  </data>
+  <data name="_0000113" xml:space="preserve">
+    <value>Non-prescription methadone</value>
+    <comment>NonPrescriptionMethadoneDayCount</comment>
+  </data>
+  <data name="_0000114" xml:space="preserve">
+    <value>Non-prescription methadone Drug Route</value>
+    <comment>NonPrescriptionMethadoneGpraDrugRoute</comment>
+  </data>
+  <data name="_0000115" xml:space="preserve">
+    <value>Hallucinogens/psychedelics, PCP, MDMA, LSD, Mushrooms or Mescaline</value>
+    <comment>HallucinogensDayCount</comment>
+  </data>
+  <data name="_0000116" xml:space="preserve">
+    <value>Hallucinogens/psychedelics, PCP, MDMA, LSD, Mushrooms or Mescaline Drug Route</value>
+    <comment>HallucinogensGpraDrugRoute</comment>
+  </data>
+  <data name="_0000117" xml:space="preserve">
+    <value>Methamphetamine or other amphetamines</value>
+    <comment>MethamphetamineDayCount</comment>
+  </data>
+  <data name="_0000118" xml:space="preserve">
+    <value>Methamphetamine or other amphetamines Drug Route</value>
+    <comment>MethamphetamineGpraDrugRoute</comment>
+  </data>
+  <data name="_0000119" xml:space="preserve">
+    <value>Benzodiazepines: Diazepam, Alprazolam, Triazolam, and Estasolam </value>
+    <comment>BenzodiazepinesDayCount</comment>
+  </data>
+  <data name="_0000120" xml:space="preserve">
+    <value>Benzodiazepines: Diazepam, Alprazolam, Triazolam, and Estasolam Drug Route</value>
+    <comment>BenzodiazepinesGpraDrugCount</comment>
+  </data>
+  <data name="_0000121" xml:space="preserve">
+    <value>Barbiturates: Mephobarbital and pentobarbital sodium</value>
+    <comment>NonPrescriptionGhbDayCount</comment>
+  </data>
+  <data name="_0000122" xml:space="preserve">
+    <value>Barbiturates: Mephobarbital and pentobarbital sodium Drug Route</value>
+    <comment>NonPrescriptionGhbGpraDrugRoute</comment>
+  </data>
+  <data name="_0000123" xml:space="preserve">
+    <value>Non-prescription GHB</value>
+    <comment>BarbituratesDayCount</comment>
+  </data>
+  <data name="_0000124" xml:space="preserve">
+    <value>Non-prescription GHB Drug Route</value>
+    <comment>BarbituratesGpraDrugRoute</comment>
+  </data>
+  <data name="_0000125" xml:space="preserve">
+    <value>Ketamine</value>
+    <comment>KetamineDayCount</comment>
+  </data>
+  <data name="_0000126" xml:space="preserve">
+    <value>Ketamine Drug Route</value>
+    <comment>KetamineGpraDrugRoute</comment>
+  </data>
+  <data name="_0000127" xml:space="preserve">
+    <value>Other tranquilizers, downers, sedatives or hypnotics</value>
+    <comment>TranquilizersDayCount</comment>
+  </data>
+  <data name="_0000128" xml:space="preserve">
+    <value>Other tranquilizers, downers, sedatives or hypnotics Drug Route</value>
+    <comment>TranquilizersGpraDrugRoute</comment>
+  </data>
+  <data name="_0000129" xml:space="preserve">
+    <value>Inhalants</value>
+    <comment>InhalantsDayCount</comment>
+  </data>
+  <data name="_0000130" xml:space="preserve">
+    <value>Inhalants Drug Route</value>
+    <comment>InhalantsGpraDrugRoute</comment>
+  </data>
+  <data name="_0000131" xml:space="preserve">
+    <value>Other illegal drugs</value>
+    <comment>OtherIllegalDrugsDayCount</comment>
+  </data>
+  <data name="_0000132" xml:space="preserve">
+    <value>Other illegal drugs Drug Route</value>
+    <comment>OtherIllegalGpraDrugsDrugRoute</comment>
+  </data>
+  <data name="_0000133" xml:space="preserve">
+    <value>Other illegal drugs (Specify)</value>
+    <comment>OtherIllegalDrugsSpecificationNote</comment>
+  </data>
+  <data name="_0000134" xml:space="preserve">
+    <value>In the past 30 days, have you injected drugs?</value>
+    <comment>InjectedDrugsIndicator</comment>
+  </data>
+  <data name="_0000135" xml:space="preserve">
+    <value>In the past 30 days, how often did you use a syringe/needle, cooker, cotton, or water that someone else used?</value>
+    <comment>InjectionGpraFrequencyOfUseOfUsedItems</comment>
+  </data>
+  <data name="_0000136" xml:space="preserve">
+    <value>In the past 30 days, where have you been living most of the time? [DO NOT READ RESPONSE OPTIONS TO CLIENT.]</value>
+    <comment>MostTimeGpraPlaceToLive</comment>
+  </data>
+  <data name="_0000137" xml:space="preserve">
+    <value>If "Housed"</value>
+    <comment>GpraHousingType</comment>
+  </data>
+  <data name="_0000138" xml:space="preserve">
+    <value>Other Housed (Specify)</value>
+    <comment>OtherHousingTypeSpecificationNote</comment>
+  </data>
+  <data name="_0000139" xml:space="preserve">
+    <value>During the past 30 days, how stressful have things been for you because of your use of alcohol or other drugs? </value>
+    <comment>StressGpraEffectDueToDrugUse</comment>
+  </data>
+  <data name="_0000140" xml:space="preserve">
+    <value>During the past 30 days, has your use of alcohol or other drugs caused you to reduce or give up important activities? </value>
+    <comment>GiveUpImportantActivitiesGpraEffectDueToDrugUse</comment>
+  </data>
+  <data name="_0000141" xml:space="preserve">
+    <value>During the past 30 days, has your use of alcohol or other drugs caused you to have emotional problems?</value>
+    <comment>EmotionalProblemsGpraEffectDueToDrugUse</comment>
+  </data>
+  <data name="_0000142" xml:space="preserve">
+    <value>Are you currently Pregnant?</value>
+    <comment>PregnancyIndicator</comment>
+  </data>
+  <data name="_0000143" xml:space="preserve">
+    <value>Do you have children? </value>
+    <comment>ChildrenIndicator</comment>
+  </data>
+  <data name="_0000144" xml:space="preserve">
+    <value>How many children do you have?</value>
+    <comment>ChildrenCount</comment>
+  </data>
+  <data name="_0000145" xml:space="preserve">
+    <value>Are any of your children living with someone else due to a child protection court order?</value>
+    <comment>ChildrenInChildProtectionIndicator</comment>
+  </data>
+  <data name="_0000146" xml:space="preserve">
+    <value>How many of your children are living with someone else due to a child protection court order?</value>
+    <comment>ChildrenInChildProtectionCount</comment>
+  </data>
+  <data name="_0000147" xml:space="preserve">
+    <value>For how many of your children have you lost parental rights? [THE CLIENT'S PARENTAL RIGHTS WERE TERMINATED.]</value>
+    <comment>PatientLostParentalRightsChildCount</comment>
+  </data>
+  <data name="_0000148" xml:space="preserve">
+    <value>Are you currently enrolled in school or a job training program? [IF ENROLLED,] Is that full time or part time?</value>
+    <comment>GpraJobTrainingProgramDuration</comment>
+  </data>
+  <data name="_0000149" xml:space="preserve">
+    <value>Other (Specify) </value>
+    <comment>OtherJobTrainingProgramSpecificationNote</comment>
+  </data>
+  <data name="_0000150" xml:space="preserve">
+    <value>What is the highest level of education you have finished, whether or not you received a degree?</value>
+    <comment>HighestGpraEducationLevel</comment>
+  </data>
+  <data name="_0000151" xml:space="preserve">
+    <value>Are you currently employed?[CLARIFY BY FOCUSING ON STATUS DURING MOST OF THE PREVIOUS WEEK, DETERMINING WHETHER CLIENT WORKED AT ALL OR HAD A REGULAR JOB BUT WAS OFF WORK.]</value>
+    <comment>GpraEmploymentStatus</comment>
+  </data>
+  <data name="_0000152" xml:space="preserve">
+    <value>Other (Specify)</value>
+    <comment>OtherEmploymentTypeSpecificationNote</comment>
+  </data>
+  <data name="_0000153" xml:space="preserve">
+    <value>Approximately, how much money did YOU receive (pre-tax individual income) in the past 30 days from:  A. Wages</value>
+    <comment>WagesPretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000154" xml:space="preserve">
+    <value>Public assistance</value>
+    <comment>PublicAssistancePretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000155" xml:space="preserve">
+    <value>Retirement</value>
+    <comment>RetirementPretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000156" xml:space="preserve">
+    <value>Disability</value>
+    <comment>DisabilityPretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000157" xml:space="preserve">
+    <value>Non-legal income</value>
+    <comment>NonLegalPretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000158" xml:space="preserve">
+    <value>Family and/or friends</value>
+    <comment>FamilyFriendsPretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000159" xml:space="preserve">
+    <value>Other (Specify)</value>
+    <comment>OtherPretaxIncomeAmount</comment>
+  </data>
+  <data name="_0000160" xml:space="preserve">
+    <value>Other specification</value>
+    <comment>OtherPretaxIncomeSpecificationNote</comment>
+  </data>
+  <data name="_0000161" xml:space="preserve">
+    <value>In the past 30 days, how many times have you been arrested?</value>
+    <comment>ArrestedCount</comment>
+  </data>
+  <data name="_0000162" xml:space="preserve">
+    <value>In the past 30 days, how many times have you been arrested for drug-related offenses?</value>
+    <comment>ArrestedDrugCount</comment>
+  </data>
+  <data name="_0000163" xml:space="preserve">
+    <value>In the past 30 days, how many nights have you spent in jail/prison?</value>
+    <comment>NightsConfinedCount</comment>
+  </data>
+  <data name="_0000164" xml:space="preserve">
+    <value>In the past 30 days, how many times have you committed a crime?</value>
+    <comment>CrimeCount</comment>
+  </data>
+  <data name="_0000165" xml:space="preserve">
+    <value>Are you currently awaiting charges, trial, or sentencing?</value>
+    <comment>AwaitingTrialIndicator</comment>
+  </data>
+  <data name="_0000166" xml:space="preserve">
+    <value>Are you currently on parole or probation?</value>
+    <comment>ParoleProbationIndicator</comment>
+  </data>
+  <data name="_0000167" xml:space="preserve">
+    <value>How would you rate your overall health right now?</value>
+    <comment>GpraOverallHealth</comment>
+  </data>
+  <data name="_0000168" xml:space="preserve">
+    <value>In the past 30 days, did you receive Inpatient Treatment for a physical complaint</value>
+    <comment>InpatientPhysicalComplaintIndicator</comment>
+  </data>
+  <data name="_0000169" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>InpatientPhysicalComplaintNights</comment>
+  </data>
+  <data name="_0000170" xml:space="preserve">
+    <value>In the past 30 days, did you receive Inpatient Treatment for a mental or emotional difficulties</value>
+    <comment>InpatientMentalEmotionalDifficultiesIndicator</comment>
+  </data>
+  <data name="_0000171" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>InpatientMentalEmotionalDifficultiesNights</comment>
+  </data>
+  <data name="_0000172" xml:space="preserve">
+    <value>In the past 30 days, did you receive Inpatient Treatment for a alcohol or substance abuse</value>
+    <comment>InpatientAlcoholSubstanceAbuseIndicator</comment>
+  </data>
+  <data name="_0000173" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>InpatientAlcoholSubstanceAbuseNights</comment>
+  </data>
+  <data name="_0000174" xml:space="preserve">
+    <value>In the past 30 days, did you receive Outpatient Treatment for a physical complaint</value>
+    <comment>OutpatientPhysicalComplaintIndicator</comment>
+  </data>
+  <data name="_0000175" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>OutpatientPhysicalComplaintTimes</comment>
+  </data>
+  <data name="_0000176" xml:space="preserve">
+    <value>In the past 30 days, did you receive Outpatient Treatment for a mental or emotional difficulties</value>
+    <comment>OutpatientMentalEmotionalDifficultiesIndicator</comment>
+  </data>
+  <data name="_0000177" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>OutpatientMentalEmotionalDifficultiesTimes</comment>
+  </data>
+  <data name="_0000178" xml:space="preserve">
+    <value>In the past 30 days, did you receive Outpatient Treatment for a alcohol or substance abuse</value>
+    <comment>OutpatientAlcoholSubstanceAbuseIndicator</comment>
+  </data>
+  <data name="_0000179" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>OutpatientAlcoholSubstanceAbuseTimes</comment>
+  </data>
+  <data name="_0000180" xml:space="preserve">
+    <value>In the past 30 days, did you receive Emergency Room Treatment for a physical complaint</value>
+    <comment>ERPhysicalComplaintIndicator</comment>
+  </data>
+  <data name="_0000181" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>ERPhysicalComplaintTimes</comment>
+  </data>
+  <data name="_0000182" xml:space="preserve">
+    <value>In the past 30 days, did you receive Emergency Room Treatment for a mental or emotional difficulties</value>
+    <comment>ERMentalEmotionalDifficultiesIndicator</comment>
+  </data>
+  <data name="_0000183" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>ERMentalEmotionalDifficultiesTimes</comment>
+  </data>
+  <data name="_0000184" xml:space="preserve">
+    <value>In the past 30 days, did you receive Emergency Room Treatment for a alcohol or substance abuse</value>
+    <comment>ERAlcoholSubstanceAbuseIndicator</comment>
+  </data>
+  <data name="_0000185" xml:space="preserve">
+    <value>Altogether for how many nights?</value>
+    <comment>ERAlcoholSubstanceAbuseTimes</comment>
+  </data>
+  <data name="_0000186" xml:space="preserve">
+    <value>During the past 30 days, did you engage in sexual activity?</value>
+    <comment>GpraSexualActivity</comment>
+  </data>
+  <data name="_0000187" xml:space="preserve">
+    <value>Altogether, how many sexual contacts (vaginal, oral, or anal) did you have?</value>
+    <comment>SexualContactsCount</comment>
+  </data>
+  <data name="_0000188" xml:space="preserve">
+    <value>Altogether, how many unprotected sexual contacts did you have?</value>
+    <comment>UnProtectedSexualContactsCount</comment>
+  </data>
+  <data name="_0000189" xml:space="preserve">
+    <value>Altogether, how many unprotected sexual contacts were with an individual who is or
+was HIV positive or has AIDS</value>
+    <comment>UnProtectedSexualHivContactsCount</comment>
+  </data>
+  <data name="_0000190" xml:space="preserve">
+    <value>Altogether, how many unprotected sexual contacts were with an individual who is or
+was an injection drug user</value>
+    <comment>UnProtectedSexualInjectionDrugContactsCount</comment>
+  </data>
+  <data name="_0000191" xml:space="preserve">
+    <value>Altogether, how many unprotected sexual contacts were with an individual who is or
+was high on some substance</value>
+    <comment>UnProtectedSexualHighSAContactsCount</comment>
+  </data>
+  <data name="_0000192" xml:space="preserve">
+    <value>Have you ever been tested for HIV?</value>
+    <comment>HivTest</comment>
+  </data>
+  <data name="_0000193" xml:space="preserve">
+    <value>Do you know the results of your HIV testing?</value>
+    <comment>HivTestResultsKnownIndicator</comment>
+  </data>
+  <data name="_0000194" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you experienced serious depression</value>
+    <comment>DepressionDayCount</comment>
+  </data>
+  <data name="_0000195" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you experienced serious anxiety or tension</value>
+    <comment>AnxietyDayCount</comment>
+  </data>
+  <data name="_0000196" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you experienced hallucinations</value>
+    <comment>HallucinationsDayCount</comment>
+  </data>
+  <data name="_0000197" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you experienced trouble understanding, concentrating, or remembering</value>
+    <comment>BrainMisfunctionDayCount</comment>
+  </data>
+  <data name="_0000198" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you experienced violent behavior</value>
+    <comment>ViolentBehaviorDayCount</comment>
+  </data>
+  <data name="_0000199" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you attempted suicide</value>
+    <comment>SuicideDayCount</comment>
+  </data>
+  <data name="_0000200" xml:space="preserve">
+    <value>In the past 30 days, not due to your use of alcohol or drugs, how many days have you been prescribed medication for psychological/emotional problem</value>
+    <comment>PsychologicalEmotionalMedicationDayCount</comment>
+  </data>
+  <data name="_0000201" xml:space="preserve">
+    <value>How much have you been bothered by these psychological or emotional problems in the past 30 days?</value>
+    <comment>GpraPsychologicalImpact</comment>
+  </data>
+  <data name="_0000202" xml:space="preserve">
+    <value>In the past 30 days, did you attend any voluntary self-help groups for recovery that were not affiliated with a religious or faith-based organization? In other words, did you participate in a nonprofessional, peer-operated organization that is devoted to helping individuals who have addiction related problems such as: Alcoholics Anonymous, Narcotics Anonymous, Oxford House, Secular Organization for Sobriety, or Women for Sobriety, etc</value>
+    <comment>AttendVoluntaryGroupsIndicator</comment>
+  </data>
+  <data name="_0000203" xml:space="preserve">
+    <value>Specify how many times</value>
+    <comment>AttendVoluntaryGroupsCount</comment>
+  </data>
+  <data name="_0000204" xml:space="preserve">
+    <value>In the past 30 days, did you attend any religious/faith affiliated recovery self-help groups?</value>
+    <comment>AttendReligiousGroupsIndicator</comment>
+  </data>
+  <data name="_0000205" xml:space="preserve">
+    <value>Specify how many times</value>
+    <comment>AttendReligiousGroupsCount</comment>
+  </data>
+  <data name="_0000206" xml:space="preserve">
+    <value>In the past 30 days, did you attend meetings of organizations that support recovery other than the organizations described above?</value>
+    <comment>AttendOtherGroupsIndicator</comment>
+  </data>
+  <data name="_0000207" xml:space="preserve">
+    <value>Specify how many times</value>
+    <comment>AttendOtherGroupsCount</comment>
+  </data>
+  <data name="_0000208" xml:space="preserve">
+    <value>In the past 30 days, did you have interaction with family and/or friends that are supportive of your recovery?</value>
+    <comment>InteractFamilyFriendsIndicator</comment>
+  </data>
+  <data name="_0000209" xml:space="preserve">
+    <value>To whom do you turn when you are having trouble?</value>
+    <comment>GpraTroubleContact</comment>
+  </data>
+  <data name="_0000210" xml:space="preserve">
+    <value>Specify</value>
+    <comment>GpraTroubleContactSpecificationNote</comment>
+  </data>
+  <data name="_0000211" xml:space="preserve">
+    <value>What is the follow-up status of the client?</value>
+    <comment>FollowUpStatus</comment>
+  </data>
+  <data name="_0000212" xml:space="preserve">
+    <value>Specify</value>
+    <comment>FollowUpStatusSpecification</comment>
+  </data>
+  <data name="_0000213" xml:space="preserve">
+    <value>Is the client still receiving services from your program?</value>
+    <comment>StillReceivingServicesIndicator</comment>
+  </data>
+  <data name="_0000214" xml:space="preserve">
+    <value>On what date was the client discharged?</value>
+    <comment>ClientDischargeDate</comment>
+  </data>
+  <data name="_0000215" xml:space="preserve">
+    <value>What is the client's discharge status?</value>
+    <comment>DischargeStatus</comment>
+  </data>
+  <data name="_0000216" xml:space="preserve">
+    <value>If the client was terminated, what was the reason for termination?</value>
+    <comment>DischargeTerminationReason</comment>
+  </data>
+  <data name="_0000217" xml:space="preserve">
+    <value>Specify</value>
+    <comment>DischargeTerminationReasonSpecification</comment>
+  </data>
+  <data name="_0000218" xml:space="preserve">
+    <value>Did the program test this client for HIV?</value>
+    <comment>DischargeHivTestIndicator</comment>
+  </data>
+  <data name="_0000219" xml:space="preserve">
+    <value>Did the program refer this client for testing?</value>
+    <comment>DischargeHivTestingReferralIndicator</comment>
+  </data>
+  <data name="_0001000" xml:space="preserve">
+    <value>Record Management</value>
+  </data>
+  <data name="_0002000" xml:space="preserve">
+    <value>Planned Services</value>
+  </data>
+  <data name="_0002001" xml:space="preserve">
+    <value>Modality</value>
+  </data>
+  <data name="_0002002" xml:space="preserve">
+    <value>Treatment Services</value>
+  </data>
+  <data name="_0002003" xml:space="preserve">
+    <value>Case Management Services</value>
+  </data>
+  <data name="_0002004" xml:space="preserve">
+    <value>Medical Services</value>
+  </data>
+  <data name="_0002005" xml:space="preserve">
+    <value>After Care Services</value>
+  </data>
+  <data name="_0002006" xml:space="preserve">
+    <value>Education Services</value>
+  </data>
+  <data name="_0002007" xml:space="preserve">
+    <value>Peer To Peer Recovery Support Services</value>
+  </data>
+  <data name="_0003000" xml:space="preserve">
+    <value>Demographics</value>
+  </data>
+  <data name="_0004000" xml:space="preserve">
+    <value>Drug And Alcohol Use</value>
+  </data>
+  <data name="_0005000" xml:space="preserve">
+    <value>Family Living Conditions</value>
+  </data>
+  <data name="_0006000" xml:space="preserve">
+    <value>Education, Employment, and Income</value>
+  </data>
+  <data name="_0007000" xml:space="preserve">
+    <value>Crime and Criminal Justice Status</value>
+  </data>
+  <data name="_0008000" xml:space="preserve">
+    <value>Mental and Physical Health Problems and Treatment/Recovery</value>
+  </data>
+  <data name="_0009000" xml:space="preserve">
+    <value>Social Connectedness</value>
+  </data>
+  <data name="_0010000" xml:space="preserve">
+    <value>Follow-Up Status</value>
+  </data>
+  <data name="_0020000" xml:space="preserve">
+    <value>Discharge Status</value>
+  </data>
+  <data name="_1000000" xml:space="preserve">
+    <value>GPRA Interview</value>
+  </data>
+  <data name="_A00000_0" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="_A00000_1" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="_A00000_2" xml:space="preserve">
+    <value>Transgender</value>
+  </data>
+  <data name="_A00000_3" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="_B00000_0" xml:space="preserve">
+    <value>Oral</value>
+  </data>
+  <data name="_B00000_1" xml:space="preserve">
+    <value>Nasal</value>
+  </data>
+  <data name="_B00000_2" xml:space="preserve">
+    <value>Smoking</value>
+  </data>
+  <data name="_B00000_3" xml:space="preserve">
+    <value>Non-IV Injection</value>
+  </data>
+  <data name="_B00000_4" xml:space="preserve">
+    <value>IV</value>
+  </data>
+  <data name="_C00000_0" xml:space="preserve">
+    <value>Hospital Inpatient</value>
+  </data>
+  <data name="_C00000_1" xml:space="preserve">
+    <value>Free Standing Residential</value>
+  </data>
+  <data name="_C00000_2" xml:space="preserve">
+    <value>Ambulatory Detoxification</value>
+  </data>
+  <data name="_D00000_0" xml:space="preserve">
+    <value>Always</value>
+  </data>
+  <data name="_D00000_1" xml:space="preserve">
+    <value>More than half the time</value>
+  </data>
+  <data name="_D00000_2" xml:space="preserve">
+    <value>Half the time</value>
+  </data>
+  <data name="_D00000_3" xml:space="preserve">
+    <value>Less than half the time</value>
+  </data>
+  <data name="_D00000_4" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="_F00000_0" xml:space="preserve">
+    <value>Shelter</value>
+  </data>
+  <data name="_F00000_1" xml:space="preserve">
+    <value>Street/Outdoors</value>
+  </data>
+  <data name="_F00000_2" xml:space="preserve">
+    <value>Institution</value>
+  </data>
+  <data name="_F00000_3" xml:space="preserve">
+    <value>Housed</value>
+  </data>
+  <data name="_G00000_0" xml:space="preserve">
+    <value>Own/Rent Apartment, Room or House</value>
+  </data>
+  <data name="_G00000_1" xml:space="preserve">
+    <value>Someone Else's Apartment, Room or House</value>
+  </data>
+  <data name="_G00000_2" xml:space="preserve">
+    <value>Dormitory/College Residence</value>
+  </data>
+  <data name="_G00000_3" xml:space="preserve">
+    <value>Halfway House</value>
+  </data>
+  <data name="_G00000_4" xml:space="preserve">
+    <value>Residential Treatment</value>
+  </data>
+  <data name="_G00000_5" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="_H00000_0" xml:space="preserve">
+    <value>Not at All</value>
+  </data>
+  <data name="_H00000_1" xml:space="preserve">
+    <value>Somewhat</value>
+  </data>
+  <data name="_H00000_2" xml:space="preserve">
+    <value>Considerably</value>
+  </data>
+  <data name="_H00000_3" xml:space="preserve">
+    <value>Extremely</value>
+  </data>
+  <data name="_H00000_4" xml:space="preserve">
+    <value>Not Applicable</value>
+  </data>
+  <data name="_J00000_0" xml:space="preserve">
+    <value>Not Enrolled</value>
+  </data>
+  <data name="_J00000_1" xml:space="preserve">
+    <value>Enrolled, Full Time</value>
+  </data>
+  <data name="_J00000_2" xml:space="preserve">
+    <value>Enrolled, PartTime</value>
+  </data>
+  <data name="_J00000_3" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="_K00000_0" xml:space="preserve">
+    <value>Never Attended</value>
+  </data>
+  <data name="_K00000_1" xml:space="preserve">
+    <value>1st Grade</value>
+  </data>
+  <data name="_K00000_10" xml:space="preserve">
+    <value>10th Grade</value>
+  </data>
+  <data name="_K00000_11" xml:space="preserve">
+    <value>11th Grade</value>
+  </data>
+  <data name="_K00000_12" xml:space="preserve">
+    <value>12th Grade/High School Diploma Equivalent</value>
+  </data>
+  <data name="_K00000_13" xml:space="preserve">
+    <value>College or University/1st Year Completed</value>
+  </data>
+  <data name="_K00000_14" xml:space="preserve">
+    <value>College or University/2nd Year Completed</value>
+  </data>
+  <data name="_K00000_15" xml:space="preserve">
+    <value>College or University/3rd Year Completed</value>
+  </data>
+  <data name="_K00000_16" xml:space="preserve">
+    <value>Bachelor's Degree or Higher</value>
+  </data>
+  <data name="_K00000_17" xml:space="preserve">
+    <value>Voc/Tech Program But No Tech Diploma</value>
+  </data>
+  <data name="_K00000_18" xml:space="preserve">
+    <value>Voc/Tech Diploma After High School</value>
+  </data>
+  <data name="_K00000_2" xml:space="preserve">
+    <value>2nd Grade</value>
+  </data>
+  <data name="_K00000_3" xml:space="preserve">
+    <value>3rd Grade</value>
+  </data>
+  <data name="_K00000_4" xml:space="preserve">
+    <value>4th Grade</value>
+  </data>
+  <data name="_K00000_5" xml:space="preserve">
+    <value>5th Grade</value>
+  </data>
+  <data name="_K00000_6" xml:space="preserve">
+    <value>6th Grade</value>
+  </data>
+  <data name="_K00000_7" xml:space="preserve">
+    <value>7th Grade</value>
+  </data>
+  <data name="_K00000_8" xml:space="preserve">
+    <value>8th Grade</value>
+  </data>
+  <data name="_K00000_9" xml:space="preserve">
+    <value>9th Grade</value>
+  </data>
+  <data name="_L00000_0" xml:space="preserve">
+    <value>Employed Full Time (35+ Hours Per Week)</value>
+  </data>
+  <data name="_L00000_1" xml:space="preserve">
+    <value>Employed Part Time</value>
+  </data>
+  <data name="_L00000_2" xml:space="preserve">
+    <value>Unemployed, Looking for Work</value>
+  </data>
+  <data name="_L00000_3" xml:space="preserve">
+    <value>Unemployed, Disabled</value>
+  </data>
+  <data name="_L00000_4" xml:space="preserve">
+    <value>Unemployed, Volunteer Work</value>
+  </data>
+  <data name="_L00000_5" xml:space="preserve">
+    <value>Unemployed, Retired</value>
+  </data>
+  <data name="_L00000_6" xml:space="preserve">
+    <value>Unemployed, Not Looking for Work</value>
+  </data>
+  <data name="_L00000_7" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="_M00000_0" xml:space="preserve">
+    <value>Treatment Client</value>
+  </data>
+  <data name="_M00000_1" xml:space="preserve">
+    <value>Client in Recovery</value>
+  </data>
+  <data name="_N00000_0" xml:space="preserve">
+    <value>Excellent</value>
+  </data>
+  <data name="_N00000_1" xml:space="preserve">
+    <value>Very Good</value>
+  </data>
+  <data name="_N00000_2" xml:space="preserve">
+    <value>Good</value>
+  </data>
+  <data name="_N00000_3" xml:space="preserve">
+    <value>Fair</value>
+  </data>
+  <data name="_N00000_4" xml:space="preserve">
+    <value>Poor</value>
+  </data>
+  <data name="_P00000_0" xml:space="preserve">
+    <value>Not At All</value>
+  </data>
+  <data name="_P00000_1" xml:space="preserve">
+    <value>Slightly</value>
+  </data>
+  <data name="_P00000_2" xml:space="preserve">
+    <value>Moderately</value>
+  </data>
+  <data name="_P00000_3" xml:space="preserve">
+    <value>Considerably</value>
+  </data>
+  <data name="_P00000_4" xml:space="preserve">
+    <value>Extremely</value>
+  </data>
+  <data name="_Q00000_0" xml:space="preserve">
+    <value>No One</value>
+  </data>
+  <data name="_Q00000_1" xml:space="preserve">
+    <value>Clergy Member</value>
+  </data>
+  <data name="_Q00000_2" xml:space="preserve">
+    <value>Family Member</value>
+  </data>
+  <data name="_Q00000_3" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="_Q00000_4" xml:space="preserve">
+    <value>Other</value>
+  </data>
+  <data name="_R00000_0" xml:space="preserve">
+    <value>Intake</value>
+  </data>
+  <data name="_R00000_1" xml:space="preserve">
+    <value>6 month follow-up </value>
+  </data>
+  <data name="_R00000_2" xml:space="preserve">
+    <value>3 month follow-up</value>
+  </data>
+  <data name="_R00000_3" xml:space="preserve">
+    <value>Discharge</value>
+  </data>
+  <data name="_S00000_0" xml:space="preserve">
+    <value>01 = Deceased at time of due date</value>
+  </data>
+  <data name="_S00000_1" xml:space="preserve">
+    <value>11 = Completed interview within specified window</value>
+  </data>
+  <data name="_S00000_2" xml:space="preserve">
+    <value>12 = Completed interview outside specified window</value>
+  </data>
+  <data name="_S00000_3" xml:space="preserve">
+    <value>21 = Located, but refused, unspecified</value>
+  </data>
+  <data name="_S00000_4" xml:space="preserve">
+    <value>22 = Located, but unable to gain institutional access</value>
+  </data>
+  <data name="_S00000_5" xml:space="preserve">
+    <value>23 = Located, but otherwise unable to gain access</value>
+  </data>
+  <data name="_S00000_6" xml:space="preserve">
+    <value>24 = Located, but withdrawn from project</value>
+  </data>
+  <data name="_S00000_7" xml:space="preserve">
+    <value>31 = Unable to locate, moved</value>
+  </data>
+  <data name="_S00000_8" xml:space="preserve">
+    <value>32 = Unable to locate, other</value>
+  </data>
+  <data name="_T00000_0" xml:space="preserve">
+    <value>01 = Completion/Graduate</value>
+  </data>
+  <data name="_T00000_1" xml:space="preserve">
+    <value>02 = Termination</value>
+  </data>
+  <data name="_U00000_0" xml:space="preserve">
+    <value>01 = Left on own against staff advice with satisfactory progress</value>
+  </data>
+  <data name="_U00000_1" xml:space="preserve">
+    <value>02 = Left on own against staff advice without satisfactory progress</value>
+  </data>
+  <data name="_U00000_10" xml:space="preserve">
+    <value>11 = Transferred to another facility for health reasons</value>
+  </data>
+  <data name="_U00000_11" xml:space="preserve">
+    <value>12 = Death</value>
+  </data>
+  <data name="_U00000_12" xml:space="preserve">
+    <value>13 = Other</value>
+  </data>
+  <data name="_U00000_2" xml:space="preserve">
+    <value>03 = Involuntarily discharged due to nonparticipation</value>
+  </data>
+  <data name="_U00000_3" xml:space="preserve">
+    <value>04 = Involuntarily discharged due to violation of rules</value>
+  </data>
+  <data name="_U00000_4" xml:space="preserve">
+    <value>05 = Referred to another program or other services with satisfactory progress</value>
+  </data>
+  <data name="_U00000_5" xml:space="preserve">
+    <value>06 = Referred to another program or other services with unsatisfactory progress</value>
+  </data>
+  <data name="_U00000_6" xml:space="preserve">
+    <value>07 = Incarcerated due to offense committed while in treatment/recovery with satisfactory
+progress</value>
+  </data>
+  <data name="_U00000_7" xml:space="preserve">
+    <value>08 = Incarcerated due to offense committed while in treatment/recovery with unsatisfactory progress</value>
+  </data>
+  <data name="_U00000_8" xml:space="preserve">
+    <value>09 = Incarcerated due to old warrant or charged from before entering treatment/recovery with satisfactory progress</value>
+  </data>
+  <data name="_U00000_9" xml:space="preserve">
+    <value>10 = Incarcerated due to old warrant or charged from before entering treatment/recovery with
+unsatisfactory progress</value>
+  </data>
+  <data name="_XXXXXX_0" xml:space="preserve">
+    <value>Refused</value>
+  </data>
+  <data name="_XXXXXX_1" xml:space="preserve">
+    <value>Don't Know</value>
+  </data>
+</root>

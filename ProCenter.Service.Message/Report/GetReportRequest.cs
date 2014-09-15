@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Report
 {
     #region Using Statements
 
     using System;
+
     using Agatha.Common;
 
     #endregion
 
-    /// <summary>
-    ///     Request for report
-    /// </summary>
+    /// <summary>Request for report.</summary>
     public class GetReportRequest : Request
     {
         #region Public Properties

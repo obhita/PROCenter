@@ -1,5 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
+﻿// /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
 //  * Redistribution and use in source and binary forms, with or without
@@ -24,21 +23,33 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
 
     using System;
-    using global::EventStore;
+    using System.Collections.Generic;
+
+    using NEventStore;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for event store factory.
-    /// </summary>
+    /// <summary>Interface for event store factory.</summary>
     public interface IEventStoreFactory : IDisposable
     {
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the cached event stores.
+        /// </summary>
+        /// <value>
+        ///     The cached event stores.
+        /// </value>
+        IReadOnlyCollection<IStoreEvents> CachedEventStores { get; }
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>

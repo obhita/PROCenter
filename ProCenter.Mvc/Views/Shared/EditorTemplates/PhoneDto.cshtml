@@ -1,12 +1,14 @@
 ﻿@model ProCenter.Service.Message.Common.PhoneDto
 
 <div class="phone">
-    <div style="float:left; margin-right:10px;">
-    @Html.LabelFor( m => m.Number )
-    @Html.TextBoxFor( m => m.Number, new { @class="number", type="tel" , pattern = @"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$", placeholder = Html.DisplayNameFor( m => m.Number )} )
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor( m => m.Number )
+        @Html.TextBoxFor( m => m.Number, new {@class = "number", type = "tel", pattern = @"^\D?(\d{3})\D?\D?(\d{3})\D?(\d{4})$", placeholder = Html.DisplayNameFor ( m => m.Number )} )
+        @Html.ValidationMessageFor( m => m.Number )
     </div>
-    <div style="float:left; margin-right:10px;">
-    @Html.LabelFor( m => m.Extension )
-    @Html.TextBoxFor(m => m.Extension, new { @class = "number", type = "number", placeholder = Html.DisplayNameFor( m => m.Extension )} )
+    <div style="float: left; margin-right: 10px;">
+        @Html.LabelFor( m => m.Extension )
+        @Html.TextBoxFor(m => m.Extension, new { @class = "number", type = "test", pattern= "[0-9]*", placeholder = Html.DisplayNameFor(m => m.Extension) })
+        @Html.ValidationMessageFor(m => m.Extension)
     </div>
 </div>

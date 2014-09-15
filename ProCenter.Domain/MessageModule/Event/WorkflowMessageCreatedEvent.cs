@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,28 +25,47 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
     #region Using Statements
 
     using System;
-    using AssessmentModule;
+
+    using ProCenter.Domain.AssessmentModule;
 
     #endregion
 
+    /// <summary>The workflow message created event class.</summary>
     public class WorkflowMessageCreatedEvent : MessageEventBase
     {
-        public WorkflowMessageCreatedEvent(Guid key,
-                                           MessageType messageType,
-                                           Guid patientKey,
-                                           WorkflowMessageStatus workflowMessageStatus,
-                                           Guid initiatingAssessmentKey,
-                                           string initiatingAssessmentCode,
-                                           Guid recommendedAssessmentDefinitionKey,
-                                           string recommendedAssessmentDefinitionCode,
-                                           Score initiatingAssessmentScore)
-            : base(key, messageType)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowMessageCreatedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="workflowMessageStatus">The workflow message status.</param>
+        /// <param name="initiatingAssessmentKey">The initiating assessment key.</param>
+        /// <param name="initiatingAssessmentCode">The initiating assessment code.</param>
+        /// <param name="recommendedAssessmentDefinitionKey">The recommended assessment definition key.</param>
+        /// <param name="recommendedAssessmentDefinitionCode">The recommended assessment definition code.</param>
+        /// <param name="initiatingAssessmentScore">The initiating assessment score.</param>
+        public WorkflowMessageCreatedEvent (
+            Guid key,
+            MessageType messageType,
+            Guid patientKey,
+            WorkflowMessageStatus workflowMessageStatus,
+            Guid initiatingAssessmentKey,
+            string initiatingAssessmentCode,
+            Guid recommendedAssessmentDefinitionKey,
+            string recommendedAssessmentDefinitionCode,
+            Score initiatingAssessmentScore )
+            : base ( key, messageType )
         {
             PatientKey = patientKey;
             WorkflowMessageStatus = workflowMessageStatus;
@@ -56,12 +76,66 @@ namespace ProCenter.Domain.MessageModule.Event
             InitiatingAssessmentScore = initiatingAssessmentScore;
         }
 
-        public Guid PatientKey { get; private set; }
-        public WorkflowMessageStatus WorkflowMessageStatus { get; private set; }
-        public Guid InitiatingAssessmentKey { get; private set; }
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the initiating assessment code.
+        /// </summary>
+        /// <value>
+        /// The initiating assessment code.
+        /// </value>
         public string InitiatingAssessmentCode { get; private set; }
-        public Guid RecommendedAssessmentDefinitionKey { get; private set; }
-        public string RecommendedAssessmentDefinitionCode { get; private set; }
+
+        /// <summary>
+        /// Gets the initiating assessment key.
+        /// </summary>
+        /// <value>
+        /// The initiating assessment key.
+        /// </value>
+        public Guid InitiatingAssessmentKey { get; private set; }
+
+        /// <summary>
+        /// Gets the initiating assessment score.
+        /// </summary>
+        /// <value>
+        /// The initiating assessment score.
+        /// </value>
         public Score InitiatingAssessmentScore { get; private set; }
+
+        /// <summary>
+        /// Gets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
+        public Guid PatientKey { get; private set; }
+
+        /// <summary>
+        /// Gets the recommended assessment definition code.
+        /// </summary>
+        /// <value>
+        /// The recommended assessment definition code.
+        /// </value>
+        public string RecommendedAssessmentDefinitionCode { get; private set; }
+
+        /// <summary>
+        /// Gets the recommended assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The recommended assessment definition key.
+        /// </value>
+        public Guid RecommendedAssessmentDefinitionKey { get; private set; }
+
+        /// <summary>
+        /// Gets the workflow message status.
+        /// </summary>
+        /// <value>
+        /// The workflow message status.
+        /// </value>
+        public WorkflowMessageStatus WorkflowMessageStatus { get; private set; }
+
+        #endregion
     }
 }

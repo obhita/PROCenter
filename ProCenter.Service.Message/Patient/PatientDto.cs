@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,57 +25,123 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Patient
 {
-    #region
+    #region Using Statements
 
     using System;
-    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
-    using Common;
-    using Common.Lookups;
-    using Primitive;
-    using Security;
+
+    using ProCenter.Primitive;
+    using ProCenter.Service.Message.Common;
+    using ProCenter.Service.Message.Common.Lookups;
+    using ProCenter.Service.Message.Security;
 
     #endregion
 
+    /// <summary>The patient dto class.</summary>
     public class PatientDto : KeyedDataTransferObject
     {
-        [Display(Name = " ")]
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [Display ( Name = " " )]
         [Required]
         public PersonName Name { get; set; }
 
-        [Display(Name = "Birth Date")]
-        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
+        /// <summary>
+        /// Gets or sets the organization key.
+        /// </summary>
+        /// <value>
+        /// The organization key.
+        /// </value>
+        [ScaffoldColumn ( false )]
+        public Guid OrganizationKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the religion.
+        /// </summary>
+        /// <value>
+        /// The religion.
+        /// </value>
+        public LookupDto Religion { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system account.
+        /// </summary>
+        /// <value>
+        /// The system account.
+        /// </value>
+        [ScaffoldColumn ( false )]
+        public SystemAccountDto SystemAccount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unique identifier.
+        /// </summary>
+        /// <value>
+        /// The unique identifier.
+        /// </value>
+        [Display ( Name = "Unique Identifier" )]
+        [Editable ( false )]
+        public string UniqueIdentifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date of birth.
+        /// </summary>
+        /// <value>
+        /// The date of birth.
+        /// </value>
+        [Display ( Name = "Birth Date" )]
+        [DisplayFormat ( DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true )]
         [Required]
         public DateTime? DateOfBirth { get; set; }
 
-        [Required]
-        public LookupDto Gender { get; set; }
-
-        public LookupDto Ethnicity { get; set; }
-
-        public LookupDto Religion { get; set; }
-
-        [DataType(DataType.EmailAddress)]
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        [DataType ( DataType.EmailAddress )]
         public string Email { get; set; }
 
-        [Display(Name = "Unique Identifier")]
-        [Editable(false)]
-        public string UniqueIdentifier { get; set; }
+        /// <summary>
+        /// Gets or sets the ethnicity.
+        /// </summary>
+        /// <value>
+        /// The ethnicity.
+        /// </value>
+        public LookupDto Ethnicity { get; set; }
 
+        /// <summary>
+        /// Gets or sets the gender.
+        /// </summary>
+        /// <value>
+        /// The gender.
+        /// </value>
+        [Required(ErrorMessage = "The Gender field is required.")]
+        public LookupDto Gender { get; set; }
 
-        [ScaffoldColumn(false)]
-        public SystemAccountDto SystemAccount { get; set; }
-
-        [ScaffoldColumn(false)]
-        public Guid OrganizationKey { get; set; }
-
-        [ScaffoldColumn(false)]
+        /// <summary>
+        /// Gets a value indicating whether [has account].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [has account]; otherwise, <c>false</c>.
+        /// </value>
+        [ScaffoldColumn ( false )]
         public bool HasAccount
         {
             get { return SystemAccount != null; }
         }
+
+        #endregion
     }
 }

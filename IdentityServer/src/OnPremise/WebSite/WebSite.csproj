@@ -15,17 +15,17 @@
     <AssemblyName>WebSite</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>false</UseIISExpress>
-    <IISExpressSSLPort>44300</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
-    <IISExpressUseClassicPipelineMode />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\</SolutionDir>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>44309</IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode>false</IISExpressUseClassicPipelineMode>
+    <SccProjectName>%24/REM/ProCenter/Trunk/IdentityServer/src/OnPremise/WebSite</SccProjectName>
+    <SccLocalPath>.</SccLocalPath>
+    <SccAuxPath>https://tfs.feisystems.com/tfs/feicollection02</SccAuxPath>
+    <SccProvider>{4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,41 +49,45 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\WebGrease.1.3.0\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="BrockAllen.CookieTempData, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\BrockAllen.CookieTempData.dll.1.2.1\lib\net45\BrockAllen.CookieTempData.dll</HintPath>
+    <Reference Include="BrockAllen.CookieTempData">
+      <HintPath>..\..\..\..\packages\BrockAllen.CookieTempData.dll.1.2.0\lib\net45\BrockAllen.CookieTempData.dll</HintPath>
     </Reference>
-    <Reference Include="BrockAllen.OAuth2, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="BrockAllen.OAuth2, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\BrockAllen.OAuth2.2.2.0\lib\net45\BrockAllen.OAuth2.dll</HintPath>
+      <HintPath>..\..\..\..\packages\BrockAllen.OAuth2.2.3.0\lib\net45\BrockAllen.OAuth2.dll</HintPath>
     </Reference>
-    <Reference Include="EntityFramework, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\..\..\..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServerCompact">
+      <HintPath>..\..\..\..\packages\EntityFramework.SqlServerCompact.6.0.2\lib\net45\EntityFramework.SqlServerCompact.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\..\..\..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.SqlServerCe, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\..\..\packages\Microsoft.SqlServer.Compact.4.0.8876.1\lib\net40\System.Data.SqlServerCe.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data.SqlServerCe.Entity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\..\..\packages\EntityFramework.SqlServerCompact.4.3.6\lib\net40\System.Data.SqlServerCe.Entity.dll</HintPath>
     </Reference>
     <Reference Include="System.Drawing" />
     <Reference Include="System.IdentityModel" />
     <Reference Include="System.IdentityModel.Services" />
     <Reference Include="System.IdentityModel.Tokens.Jwt, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
+      <HintPath>..\..\..\..\packages\System.IdentityModel.Tokens.Jwt.3.0.2\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -117,9 +121,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Microsoft.AspNet.Web.Optimization.1.0.0\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Providers, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Providers.Core.1.2\lib\net40\System.Web.Providers.dll</HintPath>
+    <Reference Include="System.Web.Providers">
+      <HintPath>..\..\..\..\packages\Microsoft.AspNet.Providers.Core.2.0.0\lib\net40\System.Web.Providers.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -150,9 +153,9 @@
       <Private>True</Private>
       <HintPath>..\..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
     </Reference>
-    <Reference Include="Thinktecture.IdentityModel, Version=3.4.6.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Thinktecture.IdentityModel, Version=3.6.1.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Thinktecture.IdentityModel.3.4.6\lib\net45\Thinktecture.IdentityModel.dll</HintPath>
+      <HintPath>..\..\..\..\packages\Thinktecture.IdentityModel.3.6.1\lib\net45\Thinktecture.IdentityModel.dll</HintPath>
     </Reference>
     <Reference Include="WebGrease, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -160,6 +163,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_LocalResources\Account\ForgotPassword.cshtml.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ForgotPassword.cshtml.resx</DependentUpon>
+    </Compile>
+    <Compile Include="App_LocalResources\Account\SetupAccount.cshtml.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SetupAccount.cshtml.resx</DependentUpon>
+    </Compile>
     <Compile Include="App_LocalResources\Account\SignIn.cshtml.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -667,6 +680,9 @@
     <Compile Include="Controller\AccountController.cs" />
     <Compile Include="Controller\Api\EmailTemplate.cs" />
     <Compile Include="Controller\Api\MembershipController.cs" />
+    <Compile Include="Controller\Api\MembershipUserDto.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Controller\HomeController.cs" />
     <Compile Include="Controller\InitialConfigurationController.cs" />
     <Compile Include="Global.asax.cs">
@@ -702,6 +718,16 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Resources\SecurityQuestions.Designer.cs">
+      <DependentUpon>SecurityQuestions.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="Resources\SetupAccountModel.Designer.cs">
+      <DependentUpon>SetupAccountModel.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
     <Compile Include="Resources\SignInModel.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -709,12 +735,26 @@
     </Compile>
     <Compile Include="Security\IdentityServerHttpAuthentication.cs" />
     <Compile Include="Utility\HtmlHelpers.cs" />
+    <Compile Include="ViewModels\ForgotPasswordModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\InitialConfigurationModel.cs" />
     <Compile Include="ViewModels\MembershipUserDto.cs" />
+    <Compile Include="ViewModels\SetupAccountModel.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="ViewModels\SignInModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\dummy.txt" />
+    <Content Include="App_LocalResources\Account\ForgotPassword.cshtml.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ForgotPassword.cshtml.Designer.cs</LastGenOutput>
+    </Content>
+    <Content Include="App_LocalResources\Account\SetupAccount.cshtml.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SetupAccount.cshtml.Designer.cs</LastGenOutput>
+    </Content>
     <EmbeddedResource Include="App_LocalResources\OidcAuthorize\Consent.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Consent.Designer.cs</LastGenOutput>
@@ -1020,6 +1060,14 @@
     <EmbeddedResource Include="Resources\AccountController.fr.resx">
       <DependentUpon>AccountController.resx</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SecurityQuestions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SecurityQuestions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\SetupAccountModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>SetupAccountModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\SignInModel.fr.resx">
       <DependentUpon>SignInModel.resx</DependentUpon>
     </EmbeddedResource>
@@ -1034,6 +1082,7 @@
     <EmbeddedResource Include="App_LocalResources\Account\SignIn.cshtml.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>SignIn.cshtml.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="App_LocalResources\Account\SignIn.Mobile.cshtml.fr.resx">
       <DependentUpon>SignIn.Mobile.cshtml.resx</DependentUpon>
@@ -1056,8 +1105,6 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Index.cshtml.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Content Include="App_Data\IdentityServerConfiguration.sdf" />
-    <Content Include="App_Data\IdentityServerUsers.sdf" />
     <Content Include="Areas\Admin\Content\Admin.css">
       <DependentUpon>Admin.less</DependentUpon>
     </Content>
@@ -1204,8 +1251,11 @@
     <Content Include="Areas\Admin\Views\Protocol\ADFSIntegration.cshtml" />
     <Content Include="Areas\Admin\Views\OpenIdConnectClient\Edit.cshtml" />
     <Content Include="Areas\Admin\Views\OpenIdConnectClient\Index.cshtml" />
-    <None Include="Properties\PublishProfiles\QAFIle.pubxml" />
-    <None Include="Properties\PublishProfiles\QAPublish.pubxml" />
+    <Content Include="Content\Site.css.map">
+      <DependentUpon>Site.css</DependentUpon>
+    </Content>
+    <Content Include="NLog.config" />
+    <None Include="Properties\PublishProfiles\PublishFile.pubxml" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -1229,6 +1279,8 @@
     <Content Include="Views\OAuth2Authorize\ShowConsent.Mobile.cshtml" />
     <Content Include="Views\OidcAuthorize\Consent.cshtml" />
     <Content Include="Views\OidcAuthorize\ValidationError.cshtml" />
+    <Content Include="Views\Account\ForgotPassword.cshtml" />
+    <Content Include="Views\Account\SetupAccount.cshtml" />
     <None Include="_bin_deployableAssemblies\x86\sqlcese40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceqp40.dll" />
     <None Include="_bin_deployableAssemblies\x86\sqlceme40.dll" />
@@ -1282,18 +1334,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Thinktecture.IdentityServer.Core.Repositories\Thinktecture.IdentityServer.Core.Repositories.csproj">
-      <Project>{346a0c84-b70d-4ebd-9c26-d3858d3b24e6}</Project>
+      <Project>{9658f86f-3059-4731-9eb0-5f67a4ff1a8a}</Project>
       <Name>Thinktecture.IdentityServer.Core.Repositories</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Thinktecture.IdentityServer.Core\Thinktecture.IdentityServer.Core.csproj">
-      <Project>{c10c30ef-8e8f-4acb-b220-de22461fd167}</Project>
+      <Project>{38ce5c59-909e-4da6-8e1d-7eee7312ca9a}</Project>
       <Name>Thinktecture.IdentityServer.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Libraries\Thinktecture.IdentityServer.Protocols\Thinktecture.IdentityServer.Protocols.csproj">
-      <Project>{05a56d09-1773-403f-bdc4-36c595a157a7}</Project>
+      <Project>{c129c90c-774c-47d7-a19e-57b31c87ae18}</Project>
       <Name>Thinktecture.IdentityServer.Protocols</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Areas\Admin\App_LocalResources\ClientCertificate\Configure.cshtml.fr.resx">
       <DependentUpon>Configure.cshtml.resx</DependentUpon>
@@ -1651,12 +1704,27 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>63606</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>https://localhost:44309/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

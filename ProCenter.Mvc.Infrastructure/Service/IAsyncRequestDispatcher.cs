@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service
 {
     #region Using Statements
@@ -35,13 +38,32 @@ namespace ProCenter.Mvc.Infrastructure.Service
 
     #endregion
 
+    /// <summary>Interface for asynchronous request dispatcher.</summary>
     public interface IAsyncRequestDispatcher : IRequestDispatcher
     {
-        Task<T> GetAsync<T>()
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Gets all asynchronous.
+        /// </summary>
+        /// <returns>A <see cref="Task"/>.</returns>
+        Task GetAllAsync ();
+
+        /// <summary>
+        /// Gets the asynchronous.
+        /// </summary>
+        /// <typeparam name="T">The type of response to get.</typeparam>
+        /// <returns>A <see cref="Task"/> that returns the response of type <typeparam name="T"></typeparam>.</returns>
+        Task<T> GetAsync<T> ()
             where T : Response;
 
-        Task<object> GetAsync(Type type);
+        /// <summary>
+        /// Gets the asynchronous.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <returns>A <see cref="Task"/> that returns a response object.</returns>
+        Task<object> GetAsync ( Type type );
 
-        Task GetAllAsync();
+        #endregion
     }
 }

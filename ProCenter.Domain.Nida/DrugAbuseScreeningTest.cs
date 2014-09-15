@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,189 +25,184 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
-    using System.Collections.Generic;
-    using AssessmentModule;
-    using AssessmentModule.Lookups;
-    using CommonModule;
-    //using Infrastructure.Service.Completeness;
-    using Pillar.Common.Metadata;
-    using Pillar.Common.Metadata.Dtos;
-    using Service.Message.Metadata;
+    #region Using Statements
 
-    public class DrugAbuseScreeningTest : AssessmentDefinition
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.AssessmentModule.Attributes;
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The drug abuse screening test class.</summary>
+    [CodeSystem ( CodeSystems.NciCode )]
+    [Code("3254100")]
+    [ScoreType(ScoreTypeEnum.ScoreTypeInt)]
+    public class DrugAbuseScreeningTest : Assessment
     {
-        public static CodedConcept AssessmentCodedConcept
+        #region Constructors and Destructors
+
+        /// <summary>Initializes static members of the <see cref="DrugAbuseScreeningTest" /> class.</summary>
+        static DrugAbuseScreeningTest ()
         {
-            get { return new CodedConcept(CodeSystems.Nci, "3254100", "DrugAbuseScreeningTest"); }
+            AssessmentCodedConcept = GetCodedConcept<DrugAbuseScreeningTest>();
         }
 
-        public DrugAbuseScreeningTest() : base(AssessmentCodedConcept)
+        /// <summary>Initializes a new instance of the <see cref="DrugAbuseScreeningTest"/> class.</summary>
+        public DrugAbuseScreeningTest()
+            : this ( null )
         {
-            var booleanType = typeof (bool).Name;
-            var itemDefinitions = new List<ItemDefinition>
-                {
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254039",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254057",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductConcurrentUsePersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254058",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductCessationAbilityPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254061",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductBlackoutFlashbacksPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254063",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductGuiltRegretPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254065",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductDomesticPartnershipSpouseComplainPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254066",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductFamilyNeglectPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254067",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductCrimeObtainPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254070",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductSubstanceWithdrawalSyndromePersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    new ItemDefinition(
-                        new CodedConcept(CodeSystems.Nci, "3254072",
-                                         "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductAssociatedDiseaseorDisorderPersonalMedicalHistoryInd-2"),
-                        ItemType.Question, ValueType.YesOrNoResponse)
-                        {
-                            ItemMetadata = new ItemMetadata
-                                {
-                                    MetadataItems = new List<IMetadataItem>
-                                        {
-                                            new ItemTemplateMetadataItem {TemplateName = booleanType},
-                                            new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                        }
-                                }
-                        },
-                    //new ItemDefinition(
-                    //    new CodedConcept(CodeSystems.Nci, "3254089",
-                    //                     "SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductScreeningTestScore"),
-                    //    ItemType.Question, ValueType.Score)
-                    //    {
-                    //        ItemMetadata = new ItemMetadata
-                    //            {
-                    //                MetadataItems = new List<IMetadataItemDto>
-                    //                    {
-                    //                        new ItemTemplateMetadataItemDto {TemplateName = "Int32"}
-                    //                    }
-                    //            }
-                    //    },
-                };
-
-            foreach (var itemDefinition in itemDefinitions)
-            {
-                AddItemDefinition(itemDefinition);
-            }
         }
+
+        /// <summary>Initializes a new instance of the <see cref="DrugAbuseScreeningTest" /> class.</summary>
+        /// <param name="assessmentInstance">The assessment instance.</param>
+        public DrugAbuseScreeningTest ( AssessmentInstance assessmentInstance )
+            : base ( assessmentInstance )
+        {
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>Gets the assessment coded concept.</summary>
+        /// <value>The assessment coded concept.</value>
+        public static CodedConcept AssessmentCodedConcept { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product associated diseaseor disorder personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product associated diseaseor
+        ///     disorder personal medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254072" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 9 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductAssociatedDiseaseorDisorderPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product blackout flashbacks personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product blackout flashbacks personal
+        ///     medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254061" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 3 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductBlackoutFlashbacksPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product cessation ability personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product cessation ability personal
+        ///     medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254058" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 2 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductCessationAbilityPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product concurrent use personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product concurrent use personal
+        ///     medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254057" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 1 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductConcurrentUsePersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product crime obtain personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product crime obtain personal
+        ///     medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254067" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 7 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductCrimeObtainPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product domestic partnership spouse complain personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product domestic partnership spouse
+        ///     complain personal medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254065" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 5 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductDomesticPartnershipSpouseComplainPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product family neglect personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product family neglect personal
+        ///     medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254066" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 6 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductFamilyNeglectPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product guilt regret personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product guilt regret personal
+        ///     medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254063" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 4 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductGuiltRegretPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product personal medical history
+        ///     ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254039" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 0 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductPersonalMedicalHistoryInd2 { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether [substance abuse prescription illicit
+        ///     substance overthe counter product substance withdrawal syndrome personal medical history ind2].
+        /// </summary>
+        /// <value>
+        ///     <c>True</c> if [substance abuse prescription illicit substance overthe counter product substance withdrawal
+        ///     syndrome personal medical history ind2]; otherwise, <c>False</c>.
+        /// </value>
+        [Code ( "3254070" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.YesOrNoResponseCode )]
+        [DisplayOrder ( 8 )]
+        public bool SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductSubstanceWithdrawalSyndromePersonalMedicalHistoryInd2 { get; private set; }
+
+        #endregion
     }
 }

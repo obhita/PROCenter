@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,37 +25,59 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.EventListener
 {
     #region Using Statements
 
-    using EventStore;
     using Pillar.Common.InversionOfControl;
     using Pillar.Domain.Event;
+
     using ProCenter.Domain.AssessmentModule;
     using ProCenter.Domain.AssessmentModule.Event;
-    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>The assessment submitted event handler class.</summary>
     public class AssessmentSubmittedEventHandler : IDomainEventHandler<AssessmentSubmittedEvent>
     {
+        #region Fields
+
         private readonly IAssessmentInstanceRepository _assessmentInstanceRepository;
 
-        public AssessmentSubmittedEventHandler(IAssessmentInstanceRepository assessmentInstanceRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentSubmittedEventHandler"/> class.
+        /// </summary>
+        /// <param name="assessmentInstanceRepository">The assessment instance repository.</param>
+        public AssessmentSubmittedEventHandler ( IAssessmentInstanceRepository assessmentInstanceRepository )
         {
             _assessmentInstanceRepository = assessmentInstanceRepository;
         }
 
-        public void Handle(AssessmentSubmittedEvent args)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Handles the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        public void Handle ( AssessmentSubmittedEvent args )
         {
-            if (args.Submit)
+            if ( args.Submit )
             {
-                var assessmentInstance = _assessmentInstanceRepository.GetByKey(args.Key);
-                var scoringEngine = IoC.CurrentContainer.Resolve<IScoringEngine>(assessmentInstance.AssessmentName);
-                scoringEngine.CalculateScore(assessmentInstance);
+                var assessmentInstance = _assessmentInstanceRepository.GetByKey ( args.Key );
+                var scoringEngine = IoC.CurrentContainer.Resolve<IScoringEngine> ( assessmentInstance.AssessmentName );
+                scoringEngine.CalculateScore ( assessmentInstance );
             }
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,29 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
+    /// <summary>
+    /// Role Type.
+    /// </summary>
     public enum RoleType
     {
+        /// <summary>
+        /// The user defined.
+        /// </summary>
         UserDefined,
+
+        /// <summary>
+        /// The built in.
+        /// </summary>
         BuiltIn,
+
+        /// <summary>
+        /// The internal.
+        /// </summary>
         Internal
     }
 }

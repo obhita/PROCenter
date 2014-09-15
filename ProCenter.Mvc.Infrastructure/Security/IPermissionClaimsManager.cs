@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
     #region Using Statements
@@ -34,9 +37,7 @@ namespace ProCenter.Mvc.Infrastructure.Security
 
     #endregion
 
-    /// <summary>
-    ///     This interface provides ability to manage permission claims.
-    /// </summary>
+    /// <summary>This interface provides ability to manage permission claims.</summary>
     public interface IPermissionClaimsManager
     {
         #region Public Methods and Operators
@@ -49,6 +50,12 @@ namespace ProCenter.Mvc.Infrastructure.Security
         void IssueAccountClaims ( ClaimsPrincipal claimsPrincipal, SystemAccount systemAccount );
 
         /// <summary>
+        ///     Issues the system account validation claim.
+        /// </summary>
+        /// <param name="claimsPrincipal">The claims principal.</param>
+        void IssueSystemAccountValidationClaim ( ClaimsPrincipal claimsPrincipal );
+
+        /// <summary>
         ///     Issues the system permission claims.
         /// </summary>
         /// <param name="claimsPrincipal">
@@ -58,12 +65,6 @@ namespace ProCenter.Mvc.Infrastructure.Security
         ///     The system account.
         /// </param>
         void IssueSystemPermissionClaims ( ClaimsPrincipal claimsPrincipal, SystemAccount systemAccount );
-
-        /// <summary>
-        /// Issues the system account validation claim.
-        /// </summary>
-        /// <param name="claimsPrincipal">The claims principal.</param>
-        void IssueSystemAccountValidationClaim ( ClaimsPrincipal claimsPrincipal );
 
         #endregion
     }

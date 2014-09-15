@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,29 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
-    using Lookups;
+    using ProCenter.Domain.CommonModule.Lookups;
 
     #endregion
 
+    /// <summary>The state province class.</summary>
     public class StateProvince : Lookup
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StateProvince"/> class.
+        /// </summary>
+        protected internal StateProvince ()
+        {
+        }
+
+        #endregion
     }
 }

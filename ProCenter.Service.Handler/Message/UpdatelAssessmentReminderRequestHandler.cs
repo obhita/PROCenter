@@ -39,15 +39,30 @@ namespace ProCenter.Service.Handler.Message
 
     #endregion
 
+    /// <summary>
+    /// UpdateAssessmentReminderRequestHandler class.
+    /// </summary>
     public class UpdateAssessmentReminderRequestHandler : ServiceRequestHandler<UpdateAssessmentReminderRequest, DtoResponse<AssessmentReminderDto>>
     {
+        /// <summary>
+        /// The _assessment reminder repository.
+        /// </summary>
         private readonly IAssessmentReminderRepository _assessmentReminderRepository;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateAssessmentReminderRequestHandler"/> class.
+        /// </summary>
+        /// <param name="assessmentReminderRepository">The assessment reminder repository.</param>
         public UpdateAssessmentReminderRequestHandler(IAssessmentReminderRepository assessmentReminderRepository)
         {
             _assessmentReminderRepository = assessmentReminderRepository;
         }
 
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
         protected override void Handle(UpdateAssessmentReminderRequest request, DtoResponse<AssessmentReminderDto> response)
         {
             if (request.AssessmentReminderKey == Guid.Empty)
@@ -59,6 +74,10 @@ namespace ProCenter.Service.Handler.Message
                     if (dto.PatientKey.HasValue && assessmentReminder.PatientKey != dto.PatientKey.Value)
                     {
                         assessmentReminder.RevisePatientKey(dto.PatientKey.Value);
+                    }
+                    if ( dto.AssessmentInstanceKey.HasValue )
+                    {
+                        assessmentReminder.ReviseAssessmentInstanceKey ( dto.AssessmentInstanceKey.GetValueOrDefault() );
                     }
                     if (dto.CreatedByStaffKey.HasValue && assessmentReminder.CreatedByStaffKey != dto.CreatedByStaffKey.Value)
                     {
@@ -76,13 +95,24 @@ namespace ProCenter.Service.Handler.Message
                     {
                         assessmentReminder.ReviseAssessmentDefinitionKey(dto.AssessmentDefinitionKey.Value);
                     }
-                    if ( dto.ReminderTime > 0 )
+                    if (dto.ReminderTime > 0)
                     {
-                        assessmentReminder.ReviseReminder ( dto.ReminderTime, dto.ReminderUnit, string.IsNullOrWhiteSpace ( dto.SendToEmail ) ? null : new Email ( dto.SendToEmail ) );
+                        assessmentReminder.ReviseReminder(
+                            dto.ReminderTime,
+                            dto.ReminderUnit,
+                            string.IsNullOrWhiteSpace(dto.SendToEmail) ? null : new Email(dto.SendToEmail));
                     }
-                    if ( dto.ForSelfAdministration )
+                    if (dto.ForSelfAdministration)
                     {
-                        assessmentReminder.AllowSelfAdministration ();
+                        assessmentReminder.AllowSelfAdministration();
+                    }
+                    else
+                    {
+                        assessmentReminder.DontAllowSelfAdministration();
+                    }
+                    if (dto.ReminderRecurrence != assessmentReminder.ReminderRecurrence || dto.End != assessmentReminder.End)
+                    {
+                        assessmentReminder.ReviseRecurrence(dto.ReminderRecurrence, dto.End);
                     }
                     var dto2 = Mapper.Map<AssessmentReminder, AssessmentReminderDto>(assessmentReminder);
                     response.DataTransferObject = dto2;
@@ -90,12 +120,19 @@ namespace ProCenter.Service.Handler.Message
             }
             else
             {
-                var assessmentReminder = _assessmentReminderRepository.GetByKey(request.AssessmentReminderKey);
+                var dto = request.AssessmentReminderDto;
+                var assessmentReminder = _assessmentReminderRepository.GetByKey(dto.RecurrenceKey.Value);
                 if (assessmentReminder != null)
                 {
-                    assessmentReminder.ReviseStart(assessmentReminder.Start.AddDays(request.DayDelta));
+                    // todo: need to check whether the startdate should be updated
+                    //assessmentReminder.ReviseStart(assessmentReminder.Start.AddDays(request.DayDelta));
                     var dto2 = Mapper.Map<AssessmentReminder, AssessmentReminderDto>(assessmentReminder);
                     response.DataTransferObject = dto2;
+
+                    if (dto.AssessmentInstanceKey.HasValue)
+                    {
+                        assessmentReminder.ReviseAssessmentInstanceKey(dto.AssessmentInstanceKey.GetValueOrDefault(), request.AssessmentReminderKey);
+                    }
                 }
             }
         }

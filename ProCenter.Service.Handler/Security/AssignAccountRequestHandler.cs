@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,121 +25,165 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
+    #region Using Statements
+
     using System;
+    using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using Common;
+    using Dapper;
     using Domain.SecurityModule;
-    using Infrastructure.Service.ReadSideService;
+    using global::AutoMapper;
+    using global::AutoMapper.Mappers;
+
+    using Infrastructure.Service;
+
+    using Newtonsoft.Json;
+
     using NLog;
     using Pillar.Domain.Primitives;
+    using ProCenter.Common;
     using Service.Message.Common;
     using Service.Message.Security;
-    using global::AutoMapper;
-    using Dapper;
 
-    public class AssignAccountRequestHandler : ServiceRequestHandler<AssignAccountRequest, AssignAccountResponse> 
+    #endregion
+
+    /// <summary>Handler for assigning account to staff/patient.</summary>
+    public class AssignAccountRequestHandler : ServiceRequestHandler<AssignAccountRequest, AssignAccountResponse>
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
-        private readonly ISystemAccountRepository _systemAccountRepository;
-        private readonly IDbConnectionFactory _dbConnectionFactory;
+        #region Fields
 
-        public AssignAccountRequestHandler(ISystemAccountRepository systemAccountRepository, IDbConnectionFactory dbConnectionFactory)
+        private readonly IDbConnectionFactory _dbConnectionFactory;
+        private readonly ISystemAccountIdentityServiceManager _systemAccountIdentityServiceManager;
+        private readonly ISystemAccountRepository _systemAccountRepository;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="AssignAccountRequestHandler" /> class.
+        /// </summary>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        /// <param name="dbConnectionFactory">The db connection factory.</param>
+        /// <param name="systemAccountIdentityServiceManager">The system account identity service manager.</param>
+        public AssignAccountRequestHandler ( ISystemAccountRepository systemAccountRepository,
+            IDbConnectionFactory dbConnectionFactory,
+            ISystemAccountIdentityServiceManager systemAccountIdentityServiceManager )
         {
             _systemAccountRepository = systemAccountRepository;
             _dbConnectionFactory = dbConnectionFactory;
+            _systemAccountIdentityServiceManager = systemAccountIdentityServiceManager;
         }
 
-        protected override void Handle(AssignAccountRequest request, AssignAccountResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        /// <exception cref="System.InvalidOperationException">Cannot find Patient portal built in role.</exception>
+        protected override void Handle ( AssignAccountRequest request, AssignAccountResponse response )
         {
-            if (request.SystemAccountDto.CreateNew)
+            if ( request.SystemAccountDto.CreateNew )
             {
-                var systemAccount = _systemAccountRepository.GetByIdentifier(request.SystemAccountDto.Identifier);
-                if (systemAccount != null) // account existing
+                var systemAccount = _systemAccountRepository.GetByIdentifier ( request.SystemAccountDto.Identifier );
+                if ( systemAccount != null )
                 {
-                    var dataErrorInfo = new DataErrorInfo(string.Format("Cannot create account because an account with the email {0} already exists.", request.SystemAccountDto.Identifier), ErrorLevel.Error);
+                    // account existing
+                    var dataErrorInfo =
+                        new DataErrorInfo ( string.Format ( "Cannot create account because an account with the email {0} already exists.", request.SystemAccountDto.Identifier ),
+                            ErrorLevel.Error );
                     response.SystemAccountDto = request.SystemAccountDto;
-                    response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
+                    response.SystemAccountDto.AddDataErrorInfo ( dataErrorInfo );
                 }
                 else
                 {
-                    // 1. create member login in Identity server
-                    // 2. Create System account in domain
-                    // 3. assign system account to the new staff or patient
-                    // 4. error handling: if the login/account is taken or cannot create new login
-                    using (var httpClient = new HttpClient {BaseAddress = new Uri(request.BaseIdentityServerUri)})
+                    var identityServiceResponse = _systemAccountIdentityServiceManager.Create ( request.SystemAccountDto.Email );
+                    if ( identityServiceResponse.Sucess )
                     {
-                        httpClient.SetToken("Session", request.Token);
-                        var httpResponseMessage = httpClient.GetAsync("api/membership/Create/" + request.SystemAccountDto.Username + "?email=" + request.SystemAccountDto.Email).Result;
-                        if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
+                        var systemAccountFactory = new SystemAccountFactory ();
+                        systemAccount = systemAccountFactory.Create ( request.OrganizationKey, request.SystemAccountDto.Email, new Email ( request.SystemAccountDto.Email ) );
+                        if ( request.StaffKey != Guid.Empty )
                         {
-                            var membershipUserDto = httpResponseMessage.Content.ReadAsAsync<MembershipUserDto>().Result;
-                            var systemAccountFactory = new SystemAccountFactory();
-                            systemAccount = systemAccountFactory.Create(request.OrganizationKey, membershipUserDto.NameIdentifier, new Email(membershipUserDto.Email));
-                            if (request.StaffKey != Guid.Empty)
-                            {
-                                systemAccount.AssignToStaff(request.StaffKey);
-                            }
-                            if (request.PatientKey != Guid.Empty)
-                            {
-                                systemAccount.AssignToPatient(request.PatientKey);
+                            systemAccount.AssignToStaff ( request.StaffKey );
+                        }
+                        if ( request.PatientKey != Guid.Empty )
+                        {
+                            systemAccount.AssignToPatient ( request.PatientKey );
 
-                                Guid? portalRoleKey;
-                                using (var connection = _dbConnectionFactory.CreateConnection())
-                                {
-                                    portalRoleKey = connection.Query<Guid?>("SELECT [RoleKey] FROM [SecurityModule].[Role] WHERE Name=@Name", new {Name = "Patient Portal"}).FirstOrDefault();
-                                }
-                                if (portalRoleKey.HasValue)
-                                {
-                                    systemAccount.AddRole(portalRoleKey.Value);
-                                }
-                                else
-                                {
-                                    Logger.Error("Cannot find Patient portal built in role.");
-                                }
+                            Guid? portalRoleKey;
+                            using ( var connection = _dbConnectionFactory.CreateConnection () )
+                            {
+                                portalRoleKey =
+                                    connection.Query<Guid?> ( "SELECT [RoleKey] FROM [SecurityModule].[Role] WHERE Name=@Name", new {Name = "Patient Portal"} ).FirstOrDefault ();
                             }
-                            var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
-                            response.SystemAccountDto = systemAccountDto;
+                            if ( portalRoleKey.HasValue )
+                            {
+                                systemAccount.AddRole ( portalRoleKey.Value );
+                            }
+                            else
+                            {
+                                throw new InvalidOperationException ( "Cannot find Patient portal built in role." );
+                            }
                         }
-                        else
-                        {
-                            var result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                            var dataErrorInfo = new DataErrorInfo(result, ErrorLevel.Error);
-                            response.SystemAccountDto = request.SystemAccountDto;
-                            response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
-                        }
+                        var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto> ( systemAccount );
+                        response.SystemAccountDto = systemAccountDto;
+                    }
+                    else
+                    {
+                        var result = identityServiceResponse.ErrorMessage;
+                        //// remove the message from the JSON
+                        var identityError = (IdentityServerError)JsonConvert.DeserializeObject ( result, typeof(IdentityServerError));
+                        var dataErrorInfo = new DataErrorInfo(identityError.Message, ErrorLevel.Error);
+                        response.SystemAccountDto = request.SystemAccountDto;
+                        response.SystemAccountDto.AddDataErrorInfo ( dataErrorInfo );
                     }
                 }
             }
             else
             {
-                var systemAccount = _systemAccountRepository.GetByIdentifier(request.SystemAccountDto.Identifier);
-                if (systemAccount != null) // account existing
+                var systemAccount = _systemAccountRepository.GetByIdentifier ( request.SystemAccountDto.Identifier );
+                if ( systemAccount != null ) 
                 {
-                    if (systemAccount.StaffKey == null)
+                    // account existing
+                    if ( systemAccount.StaffKey == null )
                     {
-                        systemAccount.AssignToStaff(request.StaffKey);
-                        var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
+                        systemAccount.AssignToStaff ( request.StaffKey );
+                        var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto> ( systemAccount );
                         response.SystemAccountDto = systemAccountDto;
                     }
                     else
                     {
-                        var dataErrorInfo = new DataErrorInfo(string.Format("Cannot link account because an account with the email {0} has been assigned to another staff.", request.SystemAccountDto.Identifier), ErrorLevel.Error);
+                        var dataErrorInfo =
+                            new DataErrorInfo (
+                                string.Format ( 
+                                "Cannot link account because an account with the email {0} has been assigned to another staff.", 
+                                request.SystemAccountDto.Identifier ),
+                                ErrorLevel.Error );
                         response.SystemAccountDto = request.SystemAccountDto;
-                        response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
+                        response.SystemAccountDto.AddDataErrorInfo ( dataErrorInfo );
                     }
                 }
                 else
                 {
-                    var dataErrorInfo = new DataErrorInfo(string.Format("Cannot link account because an account with the email {0} does not exist.", request.SystemAccountDto.Identifier), ErrorLevel.Error);
+                    var dataErrorInfo =
+                        new DataErrorInfo ( string.Format ( "Cannot link account because an account with the email {0} does not exist.", request.SystemAccountDto.Identifier ),
+                            ErrorLevel.Error );
                     response.SystemAccountDto = request.SystemAccountDto;
-                    response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
+                    response.SystemAccountDto.AddDataErrorInfo ( dataErrorInfo );
                 }
             }
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,37 +25,52 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.PermissionDescriptor
 {
     #region Using Statements
 
+    using Common.Permission;
     using Controllers;
-    using Infrastructure.Permission;
     using Pillar.Security.AccessControl;
     using ProCenter.Infrastructure.Security;
 
     #endregion
 
+    /// <summary>The basic access permission descriptor class.</summary>
     public class BasicAccessPermissionDescriptor : IInternalPermissionDescriptor
     {
         #region Fields
 
         private readonly ResourceList _resourceList = new ResourceListBuilder ()
             .AddResource<HomeController> ( BasicAccessPermission.AccessUserInterfacePermission )
-            .AddResource<AccountController>(BasicAccessPermission.AccessUserInterfacePermission)
-            .AddResource<ErrorController>(BasicAccessPermission.AccessUserInterfacePermission);
+            .AddResource<AccountController> ( BasicAccessPermission.AccessUserInterfacePermission )
+            .AddResource<ErrorController> ( BasicAccessPermission.AccessUserInterfacePermission );
 
         #endregion
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets a value indicating whether [is internal].
+        /// </summary>
+        /// <value>
+        ///   <c>True</c> if [is internal]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInternal
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// Gets the resources.
+        /// </summary>
         public ResourceList Resources
         {
             get { return _resourceList; }
         }
-
-        public bool IsInternal { get { return false; } }
 
         #endregion
     }

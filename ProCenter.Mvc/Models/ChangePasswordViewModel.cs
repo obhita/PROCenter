@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,58 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Models
 {
+    #region Using Statements
+
     using System.ComponentModel.DataAnnotations;
 
+    #endregion
+
+    /// <summary>The change password view model class.</summary>
     public class ChangePasswordViewModel
     {
-        [Required]
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the old password.
+        /// </summary>
+        /// <value>
+        /// The old password.
+        /// </value>
+        [Required(ErrorMessage = "Old Password field is required.")]
         [DataType(DataType.Password)]
         [Display(Name = "Old Password")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage = "Password is required.")]
-        [StringLength(20, ErrorMessage = "Must be between 6 and 20 characters.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "New Password")]
+        /// <summary>
+        /// Gets or sets the new password.
+        /// </summary>
+        /// <value>
+        /// The new password.
+        /// </value>
+        [Required ( ErrorMessage = "New Password field is required." )]
+        [StringLength ( 20, ErrorMessage = "Must be between 6 and 20 characters.", MinimumLength = 6 )]
+        [DataType ( DataType.Password )]
+        [Display ( Name = "New Password" )]
         public string NewPassword { get; set; }
 
-        [Required(ErrorMessage = "Confirm Password is required.")]
+        /// <summary>
+        /// Gets or sets the confirm password.
+        /// </summary>
+        /// <value>
+        /// The confirm password.
+        /// </value>
+        [Required(ErrorMessage = "Confirm Password field is required.")]
         [StringLength(20, ErrorMessage = "Must be between 6 and 20 characters.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Compare("NewPassword")]
         [Display(Name = "Confirm Password")]
         public string ConfirmPassword { get; set; }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,68 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
-    using System.IdentityModel.Services;
+    #region Using Statements
+
     using System.Web.Mvc;
     using Infrastructure.Security;
 
+    #endregion
+
+    /// <summary>The account controller class.</summary>
     public class AccountController : Controller
     {
+        #region Fields
+
         private readonly ILogoutService _logoutService;
 
-        public AccountController(ILogoutService logoutService)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AccountController"/> class.
+        /// </summary>
+        /// <param name="logoutService">The logout service.</param>
+        public AccountController ( ILogoutService logoutService )
         {
             _logoutService = logoutService;
         }
 
-        public ActionResult Logout()
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Logouts this instance.</summary>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        public ActionResult Logout ()
+        {
+            var signoutMessage = _logoutService.Logout ();
+
+            return Redirect ( signoutMessage.WriteQueryString () );
+        }
+
+        /// <summary>
+        /// Logouts the and get logout page URL.
+        /// </summary>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        public ActionResult LogoutAndGetLogoutPageUrl()
         {
             var signoutMessage = _logoutService.Logout();
-
-            return Redirect(signoutMessage.WriteQueryString());
+            return new JsonResult
+            {
+                JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                Data = new
+                {
+                    LogoutPageUrl = signoutMessage.WriteQueryString ()
+                }
+            };
         }
+
+        #endregion
     }
 }

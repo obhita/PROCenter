@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,31 +25,46 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Domain.OrganizationModule
 {
-    using CommonModule;
-    using CommonModule.Lookups;
+    #region Using Statements
 
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.CommonModule.Lookups;
+
+    #endregion
+
+    /// <summary>Lookup for organization address types.</summary>
     public class OrganizationAddressType : Lookup
     {
+        #region Static Fields
 
-        private static readonly CodeSystem CodeSystem = CodeSystems.Obhita;
+        private static readonly CodeSystem _codeSystem = CodeSystems.Obhita;
 
         /// <summary>
         ///     Office = 2.
         /// </summary>
         public static readonly OrganizationAddressType Office = new OrganizationAddressType
+                                                                {
+                                                                    CodedConcept = new CodedConcept ( code: "Office", codeSystem: _codeSystem, name: "Office" ),
+                                                                    SortOrder = 1,
+                                                                    Value = 0
+                                                                };
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="OrganizationAddressType" /> class.
+        /// </summary>
+        protected internal OrganizationAddressType ()
         {
-            CodedConcept = new CodedConcept(code: "Office", codeSystem: CodeSystem, name: "Office"),
-            SortOrder = 1,
-            Value = 0
-        };
+        }
+
+        #endregion
     }
 }

@@ -1,14 +1,17 @@
 @using ProCenter.Mvc.Infrastructure.Extension
-@model ProCenter.Service.Message.Organization.OrganizationAddressDto
+@using ProCenter.Service.Message.Organization
+
+@model OrganizationAddressDto
 
 @{
-    var lookupCategory = Html.GetLookupCategory("OrganizationAddressType");
+    var lookupCategory = Html.GetLookupCategory ( "OrganizationAddressType" );
 }
 
+<div class="validation-summary-errors" id="form_errors"></div>
 <div class="sub-question">
-    @Html.EditorFor( m => m.OrganizationAddressType, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory, Placeholder = Html.DisplayNameFor( m => m.OrganizationAddressType ) } )
+    @Html.EditorFor( m => m.OrganizationAddressType, new {LookupItems = Html.GetLookupOptionsForCategory ( lookupCategory ), LookupCategory = lookupCategory, Placeholder = Html.DisplayNameFor ( m => m.OrganizationAddressType )} )
     @Html.CheckBoxFor( m => m.IsPrimary )
     @Html.LabelFor( m => m.IsPrimary )
-    @Html.HiddenFor( m => m.OriginalHash )
+    @Html.HiddenFor( m=> m.OriginalHash, new {@Value = Model.OriginalHash} )
 </div>
 @Html.EditorFor( m => m.Address )

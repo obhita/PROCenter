@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{056F69C8-8448-4532-B8F4-A7C3AB957013}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProCenter.ReadSideService</RootNamespace>
+    <AssemblyName>ProCenter.ReadSideService</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Dapper">
+      <HintPath>..\packages\Dapper-Async.1.03\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="NEventStore">
+      <HintPath>..\packages\NEventStore.4.0.0.15\lib\net40\NEventStore.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Common">
+      <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Domain">
+      <HintPath>..\lib\Pillar\Pillar.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="StructureMap">
+      <HintPath>..\packages\structuremap.2.6.4.1\lib\net40\StructureMap.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssessmentDefinitionUpdater.cs" />
+    <Compile Include="AssessmentInstanceUpdater.cs" />
+    <Compile Include="AssessmentReminderUpdater.cs" />
+    <Compile Include="ConnectionStringConfigurationProvider.cs" />
+    <Compile Include="PatientScoreRangeReportUpdater.cs" />
+    <Compile Include="IConnectionStringConfigurationProvider.cs" />
+    <Compile Include="IHandleMessages.cs" />
+    <Compile Include="OrganizationUpdater.cs" />
+    <Compile Include="PatientUpdater.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReadSidePersistenceDispatcher.cs" />
+    <Compile Include="ReadSideService.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReadSideService.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportUpdater.cs" />
+    <Compile Include="RoleUpdater.cs" />
+    <Compile Include="SqlConnectionFactory.cs" />
+    <Compile Include="StaffUpdater.cs" />
+    <Compile Include="SystemAcountUpdater.cs" />
+    <Compile Include="TeamUpdater.cs" />
+    <Compile Include="WorkflowMessageUpdater.cs" />
+    <Compile Include="WorkflowReportUpdater.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ProCenter.Common\ProCenter.Common.csproj">
+      <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
+      <Name>ProCenter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.GainShortScreener\ProCenter.Domain.GainShortScreener.csproj">
+      <Project>{c6a13400-f0f0-483d-96db-641722256341}</Project>
+      <Name>ProCenter.Domain.GainShortScreener</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Gpra\ProCenter.Domain.Gpra.csproj">
+      <Project>{3558dd1b-328c-4eb3-a831-ac4986444fc8}</Project>
+      <Name>ProCenter.Domain.Gpra</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Nida.Tests\ProCenter.Domain.Nida.Tests.csproj">
+      <Project>{bcdd411c-a985-477a-82e3-5b5db848fd8f}</Project>
+      <Name>ProCenter.Domain.Nida.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Nida\ProCenter.Domain.Nida.csproj">
+      <Project>{9a809ba5-55ff-4f25-a555-9aed08910998}</Project>
+      <Name>ProCenter.Domain.Nida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Psc\ProCenter.Domain.Psc.csproj">
+      <Project>{9e38854f-81b2-4b7f-8b29-02ddaeb99a8b}</Project>
+      <Name>ProCenter.Domain.Psc</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain\ProCenter.Domain.csproj">
+      <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>
+      <Name>ProCenter.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Primitive\ProCenter.Primitive.csproj">
+      <Project>{ae01f318-1337-4387-a14a-76ed315277c8}</Project>
+      <Name>ProCenter.Primitive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Service.Message\ProCenter.Service.Message.csproj">
+      <Project>{a74fc33e-67a1-4ec2-87ac-d62ffe998380}</Project>
+      <Name>ProCenter.Service.Message</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ReadSideService.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ReadSideService.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,4 +1,4 @@
-﻿/*SMACSS 
+/*SMACSS 
 ----------------------------------------------------------
 This file is using the Scalable and Modular Architecture for 
 CSS (SMACSS), which facilitates implementation of best practices 
@@ -34,22 +34,16 @@ variables is recommended.
 .main-header-style {
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), theme-color-1;
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.4))), theme-color-1;
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), theme-color-1;
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), theme-color-1;
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), theme-color-1;
   /* IE10+ */
-
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), theme-color-1;
   /* W3C */
-
   border-bottom: 1px solid #6e819a;
 }
 .main-tabnavigation-style {
@@ -79,22 +73,16 @@ variables is recommended.
 .masterlist-header-style {
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.4))), #ffffff;
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* IE10+ */
-
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* W3C */
-
   border-top: 0px solid #484747;
   border-right: 0px solid #484747;
   border-bottom: 1px solid #484747;
@@ -103,22 +91,16 @@ variables is recommended.
 .detail-header-style {
   background: -moz-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* FF3.6+ */
-
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255, 255, 255, 0.4)), color-stop(100%, rgba(0, 0, 0, 0.4))), #ffffff;
   /* Chrome,Safari4+ */
-
   background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* Chrome10+,Safari5.1+ */
-
   background: -o-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* Opera 11.10+ */
-
   background: -ms-linear-gradient(top, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* IE10+ */
-
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.4) 0%, rgba(0, 0, 0, 0.4) 100%), #ffffff;
   /* W3C */
-
   border-top: 0px solid #484747;
   border-right: 0px solid #484747;
   border-bottom: 1px solid #484747;

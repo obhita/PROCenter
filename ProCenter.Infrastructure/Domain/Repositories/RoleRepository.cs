@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,23 +25,58 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
-    using EventStore;
+    using System;
+    using System.Linq;
+
+    using Dapper;
+
+    using ProCenter.Common;
     using ProCenter.Domain.SecurityModule;
 
     #endregion
 
+    /// <summary>The role repository class.</summary>
     public class RoleRepository : RepositoryBase<Role>, IRoleRepository
     {
+        #region Fields
+
+        private readonly IDbConnectionFactory _dbConnectionFactory;
+
+        #endregion
+
         #region Constructors and Destructors
 
-        public RoleRepository ( IEventStoreRepository eventStoreRepository )
-            : base ( eventStoreRepository )
+        /// <summary>Initializes a new instance of the <see cref="RoleRepository" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        /// <param name="dbConnectionFactory">The database connection factory.</param>
+        public RoleRepository ( IUnitOfWorkProvider unitOfWorkProvider, IDbConnectionFactory dbConnectionFactory )
+            : base ( unitOfWorkProvider )
         {
+            _dbConnectionFactory = dbConnectionFactory;
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Gets the name of the internal role key by.</summary>
+        /// <param name="name">The name.</param>
+        /// <returns>A Nullable{guid}.</returns>
+        public Guid? GetInternalRoleKeyByName ( string name )
+        {
+            const string Query = "SELECT RoleKey as 'Key', Name FROM SecurityModule.Role WHERE RoleType = @RoleType AND Name = @Name";
+            using ( var connection = _dbConnectionFactory.CreateConnection () )
+            {
+                var roleKey = connection.Query<Guid> ( Query, new { RoleType = (int)RoleType.Internal, Name = name } ).SingleOrDefault ();
+                return roleKey;
+            }
         }
 
         #endregion

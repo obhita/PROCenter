@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,25 +25,52 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common.Lookups
 {
     #region Using Statements
 
     using System.Collections.Generic;
+
     using Agatha.Common;
 
     #endregion
 
+    /// <summary>The get lookups by category response class.</summary>
     public class GetLookupsByCategoryResponse : Response
     {
-        public GetLookupsByCategoryResponse()
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetLookupsByCategoryResponse"/> class.
+        /// </summary>
+        public GetLookupsByCategoryResponse ()
         {
-            Lookups = new List<LookupDto>();
+            Lookups = new List<LookupDto> ();
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
+        /// <value>
+        /// The category.
+        /// </value>
+        public string Category { get; set; }
+
+        /// <summary>
+        /// Gets or sets the lookups.
+        /// </summary>
+        /// <value>
+        /// The lookups.
+        /// </value>
         public IList<LookupDto> Lookups { get; set; }
 
-        public string Category { get; set; }
+        #endregion
     }
 }

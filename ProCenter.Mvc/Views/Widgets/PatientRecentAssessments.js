@@ -31,12 +31,21 @@
                 "sClass": "LastColumn",
                 "bSortable": false,
                 "bSearchable": false,
-                "fnRender": function(oObj) {
+                "fnRender": function (oObj) {
+                    var description;
+                    var text;
+                    var icon;
                     if (oObj.aData.IsSubmitted || !canEditAssessment) {
-                        return "<div><a class='btn btn-mini btn-info' data-icon='&#xe07f;' href=" + editAssessmentAction + '/' + oObj.aData.AssessmentInstanceKey + "?patientKey=" + oObj.aData.PatientKey + ">View</a></div>";
+                        text = "View";
+                        icon = "&#xe07f;";
                     } else {
-                        return "<div><a class='btn btn-mini btn-info' data-icon='&#xe005;' href=" + editAssessmentAction + '/' + oObj.aData.AssessmentInstanceKey + "?patientKey=" + oObj.aData.PatientKey + ">Edit</a></div>";
+                        text = "Edit";
+                        icon = "&#xe005;";
                     }
+                    description = text + " " + "assessment " + oObj.aData.AssessmentName;
+                    return "<div><a class='btn btn-mini btn-info' data-icon='" + icon +
+                        "' href=" + editAssessmentAction + '/' + oObj.aData.AssessmentInstanceKey + "?patientKey=" + oObj.aData.PatientKey +
+                        " aria-label='" + description + "' >" + text + "</a></div>";
                 }
             }
         ],

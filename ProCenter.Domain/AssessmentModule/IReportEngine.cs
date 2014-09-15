@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,50 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
-    using System;
-    using CommonModule;
+    #region Using Statements
 
+    using System;
+
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>Interface for report engine.</summary>
     public interface IReportEngine
     {
-        IReport Generate(Guid key, string reportName);
+        #region Public Methods and Operators
 
-        ReportModel GetCustomizationModel(Guid key, string reportName);
+        /// <summary>Generates the specified key.</summary>
+        /// <param name="key">The key.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A <see cref="IReport"/>.</returns>
+        IReport Generate ( Guid key, string reportName, object parameters = null );
 
-        void UpdateCustomizationModel(Guid key, string reportName, string name, bool? shouldShow, string text);
+        /// <summary>
+        /// Gets the customization model.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <returns>
+        /// A <see cref="IReportModel"/>.
+        /// </returns>
+        IReportModel GetCustomizationModel ( Guid key, string reportName, Guid? patientKey = null );
+
+        /// <summary>Updates the customization model.</summary>
+        /// <param name="key">The key.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="shouldShow">The should show.</param>
+        /// <param name="text">The text.</param>
+        void UpdateCustomizationModel ( Guid key, string reportName, string name, bool? shouldShow, string text );
+
+        #endregion
     }
 }

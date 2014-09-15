@@ -1,0 +1,71 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Report
+@using ProCenter.Service.Message.Assessment
+@using Newtonsoft.Json
+@model object
+@{
+    var model = Model as PatientScoreRangeParametersDto;
+    var assessmentAttributes = new Dictionary<string, object>
+        {
+            {"placeholder", "Search"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content ( "~/api/Organization/FinderSearchActive" )},
+            {"data-finder-display", "AssessmentName"},
+            {"id", "assessmentdefinitioncode-finder"}
+        };
+
+    if (!string.IsNullOrEmpty(model.AssessmentDefinitionCode))
+    {
+        assessmentAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new AssessmentDefinitionDto
+        {
+            AssessmentName = model.AssessmentName,
+            AssessmentCode = model.AssessmentDefinitionCode
+        }));
+}
+}
+<div class="parameter-spacing">
+    <input type="hidden" value="@ViewData["ReportName"]" id="ReportName" />
+    <input type="hidden" value="@ViewData["ReportDisplayName"]" id="ReportDisplayName" />
+    <div>
+        @Html.LabelFor(m => model.AssessmentDefinitionCode)
+        @Html.TextBoxFor(m => model.AssessmentDefinitionCode, assessmentAttributes)
+        @Html.HiddenFor(m => model.AssessmentName)
+    </div>
+    @Html.Hidden("ReportTemplateKey", ViewData.ContainsKey("ReportTemplateKey"))
+
+    <div>
+        <label>@ProCenter.Mvc.Views.Report.Report.AgeRange</label>
+        @Html.EditorFor(m => model.AgeRangeLow)
+        <span class="parameterSpan">@ProCenter.Mvc.Views.Report.Report.To</span>
+        @Html.EditorFor(m => model.AgeRangeHigh)
+    </div>
+
+    <div>
+        <label>@ProCenter.Mvc.Views.Report.Report.Gender</label>
+        @{
+            var lookupCategory = Html.GetLookupCategory("Gender");
+        }
+        @Html.EditorFor(m => model.Gender, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory })
+    </div>
+
+    @*todo: this should be refactored. try using RenderAction (as RenderAction is throwing Duration should be a positive number, it's not used now)*@
+    @if (model != null && model.ScoreType != null)
+    {
+        if (model.ScoreType.GetType() == typeof(ScoreTypeIntDto))
+        {
+            @Html.Partial("ScoreTypeInt", (ScoreTypeIntDto)model.ScoreType, new ViewDataDictionary { TemplateInfo = new TemplateInfo { HtmlFieldPrefix = "Parameters.ScoreType" } })
+        }
+        else if (model.ScoreType.GetType() == typeof(ScoreTypeBooleanDto))
+        {
+            @Html.Partial("ScoreTypeBoolean", (ScoreTypeBooleanDto)model.ScoreType, new ViewDataDictionary { TemplateInfo = new TemplateInfo { HtmlFieldPrefix = "Parameters.ScoreType" } })
+        }
+    }
+    else
+    { 
+        <div id="scoretype-container"></div>
+    }
+
+    @Html.Partial("ReportCommonParametersPartial", model)
+</div>
+

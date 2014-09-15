@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,12 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule.Event
 {
-    using System;
-    using CommonModule;
+    #region Using Statements
 
+    using System;
+
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The system account un locked event class.</summary>
     public class SystemAccountUnLockedEvent : CommitEventBase
     {
         #region Constructors and Destructors
@@ -39,10 +48,24 @@ namespace ProCenter.Domain.SecurityModule.Event
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="version">The version.</param>
-        public SystemAccountUnLockedEvent(Guid key, int version)
-            : base(key, version)
+        /// <param name="isTemporary">Whether the lock is temporary or not.</param>
+        public SystemAccountUnLockedEvent ( Guid key, int version, bool isTemporary = false )
+            : base ( key, version )
         {
+            IsTemporary = isTemporary;
         }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets a value indicating whether this instance is temporary.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is temporary; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsTemporary { get; private set; }
 
         #endregion
     }

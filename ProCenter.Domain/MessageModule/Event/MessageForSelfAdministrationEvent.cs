@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
+    #region Using Statements
+
     using System;
 
+    #endregion
+
+    /// <summary>The message for self administration event class.</summary>
     public class MessageForSelfAdministrationEvent : MessageEventBase
     {
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageForSelfAdministrationEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="messageType">Type of the message.</param>
         public MessageForSelfAdministrationEvent ( Guid key, MessageType messageType )
             : base ( key, messageType )
         {
         }
+
+        #endregion
     }
 }

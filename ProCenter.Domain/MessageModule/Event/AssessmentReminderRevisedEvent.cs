@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
     using Pillar.Domain.Primitives;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Event for when assessment reminder time is revised.
-    /// </summary>
+    /// <summary>Event for when assessment reminder time is revised.</summary>
     public class AssessmentReminderRevisedEvent : CommitEventBase
     {
         #region Constructors and Destructors
@@ -57,6 +60,7 @@ namespace ProCenter.Domain.MessageModule.Event
         /// <param name="version">The version.</param>
         /// <param name="time">The time.</param>
         /// <param name="unit">The unit.</param>
+        /// <param name="sendToEmail">The send to email.</param>
         public AssessmentReminderRevisedEvent ( Guid key, int version, double time, AssessmentReminderUnit unit, Email sendToEmail = null )
             : base ( key, version )
         {
@@ -68,6 +72,14 @@ namespace ProCenter.Domain.MessageModule.Event
         #endregion
 
         #region Public Properties
+
+        /// <summary>
+        ///     Gets the send to email.
+        /// </summary>
+        /// <value>
+        ///     The send to email.
+        /// </value>
+        public Email SendToEmail { get; private set; }
 
         /// <summary>
         ///     Gets the time.
@@ -84,14 +96,6 @@ namespace ProCenter.Domain.MessageModule.Event
         ///     The unit.
         /// </value>
         public AssessmentReminderUnit Unit { get; private set; }
-
-        /// <summary>
-        /// Gets the send to email.
-        /// </summary>
-        /// <value>
-        /// The send to email.
-        /// </value>
-        public Email SendToEmail { get; private set; }
 
         #endregion
     }

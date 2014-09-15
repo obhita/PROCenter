@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,38 +25,54 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 #region Using Statements
 
-using System.Web.Http;
+
 
 #endregion
 
 namespace ProCenter.Mvc.App_Start
 {
+    #region Using Statements
+
+    using System.Web.Http;
     using System.Web.Routing;
 
+    #endregion
+
+    /// <summary>The web API configuration class.</summary>
     public static class WebApiConfig
     {
-        public static void Register(HttpConfiguration config)
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Registers the specified configuration.
+        /// </summary>
+        /// <param name="config">The configuration.</param>
+        public static void Register ( HttpConfiguration config )
         {
-            config.Routes.MapHttpRoute("DefaultApiGet",
-                                "api/{controller}/{action}/{key}",
-                                new { key = RouteParameter.Optional, action = "Get" },
-                                new { httpMethod = new HttpMethodConstraint("GET"), key = new GuidConstraint() }
+            config.Routes.MapHttpRoute ( "DefaultApiGet",
+                "api/{controller}/{action}/{key}",
+                new {key = RouteParameter.Optional, action = "Get"},
+                new {httpMethod = new HttpMethodConstraint ( "GET" ), key = new GuidConstraint ()}
                 );
 
-            config.Routes.MapHttpRoute("DefaultApiPost",
-                                "api/{controller}/{action}/{key}",
-                                new { key = RouteParameter.Optional, action = "Post" },
-                                new { httpMethod = new HttpMethodConstraint("POST"), key = new GuidConstraint() }
+            config.Routes.MapHttpRoute ( "DefaultApiPost",
+                "api/{controller}/{action}/{key}",
+                new {key = RouteParameter.Optional, action = "Post"},
+                new {httpMethod = new HttpMethodConstraint ( "POST" ), key = new GuidConstraint ()}
                 );
 
-            config.Routes.MapHttpRoute("DefaultApiPut",
-                                "api/{controller}/{action}/{key}",
-                                new { key = RouteParameter.Optional, action = "Put" },
-                                new { httpMethod = new HttpMethodConstraint("PUT"), key = new GuidConstraint() }
+            config.Routes.MapHttpRoute ( "DefaultApiPut",
+                "api/{controller}/{action}/{key}",
+                new {key = RouteParameter.Optional, action = "Put"},
+                new {httpMethod = new HttpMethodConstraint ( "PUT" ), key = new GuidConstraint ()}
                 );
         }
+
+        #endregion
     }
 }

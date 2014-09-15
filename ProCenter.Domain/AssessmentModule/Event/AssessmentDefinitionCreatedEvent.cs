@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Event for when an assessment definition is created.
-    /// </summary>
+    /// <summary>Event for when an assessment definition is created.</summary>
     public class AssessmentDefinitionCreatedEvent : CommitEventBase
     {
         #region Constructors and Destructors
@@ -47,10 +49,12 @@ namespace ProCenter.Domain.AssessmentModule.Event
         /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
         /// <param name="version">The version.</param>
         /// <param name="codedConcept">The coded concept.</param>
-        public AssessmentDefinitionCreatedEvent(Guid assessmentDefinitionKey, int version, CodedConcept codedConcept)
+        /// <param name="scoreTypeEnum">The score type enum.</param>
+        public AssessmentDefinitionCreatedEvent ( Guid assessmentDefinitionKey, int version, CodedConcept codedConcept, ScoreTypeEnum scoreTypeEnum )
             : base ( assessmentDefinitionKey, version )
         {
             CodedConcept = codedConcept;
+            ScoreType = scoreTypeEnum;
         }
 
         #endregion
@@ -64,6 +68,14 @@ namespace ProCenter.Domain.AssessmentModule.Event
         ///     The coded concept.
         /// </value>
         public CodedConcept CodedConcept { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the type of the score.
+        /// </summary>
+        /// <value>
+        /// The type of the score.
+        /// </value>
+        public ScoreTypeEnum ScoreType { get; set; }
 
         #endregion
     }

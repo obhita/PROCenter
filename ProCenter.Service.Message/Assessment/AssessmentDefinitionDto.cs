@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,46 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
-    using Common;
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
+    /// <summary>The assessment definition dto class.</summary>
     public class AssessmentDefinitionDto : KeyedDataTransferObject
     {
-        public string AssessmentName { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the assessment code.
+        /// </summary>
+        /// <value>
+        /// The assessment code.
+        /// </value>
         public string AssessmentCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the assessment.
+        /// </summary>
+        /// <value>
+        /// The name of the assessment.
+        /// </value>
+        public string AssessmentName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the score.
+        /// </summary>
+        /// <value>
+        /// The type of the score.
+        /// </value>
+        public string ScoreType { get; set; }
+
+        #endregion
     }
 }

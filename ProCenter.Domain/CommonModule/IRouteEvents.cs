@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
@@ -33,15 +36,22 @@ namespace ProCenter.Domain.CommonModule
 
     #endregion
 
-    /// <summary>
-    ///     Interface for event routing.
-    /// </summary>
+    /// <summary>Interface for event routing.</summary>
     public interface IRouteEvents
     {
         #region Public Methods and Operators
 
+        /// <summary>Dispatches the specified event message.</summary>
+        /// <param name="eventMessage">The event message.</param>
         void Dispatch ( object eventMessage );
+
+        /// <summary>Registers the specified handler.</summary>
+        /// <typeparam name="T">Type of event.</typeparam>
+        /// <param name="handler">The handler.</param>
         void Register<T> ( Action<T> handler );
+
+        /// <summary>Registers the specified aggregate.</summary>
+        /// <param name="aggregate">The aggregate.</param>
         void Register ( IAggregateRoot aggregate );
 
         #endregion

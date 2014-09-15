@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
     #region Using Statements
 
     using System;
-    using Event;
+
     using Pillar.FluentRuleEngine;
+
+    using ProCenter.Domain.PatientModule.Event;
 
     #endregion
 
-    /// <summary>
-    ///     Rule collection for patient domain.
-    /// </summary>
+    /// <summary>Rule collection for patient domain.</summary>
     public class PatientRuleCollection : AbstractRuleCollection<Patient>
     {
         #region Constructors and Destructors
@@ -54,11 +57,17 @@ namespace ProCenter.Domain.PatientModule
                 .NotNull ();
             NewRule ( () => DateOfBirthNotGreaterThanCurrentRule )
                 .OnContextObject<PatientChangedEvent> ()
-                .WithProperty(pce => pce.Value)
-                .UseSubjectForRuleViolation(p => p.DateOfBirth)
+                .WithProperty ( pce => pce.Value )
+                .UseSubjectForRuleViolation ( p => p.DateOfBirth )
                 .LessThen ( DateTime.Now );
+            NewRule ( () => GenderRequiredRule )
+                .OnContextObject<PatientChangedEvent> ()
+                .WithProperty ( pce => pce.Value )
+                .UseSubjectForRuleViolation ( p => p.Gender )
+                .NotNull ();
 
             NewRuleSet ( () => ReviseDateOfBirthRuleSet, DateOfBirthRequiredRule, DateOfBirthNotGreaterThanCurrentRule );
+            NewRuleSet ( () => ReviseGenderRuleSet, GenderRequiredRule );
         }
 
         #endregion
@@ -82,12 +91,28 @@ namespace ProCenter.Domain.PatientModule
         public IRule DateOfBirthRequiredRule { get; set; }
 
         /// <summary>
+        ///     Gets or sets the gender required rule.
+        /// </summary>
+        /// <value>
+        ///     The gender required rule.
+        /// </value>
+        public IRule GenderRequiredRule { get; set; }
+
+        /// <summary>
         ///     Gets or sets the revise date of birth rule set.
         /// </summary>
         /// <value>
         ///     The revise date of birth rule set.
         /// </value>
         public IRuleSet ReviseDateOfBirthRuleSet { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the revised gender rule set.
+        /// </summary>
+        /// <value>
+        ///     The revised gender rule set.
+        /// </value>
+        public IRuleSet ReviseGenderRuleSet { get; protected set; }
 
         #endregion
     }

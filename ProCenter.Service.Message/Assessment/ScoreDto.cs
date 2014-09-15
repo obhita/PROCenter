@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,64 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
-    using System.Collections.Generic;
-    using Domain.AssessmentModule;
+    #region Using Statements
 
+    using System.Collections.Generic;
+
+    using ProCenter.Domain.AssessmentModule;
+
+    #endregion
+
+    /// <summary>The score dto class.</summary>
     public class ScoreDto
     {
-        public string ItemDefinitionCode { get; set; }
-        public object Value { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the guidance code.
+        /// </summary>
+        /// <value>
+        /// The guidance code.
+        /// </value>
         public string GuidanceCode { get; set; }
 
+        /// <summary>
+        /// Gets or sets the item definition code.
+        /// </summary>
+        /// <value>
+        /// The item definition code.
+        /// </value>
+        public string ItemDefinitionCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item metadata.
+        /// </summary>
+        /// <value>
+        /// The item metadata.
+        /// </value>
         public ItemMetadata ItemMetadata { get; set; }
 
+        /// <summary>
+        /// Gets or sets the score items.
+        /// </summary>
+        /// <value>
+        /// The score items.
+        /// </value>
         public IEnumerable<ScoreDto> ScoreItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public object Value { get; set; }
+
+        #endregion
     }
 }

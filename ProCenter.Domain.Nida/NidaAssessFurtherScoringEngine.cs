@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,92 +25,89 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
     #region Using Statements
 
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Resources;
-    using AssessmentModule;
-    using Common;
-    using CommonModule;
-    using CommonModule.Lookups;
-    using PatientModule;
-    using Pillar.Common.InversionOfControl;
+
+    using ProCenter.Common;
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>The nida assess further scoring engine class.</summary>
     public class NidaAssessFurtherScoringEngine : IScoringEngine
     {
+        #region Fields
+
         private readonly IResourcesManager _resourcesManager;
 
-        public string AssessmentName
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NidaAssessFurtherScoringEngine" /> class.
+        /// </summary>
+        public NidaAssessFurtherScoringEngine ()
         {
-            get { return NidaAssessFurther.AssessmentCodedConcept.Name; }
         }
 
-        public NidaAssessFurtherScoringEngine()
-        {
-            
-        }
-
-        public NidaAssessFurtherScoringEngine(IResourcesManager resourcesManager )
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="NidaAssessFurtherScoringEngine" /> class.
+        /// </summary>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public NidaAssessFurtherScoringEngine ( IResourcesManager resourcesManager )
         {
             _resourcesManager = resourcesManager;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the name of the assessment.
+        /// </summary>
+        /// <value>
+        ///     The name of the assessment.
+        /// </value>
+        public string AssessmentName
+        {
+            get { return typeof(NidaAssessFurther).Name; }
+        }
+
+        /// <summary>
+        ///     Gets the resource manager.
+        /// </summary>
+        /// <value>
+        ///     The resource manager.
+        /// </value>
         public ResourceManager ResourceManager
         {
-            get { return _resourcesManager.GetResourceManagerByName(AssessmentName); }
+            get { return _resourcesManager.GetResourceManagerByName ( AssessmentName ); }
         }
 
-        public void CalculateScore(AssessmentInstance assessment)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Calculates the score.
+        /// </summary>
+        /// <param name="assessment">The assessment.</param>
+        public void CalculateScore ( AssessmentInstance assessment )
         {
-            //•	No daily use of any substance 
-            //•	No weekly use of opioids, cocaine, or methamphetamine 
-            //•	No injection drug use in the past three months
-            //•	Not currently in drug abuse treatment
+            var nidaAssessFurtherScoring = new NidaAssessFurtherScoring(assessment);
 
-            var value = false;
-            var dailyUseSubstances = new List<string>
-                {
-                    "3269979",
-                    "3269980",
-                    "3269981",
-                    "3269982",
-                    "3269983",
-                    "3269985",
-                    "3269984"
-                };
-            var weeklyUseOpioidsCocaineMethamphetamine = new List<string> { "3269981", "3269980", "3269982" };
-
-            value =
-                assessment.ItemInstances.Any(
-                    i =>
-                    dailyUseSubstances.Contains(i.ItemDefinitionCode) && i.Value != null &&
-                    Equals(double.Parse((i.Value as Lookup).Value.ToString()), Frequency.DailyOrAlmostDaily.Value))
-                ||
-                assessment.ItemInstances.Any(
-                    i =>
-                    weeklyUseOpioidsCocaineMethamphetamine.Contains(i.ItemDefinitionCode) && i.Value != null &&
-                    Equals(double.Parse((i.Value as Lookup).Value.ToString()), Frequency.Weekly.Value))
-                ||
-                (
-                    assessment.ItemInstances.Any(
-                        i => i.ItemDefinitionCode == "3269978" && bool.Parse(i.Value.ToString()))
-                    &&
-                    assessment.ItemInstances.Any(
-                        i =>
-                        i.ItemDefinitionCode == "3269986" &&
-                        Equals(double.Parse((i.Value as Lookup).Value.ToString()), Frequency.InThePast90Days.Value))
-                )
-                ||
-                assessment.ItemInstances.Any(
-                    i => i.ItemDefinitionCode == "3269976" && bool.Parse(i.Value.ToString()));
-
-            assessment.ScoreComplete(new CodedConcept(CodeSystems.Obhita, "", ""), value);
+            assessment.ScoreComplete(new CodedConcept(CodeSystems.Obhita, string.Empty, string.Empty), nidaAssessFurtherScoring);
         }
+
+        #endregion
     }
 }

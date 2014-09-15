@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Domain;
     using Pillar.Domain.Event;
 
     #endregion
 
-    /// <summary>
-    ///     Base class for aggregate roots.
-    /// </summary>
+    /// <summary>Base class for aggregate roots.</summary>
     public abstract class AggregateRootBase : Entity<Guid>, IAggregateRoot
     {
         #region Fields
@@ -55,7 +57,6 @@ namespace ProCenter.Domain.CommonModule
         protected AggregateRootBase ( IRouteEvents eventRouter = null )
         {
             _eventRouter = eventRouter ?? new ConventionEventRouter ( this );
-            //_eventRouter.Register ( this );
         }
 
         #endregion
@@ -68,14 +69,16 @@ namespace ProCenter.Domain.CommonModule
         /// <value>
         ///     The registered routes.
         /// </value>
-        /// <exception cref="System.InvalidOperationException">AggregateRootBase must have an event router to function</exception>
+        /// <exception cref="System.InvalidOperationException">AggregateRootBase must have an event router to function.</exception>
         protected IRouteEvents RegisteredRoutes
         {
             get { return _eventRouter ?? ( _eventRouter = new ConventionEventRouter ( this ) ); }
             set
             {
                 if ( value == null )
+                {
                     throw new InvalidOperationException ( "AggregateRootBase must have an event router to function" );
+                }
 
                 _eventRouter = value;
             }
@@ -98,7 +101,7 @@ namespace ProCenter.Domain.CommonModule
         /// <summary>
         ///     Gets the snapshot.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A snapshot of the aggregate.</returns>
         IMemento IAggregateRoot.GetSnapshot ()
         {
             var snapshot = GetSnapshot ();
@@ -107,9 +110,13 @@ namespace ProCenter.Domain.CommonModule
             return snapshot;
         }
 
-        void IAggregateRoot.RestoreSnapshot(IMemento memento)
+        /// <summary>
+        /// Restores the snapshot.
+        /// </summary>
+        /// <param name="memento">The memento.</param>
+        void IAggregateRoot.RestoreSnapshot ( IMemento memento )
         {
-            RestoreSnapshot(memento);
+            RestoreSnapshot ( memento );
 
             Key = memento.Key;
             Version = memento.Version;
@@ -122,19 +129,10 @@ namespace ProCenter.Domain.CommonModule
         /// <summary>
         ///     Gets the snapshot.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>A snapshot.</returns>
         protected virtual IMemento GetSnapshot ()
         {
             return null;
-        }
-
-        /// <summary>
-        /// Restores the snapshot.
-        /// </summary>
-        /// <param name="memento">The memento.</param>
-        protected virtual void RestoreSnapshot ( IMemento memento )
-        {
-            
         }
 
         /// <summary>
@@ -142,10 +140,10 @@ namespace ProCenter.Domain.CommonModule
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="event">The event.</param>
-        protected void RaiseEvent<TEvent> ( TEvent @event )
+        protected virtual void RaiseEvent<TEvent> ( TEvent @event )
             where TEvent : ICommitEvent
         {
-            ( (IAggregateRoot) this ).ApplyEvent ( @event );
+            ( (IAggregateRoot)this ).ApplyEvent ( @event );
             CommitEvent.RaiseCommitEvent ( this, @event );
         }
 
@@ -154,10 +152,18 @@ namespace ProCenter.Domain.CommonModule
         /// </summary>
         /// <typeparam name="TEvent">The type of the event.</typeparam>
         /// <param name="route">The route.</param>
-        protected void Register<TEvent> ( Action<TEvent> route )
+        protected virtual void Register<TEvent> ( Action<TEvent> route )
             where TEvent : IDomainEvent
         {
             RegisteredRoutes.Register ( route );
+        }
+
+        /// <summary>
+        ///     Restores the snapshot.
+        /// </summary>
+        /// <param name="memento">The memento.</param>
+        protected virtual void RestoreSnapshot ( IMemento memento )
+        {
         }
 
         #endregion

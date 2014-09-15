@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,62 +25,98 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
-    #region
+    #region Using Statements
 
+    using System;
     using System.Linq;
     using Common;
     using Domain.CommonModule;
     using Domain.OrganizationModule;
+    using global::AutoMapper;
     using Pillar.Domain.Primitives;
     using Service.Message.Common;
     using Service.Message.Organization;
-    using global::AutoMapper;
 
     #endregion
 
+    /// <summary>The add address to organization request handler class.</summary>
     public class AddAddressToOrganizationRequestHandler :
         ServiceRequestHandler<AddDtoRequest<OrganizationAddressDto>, AddDtoResponse<OrganizationAddressDto>>
     {
-        private readonly IOrganizationRepository _organizationRepository;
-        private readonly ILookupProvider _lookupProvider;
+        #region Fields
 
-        public AddAddressToOrganizationRequestHandler(IOrganizationRepository organizationRepository, ILookupProvider lookupProvider)
+        private readonly ILookupProvider _lookupProvider;
+        private readonly IOrganizationRepository _organizationRepository;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AddAddressToOrganizationRequestHandler"/> class.
+        /// </summary>
+        /// <param name="organizationRepository">The organization repository.</param>
+        /// <param name="lookupProvider">The lookup provider.</param>
+        public AddAddressToOrganizationRequestHandler ( IOrganizationRepository organizationRepository, ILookupProvider lookupProvider )
         {
             _organizationRepository = organizationRepository;
             _lookupProvider = lookupProvider;
         }
 
-        protected override void Handle(AddDtoRequest<OrganizationAddressDto> request, AddDtoResponse<OrganizationAddressDto> response)
-        {
-            var organization = _organizationRepository.GetByKey(request.AggregateKey);
-            var addressDto = request.DataTransferObject.Address;
-            var address = new Address(addressDto.FirstStreetAddress,
-                                      addressDto.SecondStreetAddress,
-                                      addressDto.CityName,
-                                      _lookupProvider.Find<StateProvince>(addressDto.StateProvince.Code),
-                                      new PostalCode(addressDto.PostalCode));
+        #endregion
 
-            var organizationAddressType = _lookupProvider.Find<OrganizationAddressType>(request.DataTransferObject.OrganizationAddressType.Code);
-            var organizationAddress = new OrganizationAddress(organizationAddressType, address, request.DataTransferObject.IsPrimary);
-            var originalAddress = organization.OrganizationAddresses.FirstOrDefault(a => a.GetHashCode() == request.DataTransferObject.OriginalHash);
-            if (originalAddress != organizationAddress)
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( AddDtoRequest<OrganizationAddressDto> request, AddDtoResponse<OrganizationAddressDto> response )
+        {
+            var organization = _organizationRepository.GetByKey ( request.AggregateKey );
+            var addressDto = request.DataTransferObject.Address;
+            Address address = null;
+            try
             {
-                if (originalAddress != null)
-                {
-                    organization.RemoveAddress(originalAddress);
-                }
-                organization.AddAddress(organizationAddress);
+                address = new Address(addressDto.FirstStreetAddress,
+                    addressDto.SecondStreetAddress,
+                    addressDto.CityName,
+                    _lookupProvider.Find<StateProvince>(addressDto.StateProvince.Code),
+                    new PostalCode(addressDto.PostalCode));
             }
-            else if (organizationAddress.IsPrimary)
+            catch ( Exception ex )
             {
-                organization.MakePrimary(organizationAddress);
+                response.DataTransferObject = new OrganizationAddressDto ();
+                response.DataTransferObject.AddDataErrorInfo(new DataErrorInfo ( ex.Message, ErrorLevel.Error ) );
+                return;
+            }
+
+            var organizationAddressType = _lookupProvider.Find<OrganizationAddressType> ( request.DataTransferObject.OrganizationAddressType.Code );
+            var organizationAddress = new OrganizationAddress ( organizationAddressType, address, request.DataTransferObject.IsPrimary );
+            var originalAddress = organization.OrganizationAddresses.FirstOrDefault ( a => a.GetHashCode () == request.DataTransferObject.OriginalHash );
+            if ( originalAddress != organizationAddress )
+            {
+                if ( originalAddress != null )
+                {
+                    organization.RemoveAddress ( originalAddress );
+                }
+                organization.AddAddress ( organizationAddress );
+            }
+            else if ( organizationAddress.IsPrimary )
+            {
+                organization.MakePrimary ( organizationAddress );
             }
             response.AggregateKey = organization.Key;
-            response.DataTransferObject = Mapper.Map<OrganizationAddress, OrganizationAddressDto>(organizationAddress);
+            response.DataTransferObject = Mapper.Map<OrganizationAddress, OrganizationAddressDto> ( organizationAddress );
             response.DataTransferObject.Key = organization.Key;
         }
+
+        #endregion
     }
 }

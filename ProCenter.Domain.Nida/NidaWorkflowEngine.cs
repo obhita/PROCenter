@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,43 +25,75 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
     #region Using Statements
 
-    using AssessmentModule;
-    using MessageModule;
     using Pillar.Common.InversionOfControl;
     using Pillar.FluentRuleEngine;
     using Pillar.FluentRuleEngine.RuleSelectors;
 
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.MessageModule;
+
     #endregion
 
-    [WorkflowAssessments("NidaSingleQuestionScreener", "DrugAbuseScreeningTest", "NidaAssessFurther")]
+    /// <summary>The nida workflow engine class.</summary>
+    [WorkflowAssessments ( "NidaSingleQuestionScreener", "DrugAbuseScreeningTest", "NidaAssessFurther" )]
     public class NidaWorkflowEngine : IWorkflowEngine
     {
+        #region Fields
+
         private readonly IMessageCollector _messageCollector;
+
         private readonly IRuleCollectionFactory _ruleCollectionFactory;
+
         private readonly IRuleEngineFactory _ruleEngineFactory;
 
-        public NidaWorkflowEngine(IRuleCollectionFactory ruleCollectionFactory, IRuleEngineFactory ruleEngineFactory,
-                                  IMessageCollector messageCollector)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NidaWorkflowEngine"/> class.
+        /// </summary>
+        /// <param name="ruleCollectionFactory">The rule collection factory.</param>
+        /// <param name="ruleEngineFactory">The rule engine factory.</param>
+        /// <param name="messageCollector">The message collector.</param>
+        public NidaWorkflowEngine (
+            IRuleCollectionFactory ruleCollectionFactory,
+            IRuleEngineFactory ruleEngineFactory,
+            IMessageCollector messageCollector )
         {
             _ruleCollectionFactory = ruleCollectionFactory;
             _ruleEngineFactory = ruleEngineFactory;
             _messageCollector = messageCollector;
         }
 
-        public void Run(AssessmentInstance assessmentInstance)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Runs the specified assessment instance.
+        /// </summary>
+        /// <param name="assessmentInstance">The assessment instance.</param>
+        public void Run ( AssessmentInstance assessmentInstance )
         {
             //TODO:If Required
             //Need to update pillar to allow for named rule collections _ruleCollectionFactory.CreateRuleCollection<AssessmentInstance>("NidaWorkflow");
-            var ruleCollection = IoC.CurrentContainer.Resolve<NidaWorkflowRuleCollection>();
-            var ruleEngine = _ruleEngineFactory.CreateRuleEngine(assessmentInstance, ruleCollection);
-            var ruleEngineContext = new RuleEngineContext<AssessmentInstance>(assessmentInstance, new SelectAllRulesInRuleSetSelector(assessmentInstance.AssessmentName + "RuleSet"));
-            ruleEngineContext.WorkingMemory.AddContextObject(_messageCollector, "MessageCollector");
-            ruleEngine.ExecuteRules(ruleEngineContext);
+            var ruleCollection = IoC.CurrentContainer.Resolve<NidaWorkflowRuleCollection> ();
+            var ruleEngine = _ruleEngineFactory.CreateRuleEngine ( assessmentInstance, ruleCollection );
+            var ruleEngineContext = new RuleEngineContext<AssessmentInstance> (
+                assessmentInstance,
+                new SelectAllRulesInRuleSetSelector ( assessmentInstance.AssessmentName + "RuleSet" ) );
+            ruleEngineContext.WorkingMemory.AddContextObject ( _messageCollector, "MessageCollector" );
+            ruleEngine.ExecuteRules ( ruleEngineContext );
         }
+
+        #endregion
     }
 }

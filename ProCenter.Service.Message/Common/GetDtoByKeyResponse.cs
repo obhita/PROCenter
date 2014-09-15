@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Agatha.Message;
 
     #endregion
 
+    /// <summary>The get dto by key response class.</summary>
+    /// <typeparam name="TDto">The type of the dto.</typeparam>
     public class GetDtoByKeyResponse<TDto> : GetDtoByKeyResponse<TDto, Guid>, IHaveDataTransferObject
         where TDto : KeyedDataTransferObject
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the dto.
+        /// </summary>
+        /// <value>
+        /// The dto.
+        /// </value>
         public object Dto
         {
             get { return DataTransferObject; }
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Gets the dto.</summary>
+        /// <returns>The dto, that was requested.</returns>
         public KeyedDataTransferObject GetDto ()
         {
             return DataTransferObject;
         }
+
+        #endregion
     }
 }

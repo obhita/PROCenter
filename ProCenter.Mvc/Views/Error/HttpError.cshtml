@@ -14,9 +14,9 @@
         <div>
             <h2>Error while processing you request.</h2>
             @{
-                if (Request.IsLocal)
+                if ( Request.IsLocal )
                 {
-                    if (@Model != null && @Model.Exception != null)
+                    if ( @Model != null && @Model.Exception != null )
                     {
                         <p>
                             <b>Controller</b>: @ViewData.Model.ControllerName

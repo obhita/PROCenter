@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Common.DataTransferObject;
 
     #endregion
 
+    /// <summary>Interface for keyed data transfer object.</summary>
     public interface IKeyedDataTransferObject : IKeyedDataTransferObject<Guid>, IDataTransferObject
     {
     }

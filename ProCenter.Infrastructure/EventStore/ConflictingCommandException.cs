@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
@@ -34,9 +37,7 @@ namespace ProCenter.Infrastructure.EventStore
 
     #endregion
 
-    /// <summary>
-    ///     Represents a command that could not be executed because it conflicted with the command of another user or actor.
-    /// </summary>
+    /// <summary>Represents a command that could not be executed because it conflicted with the command of another user or actor.</summary>
     [Serializable]
     public class ConflictingCommandException : Exception
     {

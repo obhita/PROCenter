@@ -1,21 +1,27 @@
 ﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Organization
 @model ProCenter.Service.Message.Organization.OrganizationSummaryDto
 
 <div class="organization-summary">
     <div class="left">
         <h4>@Model.Name</h4>
-        <span class="phone">@Html.Raw(string.Format("{0:(###) ###-####}", long.Parse(Model.PrimaryPhone)))</span>
+        @if ( Model.PrimaryPhone != null )
+        {
+            <span class="phone">@Html.FormatPhone( Model.PrimaryPhone )</span>
+        }
     </div>
     <div class="left">
-        @Html.DisplayFor(m => m.PrimaryAddress)
+        @if ( Model.PrimaryAddress != null )
+        {
+            @Html.DisplayFor( m => m.PrimaryAddress )
+        }
     </div>
     <div class="left">
         @{
-            var canEdit = Html.CanAccess ( "Organization", "Edit", "POST" );
-            var text = canEdit ? "Edit" : "View";
+            var canEdit = Html.CanAccess( "Organization", "Edit", "POST" );
+            var text = canEdit ? Organization.Edit : Organization.View;
             var icon = canEdit ? "\ue005" : "\ue07f";
         }
-        @Html.SecureActionLink(text, "Edit", "Organization", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = icon})
+        @Html.SecureActionLink( text, "Edit", "Organization", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = icon, aria_label = @Organization.EditOrganization} )
     </div>
 </div>
-

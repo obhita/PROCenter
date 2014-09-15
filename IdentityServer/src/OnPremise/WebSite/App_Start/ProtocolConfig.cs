@@ -1,31 +1,5 @@
-﻿#region License Header
-// /*******************************************************************************
-//  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
-//  * 
-//  * Redistribution and use in source and binary forms, with or without
-//  * modification, are permitted provided that the following conditions are met:
-//  *     * Redistributions of source code must retain the above copyright
-//  *       notice, this list of conditions and the following disclaimer.
-//  *     * Redistributions in binary form must reproduce the above copyright
-//  *       notice, this list of conditions and the following disclaimer in the
-//  *       documentation and/or other materials provided with the distribution.
-//  *     * Neither the name of the <organization> nor the
-//  *       names of its contributors may be used to endorse or promote products
-//  *       derived from this software without specific prior written permission.
-//  * 
-//  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-//  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-//  * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-//  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-//  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-//  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-//  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-//  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-//  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//  ******************************************************************************/
-#endregion
-using BrockAllen.OAuth2;
+﻿using BrockAllen.OAuth2;
+using System;
 using System.ServiceModel.Activation;
 using System.Web.Http;
 using System.Web.Mvc;
@@ -43,7 +17,10 @@ namespace Thinktecture.IdentityServer.Web
         public static void RegisterProtocols(HttpConfiguration httpConfiguration, RouteCollection routes, IConfigurationRepository configuration, IUserRepository users, IRelyingPartyRepository relyingParties)
         {
             // require SSL for all web api endpoints
-            httpConfiguration.MessageHandlers.Add(new RequireHttpsHandler());
+            if (!configuration.Global.DisableSSL)
+            {
+                httpConfiguration.MessageHandlers.Add(new RequireHttpsHandler());
+            }
 
             #region Protocols
             // federation metadata
@@ -80,9 +57,19 @@ namespace Thinktecture.IdentityServer.Web
                     new { controller = "Hrd", action = "Select" },
                     new { method = new HttpMethodConstraint("POST") }
                 );
+                routes.MapRoute(
+                    "hrd-signout-redirect",
+                    Thinktecture.IdentityServer.Endpoints.Paths.WSFedHRDSignoutRedirect,
+                    new { controller = "Hrd", action = "SignoutRedirect" }
+                );
 
                 // callback endpoint
                 OAuth2Client.OAuthCallbackUrl = Thinktecture.IdentityServer.Endpoints.Paths.OAuth2Callback;
+                if (!String.IsNullOrWhiteSpace(configuration.Global.PublicHostName))
+                {
+                    var ub = new UriBuilder(Uri.UriSchemeHttps, configuration.Global.PublicHostName, configuration.Global.HttpsPort);
+                    OAuth2Client.OAuthCallbackOrigin = ub.Uri;
+                }
                 routes.MapRoute(
                     "oauth2callback",
                     Thinktecture.IdentityServer.Endpoints.Paths.OAuth2Callback,
@@ -106,7 +93,7 @@ namespace Thinktecture.IdentityServer.Web
                     routeTemplate: Endpoints.Paths.OAuth2Token,
                     defaults: new { controller = "OAuth2Token" },
                     constraints: null,
-                    handler: new AuthenticationHandler(CreateClientAuthConfig(), httpConfiguration)
+                    handler: new AuthenticationHandler(CreateClientAuthConfig(configuration), httpConfiguration)
                 );
             }
 
@@ -127,7 +114,7 @@ namespace Thinktecture.IdentityServer.Web
                     routeTemplate: Endpoints.Paths.OidcToken,
                     defaults: new { controller = "OidcToken" },
                     constraints: null,
-                    handler: new AuthenticationHandler(CreateClientAuthConfig(), httpConfiguration)
+                    handler: new AuthenticationHandler(CreateClientAuthConfig(configuration), httpConfiguration)
                 );
 
                 // userinfo endpoint
@@ -158,7 +145,7 @@ namespace Thinktecture.IdentityServer.Web
                     routeTemplate: Thinktecture.IdentityServer.Endpoints.Paths.SimpleHttp,
                     defaults: new { controller = "SimpleHttp" },
                     constraints: null,
-                    handler: new AuthenticationHandler(CreateBasicAuthConfig(users), httpConfiguration)
+                    handler: new AuthenticationHandler(CreateBasicAuthConfig(configuration, users), httpConfiguration)
                 );
             }
 
@@ -174,12 +161,12 @@ namespace Thinktecture.IdentityServer.Web
             #endregion
         }
 
-        public static AuthenticationConfiguration CreateBasicAuthConfig(IUserRepository userRepository)
+        public static AuthenticationConfiguration CreateBasicAuthConfig(IConfigurationRepository configuration, IUserRepository userRepository)
         {
             var authConfig = new AuthenticationConfiguration
             {
                 InheritHostClientIdentity = false,
-                RequireSsl = true,
+                RequireSsl = !configuration.Global.DisableSSL,
                 ClaimsAuthenticationManager = new ClaimsTransformer()
             };
 
@@ -187,12 +174,12 @@ namespace Thinktecture.IdentityServer.Web
             return authConfig;
         }
 
-        public static AuthenticationConfiguration CreateClientAuthConfig()
+        public static AuthenticationConfiguration CreateClientAuthConfig(IConfigurationRepository configuration)
         {
             var authConfig = new AuthenticationConfiguration
             {
                 InheritHostClientIdentity = false,
-                RequireSsl = true,
+                RequireSsl = !configuration.Global.DisableSSL,
             };
 
             // accept arbitrary credentials on basic auth header,
@@ -205,7 +192,7 @@ namespace Thinktecture.IdentityServer.Web
         {
             var userInfoAuth = new AuthenticationConfiguration
             {
-                RequireSsl = true,
+                RequireSsl = !configuration.Global.DisableSSL,
                 InheritHostClientIdentity = false
             };
 

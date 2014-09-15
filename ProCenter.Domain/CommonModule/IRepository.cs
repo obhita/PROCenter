@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,34 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
+    #region Using Statements
+
     using System;
 
-    public interface IRepository<TAggregate> where TAggregate : IAggregateRoot
+    #endregion
+
+    /// <summary>Interface for repository.</summary>
+    /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+    public interface IRepository<TAggregate>
+        where TAggregate : IAggregateRoot
     {
-        TAggregate GetByKey(Guid key);
-        DateTime? GetLastModifiedDate(Guid key);
+        #region Public Methods and Operators
+
+        /// <summary>Gets the by key.</summary>
+        /// <param name="key">The key.</param>
+        /// <returns>A aggregate of type <typeparam name="TAggregate"></typeparam>.</returns>
+        TAggregate GetByKey ( Guid key );
+
+        /// <summary>Gets the last modified date.</summary>
+        /// <param name="key">The key.</param>
+        /// <returns>A <see cref="Nullable{DateTime}"/>.</returns>
+        DateTime? GetLastModifiedDate ( Guid key );
+
+        #endregion
     }
 }

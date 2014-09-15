@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,32 +25,59 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
-    using EventStore;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Dapper;
+
+    using ProCenter.Common;
     using ProCenter.Domain.OrganizationModule;
 
     #endregion
 
-    /// <summary>
-    ///     Organization repository.
-    /// </summary>
+    /// <summary>Organization repository.</summary>
     public class OrganizationRepository : RepositoryBase<Organization>, IOrganizationRepository
     {
+        private readonly IDbConnectionFactory _connectionFactory;
+
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="OrganizationRepository" /> class.
+        /// Initializes a new instance of the <see cref="OrganizationRepository" /> class.
         /// </summary>
-        /// <param name="eventStoreRepository">The event store repository.</param>
-        public OrganizationRepository ( IEventStoreRepository eventStoreRepository )
-            : base ( eventStoreRepository )
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        /// <param name="connectionFactory">The connection factory.</param>
+        public OrganizationRepository(IUnitOfWorkProvider unitOfWorkProvider, IDbConnectionFactory connectionFactory)
+            : base ( unitOfWorkProvider )
         {
+            _connectionFactory = connectionFactory;
         }
 
         #endregion
+
+        /// <summary>
+        /// Gets the staff by npi.
+        /// </summary>
+        /// <param name="npi">The npi.</param>
+        /// <returns>Returns a list of Staff objects if found by NPI number.</returns>
+        public List<Staff> GetStaffByNpi ( string npi )
+        {
+            using (var connection = _connectionFactory.CreateConnection())
+            {
+                const string CompleteQuery = @"SELECT [StaffKey]
+                                                         ,[OrganizationKey]
+                                                         ,[NPI]
+                                                         FROM [OrganizationModule].[Staff]
+                                                         WHERE NPI = '{0}'";
+                return connection.Query<Staff>(string.Format(CompleteQuery, npi)).ToList();
+            }            
+        } 
     }
 }

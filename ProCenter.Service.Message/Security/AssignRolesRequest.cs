@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,49 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using System;
     using System.Collections.Generic;
+
     using Agatha.Common;
 
-    public class AssignRolesRequest:Request
-    {
-        public Guid SystemAccoutnKey { get; set; }
+    #endregion
 
+    /// <summary>The assign roles request class.</summary>
+    public class AssignRolesRequest : Request
+    {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add roles].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [add roles]; otherwise, <c>false</c>.
+        /// </value>
         public bool AddRoles { get; set; }
 
+        /// <summary>
+        /// Gets or sets the roles.
+        /// </summary>
+        /// <value>
+        /// The roles.
+        /// </value>
         public IEnumerable<Guid> Roles { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system accoutn key.
+        /// </summary>
+        /// <value>
+        /// The system accoutn key.
+        /// </value>
+        public Guid SystemAccoutnKey { get; set; }
+
+        #endregion
     }
 }

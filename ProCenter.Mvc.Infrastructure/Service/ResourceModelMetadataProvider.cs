@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,51 +25,72 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service
 {
     #region Using Statements
 
     using System;
     using System.Linq;
-    using System.Reflection;
-    using System.Resources;
     using System.Web.Mvc;
     using Common;
     using Primitive;
-    using ProCenter.Service.Message.Assessment;
 
     #endregion
 
+    /// <summary>The resource model metadata provider class.</summary>
     public class ResourceModelMetadataProvider : DataAnnotationsModelMetadataProvider
     {
+        #region Fields
+
         private readonly IResourcesManager _resourcesManager;
 
-        public ResourceModelMetadataProvider (IResourcesManager resourcesManager)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ResourceModelMetadataProvider"/> class.
+        /// </summary>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public ResourceModelMetadataProvider ( IResourcesManager resourcesManager )
         {
             _resourcesManager = resourcesManager;
         }
 
+        #endregion
+
         #region Public Methods and Operators
 
-        public override ModelMetadata GetMetadataForProperty(Func<object> modelAccessor, Type containerType, string propertyName)
+        /// <summary>
+        /// Returns the metadata for the specified property using the container type and property name.
+        /// </summary>
+        /// <param name="modelAccessor">The model accessor.</param>
+        /// <param name="containerType">The type of the container.</param>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <returns>
+        /// The metadata for the specified property using the container type and property name.
+        /// </returns>
+        public override ModelMetadata GetMetadataForProperty ( Func<object> modelAccessor, Type containerType, string propertyName )
         {
-            var modelMetadata = base.GetMetadataForProperty(modelAccessor, containerType, propertyName);
-            if (typeof (IPrimitive).IsAssignableFrom(containerType))
+            var modelMetadata = base.GetMetadataForProperty ( modelAccessor, containerType, propertyName );
+            if ( typeof(IPrimitive).IsAssignableFrom ( containerType ) )
             {
                 modelMetadata.IsRequired = false;
             }
-            if (modelMetadata.DisplayName == null)
+            if ( modelMetadata.DisplayName == null )
             {
-                if (typeof (IPrimitive).IsAssignableFrom(containerType))
+                if ( typeof(IPrimitive).IsAssignableFrom ( containerType ) )
                 {
                     modelMetadata.DisplayName = _resourcesManager.GetResourceManagerByName ( containerType.Name ).GetString ( propertyName );
                 }
                 else
                 {
-                    var name = containerType.Namespace.Split('.').Last() + "Resources";
-                    var resourceManager = _resourcesManager.GetResourceManagerByName(name);
-                    modelMetadata.DisplayName = resourceManager.GetString(containerType.Name.Replace("Dto", "_") + propertyName);
+                    var name = containerType.Namespace.Split ( '.' ).Last () + "Resources";
+                    var resourceManager = _resourcesManager.GetResourceManagerByName ( name );
+                    modelMetadata.DisplayName = resourceManager.GetString ( containerType.Name.Replace ( "Dto", "_" ) + propertyName );
                 }
             }
 

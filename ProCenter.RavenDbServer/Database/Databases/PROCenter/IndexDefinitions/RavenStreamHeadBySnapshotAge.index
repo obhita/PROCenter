@@ -1,14 +1,14 @@
 {
   "Name": "RavenStreamHeadBySnapshotAge",
-  "Map": "docs.RavenStreamHeads.Select(s => new {\r\n    SnapshotAge = s.HeadRevision - s.SnapshotRevision,\r\n    Partition = s.Partition ?? null\r\n})",
+  "LockMode": "Unlock",
+  "Map": "docs.RavenStreamHeads.Select(s => new {\r\n    SnapshotAge = s.HeadRevision - s.SnapshotRevision,\r\n    Partition = ((string)(s.Partition ?? null))\r\n})",
   "Maps": [
-    "docs.RavenStreamHeads.Select(s => new {\r\n    SnapshotAge = s.HeadRevision - s.SnapshotRevision,\r\n    Partition = s.Partition ?? null\r\n})"
+    "docs.RavenStreamHeads.Select(s => new {\r\n    SnapshotAge = s.HeadRevision - s.SnapshotRevision,\r\n    Partition = ((string)(s.Partition ?? null))\r\n})"
   ],
   "Reduce": null,
   "TransformResults": null,
   "IsMapReduce": false,
   "IsCompiled": false,
-  "IsTemp": false,
   "Stores": {},
   "Indexes": {},
   "SortOptions": {},
@@ -16,5 +16,8 @@
   "Fields": [],
   "Suggestions": {},
   "TermVectors": {},
-  "Type": "Map"
+  "SpatialIndexes": {},
+  "InternalFieldsMapping": null,
+  "Type": "Map",
+  "DisableInMemoryIndexing": false
 }

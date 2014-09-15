@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Event when assessment is created.
-    /// </summary>
+    /// <summary>Event when assessment is created.</summary>
     public class AssessmentCreatedEvent : CommitEventBase
     {
         #region Constructors and Destructors
@@ -47,43 +49,76 @@ namespace ProCenter.Domain.AssessmentModule.Event
         /// <param name="assessmentInstanceKey">The assessment instance key.</param>
         /// <param name="version">The version.</param>
         /// <param name="patientKey">The patient key.</param>
+        /// <param name="staffKey">The staff key.</param>
         /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
         /// <param name="assessmentName">The assessment name.</param>
-        public AssessmentCreatedEvent(Guid assessmentInstanceKey, int version, Guid patientKey, Guid assessmentDefinitionKey, string assessmentName)
+        /// <param name="requiredQuestionTotal">The question total.</param>
+        /// <param name="createdDate">The created date.</param>
+        /// <param name="canSelfAdminister">If set to <c>true</c> [can self administer].</param>
+        public AssessmentCreatedEvent (
+            Guid assessmentInstanceKey,
+            int version,
+            Guid patientKey,
+            Guid? staffKey,
+            Guid assessmentDefinitionKey,
+            string assessmentName,
+            int requiredQuestionTotal,
+            DateTime createdDate,
+            bool canSelfAdminister)
             : base ( assessmentInstanceKey, version )
         {
             PatientKey = patientKey;
+            StaffKey = staffKey;
             AssessmentDefinitionKey = assessmentDefinitionKey;
             AssessmentName = assessmentName;
+            RequiredQuestionTotal = requiredQuestionTotal;
+            CreatedDate = createdDate;
+            CanSelfAdminister = canSelfAdminister;
         }
 
         #endregion
 
         #region Public Properties
 
-        /// <summary>
-        ///     Gets the assessment definition key.
-        /// </summary>
-        /// <value>
-        ///     The assessment definition key.
-        /// </value>
+        /// <summary>Gets the assessment definition key.</summary>
+        /// <value>The assessment definition key.</value>
         public Guid AssessmentDefinitionKey { get; private set; }
 
-        /// <summary>
-        /// Gets the name of the assessment.
-        /// </summary>
-        /// <value>
-        /// The name of the assessment.
-        /// </value>
+        /// <summary>Gets the name of the assessment.</summary>
+        /// <value>The name of the assessment.</value>
         public string AssessmentName { get; private set; }
 
         /// <summary>
-        ///     Gets the patient key.
+        /// Gets a value indicating whether this instance can self administer.
         /// </summary>
         /// <value>
-        ///     The patient key.
+        /// <c>true</c> if this instance can self administer; otherwise, <c>false</c>.
         /// </value>
+        public bool CanSelfAdminister { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the created date.
+        /// </summary>
+        /// <value>
+        /// The created date.
+        /// </value>
+        public DateTime CreatedDate { get; set; }
+
+        /// <summary>Gets the required question total.</summary>
+        /// <value>The required question total.</value>
+        public int RequiredQuestionTotal { get; private set; }
+
+        /// <summary>Gets the patient key.</summary>
+        /// <value>The patient key.</value>
         public Guid PatientKey { get; private set; }
+
+        /// <summary>
+        /// Gets the staff key.
+        /// </summary>
+        /// <value>
+        /// The staff key.
+        /// </value>
+        public Guid? StaffKey { get; private set; }
 
         #endregion
     }

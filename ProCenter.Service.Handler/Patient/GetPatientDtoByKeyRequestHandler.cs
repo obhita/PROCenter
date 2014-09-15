@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Patient
 {
-    #region
+    #region Using Statements
 
     using System;
     using System.Linq;
@@ -35,43 +38,67 @@ namespace ProCenter.Service.Handler.Patient
     using Dapper;
     using Domain.PatientModule;
     using Domain.SecurityModule;
-    using Infrastructure.Service.ReadSideService;
+    using global::AutoMapper;
+    using ProCenter.Common;
     using Service.Message.Patient;
     using Service.Message.Security;
-    using global::AutoMapper;
 
     #endregion
 
+    /// <summary>The get patient dto by key request handler class.</summary>
     public class GetPatientDtoByKeyRequestHandler :
         ServiceRequestHandler<GetPatientDtoByKeyRequest, GetPatientDtoResponse>
     {
+        #region Fields
+
+        private readonly IDbConnectionFactory _dbConnectionFactory;
         private readonly IPatientRepository _patientRepository;
         private readonly ISystemAccountRepository _systemAccountRepository;
-        private readonly IDbConnectionFactory _dbConnectionFactory;
 
-        public GetPatientDtoByKeyRequestHandler(IPatientRepository patientRepository, ISystemAccountRepository systemAccountRepository, IDbConnectionFactory dbConnectionFactory)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetPatientDtoByKeyRequestHandler"/> class.
+        /// </summary>
+        /// <param name="patientRepository">The patient repository.</param>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        /// <param name="dbConnectionFactory">The database connection factory.</param>
+        public GetPatientDtoByKeyRequestHandler ( IPatientRepository patientRepository, ISystemAccountRepository systemAccountRepository, IDbConnectionFactory dbConnectionFactory )
         {
             _patientRepository = patientRepository;
             _systemAccountRepository = systemAccountRepository;
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        protected override void Handle(GetPatientDtoByKeyRequest request, GetPatientDtoResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( GetPatientDtoByKeyRequest request, GetPatientDtoResponse response )
         {
-            var patient = _patientRepository.GetByKey(request.PatientKey);
-            var patientDto = Mapper.Map<Patient, PatientDto>(patient);
+            var patient = _patientRepository.GetByKey ( request.PatientKey );
+            var patientDto = Mapper.Map<Patient, PatientDto> ( patient );
 
             //get system account associated with staff
             Guid? systemAccountKey;
-            using (var connection = _dbConnectionFactory.CreateConnection())
+            using ( var connection = _dbConnectionFactory.CreateConnection () )
             {
                 systemAccountKey =
-                    connection.Query<Guid?>("SELECT SystemAccountKey FROM SecurityModule.SystemAccount WHERE PatientKey=@PatientKey", new {request.PatientKey}).FirstOrDefault();
+                    connection.Query<Guid?> ( "SELECT SystemAccountKey FROM SecurityModule.SystemAccount WHERE PatientKey=@PatientKey", new {request.PatientKey} )
+                    .FirstOrDefault ();
             }
-            if (systemAccountKey.HasValue)
+            if ( systemAccountKey.HasValue )
             {
-                var systemAccount = _systemAccountRepository.GetByKey(systemAccountKey.Value);
-                var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
+                var systemAccount = _systemAccountRepository.GetByKey ( systemAccountKey.Value );
+                var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto> ( systemAccount );
+
                 //if (systemAccount.RoleKeys.Any())
                 //{
                 //    var roleKeys = string.Join(", ", systemAccount.RoleKeys);
@@ -88,5 +115,7 @@ namespace ProCenter.Service.Handler.Patient
             }
             response.DataTransferObject = patientDto;
         }
+
+        #endregion
     }
 }

@@ -1,16 +1,40 @@
-﻿@model ProCenter.Service.Message.Security.SystemAccountDto
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Patient
+@using ProCenter.Service.Message.Security
+
+@model SystemAccountDto
 
 @{
     var disable = Model.Key != Guid.Empty ? "true" : "false";
 }
 <div data-ajaxform-ignore="false" data-disabled="@disable" class="question-root system-account">
-    @if (Model.Key == Guid.Empty && Model.CreateNew)
+    @Html.LabelFor( m => m.Email )
+    @Html.TextBoxFor( m => m.Email, new {type = "email", placeholder = Html.DisplayNameFor ( m => m.Email )} )
+    @Html.ValidationMessageFor( m => m.Email )
+    @if ( Model.Key != Guid.Empty )
     {
-        @Html.LabelFor(m => m.Username)
-        @Html.TextBoxFor(m => m.Username, new {placeholder = Html.DisplayNameFor(m => m.Username)})
-        @Html.ValidationMessageFor(m => m.Username)
+        <div class="tools">
+            @Html.SecureWebApiActionLink( "Rest Password", "ResetPassword", "SystemAccount", new {key = Model.Key}, new {@class = "btn btn-info system-account-reset-password", data_loadelementid = "system-acount-loader"} )
+            @if ( Model.IsLocked )
+            {
+                @Html.SecureWebApiActionLink( "UnLock", "UnLock", "SystemAccount", new {key = Model.Key}, new {@class = "btn btn-info system-account-lock", data_loadelementid = "system-acount-loader"} )
+            }
+            else
+            {
+                @Html.SecureWebApiActionLink( "Lock", "Lock", "SystemAccount", new {key = Model.Key}, new {@class = "btn btn-info system-account-lock", data_loadelementid = "system-acount-loader"} )
+            }
+            <div id="system-acount-loader" class="modal-loading-indicator" style="display: none"></div>
+        </div>
     }
-    @Html.LabelFor(m => m.Email)
-    @Html.TextBoxFor(m => m.Email, new {type = "email", placeholder = Html.DisplayNameFor(m => m.Email)})
-    @Html.ValidationMessageFor(m => m.Email)
+</div>
+
+<div id="messageModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <form id="messageForm">
+        <div class="modal-header">
+            <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3>@Patient.ResetPassword</h3>
+        </div>
+        <div class="modal-body">
+        </div>
+    </form>
 </div>

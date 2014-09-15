@@ -60,7 +60,7 @@
 .modal-body {
   position: relative;
   overflow-y: auto;
-  max-height: 400px;
+  max-height: 650px;
   padding: 15px;
 }
 // Remove bottom margin if need be
@@ -93,4 +93,28 @@
   .btn-block + .btn-block {
     margin-left: 0;
   }
+}
+
+
+.sessionManagerModal {
+    .modal;
+    text-align: center;
+    padding-bottom: 10px;
+    width: 350px;
+    
+    &.fade.in {
+        top: 30%;
+    }
+
+    .modal-header {
+        background-color: #e8e8e8;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .btn + .btn {
+        margin-left: 5px;
+    }
 }

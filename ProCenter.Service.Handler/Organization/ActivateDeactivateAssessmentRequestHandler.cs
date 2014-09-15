@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
-    #region
+    #region Using Statements
 
     using Agatha.Common;
     using Common;
@@ -36,29 +39,51 @@ namespace ProCenter.Service.Handler.Organization
 
     #endregion
 
+    /// <summary>The activate deactivate assessment request handler class.</summary>
     public class ActivateDeactivateAssessmentRequestHandler : ServiceRequestHandler<ActivateDeactivateAssessmentRequest, Response>
     {
+        #region Fields
+
         private readonly IOrganizationRepository _organizationRepository;
 
-        public ActivateDeactivateAssessmentRequestHandler(IOrganizationRepository organizationRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActivateDeactivateAssessmentRequestHandler"/> class.
+        /// </summary>
+        /// <param name="organizationRepository">The organization repository.</param>
+        public ActivateDeactivateAssessmentRequestHandler ( IOrganizationRepository organizationRepository )
         {
             _organizationRepository = organizationRepository;
         }
 
-        protected override void Handle(ActivateDeactivateAssessmentRequest request, Response response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( ActivateDeactivateAssessmentRequest request, Response response )
         {
-            var orgnaization = _organizationRepository.GetByKey(request.OrganizationKey);
-            if (orgnaization != null)
+            var orgnaization = _organizationRepository.GetByKey ( request.OrganizationKey );
+            if ( orgnaization != null )
             {
-                if (request.IsActivating)
+                if ( request.IsActivating )
                 {
-                    orgnaization.AddAssessmentDefinition(request.AssessmentDefinitionKey);
+                    orgnaization.AddAssessmentDefinition ( request.AssessmentDefinitionKey );
                 }
                 else
                 {
-                    orgnaization.RemoveAssessmentDefinition(request.AssessmentDefinitionKey);
+                    orgnaization.RemoveAssessmentDefinition ( request.AssessmentDefinitionKey );
                 }
             }
         }
+
+        #endregion
     }
 }

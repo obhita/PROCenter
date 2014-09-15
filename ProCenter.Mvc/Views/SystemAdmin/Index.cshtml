@@ -1,4 +1,7 @@
-﻿@{
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Security
+
+@{
     ViewBag.Title = "System Administration";
 }
 
@@ -22,7 +25,7 @@
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <input value="Create" type="submit" class="save-btn btn btn-primary" aria-hidden="true"/>
+            <input id="create-organization-btn" value="Create" type="submit" class="save-btn btn btn-primary" aria-hidden="true"/>
         </div>
     </form>
     <div id="organization-create-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
@@ -37,13 +40,14 @@
     </div>
     <form id="create-system-admin-form">
         <div class="modal-body">
-            <label for="email">Email</label>
-            <input id="email" name="email" class="required" type="text"/>
-            <span class="field-validation-valid" data-valmsg-for="email" data-val-replace="true"></span>
+            @{ var systemAccount = new SystemAccountDto (); }
+            @Html.Label( Html.PropertyNameFor ( m => systemAccount.Email ), Html.DisplayNameFor ( m => systemAccount.Email ) )
+            @Html.TextBox( Html.PropertyNameFor ( m => systemAccount.Email ), null, new {type = "email", placeholder = Html.DisplayNameFor ( m => systemAccount.Email )} )
+            @Html.ValidationMessage( Html.PropertyNameFor ( m => systemAccount.Email ) )
         </div>
         <div class="modal-footer">
             <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <input value="Create" type="submit" class="save-btn btn btn-primary" aria-hidden="true"/>
+            <input id="create-system-admin-btn" value="Create" type="submit" class="btn btn-primary" aria-hidden="true"/>
         </div>
     </form>
     <div id="system-admin-create-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
@@ -75,7 +79,7 @@
                         </table>
                     </div>
                     <div id="organization-editor"></div>
-                    <div class="clear"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
             <div id="system-admin-widget" class="widget">
@@ -100,7 +104,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="clear"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
         </div>
@@ -109,11 +113,11 @@
 </div>
 @section scripts
 {
-    @Scripts.Render("~/bundles/organizationedit")
+    @Scripts.Render( "~/bundles/organizationedit" )
     <script>
         $(document).ready(function() {
             var updateTableSizes = function() {
-                $('.dataTable_wrapper .dataTables_scroll,.dataTable_wrapper .dataTables_scroll .dataTables_scrollBody').attr("data-layout-height", "*");
+                $('.dataTable_wrapper .dataTables_scroll, .dataTable_wrapper .dataTables_scroll .dataTables_scrollBody').attr("data-layout-height", "*");
                 fixSizes(true);
             };
 
@@ -135,9 +139,9 @@
                         "sClass": "FirstColumn",
                     },
                     {
-                        "mData": "Key", 
-                        "bSortable": false, 
-                        "bSearchable": true, 
+                        "mData": "Key",
+                        "bSortable": false,
+                        "bSearchable": true,
                         "sClass": "hidden"
                     }
                 ],
@@ -185,38 +189,38 @@
                         }*@
                     }
                 ],
-                "fnDrawCallback": function () {
+                "fnDrawCallback": function() {
                     updateTableSizes();
                 }
             });
 
-            $("#organizationSearchDataTable tbody").click(function (event) {
+            $("#organizationSearchDataTable tbody").click(function(event) {
                 var key = organizationSearchDataTable.fnGetData(event.target.parentNode).Key;
                 $('#ajax-loader').fadeIn();
                 $.get('@Url.Content( "~/SystemAdmin/Edit/" )' + key, showOrganizationEditor)
-                    .always(function () { $('#ajax-loader').fadeOut(); });
+                    .always(function() { $('#ajax-loader').fadeOut(); });
             });
 
             $('.add-organization').click(function() {
                 $('#createOrganizationModal').modal('show');
             });
 
-            $('.add-system-admin').click(function () {
+            $('.add-system-admin').click(function() {
                 $('#createSystemAdminModal').modal('show');
             });
 
-            var initializeOrganizationEditor = function (organizationKey) {
-                window.procenter.InitializeOrganization('@Url.Content("~/SystemAdmin")', organizationKey);
+            var initializeOrganizationEditor = function(organizationKey) {
+                window.procenter.InitializeOrganization('@Url.Content( "~/SystemAdmin" )', organizationKey);
             };
 
-            var showOrganizationGrid = function (widget) {
+            var showOrganizationGrid = function(widget) {
                 $(widget).find('#organization-editor').hide();
                 $(widget).find('#organization-editor').html('');
                 $(widget).find('#organization-table').show();
                 organizationSearchDataTable.fnDraw();
             };
 
-            var showOrganizationEditor = function (innerHtml) {
+            var showOrganizationEditor = function(innerHtml) {
                 var $widget = $('#organization-widget');
                 var orgEditor = $widget.find('#organization-editor');
                 orgEditor.html(innerHtml);
@@ -229,22 +233,22 @@
 
             $("#create-organization-btn").ajaxLink({
                 url: '@Url.Content( "~/SystemAdmin/CreateOrganization/" )',
-                success: function (data) {
+                success: function(data) {
                     var createModal = $('#createOrganizationModal');
                     createModal.modal("hide");
                     createModal.find(':input').val('');
                     organizationSearchDataTable.fnAddData(data);
                     organizationSearchDataTable.fnDraw();
                 },
-                error: function (jqXhr) {
+                error: function(jqXhr) {
                     var error = $('#createOrganizationModal div.field-validation-error');
                     error.removeClass('hidden');
                     error.html(jqXhr.statusText);
                 },
-                getData: function () {
+                getData: function() {
                     var data = {};
                     var valid = true;
-                    $('#createOrganizationModal').find('.modal-body :input').each(function () {
+                    $('#createOrganizationModal').find('.modal-body :input').each(function() {
                         data[this.name] = this.value;
                         valid = valid & $(this).valid();
                     });
@@ -257,23 +261,23 @@
             });
 
             $("#create-system-admin-btn").ajaxLink({
-                url: '@Url.Content( "~/SystemAdmin/CreateAccount/" )',
-                success: function (data) {
+                url: '@Url.Content( "~/SystemAdmin/CreateSystemAdminAccount/" )',
+                success: function(data) {
                     var createModal = $('#createSystemAdminModal');
                     createModal.modal("hide");
                     createModal.find(':input').val('');
                     systemAdminTable.fnAddData(data);
                     systemAdminTable.fnDraw();
                 },
-                error: function (jqXhr) {
+                error: function(jqXhr) {
                     var error = $('#createSystemAdminModal div.field-validation-error');
                     error.removeClass('hidden');
                     error.html(jqXhr.statusText);
                 },
-                getData: function () {
+                getData: function() {
                     var data = {};
                     var valid = true;
-                    $('#createSystemAdminModal').find('.modal-body :input').each(function () {
+                    $('#createSystemAdminModal').find('.modal-body :input').each(function() {
                         data[this.name] = this.value;
                         valid = valid & $(this).valid();
                     });

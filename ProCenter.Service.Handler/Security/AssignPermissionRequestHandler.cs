@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
-    #region
+    #region Using Statements
 
     using Common;
     using Domain.SecurityModule;
@@ -36,35 +39,57 @@ namespace ProCenter.Service.Handler.Security
 
     #endregion
 
+    /// <summary>The assign permission request handler class.</summary>
     public class AssignPermissionRequestHandler : ServiceRequestHandler<AssignPermissionRequest, AssignPermissionResponse>
     {
+        #region Fields
+
         private readonly IRoleRepository _roleRepository;
 
-        public AssignPermissionRequestHandler(IRoleRepository roleRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignPermissionRequestHandler"/> class.
+        /// </summary>
+        /// <param name="roleRepository">The role repository.</param>
+        public AssignPermissionRequestHandler ( IRoleRepository roleRepository )
         {
             _roleRepository = roleRepository;
         }
 
-        protected override void Handle(AssignPermissionRequest request, AssignPermissionResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( AssignPermissionRequest request, AssignPermissionResponse response )
         {
-            var role = _roleRepository.GetByKey(request.Key);
-            if (role != null)
+            var role = _roleRepository.GetByKey ( request.Key );
+            if ( role != null )
             {
-                if (request.Add)
+                if ( request.Add )
                 {
-                    foreach (var permission in request.Permissions)
+                    foreach ( var permission in request.Permissions )
                     {
-                        role.AddPermision(new Permission {Name = permission});
+                        role.AddPermision ( new Permission {Name = permission} );
                     }
                 }
                 else
                 {
-                    foreach (var permission in request.Permissions)
+                    foreach ( var permission in request.Permissions )
                     {
-                        role.RemovePermision(new Permission {Name = permission});
+                        role.RemovePermision ( new Permission {Name = permission} );
                     }
                 }
             }
         }
+
+        #endregion
     }
 }

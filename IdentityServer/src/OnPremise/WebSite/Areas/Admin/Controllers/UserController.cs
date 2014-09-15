@@ -1,35 +1,15 @@
-﻿#region License Header
-// /*******************************************************************************
-//  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
-//  * 
-//  * Redistribution and use in source and binary forms, with or without
-//  * modification, are permitted provided that the following conditions are met:
-//  *     * Redistributions of source code must retain the above copyright
-//  *       notice, this list of conditions and the following disclaimer.
-//  *     * Redistributions in binary form must reproduce the above copyright
-//  *       notice, this list of conditions and the following disclaimer in the
-//  *       documentation and/or other materials provided with the distribution.
-//  *     * Neither the name of the <organization> nor the
-//  *       names of its contributors may be used to endorse or promote products
-//  *       derived from this software without specific prior written permission.
-//  * 
-//  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-//  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-//  * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-//  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-//  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-//  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-//  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-//  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-//  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//  ******************************************************************************/
-#endregion
-using System;
+﻿using System;
 using System.ComponentModel.Composition;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Text;
+using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using Thinktecture.IdentityModel.Authorization.Mvc;
 using Thinktecture.IdentityServer.Repositories;
 using Thinktecture.IdentityServer.Web.Areas.Admin.ViewModels;
@@ -42,6 +22,8 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
         [Import]
         public IUserManagementRepository UserManagementRepository { get; set; }
 
+        private Uri _baseAddress;
+
         public UserController()
         {
             Container.Current.SatisfyImportsOnce(this);
@@ -52,23 +34,92 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
             UserManagementRepository = userManagementRepository;
         }
 
-        public ActionResult Index(string filter = null)
+        [HttpGet]
+        public IdentityServiceResponse Lock(string username)
         {
-            var vm = new UsersViewModel(UserManagementRepository, filter);
+            _baseAddress = new Uri(Request.Url.Scheme + "://" + Request.Url.Authority + "/");
+            var identityServiecResponse = new IdentityServiceResponse();
+            var req = WebRequest.Create(_baseAddress + "api/membership/Lock/" + username);
+            req.Method = "POST";
+            req.ContentLength = 0;
+            var response = (HttpWebResponse)req.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            //_baseAddress = new Uri(Request.Url.Scheme + "://" + Request.Url.Authority + "/"); 
+            //var identityServiecResponse = new IdentityServiceResponse();
+            //var response = MakeRequestAsync(HttpMethod.Post, "api/membership/Lock/" + username).Result;
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    identityServiecResponse.Sucess = true;
+            //}
+            //else
+            //{
+            //    identityServiecResponse.ErrorMessage = response.Content.ReadAsStringAsync().Result;
+            //}
+            return identityServiecResponse;
+        }
+
+        [HttpGet]
+        public IdentityServiceResponse Unlock(string username)
+        {
+            _baseAddress = new Uri(Request.Url.Scheme + "://" + Request.Url.Authority + "/");
+            var identityServiecResponse = new IdentityServiceResponse();
+            var req = WebRequest.Create(_baseAddress + "api/membership/UnLock/" + username);
+            req.Method = "POST";
+            var response = (HttpWebResponse) req.GetResponse();
+            var responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+
+            //var response = MakeRequestAsync(HttpMethod.Post, "api/membership/UnLock/" + username).Result;
+            //if (response.IsSuccessStatusCode)
+            //{
+            //    identityServiecResponse.Sucess = true;
+            //}
+            //else
+            //{
+            //    identityServiecResponse.ErrorMessage = response.Content.ReadAsStringAsync().Result;
+            //}
+            return identityServiecResponse;
+        }
+
+        private async Task<HttpResponseMessage> MakeRequestAsync(HttpMethod method, string url, object data = null)
+        {
+            using (var httpClient = new HttpClient { BaseAddress = _baseAddress })
+            {
+                if (method == HttpMethod.Get)
+                {
+                    return await httpClient.GetAsync(url);
+                }
+                if (method == HttpMethod.Post)
+                {
+                    var content = data == null ? string.Empty : JsonConvert.SerializeObject(data);
+                    return await httpClient.PostAsync(url, new StringContent(content));
+                }
+                if (method == HttpMethod.Put)
+                {
+                    var content = data == null ? string.Empty : JsonConvert.SerializeObject(data);
+                    var response = await httpClient.PutAsync(url, new StringContent(content));
+                    return response;
+                }
+                throw new ArgumentException("Invalid method: " + method, "method");
+            }
+        }
+
+        public ActionResult Index(int page = 1, string filter = null)
+        {
+            var vm = new UsersViewModel(UserManagementRepository, page, filter);
             return View("Index", vm);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Index(string action, UserDeleteModel[] list)
+        public ActionResult Index(int page, string filter, string action, UserDeleteModel[] list)
         {
             if (action == "new") return Create();
-            if (action == "delete") return Delete(list);
+            if (action == "delete") return Delete(page, filter, list);
 
             ModelState.AddModelError("", Resources.UserController.InvalidAction);
-            var vm = new UsersViewModel(UserManagementRepository, null);
+            var vm = new UsersViewModel(UserManagementRepository, page, filter);
             return View("Index", vm);
-
         }
 
         public ActionResult Create()
@@ -97,7 +148,7 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
                         }
                     }
                     TempData["Message"] = Resources.UserController.UserCreated;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { filter = model.Username });
                 }
                 catch (ValidationException ex)
                 {
@@ -112,7 +163,7 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
             return View("Create", model);
         }
 
-        private ActionResult Delete(UserDeleteModel[] list)
+        private ActionResult Delete(int page, string filter, UserDeleteModel[] list)
         {
             if (ModelState.IsValid)
             {
@@ -123,7 +174,7 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
                         this.UserManagementRepository.DeleteUser(name);
                     }
                     TempData["Message"] = Resources.UserController.UsersDeleted;
-                    return RedirectToAction("Index");
+                    return RedirectToAction("Index", new { page, filter });
                 }
                 catch (ValidationException ex)
                 {
@@ -134,7 +185,7 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
                     ModelState.AddModelError("", Resources.UserController.ErrorDeletingUser);
                 }
             }
-            return Index();
+            return Index(page, filter);
         }
 
         public ActionResult Roles(string username)
@@ -199,6 +250,8 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
             return View(model);
         }
 
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ChangePassword(UserPasswordModel model)
@@ -223,5 +276,29 @@ namespace Thinktecture.IdentityServer.Web.Areas.Admin.Controllers
             
             return View("ChangePassword", model);
         }
+    }
+
+    /// <summary>Identity Service Response.</summary>
+    public class IdentityServiceResponse
+    {
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets or sets the error message.
+        /// </summary>
+        /// <value>
+        ///     The error message.
+        /// </value>
+        public string ErrorMessage { get; set; }
+
+        /// <summary>
+        ///     Gets or sets a value indicating whether this <see cref="IdentityServiceResponse" /> is sucess.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if sucess; otherwise, <c>false</c>.
+        /// </value>
+        public bool Sucess { get; set; }
+
+        #endregion
     }
 }

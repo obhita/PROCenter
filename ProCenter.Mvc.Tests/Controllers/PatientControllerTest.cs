@@ -34,15 +34,11 @@ namespace ProCenter.Mvc.Tests.Controllers
     using System.Threading;
     using System.Threading.Tasks;
     using System.Web.Mvc;
-    using System.Web.Routing;
-    using System.Web.Script.Serialization;
     using Agatha.Common;
-    using App_Start;
     using Common;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
     using Mvc.Controllers;
-    using ProCenter.Infrastructure.Service.ReadSideService;
     using Service.Message.Common;
     using Service.Message.Common.Lookups;
     using Service.Message.Patient;
@@ -215,36 +211,36 @@ namespace ProCenter.Mvc.Tests.Controllers
             Assert.IsNotNull(jsonResult.Data);
         }
 
-        [TestMethod]
-        public void Dashboard_ResultCorrect()
-        {
-            var patientKey = Guid.NewGuid();
-            var requestDispatcherMock = new Mock<IAsyncRequestDispatcher>();
-            requestDispatcherMock.Setup(rd => rd.GetAsync<GetPatientDashboardResponse>()).Returns(Task.FromResult(new GetPatientDashboardResponse()));
-            requestDispatcherMock.Setup(rd => rd.GetAsync<GetPatientDtoResponse>())
-                                 .Returns(Task.FromResult(new GetPatientDtoResponse {DataTransferObject = new PatientDto {Key = patientKey,}}));
+        //[TestMethod]
+        //public void Dashboard_ResultCorrect()
+        //{
+        //    var patientKey = Guid.NewGuid();
+        //    var requestDispatcherMock = new Mock<IAsyncRequestDispatcher>();
+        //    requestDispatcherMock.Setup(rd => rd.GetAsync<GetPatientDashboardResponse>()).Returns(Task.FromResult(new GetPatientDashboardResponse()));
+        //    requestDispatcherMock.Setup(rd => rd.GetAsync<GetPatientDtoResponse>())
+        //                         .Returns(Task.FromResult(new GetPatientDtoResponse {DataTransferObject = new PatientDto {Key = patientKey,}}));
 
-            var requestDispatcherFactoryMock = new Mock<IRequestDispatcherFactory>();
-            requestDispatcherFactoryMock.Setup(rf => rf.CreateRequestDispatcher()).Returns(requestDispatcherMock.Object);
+        //    var requestDispatcherFactoryMock = new Mock<IRequestDispatcherFactory>();
+        //    requestDispatcherFactoryMock.Setup(rf => rf.CreateRequestDispatcher()).Returns(requestDispatcherMock.Object);
 
-            var controller = new PatientController(requestDispatcherFactoryMock.Object, new Mock<IResourcesManager>().Object);
+        //    var controller = new PatientController(requestDispatcherFactoryMock.Object, new Mock<IResourcesManager>().Object);
 
-            ActionResult actionResult = null;
-            var wait = new ManualResetEvent(false);
+        //    ActionResult actionResult = null;
+        //    var wait = new ManualResetEvent(false);
 
-            var task = controller.PatientFeed(patientKey);
-            task.ContinueWith(result =>
-                {
-                    actionResult = result.Result;
-                    wait.Set();
-                });
-            wait.WaitOne();
+        //    var task = controller.PatientFeed(patientKey);
+        //    task.ContinueWith(result =>
+        //        {
+        //            actionResult = result.Result;
+        //            wait.Set();
+        //        });
+        //    wait.WaitOne();
 
 
-            var partialViewResult = actionResult as PartialViewResult;
-            Assert.IsNotNull(partialViewResult);
-            Assert.IsNotNull(partialViewResult.ViewData["Patient"] as PatientDto);
-            Assert.AreEqual(patientKey, (partialViewResult.ViewData["Patient"] as PatientDto).Key);
-        }
+        //    var partialViewResult = actionResult as PartialViewResult;
+        //    Assert.IsNotNull(partialViewResult);
+        //    Assert.IsNotNull(partialViewResult.ViewData["Patient"] as PatientDto);
+        //    Assert.AreEqual(patientKey, (partialViewResult.ViewData["Patient"] as PatientDto).Key);
+        //}
     }
 }

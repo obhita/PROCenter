@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,15 +25,38 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Patient
 {
+    #region Using Statements
+
     using System;
 
+    #endregion
+
+    /// <summary>The total assessments dto class.</summary>
     public class TotalAssessmentsDto
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the starting date.
+        /// </summary>
+        /// <value>
+        /// The starting date.
+        /// </value>
+        public DateTime? StartingDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total.
+        /// </summary>
+        /// <value>
+        /// The total.
+        /// </value>
         public int Total { get; set; }
 
-        public DateTime? StartingDate { get; set; }
+        #endregion
     }
 }

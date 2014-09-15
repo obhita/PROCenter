@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,33 +25,61 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Message
 {
+    #region Using Statements
+
     using Common;
     using Domain.MessageModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Message;
-    using global::AutoMapper;
 
+    #endregion
+
+    /// <summary>The cancel assessment reminder request handler class.</summary>
     public class CancelAssessmentReminderRequestHandler : ServiceRequestHandler<CancelAssessmentReminderRequest, DtoResponse<AssessmentReminderDto>>
     {
+        #region Fields
+
         private readonly IAssessmentReminderRepository _assessmentReminderRepository;
 
-        public CancelAssessmentReminderRequestHandler(IAssessmentReminderRepository assessmentReminderRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CancelAssessmentReminderRequestHandler"/> class.
+        /// </summary>
+        /// <param name="assessmentReminderRepository">The assessment reminder repository.</param>
+        public CancelAssessmentReminderRequestHandler ( IAssessmentReminderRepository assessmentReminderRepository )
         {
             _assessmentReminderRepository = assessmentReminderRepository;
         }
 
-        protected override void Handle(CancelAssessmentReminderRequest request, DtoResponse<AssessmentReminderDto> response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( CancelAssessmentReminderRequest request, DtoResponse<AssessmentReminderDto> response )
         {
-            var assessmentReminder = _assessmentReminderRepository.GetByKey(request.AssessmentReminderKey);
-            if (assessmentReminder != null)
+            var assessmentReminder = _assessmentReminderRepository.GetByKey ( request.RecurrenceKey );
+            if ( assessmentReminder != null )
             {
-                assessmentReminder.Cancel ();
-                var dto = Mapper.Map<AssessmentReminder, AssessmentReminderDto>(assessmentReminder);
+                assessmentReminder.Cancel ( request.AssessmentReminderKey );
+                var dto = Mapper.Map<AssessmentReminder, AssessmentReminderDto> ( assessmentReminder );
                 response.DataTransferObject = dto;
             }
         }
+
+        #endregion
     }
 }

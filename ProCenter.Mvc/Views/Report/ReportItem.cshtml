@@ -1,5 +1,7 @@
 ﻿@using Pillar.Common.Metadata
 @using ProCenter.Domain.AssessmentModule
+@using ProCenter.Mvc.Views.Report
+
 @model ProCenter.Service.Message.Report.ReportItemDto
 
 @{
@@ -16,13 +18,13 @@
     else
     {
         <div class="report-item-wrapper" data-ajax-container="true">
-            @Html.HiddenFor(m => reportItemDto.Name)
+            @Html.HiddenFor( m => reportItemDto.Name )
             @if ( reportItemDto.ShouldShow.HasValue )
             {
-                @Html.CheckBox("reportItemDto.ShouldShow", reportItemDto.ShouldShow.Value)
+                @Html.CheckBox( "reportItemDto.ShouldShow", reportItemDto.ShouldShow.Value )
             }
-            @Html.TextAreaFor( m => reportItemDto.Text, new { maxlength = 500 } )
-            <div class="ajax-loading-indicator"><span>Saving...</span></div>
+            @Html.TextAreaFor( m => reportItemDto.Text, new {maxlength = 500} )
+            <div class="ajax-loading-indicator"><span>@Report.Saving</span></div>
         </div>
     }
     if ( reportItemDto.ReportItems != null )

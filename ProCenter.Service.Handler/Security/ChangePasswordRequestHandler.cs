@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,68 +25,63 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
-    #region
+    #region Using Statements
 
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using Common;
     using Domain.SecurityModule;
+    using Infrastructure.Service;
     using Service.Message.Security;
 
     #endregion
 
+    /// <summary>Handler for change password request.</summary>
     public class ChangePasswordRequestHandler : ServiceRequestHandler<ChangePasswordRequest, ChangePasswordResponse>
     {
+        #region Fields
+
+        private readonly ISystemAccountIdentityServiceManager _systemAccountIdentityServiceManager;
         private readonly ISystemAccountRepository _systemAccountRepository;
 
-        public ChangePasswordRequestHandler(ISystemAccountRepository systemAccountRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="ChangePasswordRequestHandler" /> class.
+        /// </summary>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        /// <param name="systemAccountIdentityServiceManager">The system account identity service manager.</param>
+        public ChangePasswordRequestHandler ( ISystemAccountRepository systemAccountRepository,
+            ISystemAccountIdentityServiceManager systemAccountIdentityServiceManager )
         {
             _systemAccountRepository = systemAccountRepository;
+            _systemAccountIdentityServiceManager = systemAccountIdentityServiceManager;
         }
 
-        protected override void Handle(ChangePasswordRequest request, ChangePasswordResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( ChangePasswordRequest request, ChangePasswordResponse response )
         {
-            var systemAccount = _systemAccountRepository.GetByKey(request.SystemAccountKey);
-            if (systemAccount != null)
+            var systemAccount = _systemAccountRepository.GetByKey ( request.SystemAccountKey );
+            if ( systemAccount != null )
             {
-                using (var httpClient = new HttpClient {BaseAddress = new Uri(request.BaseBaseIdentityServerUri)})
-                {
-                    httpClient.SetToken("Session", request.Token);
-                    var httpResponseMessage = httpClient.GetAsync("api/membership/GetUserByEmail?email=" + systemAccount.Identifier).Result;
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
-                    {
-                        var membershipUserDtos = httpResponseMessage.Content.ReadAsAsync<IEnumerable<MembershipUserDto>>().Result.ToList();
-
-                        if (membershipUserDtos.Count == 0)
-                        {
-                            response.ResultCode = "NoAccount";
-                            return;
-                        }
-                        if (membershipUserDtos.Count != 1)
-                        {
-                            response.ResultCode = "MultipleAccount";
-                            return;
-                        }
-
-                        var membershipUserDto = membershipUserDtos[0];
-
-                        var path = "api/membership/ChangePassword/" + membershipUserDto.Username + "?oldPassword=" + request.OldPassword + "&newPassword=" + request.NewPassword;
-                        httpResponseMessage = httpClient.GetAsync(path).Result;
-                        response.ResultCode = httpResponseMessage.StatusCode == HttpStatusCode.OK ? "Succeed" : "InvalidCredentials";
-                    }
-                    else
-                    {
-                        //var result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        response.ResultCode = "InvalidCredentials";
-                    }
-                }
+                var result = _systemAccountIdentityServiceManager.ChangePassword ( systemAccount.Identifier, request.OldPassword, request.NewPassword );
+                response.ResultCode = result.Sucess ? ChangePasswordResponseCode.Succeed : ChangePasswordResponseCode.InvalidCredentials;
             }
         }
+
+        #endregion
     }
 }

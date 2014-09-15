@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service.Completeness
 {
-    #region
+    #region Using Statements
 
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -35,20 +38,47 @@ namespace ProCenter.Mvc.Infrastructure.Service.Completeness
 
     #endregion
 
+    /// <summary>The required for completeness attribute class.</summary>
     public class RequiredForCompletenessAttribute : ValidationAttribute, IClientValidatable
     {
-        public string CompletenessCategory { get; private set; }
+        #region Constructors and Destructors
 
-        public RequiredForCompletenessAttribute(string completenessCategory)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RequiredForCompletenessAttribute"/> class.
+        /// </summary>
+        /// <param name="completenessCategory">The completeness category.</param>
+        public RequiredForCompletenessAttribute ( string completenessCategory )
         {
             CompletenessCategory = completenessCategory;
         }
 
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the completeness category.
+        /// </summary>
+        /// <value>
+        /// The completeness category.
+        /// </value>
+        public string CompletenessCategory { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>When implemented in a class, returns client validation rules for that class.</summary>
+        /// <param name="metadata">The model metadata.</param>
+        /// <param name="context">The controller context.</param>
+        /// <returns>The client validation rules for this validator.</returns>
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules ( ModelMetadata metadata, ControllerContext context )
         {
             var rule = new ModelClientValidationRule {ValidationType = ValidationType.Completeness};
-            rule.ValidationParameters.Add(new KeyValuePair<string, object>(CompletenessCategory, null));
+            rule.ValidationParameters.Add ( new KeyValuePair<string, object> ( CompletenessCategory, null ) );
             return new List<ModelClientValidationRule> {rule};
         }
+
+        #endregion
     }
 }

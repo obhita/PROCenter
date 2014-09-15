@@ -1,0 +1,27 @@
+.info-buttons-btn {
+  float: right;
+  margin: 10px 5px;
+  color: inherit;
+}
+.info-buttons-btn:hover {
+  text-decoration: none;
+}
+.info-buttons-btn .info-icon {
+  padding-right: 18px;
+}
+.info-buttons-btn .info-icon:before {
+  font-size: 18px;
+  font-family: 'icomoon';
+  content: '\e0f7';
+  -webkit-font-smoothing: antialiased;
+}
+.info-buttons-btn .info-icon:hover:before {
+  content: '\e0f8';
+}
+.popover.left.shift {
+  right: 68px;
+  left: initial !important;
+}
+.popover.left.shift .arrow {
+  top: 40%;
+}

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,26 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
     #region Using Statements
 
-    using CommonModule;
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>Interface for system account repository.</summary>
     public interface ISystemAccountRepository : IRepository<SystemAccount>
     {
         #region Public Methods and Operators
 
-        SystemAccount GetByIdentifier(string identifier);
+        /// <summary>Gets the by identifier.</summary>
+        /// <param name="identifier">The identifier.</param>
+        /// <returns>A <see cref="SystemAccount"/>.</returns>
+        SystemAccount GetByIdentifier ( string identifier );
 
         #endregion
     }

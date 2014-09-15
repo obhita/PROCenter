@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,34 +25,38 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
     #region Using Statements
 
     using System;
-    using Primitive;
+
+    using Pillar.Domain.Primitives;
+
+    using ProCenter.Primitive;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for creating patient aggregates.
-    /// </summary>
+    /// <summary>Interface for creating patient aggregates.</summary>
     public interface IPatientFactory
     {
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Creates the specified person name.
+        /// Creates the specified person name.
         /// </summary>
         /// <param name="organizationKey">Organization Key.</param>
         /// <param name="personName">Name of the person.</param>
         /// <param name="dateOfBirth">The date of birth.</param>
         /// <param name="gender">The gender.</param>
+        /// <param name="email">The email.</param>
         /// <returns>
-        ///     A <see cref="Patient" />.
+        /// A <see cref="Patient" />.
         /// </returns>
-        Patient Create ( Guid organizationKey, PersonName personName, DateTime? dateOfBirth, Gender gender );
+        Patient Create ( Guid organizationKey, PersonName personName, DateTime? dateOfBirth, Gender gender, Email email = null );
 
         #endregion
     }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
@@ -32,35 +35,45 @@ namespace ProCenter.Infrastructure.EventStore
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Domain;
+
     using Pillar.Common.Utility;
     using Pillar.Domain.Event;
+
     using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Implements the unit of work for a request.
-    /// </summary>
+    /// <summary>Implements the unit of work for a request.</summary>
     public class UnitOfWork : IUnitOfWork, IDisposable
     {
         #region Fields
 
         private readonly Guid _commitId = CombGuid.NewCombGuid ();
+
         private readonly IEventStoreRepository _eventStoreRepository;
+
         private readonly Dictionary<IAggregateRoot, List<IDomainEvent>> _uncommitedEvents = new Dictionary<IAggregateRoot, List<IDomainEvent>> ();
 
         #endregion
 
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWork" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="UnitOfWork" /> class.</summary>
         /// <param name="eventStoreRepository">The repository.</param>
         public UnitOfWork ( IEventStoreRepository eventStoreRepository)
         {
             _eventStoreRepository = eventStoreRepository;
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>Gets the event store repository.</summary>
+        /// <value>The event store repository.</value>
+        public IEventStoreRepository EventStoreRepository
+        {
+            get { return _eventStoreRepository; }
         }
 
         #endregion
@@ -76,6 +89,15 @@ namespace ProCenter.Infrastructure.EventStore
             {
                 _eventStoreRepository.Save ( uncommitedEvents.Key, uncommitedEvents.Value, _commitId, a => { } );
             }
+        }
+
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose ()
+        {
+            Dispose ( true );
+            GC.SuppressFinalize ( this );
         }
 
         /// <summary>
@@ -98,7 +120,7 @@ namespace ProCenter.Infrastructure.EventStore
         /// </summary>
         /// <param name="aggregateRoot">The aggregate root.</param>
         /// <param name="events">The events.</param>
-        public void Register(IAggregateRoot aggregateRoot, params IDomainEvent[] events)
+        public void Register ( IAggregateRoot aggregateRoot, params IDomainEvent[] events )
         {
             if ( _uncommitedEvents.ContainsKey ( aggregateRoot ) )
             {
@@ -112,21 +134,28 @@ namespace ProCenter.Infrastructure.EventStore
 
         #endregion
 
-        public void Dispose ()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
+        #region Methods
 
-        protected virtual void Dispose(bool disposing)
+        /// <summary>
+        ///     Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
+        protected virtual void Dispose ( bool disposing )
         {
-            if (!disposing)
+            if ( !disposing )
+            {
                 return;
+            }
 
             if ( _eventStoreRepository is IDisposable )
             {
-                (_eventStoreRepository as IDisposable).Dispose ();
+                ( _eventStoreRepository as IDisposable ).Dispose ();
             }
         }
+
+        #endregion
     }
 }

@@ -25,18 +25,35 @@
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure
 {
+    /// <summary>Shared strings.</summary>
     public static class SharedStringNames
     {
-        public static string ItemDefinitionSuffix = "_Value";
+        /// <summary>
+        /// The item definition suffix.
+        /// </summary>
+        public const string ItemDefinitionSuffix = "_Value";
 
-        public static string ItemDefinitionLookupSuffix = "_Value.Code";
+        /// <summary>
+        /// The item definition lookup suffix.
+        /// </summary>
+        public const string ItemDefinitionLookupSuffix = "_Value.Code";
 
-        public static string ResourceKeyPrefix = "_";
+        /// <summary>
+        /// The resource key prefix.
+        /// </summary>
+        public const string ResourceKeyPrefix = "_";
 
-        public static string Instructions = "instruction";
+        /// <summary>
+        /// The instructions.
+        /// </summary>
+        public const string Instructions = "instruction";
 
-        public static string ReportName = "ReportName";
+        /// <summary>
+        /// The report name.
+        /// </summary>
+        public const string ReportName = "ReportName";
     }
 }

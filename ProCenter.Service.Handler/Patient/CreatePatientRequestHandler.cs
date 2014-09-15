@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Patient
 {
     #region Using Statements
@@ -32,15 +35,13 @@ namespace ProCenter.Service.Handler.Patient
     using Common;
     using Domain.CommonModule;
     using Domain.PatientModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Patient;
-    using global::AutoMapper;
 
     #endregion
 
-    /// <summary>
-    ///     Create patient request handler.
-    /// </summary>
+    /// <summary>Create patient request handler.</summary>
     public class CreatePatientRequestHandler : ServiceRequestHandler<CreatePatientRequest, SaveDtoResponse<PatientDto>>
     {
         #region Fields
@@ -72,7 +73,10 @@ namespace ProCenter.Service.Handler.Patient
         protected override void Handle ( CreatePatientRequest request, SaveDtoResponse<PatientDto> response )
         {
             var patientFactory = new PatientFactory ();
-            var patient = patientFactory.Create (request.PatientDto.OrganizationKey, request.PatientDto.Name, request.PatientDto.DateOfBirth, _lookupProvider.Find<Gender> ( request.PatientDto.Gender.Code ) );
+            var patient = patientFactory.Create ( request.PatientDto.OrganizationKey,
+                request.PatientDto.Name,
+                request.PatientDto.DateOfBirth,
+                _lookupProvider.Find<Gender> ( request.PatientDto.Gender.Code ) );
 
             if ( patient != null )
             {

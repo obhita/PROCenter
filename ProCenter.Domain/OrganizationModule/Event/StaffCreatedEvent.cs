@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
-    using Primitive;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Primitive;
 
     #endregion
 
-    /// <summary>
-    ///     Staff Created Event.
-    /// </summary>
+    /// <summary>Staff Created Event.</summary>
     public class StaffCreatedEvent : CommitEventBase
     {
         #region Constructors and Destructors
@@ -74,7 +76,7 @@ namespace ProCenter.Domain.OrganizationModule.Event
         /// <value>
         ///     The organization key.
         /// </value>
-        public Guid OrganizationKey { get; private set; }
+        public new Guid OrganizationKey { get; private set; }
 
         #endregion
     }

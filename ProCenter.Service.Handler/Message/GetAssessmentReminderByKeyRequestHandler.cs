@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,36 +25,49 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Message
 {
-    #region
+    #region Using Statements
 
-    using System.Linq;
     using Common;
-    using Dapper;
     using Domain.AssessmentModule;
     using Domain.MessageModule;
     using Domain.PatientModule;
-    using Infrastructure.Service.ReadSideService;
+    using global::AutoMapper;
     using ProCenter.Common;
     using Service.Message.Common;
     using Service.Message.Message;
-    using global::AutoMapper;
 
     #endregion
 
+    /// <summary>The get assessment reminder by key request handler class.</summary>
     public class GetAssessmentReminderByKeyRequestHandler : ServiceRequestHandler<GetAssessmentReminderByKeyRequest, DtoResponse<AssessmentReminderDto>>
     {
-        private readonly IAssessmentReminderRepository _assessmentReminderRepository;
+        #region Fields
+
         private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
+        private readonly IAssessmentReminderRepository _assessmentReminderRepository;
         private readonly IPatientRepository _patientRepository;
         private readonly IResourcesManager _resourcesManager;
 
-        public GetAssessmentReminderByKeyRequestHandler( 
-            IAssessmentReminderRepository assessmentReminderRepository, 
-            IAssessmentDefinitionRepository assessmentDefinitionRepository, 
-            IPatientRepository patientRepository, 
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetAssessmentReminderByKeyRequestHandler"/> class.
+        /// </summary>
+        /// <param name="assessmentReminderRepository">The assessment reminder repository.</param>
+        /// <param name="assessmentDefinitionRepository">The assessment definition repository.</param>
+        /// <param name="patientRepository">The patient repository.</param>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public GetAssessmentReminderByKeyRequestHandler (
+            IAssessmentReminderRepository assessmentReminderRepository,
+            IAssessmentDefinitionRepository assessmentDefinitionRepository,
+            IPatientRepository patientRepository,
             IResourcesManager resourcesManager )
         {
             _assessmentReminderRepository = assessmentReminderRepository;
@@ -62,7 +76,16 @@ namespace ProCenter.Service.Handler.Message
             _resourcesManager = resourcesManager;
         }
 
-        protected override void Handle(GetAssessmentReminderByKeyRequest request, DtoResponse<AssessmentReminderDto> response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( GetAssessmentReminderByKeyRequest request, DtoResponse<AssessmentReminderDto> response )
         {
             var assessmentReminder = _assessmentReminderRepository.GetByKey ( request.AssessmentReminderKey );
             if ( assessmentReminder != null )
@@ -70,11 +93,14 @@ namespace ProCenter.Service.Handler.Message
                 var patient = _patientRepository.GetByKey ( assessmentReminder.PatientKey );
                 var assessmentDefinition = _assessmentDefinitionRepository.GetByKey ( assessmentReminder.AssessmentDefinitionKey );
                 var assessmentReminderDto = Mapper.Map<AssessmentReminder, AssessmentReminderDto> ( assessmentReminder );
-                assessmentReminderDto.AssessmentName = _resourcesManager.GetResourceManagerByName(assessmentDefinition.CodedConcept.Name).GetString("_" + assessmentDefinition.CodedConcept.Code);
+                assessmentReminderDto.AssessmentName =
+                    _resourcesManager.GetResourceManagerByName ( assessmentDefinition.CodedConcept.Name ).GetString ( "_" + assessmentDefinition.CodedConcept.Code );
                 assessmentReminderDto.PatientFirstName = patient.Name.FirstName;
                 assessmentReminderDto.PatientLastName = patient.Name.LastName;
                 response.DataTransferObject = assessmentReminderDto;
             }
         }
+
+        #endregion
     }
 }

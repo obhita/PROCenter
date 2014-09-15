@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common.Lookups
 {
     #region Using Statements
@@ -33,13 +36,30 @@ namespace ProCenter.Service.Message.Common.Lookups
 
     #endregion
 
-    // NOTE: to clear cache, use ICacheManager in Create/Change/Delete Lookup item handlers.
-    [EnableServiceResponseCaching(Hours = 1)]
-    [EnableClientResponseCaching(Hours = 4)]
+    /// <summary>The get lookups by category request class.</summary>
+    /// <note>To clear cache, use ICacheManager in Create/Change/Delete Lookup item handlers.</note>
+    [EnableServiceResponseCaching ( Hours = 1 )]
+    [EnableClientResponseCaching ( Hours = 4 )]
     public class GetLookupsByCategoryRequest : Request
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the category.
+        /// </summary>
+        /// <value>
+        /// The category.
+        /// </value>
         public string Category { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [including inactive items].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [including inactive items]; otherwise, <c>false</c>.
+        /// </value>
         public bool IncludingInactiveItems { get; set; }
+
+        #endregion
     }
 }

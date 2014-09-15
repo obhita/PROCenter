@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,15 +25,18 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
     #region Using Statements
 
-    using CommonModule;
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>Interface for patient repository.</summary>
     public interface IPatientRepository : IRepository<Patient>
     {
     }

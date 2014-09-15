@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Models
 {
     #region Using Statements
@@ -33,8 +36,19 @@ namespace ProCenter.Mvc.Models
 
     #endregion
 
+    /// <summary>The key result class.</summary>
     public class KeyResult
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the key.
+        /// </summary>
+        /// <value>
+        /// The key.
+        /// </value>
         public Guid Key { get; set; }
+
+        #endregion
     }
 }

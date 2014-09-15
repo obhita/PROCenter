@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,30 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Common
 {
+    #region Using Statements
+
     using Pillar.Common.Bootstrapper;
 
+    #endregion
+
+    /// <summary>Interface for ordered bootstrapper task.</summary>
     public interface IOrderedBootstrapperTask : IBootstrapperTask
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the order.
+        /// </summary>
+        /// <value>
+        /// The order.
+        /// </value>
         int Order { get; }
+
+        #endregion
     }
 }

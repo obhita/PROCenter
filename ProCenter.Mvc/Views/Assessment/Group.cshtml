@@ -1,20 +1,43 @@
-﻿@using ProCenter.Mvc.Infrastructure
-@using ProCenter.Mvc.Infrastructure.Extension
+﻿@using System
+@using System.Linq
+@using ProCenter.Domain.AssessmentModule.Lookups
+@using ProCenter.Mvc.Infrastructure
 @using ProCenter.Service.Message.Metadata
+@using ProCenter.Mvc.Infrastructure.Extension
+
 @model ProCenter.Service.Message.Assessment.ItemDto
 
 @{
     var groupClass = Model.Metadata == null ? null :
-                         Model.Metadata.MetadataItemExists<ClassMetadataItem> () ? Model.Metadata.FindMetadataItem<ClassMetadataItem> ().Class : null;
+        Model.Metadata.MetadataItemExists<ClassMetadataItem>() ? Model.Metadata.FindMetadataItem<ClassMetadataItem>().Class : null;
+    var tag = ViewBag.LevelMap[ViewBag.Level];
+    ViewBag.Level = Math.Min(ViewBag.LevelMap.Count - 1, ViewBag.Level + 1);
+    var itemsToRender = Html.GetItemsToRender ( Model );
+    if ( itemsToRender.Any ( i => i.ItemType == ItemType.Group ) )
+    {
+        if ( groupClass == null )
+        {
+            groupClass = "group";
+        }
+        else
+        {
+            groupClass += " group";
+        }
+    }
 }
 
-<fieldset class="@groupClass">
-    <legend>@Html.GetResource(Model)</legend>
-    <h4>@Html.GetResource(Model, SharedStringNames.Instructions)</h4>
-    @foreach (var item in Html.GetItemsToRender(Model))
+<@tag class="@groupClass grouping">
+    <div class="header-text" id="@Model.ItemDefinitionCode">@Html.GetResource(Model)</div>
+    @{
+        var instruction = @Html.GetResource ( Model, SharedStringNames.Instructions );
+        ViewData["group"] = @Html.GetResource(Model);
+    }
+    @if ( !string.IsNullOrWhiteSpace ( instruction ) )
+    {
+        <span class="instructions">@instruction</span>
+    }
+    @foreach (var item in itemsToRender)
     {
         @Html.Partial(item.ItemType, item)
     }
-</fieldset>
-<div class="clear"></div>
-
+</@tag>

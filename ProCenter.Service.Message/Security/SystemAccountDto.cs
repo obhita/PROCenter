@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,28 +25,75 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
 
+    using ProCenter.Service.Message.Common;
+
+    #endregion
+
+    /// <summary>The system account dto class.</summary>
     public class SystemAccountDto : KeyedDataTransferObject
     {
-        public Guid? StaffKey { get; set; }
+        #region Public Properties
 
-        public string Identifier { get; set; }
+        /// <summary>
+        /// Gets or sets a value indicating whether [create new].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [create new]; otherwise, <c>false</c>.
+        /// </value>
+        public bool CreateNew { get; set; }
 
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         [Required]
         public string Email { get; set; }
 
+        /// <summary>
+        /// Gets or sets the identifier.
+        /// </summary>
+        /// <value>
+        /// The identifier.
+        /// </value>
+        public string Identifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is locked].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is locked]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsLocked { get; set; }
+
+        /// <summary>
+        /// Gets or sets the roles.
+        /// </summary>
+        /// <value>
+        /// The roles.
+        /// </value>
         public IEnumerable<RoleDto> Roles { get; set; }
 
-        [Required]
-        public string Username { get; set; }
+        /// <summary>
+        /// Gets or sets the staff key.
+        /// </summary>
+        /// <value>
+        /// The staff key.
+        /// </value>
+        public Guid? StaffKey { get; set; }
 
-        public bool CreateNew { get; set; }
+        #endregion
     }
 }

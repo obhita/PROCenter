@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,41 +25,80 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
+    #region Using Statements
+
     using System;
     using System.IdentityModel.Services;
-    using Domain.SecurityModule;
     using NLog;
 
+    #endregion
+
+    /// <summary>The logout service class.</summary>
     public class LogoutService : ILogoutService
     {
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        #region Static Fields
 
-        public SignOutRequestMessage Logout()
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger ();
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Logouts this instance.</summary>
+        /// <returns>A <see cref="SignOutRequestMessage" />.</returns>
+        public SignOutRequestMessage Logout ()
+        {
+            WSFederationAuthenticationModule federationAuthenticationModule;
+
+            if ( FederatedAuthentication.WSFederationAuthenticationModule != null )
+            {
+                _logger.Debug ( "Returning current {0}.", typeof(WSFederationAuthenticationModule).Name );
+                federationAuthenticationModule = FederatedAuthentication.WSFederationAuthenticationModule;
+            }
+            else
+            {
+                _logger.Debug ( "Returning a new {0}.", typeof(WSFederationAuthenticationModule).Name );
+                federationAuthenticationModule = new WSFederationAuthenticationModule ();
+            }
+
+            _logger.Debug (
+                          "Initiating: SignOff.  Calling the SignOff method of the WSFederationAuthenticationModule. DateTime Utc: " +
+                          DateTime.UtcNow );
+
+            federationAuthenticationModule.SignOut ( false );
+
+            return new SignOutRequestMessage ( new Uri ( federationAuthenticationModule.Issuer ),
+                federationAuthenticationModule.Realm );
+        }
+
+        /// <summary>
+        /// Gets the logout page URL.
+        /// </summary>
+        /// <returns>The logout page's URL.</returns>
+        public string GetLogoutPageUrl ()
         {
             WSFederationAuthenticationModule federationAuthenticationModule;
 
             if (FederatedAuthentication.WSFederationAuthenticationModule != null)
             {
-                Logger.Debug("Returning current {0}.", typeof (WSFederationAuthenticationModule).Name);
+                _logger.Debug("Returning current {0}.", typeof(WSFederationAuthenticationModule).Name);
                 federationAuthenticationModule = FederatedAuthentication.WSFederationAuthenticationModule;
             }
             else
             {
-                Logger.Debug("Returning a new {0}.", typeof (WSFederationAuthenticationModule).Name);
+                _logger.Debug("Returning a new {0}.", typeof(WSFederationAuthenticationModule).Name);
                 federationAuthenticationModule = new WSFederationAuthenticationModule();
             }
 
-            Logger.Debug(
-                "Initiating: SignOff.  Calling the SignOff method of the WSFederationAuthenticationModule. DateTime Utc: " +
-                DateTime.UtcNow);
-
-            federationAuthenticationModule.SignOut(false);
-
             return new SignOutRequestMessage(new Uri(federationAuthenticationModule.Issuer),
-                                             federationAuthenticationModule.Realm);
+                  federationAuthenticationModule.Realm).WriteQueryString ();
         }
+
+        #endregion
     }
 }

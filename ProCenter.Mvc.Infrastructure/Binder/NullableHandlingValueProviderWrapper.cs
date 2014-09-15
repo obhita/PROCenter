@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Binder
 {
     #region Using Statements
@@ -33,6 +36,7 @@ namespace ProCenter.Mvc.Infrastructure.Binder
 
     #endregion
 
+    /// <summary>The nullable handling value provider wrapper class.</summary>
     public class NullableHandlingValueProviderWrapper : IValueProvider, INullableHandling
     {
         #region Fields
@@ -43,7 +47,11 @@ namespace ProCenter.Mvc.Infrastructure.Binder
 
         #region Constructors and Destructors
 
-        public NullableHandlingValueProviderWrapper(IValueProvider backingProvider)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NullableHandlingValueProviderWrapper"/> class.
+        /// </summary>
+        /// <param name="backingProvider">The backing provider.</param>
+        public NullableHandlingValueProviderWrapper ( IValueProvider backingProvider )
         {
             this._backingProvider = backingProvider;
         }
@@ -52,21 +60,31 @@ namespace ProCenter.Mvc.Infrastructure.Binder
 
         #region Public Methods and Operators
 
-        public bool ContainsPrefix(string prefix)
+        /// <summary>
+        /// Determines whether the collection contains the specified prefix.
+        /// </summary>
+        /// <param name="prefix">The prefix to search for.</param>
+        /// <returns>
+        /// True if the collection contains the specified prefix; otherwise, false.
+        /// </returns>
+        public bool ContainsPrefix ( string prefix )
         {
-            return this._backingProvider.ContainsPrefix(prefix);
+            return this._backingProvider.ContainsPrefix ( prefix );
         }
 
-        public ValueProviderResult GetValue(string key)
+        /// <summary>
+        /// Retrieves a value object using the specified key.
+        /// </summary>
+        /// <param name="key">The key of the value object to retrieve.</param>
+        /// <returns>
+        /// The value object for the specified key.
+        /// </returns>
+        public ValueProviderResult GetValue ( string key )
         {
-            var result = this._backingProvider.GetValue(key);
-            return result == null ? null : new NullableHandlingValueProviderResult(result);
+            var result = this._backingProvider.GetValue ( key );
+            return result == null ? null : new NullableHandlingValueProviderResult ( result );
         }
 
         #endregion
-    }
-
-    public interface INullableHandling
-    {
     }
 }

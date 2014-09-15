@@ -1,26 +1,59 @@
-﻿@using ProCenter.Mvc.Infrastructure.Extension
-@model ProCenter.Service.Message.Assessment.AssessmentSummaryDto
+﻿@using System
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Shared
+@using ProCenter.Service.Message.Assessment
+@model AssessmentSummaryDto
 
 @{
     var percent = Math.Round(Model.PercentComplete * 100, MidpointRounding.AwayFromZero);
     var displayText = (Model.IsSubmitted ? "Latest Assessment:" : "Current Assessment:");
+    var assessmentName = Html.GetAssessmentResource(Model.AssessmentCode);
+    string emailSentDate, emailFailedDate;
+    emailSentDate = emailFailedDate = string.Empty;
+    if (Model.CanSelfAdminister.HasValue && Model.CanSelfAdminister.Value)
+    {
+        emailSentDate = Model.EmailSentDate.HasValue ? Model.EmailSentDate.Value.ToString() : string.Empty;
+        emailFailedDate = Model.EmailFailedDate.HasValue ? Model.EmailFailedDate.Value.ToString() : string.Empty;
+    }
+    bool isPatientPortal = Request.Url.ToString().Contains("Portal") || Request.UrlReferrer.ToString().Contains("Portal");
+    
 }
-<div class="assessment-summary">
+<style>
+    
+</style>
+<div class="assessment-summary" data-assessment-name="@Html.GetAssessmentResource(Model.AssessmentCode)">
     <div class="feed-left">
         <div class="pie-chart" data-percent="@percent">
             <div class="percentage"><span>@percent</span>%</div>
         </div>
     </div>
-    <div class="feed-right" >
+    <div class="feed-right">
         <div class="title">
             <span>@displayText</span>
-            <span>@Html.GetAssessmentResource(Model.AssessmentCode)</span>
+            <span>@assessmentName</span>
         </div>
         <div class="info">
-            <span>@Html.DisplayNameFor( m => m.LastModifiedTime )</span>
+            <span>@Html.DisplayNameFor(m => m.LastModifiedTime)</span>
             <span>@Model.LastModifiedTime.ToShortDateString()</span>
         </div>
-        @Html.ActionLink(" ", "Edit", "Assessment", new {key = Model.Key, patientKey = Model.PatientKey}, new {@class = "btn btn-info", data_icon="\ue10a"})
+        @if (!isPatientPortal)
+        {
+            <div class="info" style='@(string.IsNullOrEmpty(emailSentDate) ? "display: none" : string.Empty)' id='@("emailSentDateContainer_" + Model.Key)'>
+                <span>@Html.DisplayNameFor(m => m.EmailSentDate)</span>
+                <span id='@("emailSentDate_" + Model.Key)'>@emailSentDate</span>
+            </div>
+            <div class="info emailnotifier-error" id='@("emailFailedDateContainer_" + Model.Key)' style='@(string.IsNullOrEmpty(emailFailedDate) ? "display: none" : string.Empty)'>
+                <span>@AssessmentResources.ErrorOccurred</span>
+                <span id='@("emailFailedDate_" + Model.Key)'>@emailFailedDate</span>
+            </div>
+            if (!string.IsNullOrEmpty(emailSentDate) || !string.IsNullOrEmpty(emailFailedDate))
+            {
+            <div class="info">
+                @Html.ActionLink(AssessmentResources.SendEmail, "SendEmail", "Assessment", new { key = Model.Key }, new { @class = "btn-sendemail btn-success" })
+            </div>
+            }
+        }
+        @Html.ActionLink(" ", "Edit", "Assessment", new { key = Model.Key, patientKey = Model.PatientKey }, new { @class = "btn btn-info btn-view-assessment", data_icon = "\ue10a", aria_label = Shared.Edit + " " + displayText + " " + assessmentName })
     </div>
-    <div class="clear"></div>
+    <div class="clearfix"></div>
 </div>

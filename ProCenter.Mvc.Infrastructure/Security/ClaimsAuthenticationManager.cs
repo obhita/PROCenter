@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
     #region Using Statements
@@ -42,11 +45,12 @@ namespace ProCenter.Mvc.Infrastructure.Security
 
     #endregion
 
+    /// <summary>The claims authentication manager class.</summary>
     public class ClaimsAuthenticationManager : System.Security.Claims.ClaimsAuthenticationManager
     {
         #region Static Fields
 
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger ();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger ();
 
         #endregion
 
@@ -62,7 +66,7 @@ namespace ProCenter.Mvc.Infrastructure.Security
         ///     The claims principal.
         /// </param>
         /// <returns>
-        ///     Returns claims principal for given resource
+        ///     Returns claims principal for given resource.
         /// </returns>
         public override ClaimsPrincipal Authenticate ( string resourceName, ClaimsPrincipal claimsPrincipal )
         {
@@ -75,21 +79,21 @@ namespace ProCenter.Mvc.Infrastructure.Security
                     //Note:  NameIdentitider is email by default if it is provided in Identity Server. If email is empty, then nameIdentifier takes username.
                     // This is not the case any more since July 2013 commits
                     var claim = identity.Claims.FirstOrDefault ( c => c.Type == ClaimTypes.NameIdentifier ) ?? identity.Claims.FirstOrDefault ( c => c.Type == ClaimTypes.Email );
-                    
+
                     var nameIdentifier = claim.Value;
 
                     //make sure nameIdentifier is email address:
-                    var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
-                    if (!regex.IsMatch(nameIdentifier))
+                    var regex = new Regex ( @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$" );
+                    if ( !regex.IsMatch ( nameIdentifier ) )
                     {
-                        nameIdentifier = identity.Claims.First(c => c.Type == ClaimTypes.Email).Value;
+                        nameIdentifier = identity.Claims.First ( c => c.Type == ClaimTypes.Email ).Value;
                     }
 
-                    Logger.Debug ( "Name identifier for authenticated principal ({0}): {1}.", identity.Name, nameIdentifier );
+                    _logger.Debug ( "Name identifier for authenticated principal ({0}): {1}.", identity.Name, nameIdentifier );
 
-                    Logger.Debug ( "Resolving dependency on ISystemAccountRepository." );
+                    _logger.Debug ( "Resolving dependency on ISystemAccountRepository." );
                     var systemAccountRepository = IoC.CurrentContainer.Resolve<ISystemAccountRepository> ();
-                    Logger.Debug ( "Resolved dependency on ISystemAccountRepository." );
+                    _logger.Debug ( "Resolved dependency on ISystemAccountRepository." );
 
                     var systemAccount = systemAccountRepository.GetByIdentifier ( nameIdentifier );
 
@@ -98,49 +102,63 @@ namespace ProCenter.Mvc.Infrastructure.Security
                         var shouldLogin = true;
                         if ( systemAccount.IsLocked )
                         {
-                            var lockTimeMins = ( DateTime.Now - systemAccount.LockedTime.Value ).TotalMinutes;
+                            var infoMessage = string.Format ( "System Account {0} attempted to log in when locked.", systemAccount.Identifier );
+                            _logger.Info ( infoMessage );
+
+                            var message = string.Format ( "Your account has been permenantly locked please contact your administrator." );
+                            HttpContext.Current.AddError ( new UnauthorizedAccessException ( message ) );
+                            shouldLogin = false;
+                        }
+                        else if ( systemAccount.IsTempLocked )
+                        {
+                            var lockTimeMins = ( DateTime.Now - systemAccount.TempLockedTime.Value ).TotalMinutes;
                             if ( lockTimeMins < 5 )
                             {
                                 var infoMessage = string.Format (
-                                                                 "System Account {0} attempted to log in when locked.", systemAccount.Identifier );
-                                Logger.Info ( infoMessage );
+                                                                 "System Account {0} attempted to log in when locked.",
+                                    systemAccount.Identifier );
+                                _logger.Info ( infoMessage );
 
-                                var message = string.Format ( "Your account has been temporarily locked please try again in {0} mins. If you continue to have issues please contact your administrator.", 5 - Math.Floor ( lockTimeMins ) );
+                                var message =
+                                    string.Format (
+                                                   "Your account has been temporarily locked please try again in {0} mins. " +
+                                                   "If you continue to have issues please contact your administrator.",
+                                        5 - Math.Floor ( lockTimeMins ) );
                                 HttpContext.Current.AddError ( new UnauthorizedAccessException ( message ) );
                                 shouldLogin = false;
                             }
                             else
                             {
-                                systemAccount.UnLock();
-                                UserContext.Current.RefreshValidationAttempts();
-                                var unitOfWorkProvider = IoC.CurrentContainer.Resolve<IUnitOfWorkProvider>();
-                                unitOfWorkProvider.GetCurrentUnitOfWork().Commit();
+                                systemAccount.TemporaryUnLock ();
+                                UserContext.Current.RefreshValidationAttempts ();
+                                var unitOfWorkProvider = IoC.CurrentContainer.Resolve<IUnitOfWorkProvider> ();
+                                unitOfWorkProvider.GetCurrentUnitOfWork ().Commit ();
                             }
                         }
-                        if(shouldLogin)
+                        if ( shouldLogin )
                         {
-                            Logger.Debug("Resolving dependency on {0}.", typeof(IPermissionClaimsManager).Name);
-                            var permissionClaimsManager = IoC.CurrentContainer.Resolve<IPermissionClaimsManager>();
-                            Logger.Debug("Resolved dependency on {0}.", typeof(IPermissionClaimsManager).Name);
+                            _logger.Debug ( "Resolving dependency on {0}.", typeof(IPermissionClaimsManager).Name );
+                            var permissionClaimsManager = IoC.CurrentContainer.Resolve<IPermissionClaimsManager> ();
+                            _logger.Debug ( "Resolved dependency on {0}.", typeof(IPermissionClaimsManager).Name );
 
-                            Logger.Debug("Issue more claims for ({0} ({1}))", systemAccount.Identifier, systemAccount.Email.Address);
-                            permissionClaimsManager.IssueSystemPermissionClaims(claimsPrincipal, systemAccount);
-                            permissionClaimsManager.IssueAccountClaims(claimsPrincipal, systemAccount);
+                            _logger.Debug ( "Issue more claims for ({0} ({1}))", systemAccount.Identifier, systemAccount.Email.Address );
+                            permissionClaimsManager.IssueSystemPermissionClaims ( claimsPrincipal, systemAccount );
+                            permissionClaimsManager.IssueAccountClaims ( claimsPrincipal, systemAccount );
                         }
                     }
                     else
                     {
                         var errorMessage = string.Format (
                                                           "Authenticated principal ({0}) with identifier ({1}) does not have a system account in PRO Center.",
-                                                          identity.Name,
-                                                          nameIdentifier );
-                        Logger.Error( errorMessage );
+                            identity.Name,
+                            nameIdentifier );
+                        _logger.Error ( errorMessage );
                     }
                 }
             }
             else
             {
-                Logger.Debug ( "Incoming IClaimsPrincipal was not authenticated. WIF will redirect the request to the identity server." );
+                _logger.Debug ( "Incoming IClaimsPrincipal was not authenticated. WIF will redirect the request to the identity server." );
             }
 
             return claimsPrincipal;

@@ -30,7 +30,11 @@ namespace ProCenter.Domain.Nida.Tests
     #region
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
+    using System.Threading;
+
     using AssessmentModule;
     using CommonModule;
     using Infrastructure;
@@ -39,8 +43,13 @@ namespace ProCenter.Domain.Nida.Tests
     using MessageModule;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
+    using NSubstitute;
+
     using Pillar.Common.Tests;
     using Pillar.FluentRuleEngine;
+
+    using ProCenter.Common;
 
     #endregion
 
@@ -90,7 +99,9 @@ namespace ProCenter.Domain.Nida.Tests
                         BuildIRepositoryMock(null).Object,
                         new Mock<IAssessmentInstanceRepository>().Object);
 
-                var assessmentInstance = new AssessmentInstance(Guid.NewGuid(), Guid.NewGuid(), "");
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+
+                var assessmentInstance = new AssessmentInstanceFactory().Create(assessmentDefinition, Guid.NewGuid (), "TestName");
                 assessmentInstance.ScoreComplete(new CodedConcept(new CodeSystem("", "", ""), "", ""), "test");
                 var messageCollector = new MessageCollector();
                 var ruleEngineContext = new RuleEngineContext<AssessmentInstance>(assessmentInstance);
@@ -118,7 +129,10 @@ namespace ProCenter.Domain.Nida.Tests
                 SetupServiceLocatorFixture(serviceLocatorFixture);
                 var assessmentDefKey = Guid.NewGuid();
 
-                var assessmentInstance = new AssessmentInstance(Guid.NewGuid(), Guid.NewGuid(), "");
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+                assessmentDefinition.Key.Returns ( assessmentDefKey );
+
+                var assessmentInstance = new AssessmentInstanceFactory().Create(assessmentDefinition, Guid.NewGuid(), "TestName");
                 var workflowMessage = new WorkflowMessage(Guid.NewGuid(),
                                                           Guid.NewGuid(),
                                                           string.Empty,
@@ -171,6 +185,11 @@ namespace ProCenter.Domain.Nida.Tests
                 c => c.For<IUnitOfWorkProvider>().Use<UnitOfWorkProvider>());
             serviceLocatorFixture.StructureMapContainer.Configure(
                 c => c.For<IUnitOfWork>().Use(new Mock<IUnitOfWork>().Object));
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(
+                new List<Claim>
+                {
+                    new Claim(ProCenterClaimType.StaffKeyClaimType, Guid.NewGuid().ToString())
+                }));
         }
     }
 }

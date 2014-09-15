@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
     #region Using Statements
 
     using System.Collections.Generic;
-    using Common;
+    using System.ComponentModel.DataAnnotations;
+
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
+    /// <summary>The organization dto class.</summary>
     public class OrganizationDto : KeyedDataTransferObject
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [Required(ErrorMessage = "The Name field is required.")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the organization addresses.
+        /// </summary>
+        /// <value>
+        /// The organization addresses.
+        /// </value>
         public IEnumerable<OrganizationAddressDto> OrganizationAddresses { get; set; }
+
+        /// <summary>
+        /// Gets or sets the organization phones.
+        /// </summary>
+        /// <value>
+        /// The organization phones.
+        /// </value>
         public IEnumerable<OrganizationPhoneDto> OrganizationPhones { get; set; }
 
         #endregion

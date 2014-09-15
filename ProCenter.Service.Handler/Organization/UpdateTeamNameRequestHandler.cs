@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
-    #region
+    #region Using Statements
 
     using Common;
     using Domain.OrganizationModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Organization;
-    using global::AutoMapper;
 
     #endregion
 
+    /// <summary>The update team name request handler class.</summary>
     public class UpdateTeamNameRequestHandler :
         ServiceRequestHandler<UpdateTeamNameRequest, DtoResponse<TeamSummaryDto>>
     {
@@ -52,7 +56,7 @@ namespace ProCenter.Service.Handler.Organization
         ///     Initializes a new instance of the <see cref="UpdateTeamNameRequestHandler" /> class.
         /// </summary>
         /// <param name="teamRepository">The team repository.</param>
-        public UpdateTeamNameRequestHandler(ITeamRepository teamRepository)
+        public UpdateTeamNameRequestHandler ( ITeamRepository teamRepository )
         {
             _teamRepository = teamRepository;
         }
@@ -66,12 +70,12 @@ namespace ProCenter.Service.Handler.Organization
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="response">The response.</param>
-        protected override void Handle(UpdateTeamNameRequest request, DtoResponse<TeamSummaryDto> response)
+        protected override void Handle ( UpdateTeamNameRequest request, DtoResponse<TeamSummaryDto> response )
         {
-            var team = _teamRepository.GetByKey(request.Key);
-            team.ReviseName(request.Name);
+            var team = _teamRepository.GetByKey ( request.Key );
+            team.ReviseName ( request.Name );
 
-            response.DataTransferObject = Mapper.Map<Team, TeamSummaryDto>(team);
+            response.DataTransferObject = Mapper.Map<Team, TeamSummaryDto> ( team );
         }
 
         #endregion

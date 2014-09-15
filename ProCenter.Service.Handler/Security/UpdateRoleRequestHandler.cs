@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,38 +25,62 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
-    #region
+    #region Using Statements
 
     using Common;
     using Domain.SecurityModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Security;
-    using global::AutoMapper;
 
     #endregion
 
+    /// <summary>The update role request handler class.</summary>
     public class UpdateRoleRequestHandler : ServiceRequestHandler<UpdateRoleRequest, DtoResponse<RoleDto>>
     {
+        #region Fields
+
         private readonly IRoleRepository _roleRepository;
 
-        public UpdateRoleRequestHandler(IRoleRepository roleRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="UpdateRoleRequestHandler"/> class.
+        /// </summary>
+        /// <param name="roleRepository">The role repository.</param>
+        public UpdateRoleRequestHandler ( IRoleRepository roleRepository )
         {
             _roleRepository = roleRepository;
         }
 
-        protected override void Handle(UpdateRoleRequest request, DtoResponse<RoleDto> response)
-        {
-            var role = _roleRepository.GetByKey(request.Key);
-            if (role != null)
-            {
-                role.ReviseName(request.Name);
+        #endregion
 
-                var roleDto = Mapper.Map<Role, RoleDto>(role);
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( UpdateRoleRequest request, DtoResponse<RoleDto> response )
+        {
+            var role = _roleRepository.GetByKey ( request.Key );
+            if ( role != null )
+            {
+                role.ReviseName ( request.Name );
+
+                var roleDto = Mapper.Map<Role, RoleDto> ( role );
                 response.DataTransferObject = roleDto;
             }
         }
+
+        #endregion
     }
 }

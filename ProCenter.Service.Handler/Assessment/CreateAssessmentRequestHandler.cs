@@ -1,5 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
+﻿// /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
 //  * Redistribution and use in source and binary forms, with or without
@@ -24,39 +23,81 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
 namespace ProCenter.Service.Handler.Assessment
 {
     #region Using Statements
 
-    using Common;
-    using Domain.AssessmentModule;
-    using Domain.CommonModule;
-    using Infrastructure.Domain;
-    using Service.Message.Assessment;
+    using System;
+    using System.Linq;
+
+    using Dapper;
+
+    using Pillar.Common.InversionOfControl;
+
+    using ProCenter.Common;
+    using ProCenter.Common.Email;
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.PatientModule;
+    using ProCenter.Service.Handler.Common;
+    using ProCenter.Service.Message.Assessment;
 
     #endregion
 
+    /// <summary>The create assessment request handler class.</summary>
     public class CreateAssessmentRequestHandler : ServiceRequestHandler<CreateAssessmentRequest, CreateAssessmentResponse>
     {
+        #region Fields
+
+        /// <summary>The _assessment definition repository.</summary>
         private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
 
-        public CreateAssessmentRequestHandler(IAssessmentDefinitionRepository assessmentDefinitionRepository)
+        private readonly IPatientRepository _patientRepository;
+
+        private readonly IDbConnectionFactory _dbConnectionFactory;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CreateAssessmentRequestHandler" /> class.
+        /// </summary>
+        /// <param name="assessmentDefinitionRepository">The assessment definition repository.</param>
+        /// <param name="patientRepository">The patient repository.</param>
+        /// <param name="dbConnectionFactory">The database connection factory.</param>
+        public CreateAssessmentRequestHandler(IAssessmentDefinitionRepository assessmentDefinitionRepository, 
+            IPatientRepository patientRepository,
+            IDbConnectionFactory dbConnectionFactory)
         {
             _assessmentDefinitionRepository = assessmentDefinitionRepository;
+            _patientRepository = patientRepository;
+            _dbConnectionFactory = dbConnectionFactory;
         }
 
+        #endregion
+
+        #region Methods
+
+        /// <summary>Handles the specified request.</summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
         protected override void Handle(CreateAssessmentRequest request, CreateAssessmentResponse response)
         {
             var assessmentDefinition = _assessmentDefinitionRepository.GetByKey(request.AssessmentDefinitionKey);
             var assessmentInstanceFactory = new AssessmentInstanceFactory();
-            var assessmentInstance = assessmentInstanceFactory.Create(request.AssessmentDefinitionKey, request.PatientKey, assessmentDefinition.CodedConcept.Name);
+            var assessmentInstance = assessmentInstanceFactory.Create(
+                assessmentDefinition, 
+                request.PatientKey, 
+                assessmentDefinition.CodedConcept.Name, 
+                request.ForSelfAdministration);
 
             if (assessmentInstance != null)
             {
-                if ( request.ForSelfAdministration )
+                if (request.ForSelfAdministration)
                 {
-                    assessmentInstance.AllowSelfAdministration ();
+                    assessmentInstance.AllowSelfAdministration();
+                    SendEmail(request.AssessmentInstanceUrl, assessmentInstance);
                 }
                 if (request.WorkflowKey.HasValue)
                 {
@@ -65,5 +106,57 @@ namespace ProCenter.Service.Handler.Assessment
                 response.AssessmentInstanceKey = assessmentInstance.Key;
             }
         }
+
+        /// <summary>
+        /// Sends the email.
+        /// </summary>
+        /// <param name="assessmentInstanceUrl">The assessment instance URL.</param>
+        /// <param name="assessmentInstance">The assessment instance.</param>
+        private void SendEmail(string assessmentInstanceUrl, AssessmentInstance assessmentInstance)
+        {
+            var patient = _patientRepository.GetByKey(assessmentInstance.PatientKey);
+            var url = string.Format(assessmentInstanceUrl + "/{0}?patientKey={1}", assessmentInstance.Key, assessmentInstance.PatientKey);
+            DateTime? emailSentDate, emailFailedDate;
+            string patientAccountEmail;
+
+            using (var connection = _dbConnectionFactory.CreateConnection())
+            {
+                patientAccountEmail =
+                    connection.Query<string>("SELECT Email FROM SecurityModule.SystemAccount WHERE PatientKey=@PatientKey", new { assessmentInstance.PatientKey })
+                              .FirstOrDefault();
+            }
+
+            if (patientAccountEmail != null)
+            {
+                var emailMessage = new EmailMessage();
+                emailMessage.ToAddresses.Add(patientAccountEmail);
+                emailMessage.Body = string.Format(AssessmentResources.SelfAdministrableAssessmentCreatedEmailBody, patient.Name.FirstName, url);
+                emailMessage.Subject = AssessmentResources.SelfAdministrableAssessmentCreatedEmailSubject;
+                emailMessage.IsHtml = true;
+
+                var emailNotifier = IoC.CurrentContainer.Resolve<IEmailNotifier>();
+                var isEmailNotificationSuccessful = emailNotifier.Send(emailMessage);
+
+                if (isEmailNotificationSuccessful)
+                {
+                    emailSentDate = DateTime.Now;
+                    emailFailedDate = null;
+                }
+                else
+                {
+                    emailSentDate = assessmentInstance.EmailSentDate;
+                    emailFailedDate = DateTime.Now;
+                }
+            }
+            else
+            {
+                emailSentDate = assessmentInstance.EmailSentDate;
+                emailFailedDate = DateTime.Now;
+            }
+
+            assessmentInstance.UpdateEmailSentDate(emailSentDate, emailFailedDate);
+        }
+
+        #endregion
     }
 }

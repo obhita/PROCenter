@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Binder
 {
     #region Using Statements
@@ -35,12 +38,17 @@ namespace ProCenter.Mvc.Infrastructure.Binder
 
     #endregion
 
+    /// <summary>The nullable handling value provider result class.</summary>
     public class NullableHandlingValueProviderResult : ValueProviderResult
     {
         #region Constructors and Destructors
 
-        public NullableHandlingValueProviderResult(ValueProviderResult valueProviderResult)
-            : base(valueProviderResult.RawValue, valueProviderResult.AttemptedValue, valueProviderResult.Culture)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NullableHandlingValueProviderResult"/> class.
+        /// </summary>
+        /// <param name="valueProviderResult">The value provider result.</param>
+        public NullableHandlingValueProviderResult ( ValueProviderResult valueProviderResult )
+            : base ( valueProviderResult.RawValue, valueProviderResult.AttemptedValue, valueProviderResult.Culture )
         {
         }
 
@@ -48,15 +56,19 @@ namespace ProCenter.Mvc.Infrastructure.Binder
 
         #region Public Methods and Operators
 
-        public override object ConvertTo(Type type, CultureInfo culture)
+        /// <summary>Converts the value that is encapsulated by this result to the specified type by using the specified culture information.</summary>
+        /// <param name="type">The target type.</param>
+        /// <param name="culture">The culture to use in the conversion.</param>
+        /// <returns>The converted value.</returns>
+        public override object ConvertTo ( Type type, CultureInfo culture )
         {
             var value = RawValue;
-            if (RawValue == null || type.IsInstanceOfType(value))
+            if ( RawValue == null || type.IsInstanceOfType ( value ) )
             {
                 return RawValue;
             }
-            var nullableType = Nullable.GetUnderlyingType(type);
-            return base.ConvertTo(nullableType ?? type, culture);
+            var nullableType = Nullable.GetUnderlyingType ( type );
+            return base.ConvertTo ( nullableType ?? type, culture );
         }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,28 +25,28 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Report
 {
     #region Using Statements
 
     using Common;
     using Domain.AssessmentModule;
+    using global::AutoMapper;
     using Pillar.Common.InversionOfControl;
     using Service.Message.Report;
-    using global::AutoMapper;
 
     #endregion
 
-    /// <summary>
-    /// Handler for getting report customization model.
-    /// </summary>
+    /// <summary>Handler for getting report customization model.</summary>
     public class GetReportCustomizationModelRequestHandler : ServiceRequestHandler<GetReportCustomizationModelRequest, GetReportCustomizationModelResponse>
     {
         #region Methods
 
         /// <summary>
-        /// Handles the specified request.
+        ///     Handles the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="response">The response.</param>
@@ -53,7 +54,7 @@ namespace ProCenter.Service.Handler.Report
         {
             var reportEngine = IoC.CurrentContainer.Resolve<IReportEngine> ( request.ReportName );
             var reportModel = reportEngine.GetCustomizationModel ( request.SourceKey, request.ReportName );
-            response.ReportModelDto = Mapper.Map<ReportModel, ReportModelDto>(reportModel);
+            response.ReportModelDto = Mapper.Map<ReportModel, ReportModelDto> ( reportModel as ReportModel );
             response.ReportModelDto.Key = request.SourceKey;
         }
 

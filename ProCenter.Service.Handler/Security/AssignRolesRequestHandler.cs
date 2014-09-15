@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,43 +25,71 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
+    #region Using Statements
+
     using Common;
     using Domain.SecurityModule;
     using Service.Message.Security;
 
+    #endregion
+
+    /// <summary>The assign roles request handler class.</summary>
     public class AssignRolesRequestHandler : ServiceRequestHandler<AssignRolesRequest, AssignRolesResponse>
     {
+        #region Fields
+
         private readonly ISystemAccountRepository _systemAccountRepository;
 
-        public AssignRolesRequestHandler(ISystemAccountRepository systemAccountRepository )
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignRolesRequestHandler"/> class.
+        /// </summary>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        public AssignRolesRequestHandler ( ISystemAccountRepository systemAccountRepository )
         {
             _systemAccountRepository = systemAccountRepository;
         }
 
-        protected override void Handle(AssignRolesRequest request, AssignRolesResponse response)
-        {
-            var systemAccount = _systemAccountRepository.GetByKey(request.SystemAccoutnKey);
+        #endregion
 
-            if (systemAccount != null)
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( AssignRolesRequest request, AssignRolesResponse response )
+        {
+            var systemAccount = _systemAccountRepository.GetByKey ( request.SystemAccoutnKey );
+
+            if ( systemAccount != null )
             {
-                if (request.AddRoles)
+                if ( request.AddRoles )
                 {
-                    foreach (var role in request.Roles)
+                    foreach ( var role in request.Roles )
                     {
-                        systemAccount.AddRole(role);
+                        systemAccount.AddRole ( role );
                     }
                 }
                 else
                 {
-                    foreach (var role in request.Roles)
+                    foreach ( var role in request.Roles )
                     {
-                        systemAccount.RemoveRole(role);
+                        systemAccount.RemoveRole ( role );
                     }
                 }
             }
         }
+
+        #endregion
     }
 }

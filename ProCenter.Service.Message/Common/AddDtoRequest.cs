@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,21 +25,39 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
 
     using System;
+
     using Agatha.Common;
 
     #endregion
 
+    /// <summary>The add dto request class.</summary>
+    /// <typeparam name="TDto">The type of the dto.</typeparam>
     public class AddDtoRequest<TDto> : Request
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the aggregate key.
+        /// </summary>
+        /// <value>
+        /// The aggregate key.
+        /// </value>
         public Guid AggregateKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the data transfer object.
+        /// </summary>
+        /// <value>
+        /// The data transfer object.
+        /// </value>
         public TDto DataTransferObject { get; set; }
 
         #endregion

@@ -54,20 +54,14 @@ namespace Thinktecture.IdentityServer.Web.App_Start
             //config.MessageHandlers.Add(new AuthenticationHandler(authentication));
 
             var authentificationhandler = new AuthenticationHandler(new IdentityServerHttpAuthentication(authentication, configurationRepository), config);
-            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{action}/{username}", new {username = RouteParameter.Optional}, null, authentificationhandler);
+            config.Routes.MapHttpRoute("DefaultApi", "api/{controller}/{action}/{email}", new { email = RouteParameter.Optional }, null, authentificationhandler);
         }
 
         private static AuthenticationConfiguration CreateAuthenticationConfiguration(IConfigurationRepository configurationRepository)
         {
             const string audience = "api/";
             var issuerUri = configurationRepository.Global.IssuerUri;
-            if (configurationRepository.Keys.SigningCertificate == null)
-            {
-                //Note: when set up Identity server 1st time, it goes here. After the initial configuration, please re-start IIS to make sure the following code executed.
-                return null;
-            }
 
-            var signingKey = configurationRepository.Keys.SigningCertificate.Thumbprint;
             var authenticationConfiguration = new AuthenticationConfiguration
                 {
                     ClaimsAuthenticationManager = new ClaimsTransformer(),
@@ -80,12 +74,9 @@ namespace Thinktecture.IdentityServer.Web.App_Start
                             HeaderName = "Authorization",
                             Scheme = "Session",
                             Audience = audience,
-                            IssuerName = issuerUri,
-                            SigningKey = Encoding.UTF8.GetBytes(signingKey),
+                            IssuerName = issuerUri
                         }
                 };
-            // IdentityServer JWT
-            authenticationConfiguration.AddJsonWebToken(issuerUri, audience, signingKey);
 
             authenticationConfiguration.AddBasicAuthentication(Membership.ValidateUser);
 

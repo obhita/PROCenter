@@ -1,0 +1,23 @@
+﻿@using ProCenter.Service.Message.Report
+@model ScoreTypeIntDto
+
+<div>
+    @Html.LabelFor( m => m.RiskStart)
+    @Html.TextBoxFor(  m => m.RiskStart)
+    <span class="parameterSpan">@Report.To</span>
+    @Html.TextBoxFor(  m => m.RiskEnd)
+</div>
+@Html.HiddenFor( m => m.Type )
+
+
+<script>
+    $(document).ready(function() {
+        $("input.number").on('keypress', function (e) {
+            var charCode = e.which || e.keyCode;
+            if (charCode > 31 && (charCode <= 47 || charCode > 57))
+                return false;
+            if (e.shiftKey) return false;
+            return true;
+        });
+    });
+</script>

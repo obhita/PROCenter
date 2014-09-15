@@ -1,30 +1,33 @@
 ﻿@using ProCenter.Mvc.Infrastructure.Extension
-@model ProCenter.Service.Message.Patient.PatientDto
+@using ProCenter.Mvc.Views.Patient
+@using ProCenter.Service.Message.Patient
+
+@model PatientDto
 
 @{
-    var dateOfBirth = Model.DateOfBirth == null ? string.Empty : Model.DateOfBirth.Value.ToString("MM/dd/yyyy");
-    var allowEdit = ViewData["CanEdit"] is bool && (bool)ViewData["CanEdit"];
+    var dateOfBirth = Model.DateOfBirth == null ? string.Empty : Model.DateOfBirth.Value.ToString ( "MM/dd/yyyy" );
+    var allowEdit = ViewData["CanEdit"] is bool && (bool) ViewData["CanEdit"];
 }
 
 <div class="patient-details">
-    <img id="personiconlarge" src="@Href("~/Images/defaultperson.png")"/>
+    <img id="personiconlarge" alt="patient's image" src="@Href( "~/Images/defaultperson.png" )"/>
     <div class="info">
         <h5>@Model.Name.FirstName @Model.Name.LastName</h5>
         <span>@Model.Gender</span>
         <span>@dateOfBirth</span>
     </div>
-    @if (allowEdit)
+    @if ( allowEdit )
     {
         <div class="tools">
-            @if (Html.CanAccess("Patient", "Edit", "Post"))
+            @if ( Html.CanAccess ( "Patient", "Edit", "Post" ) )
             {
-                @Html.ActionLink("Edit", "Edit", "Patient", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = "\ue005"})
-            } 
-            else if (Html.CanAccess("Patient", "Edit"))
+                @Html.ActionLink( "Edit", "Edit", "Patient", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = "\ue005", aria_label = @Patient.PatientEditTitle + " " + Model.FullName()} )
+            }
+            else if ( Html.CanAccess ( "Patient", "Edit" ) )
             {
-                @Html.ActionLink("View", "Edit", "Patient", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = "\ue07f"})
+                @Html.ActionLink( "View", "Edit", "Patient", new {key = Model.Key}, new {@class = "btn btn-mini", data_icon = "\ue07f", aria_label = @Patient.ViewPatient + " " + Model.FullName()} )
             }
         </div>
     }
-    <div class="clear"></div>
+    <div class="clearfix"></div>
 </div>

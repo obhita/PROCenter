@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,27 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
     #region Using Statements
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web.Mvc;
     using Agatha.Common;
     using Common;
     using Dapper;
-    using Models;
     using Primitive;
-    using ProCenter.Infrastructure.Service.ReadSideService;
     using Service.Message.Common;
     using Service.Message.Organization;
 
     #endregion
 
+    /// <summary>The team controller class.</summary>
     public class TeamController : BaseController
     {
         #region Fields
@@ -55,6 +56,11 @@ namespace ProCenter.Mvc.Controllers
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="TeamController"/> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
+        /// <param name="dbConnectionFactory">The database connection factory.</param>
         public TeamController ( IRequestDispatcherFactory requestDispatcherFactory, IDbConnectionFactory dbConnectionFactory )
             : base ( requestDispatcherFactory )
         {
@@ -65,32 +71,51 @@ namespace ProCenter.Mvc.Controllers
 
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Adds the patients.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="patientKeysToAdd">The patient keys to add.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
         public async Task<ActionResult> AddPatients ( Guid key, Guid[] patientKeysToAdd )
         {
             var requestDispatcher = CreateAsyncRequestDispatcher ();
             foreach ( var patientKey in patientKeysToAdd )
             {
-                requestDispatcher.Add ( patientKey.ToString(), new AddDtoRequest<TeamPatientDto> {AggregateKey = key, DataTransferObject = new TeamPatientDto {Key = patientKey}} );
+                requestDispatcher.Add (
+                                       patientKey.ToString (),
+                    new AddDtoRequest<TeamPatientDto> { AggregateKey = key, DataTransferObject = new TeamPatientDto { Key = patientKey } } );
             }
             await requestDispatcher.GetAllAsync ();
 
             return new JsonResult {Data = patientKeysToAdd};
         }
 
+        /// <summary>
+        /// Adds the staff.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="staffKeysToAdd">The staff keys to add.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
         public async Task<ActionResult> AddStaff ( Guid key, Guid[] staffKeysToAdd )
         {
             var requestDispatcher = CreateAsyncRequestDispatcher ();
             foreach ( var staffKey in staffKeysToAdd )
             {
-                requestDispatcher.Add ( staffKey.ToString(), new AddDtoRequest<TeamStaffDto> {AggregateKey = key, DataTransferObject = new TeamStaffDto {Key = staffKey}} );
+                requestDispatcher.Add ( staffKey.ToString (), new AddDtoRequest<TeamStaffDto> {AggregateKey = key, DataTransferObject = new TeamStaffDto {Key = staffKey}} );
             }
             await requestDispatcher.GetAllAsync ();
 
             return new JsonResult {Data = staffKeysToAdd};
         }
 
+        /// <summary>
+        /// Creates the specified name.
+        /// </summary>
+        /// <param name="name">The name.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         public async Task<PartialViewResult> Create ( string name )
         {
             var requestDispatcher = CreateAsyncRequestDispatcher ();
@@ -99,9 +124,14 @@ namespace ProCenter.Mvc.Controllers
             return PartialView ( "Edit", new TeamDto {Key = response.DataTransferObject.Key, Name = response.DataTransferObject.Name} );
         }
 
-        public PartialViewResult Edit(Guid key)
+        /// <summary>
+        /// Edits the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>A <see cref="PartialViewResult"/>.</returns>
+        public PartialViewResult Edit ( Guid key )
         {
-            const string query = @"
+            const string Query = @"
                             SELECT 
                                  TeamKey AS 'Key',
                                  Name 
@@ -120,27 +150,35 @@ namespace ProCenter.Mvc.Controllers
                              FROM OrganizationModule.TeamPatient 
                              WHERE TeamKey=@Key";
 
-            using (var connection = _dbConnectionFactory.CreateConnection())
-            using (var multiQuery = connection.QueryMultiple(query, new {Key = key}))
+            using ( var connection = _dbConnectionFactory.CreateConnection () )
+            using ( var multiQuery = connection.QueryMultiple ( Query, new {Key = key} ) )
             {
-                var teamDto = multiQuery.Read<TeamDto>().Single();
+                var teamDto = multiQuery.Read<TeamDto> ().Single ();
 
-                teamDto.Staff = multiQuery.Read<TeamStaffDto, PersonName, TeamStaffDto>((teamStaffDto, personName) =>
-                    {
-                        teamStaffDto.Name = personName;
-                        return teamStaffDto;
-                    }, "FirstName").ToList();
+                teamDto.Staff = multiQuery.Read<TeamStaffDto, PersonName, TeamStaffDto> ( ( teamStaffDto, personName ) =>
+                {
+                    teamStaffDto.Name = personName;
+                    return teamStaffDto;
+                },
+                    "FirstName" ).ToList ();
 
-                teamDto.Patients = multiQuery.Read<TeamPatientDto, PersonName, TeamPatientDto>((teamPatientDto, personName) =>
-                    {
-                        teamPatientDto.Name = personName;
-                        return teamPatientDto;
-                    }, "FirstName").ToList();
+                teamDto.Patients = multiQuery.Read<TeamPatientDto, PersonName, TeamPatientDto> ( ( teamPatientDto, personName ) =>
+                {
+                    teamPatientDto.Name = personName;
+                    return teamPatientDto;
+                },
+                    "FirstName" ).ToList ();
 
-                return PartialView(teamDto);
+                return PartialView ( teamDto );
             }
         }
 
+        /// <summary>
+        /// Edits the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
         public async Task<ActionResult> Edit ( Guid key, string name )
         {
@@ -151,30 +189,73 @@ namespace ProCenter.Mvc.Controllers
             return new JsonResult {Data = new {}};
         }
 
+        /// <summary>
+        /// Removes the patients.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="patientKeysToRemove">The patient keys to remove.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
         public async Task<ActionResult> RemovePatients ( Guid key, Guid[] patientKeysToRemove )
         {
             var requestDispatcher = CreateAsyncRequestDispatcher ();
             foreach ( var patientKey in patientKeysToRemove )
             {
-                requestDispatcher.Add ( patientKey.ToString(), new RemovePatientFromTeamRequest {TeamKey = key, PatientKey = patientKey} );
+                requestDispatcher.Add ( patientKey.ToString (), new RemovePatientFromTeamRequest {TeamKey = key, PatientKey = patientKey} );
             }
             await requestDispatcher.GetAllAsync ();
 
             return new JsonResult {Data = patientKeysToRemove};
         }
 
+        /// <summary>
+        /// Removes the staff.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="staffKeysToRemove">The staff keys to remove.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
         public async Task<ActionResult> RemoveStaff ( Guid key, Guid[] staffKeysToRemove )
         {
             var requestDispatcher = CreateAsyncRequestDispatcher ();
             foreach ( var staffKey in staffKeysToRemove )
             {
-                requestDispatcher.Add ( staffKey.ToString(), new RemoveStaffFromTeamRequest {TeamKey = key, StaffKey = staffKey} );
+                requestDispatcher.Add ( staffKey.ToString (), new RemoveStaffFromTeamRequest {TeamKey = key, StaffKey = staffKey} );
             }
             await requestDispatcher.GetAllAsync ();
 
             return new JsonResult {Data = staffKeysToRemove};
+        }
+
+        /// <summary>
+        /// Removes the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="iRow">The i row.</param>
+        /// <returns>
+        /// Returns an ActionResult.
+        /// </returns>
+        [HttpPost]
+        public async Task<ActionResult> Remove(Guid key, int iRow)
+        {
+            var requestDispatcher = CreateAsyncRequestDispatcher();
+            requestDispatcher.Add(new RemoveTeamRequest { TeamKey = key });
+            var response = await requestDispatcher.GetAsync<DtoResponse<TeamSummaryDto>>();
+            if (response.DataTransferObject.DataErrorInfoCollection.Any())
+            {
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        error = true,
+                        errors = response.DataTransferObject.DataErrorInfoCollection
+                    }
+                };
+            }
+            return new JsonResult
+            {
+                Data = new { iRow },
+            };
         }
 
         #endregion

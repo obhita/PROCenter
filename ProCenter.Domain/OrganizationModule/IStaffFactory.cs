@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,30 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
-    using System;
-    using Primitive;
+    #region Using Statements
 
+    using System;
+
+    using ProCenter.Primitive;
+
+    #endregion
+
+    /// <summary>Interface for staff factory.</summary>
     public interface IStaffFactory
     {
-        Staff Create(Guid organizationKey, PersonName name);
+        #region Public Methods and Operators
+
+        /// <summary>Creates the specified organization key.</summary>
+        /// <param name="organizationKey">The organization key.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>A <see cref="Staff"/>.</returns>
+        Staff Create ( Guid organizationKey, PersonName name );
+
+        #endregion
     }
 }

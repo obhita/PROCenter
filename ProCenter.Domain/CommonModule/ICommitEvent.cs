@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,40 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Domain.Event;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for events that need to be commited.
-    /// </summary>
+    /// <summary>Interface for events that need to be commited.</summary>
     public interface ICommitEvent : IDomainEvent
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the key.
+        /// </summary>
+        /// <value>
+        /// The key.
+        /// </value>
         Guid Key { get; }
+
+        /// <summary>
+        /// Gets the organization key.
+        /// </summary>
+        /// <value>
+        /// The organization key.
+        /// </value>
         Guid? OrganizationKey { get; }
+
+        #endregion
     }
 }

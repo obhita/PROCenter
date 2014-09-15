@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
     #region Using Statements
@@ -38,33 +41,64 @@ namespace ProCenter.Mvc.Controllers
 
     #endregion
 
+    /// <summary>The workflow message controller class.</summary>
     public class WorkflowMessageController : BaseController
     {
-        public WorkflowMessageController(IRequestDispatcherFactory requestDispatcherFactory) : base(requestDispatcherFactory)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowMessageController"/> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
+        public WorkflowMessageController ( IRequestDispatcherFactory requestDispatcherFactory )
+            : base ( requestDispatcherFactory )
         {
         }
 
-        public async Task<ActionResult> AdministerAssessment(Guid key, Guid patientKey, Guid assessmentDefinitionKey, Guid workflowKey)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Administers the assessment.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
+        /// <param name="workflowKey">The workflow key.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        public async Task<ActionResult> AdministerAssessment ( Guid key, Guid patientKey, Guid assessmentDefinitionKey, Guid workflowKey )
         {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new AdministerAssessmentWorkflowMessageRequest {WorkflowMessageKey = key});
-            var response = await requestDispatcher.GetAsync<WorkflowMessageStatusChangedResponse>();
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add ( new AdministerAssessmentWorkflowMessageRequest {WorkflowMessageKey = key} );
+            var response = await requestDispatcher.GetAsync<WorkflowMessageStatusChangedResponse> ();
+
             //TODO:check for errors
             if ( UserContext.Current.PatientKey.HasValue )
             {
                 return RedirectToAction ( "CreateForSelfAdministration", "Assessment", new {patientKey, assessmentDefinitionKey, administerNow = true, workflowKey} );
             }
-            return RedirectToAction("Create", "Assessment", new {patientKey, assessmentDefinitionKey, workflowKey});
+            return RedirectToAction ( "Create", "Assessment", new {patientKey, assessmentDefinitionKey, workflowKey} );
         }
 
-        public async Task<ActionResult> Reject(Guid key, Guid assessmentKey, Guid patientKey)
+        /// <summary>
+        /// Rejects the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="assessmentKey">The assessment key.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        public async Task<ActionResult> Reject ( Guid key, Guid assessmentKey, Guid patientKey )
         {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new RejectWorkflowMessageRequest {WorkflowMessageKey = key});
-            var response = await requestDispatcher.GetAsync<WorkflowMessageStatusChangedResponse>();
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add ( new RejectWorkflowMessageRequest {WorkflowMessageKey = key} );
+            var response = await requestDispatcher.GetAsync<WorkflowMessageStatusChangedResponse> ();
+
             //TODO:check for errors
 
-            return RedirectToAction("Edit", "Assessment", new { key = assessmentKey, patientKey });
+            return RedirectToAction ( "Edit", "Assessment", new {key = assessmentKey, patientKey} );
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
@@ -33,9 +36,7 @@ namespace ProCenter.Service.Message.Common
 
     #endregion
 
-    /// <summary>
-    ///     The <see cref="IValidatedObject" /> interface that provides data error information management.
-    /// </summary>
+    /// <summary>The <see cref="IValidatedObject" /> interface that provides data error information management.</summary>
     public interface IValidatedObject
     {
         #region Public Properties
@@ -47,7 +48,7 @@ namespace ProCenter.Service.Message.Common
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Adds the data error information.
@@ -55,12 +56,12 @@ namespace ProCenter.Service.Message.Common
         /// <param name="dataErrorInfo">
         ///     The data error information.
         /// </param>
-        void AddDataErrorInfo(DataErrorInfo dataErrorInfo);
+        void AddDataErrorInfo ( DataErrorInfo dataErrorInfo );
 
         /// <summary>
         ///     Clears all data error information.
         /// </summary>
-        void ClearAllDataErrorInfo();
+        void ClearAllDataErrorInfo ();
 
         /// <summary>
         ///     Removes the data error information.
@@ -68,7 +69,7 @@ namespace ProCenter.Service.Message.Common
         /// <param name="propertyName">
         ///     Name of the property which has erroneous data.
         /// </param>
-        void RemoveDataErrorInfo(string propertyName);
+        void RemoveDataErrorInfo ( string propertyName );
 
         #endregion
     }

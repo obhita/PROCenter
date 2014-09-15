@@ -37,12 +37,14 @@ namespace ProCenterJobScheduler.AssessmentReminder
     using System.Text;
     using NLog;
     using Pillar.Common.InversionOfControl;
+    using ProCenter.Common;
     using ProCenter.Domain.MessageModule;
     using ProCenter.Infrastructure;
-    using ProCenter.Infrastructure.Service.ReadSideService;
     using ProCenter.Service.Message.Message;
     using Quartz;
     using Dapper;
+
+    using Raven.Client.Linq;
 
     #endregion
 
@@ -78,23 +80,33 @@ namespace ProCenterJobScheduler.AssessmentReminder
                           ,[AssessmentName]
                           ,[Title]
                           ,[Start]
-                          ,[SendToEmail]                            
+                          ,[End]
+                          ,[Recurrence] AS 'ReminderRecurrence'
+                          ,[ReminderDays] AS 'ReminderTime'
+                          ,[SendToEmail]
+                          ,[AlertSentDate]                             
                         FROM MessageModule.AssessmentReminder 
-                        WHERE AlertSentDate IS NULL 
+                        WHERE (AlertSentDate IS NULL OR AlertSentDate <= [End])
                             AND SendToEmail IS NOT NULL 
                             AND Status = 'Default' 
                             AND GetDate() >= DATEADD(day, -ReminderDays, Start) 
-                            AND GetDate() <= Start").ToList();
+                            AND GetDate() <= [End]").ToList();
 
                     Logger.Info("{0} reminders retrieved.", reminders.Count);
                     foreach (var assessmentReminderDto in reminders)
                     {
-                        var body = string.Format(AlertTemplate, assessmentReminderDto.Title, assessmentReminderDto.Start.ToString("D"));
                         try
                         {
-                            SendEmail(body, assessmentReminderDto.SendToEmail);
-                            var assessmentReminder = _assessmentReminderRepository.GetByKey(assessmentReminderDto.Key);
-                            assessmentReminder.ReviseAlertSentDate(DateTime.Now);
+                            DateTime reminderDate;
+                            if (ShouldSendEmailReminderForDto(assessmentReminderDto, out reminderDate))
+                            {
+                                var body = string.Format(AlertTemplate, assessmentReminderDto.Title,
+                                                         reminderDate.ToString("D"));
+                                SendEmail(body, assessmentReminderDto.SendToEmail);
+                                var assessmentReminder =
+                                    _assessmentReminderRepository.GetByKey(assessmentReminderDto.Key);
+                                assessmentReminder.ReviseAlertSentDate(DateTime.Now);
+                            }
                         }
                         catch (Exception ex)
                         {
@@ -116,27 +128,92 @@ namespace ProCenterJobScheduler.AssessmentReminder
         }
 
 
+        private bool ShouldSendEmailReminderForDto(AssessmentReminderDto assessmentReminderDto, out DateTime reminderDate)
+        {
+            reminderDate = assessmentReminderDto.Start;
+            var thresholdDate = GetThresholdDateForAssessmentReminder(reminderDate, assessmentReminderDto.ReminderUnit, assessmentReminderDto.ReminderTime);
+            Logger.Info("reminderDate is {0}.", reminderDate);
+            Logger.Info("thresholdDate is {0}.", thresholdDate);
+            bool sendReminder = false;
+
+            Logger.Info("ReminderRecurrence is {0}.", assessmentReminderDto.ReminderRecurrence);
+            if (assessmentReminderDto.ReminderRecurrence == AssessmentReminderRecurrence.OneTime)
+            {
+                Logger.Info("ReminderRecurrence for OneTime is returning {0}.", DateTime.Now > thresholdDate && DateTime.Now > assessmentReminderDto.AlertSentDate);
+                return DateTime.Now > thresholdDate && DateTime.Now > assessmentReminderDto.AlertSentDate;
+            }
+            while (reminderDate < assessmentReminderDto.End && !sendReminder)
+            {
+                thresholdDate = GetThresholdDateForAssessmentReminder(reminderDate, assessmentReminderDto.ReminderUnit, assessmentReminderDto.ReminderTime);
+                sendReminder = DateTime.Now > thresholdDate &&
+                                       (thresholdDate > assessmentReminderDto.AlertSentDate ||
+                                        assessmentReminderDto.AlertSentDate == null);
+
+                reminderDate = AddDaysToReminderForRecurrence(reminderDate, assessmentReminderDto.ReminderRecurrence,
+                                                              sendReminder);
+            }
+            Logger.Info("ShouldSendEmailReminderForDto is returning {0}.", sendReminder);
+            return sendReminder;
+        }
+
+        private static DateTime GetThresholdDateForAssessmentReminder(DateTime reminderDate,
+                                                               AssessmentReminderUnit reminderUnit,
+                                                               double reminderTime)
+        {
+            return reminderUnit == AssessmentReminderUnit.Days ? reminderDate.AddDays(-Convert.ToInt32(reminderTime)) :
+                                                                 reminderDate.AddDays(-Convert.ToInt32(reminderTime * 7));
+        }
+
+        private static DateTime AddDaysToReminderForRecurrence(DateTime reminderDate, AssessmentReminderRecurrence recurrence, bool sendReminder)
+        {
+            if (!sendReminder)
+            {
+                switch (recurrence)
+                    {
+                        case AssessmentReminderRecurrence.Daily:
+                            reminderDate = reminderDate.AddDays(1);
+                            break;
+                        case AssessmentReminderRecurrence.Weekly:
+                            reminderDate = reminderDate.AddDays(7);
+                            break;
+                        case AssessmentReminderRecurrence.Monthly:
+                            reminderDate = reminderDate.AddMonths(1);
+                            break;
+                    }
+            }
+            return reminderDate;
+        }
+
         private static void SendEmail(string body, string email)
         {
-            using (var message = new MailMessage
+            try
+            {
+                Logger.Info ( "SendEmail body: {0} To: {1}", body, email );
+                using (var message = new MailMessage
                 {
                     Subject = ConfigurationManager.AppSettings["EmailReminderSubject"],
                     Body = body,
                     BodyEncoding = Encoding.UTF8,
                     IsBodyHtml = true,
                 })
-            {
-                message.To.Add(new MailAddress(email));
-                var cc = ConfigurationManager.AppSettings["EmailReminderCC"];
-                if (!string.IsNullOrWhiteSpace(cc))
                 {
-                    message.CC.Add(new MailAddress(cc));
+                    message.To.Add(new MailAddress(email));
+                    var cc = ConfigurationManager.AppSettings["EmailReminderCC"];
+                    if (!string.IsNullOrWhiteSpace(cc))
+                    {
+                        Logger.Info("SendEmail cc: {0}", cc);
+                        message.CC.Add(new MailAddress(cc));
+                    }
+                    var smtp = new SmtpClient();
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    smtp.Send(message);
+                    Logger.Info("Email sent successfully.");
                 }
-
-                var smtp = new SmtpClient();
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                smtp.Send(message);
-                Logger.Info("Email sent successfully.");
+            }
+            catch ( Exception e)
+            {
+                Logger.Error ( "SendEmail error: " +  e.Message);
+                throw;
             }
         }
     }

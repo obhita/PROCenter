@@ -2,6 +2,8 @@
 (
 	[AssessmentReminderKey] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [OrganizationKey] UNIQUEIDENTIFIER NOT NULL,
+    [AssessmentInstanceKey] UNIQUEIDENTIFIER NULL, 
+    [SystemAccountKey] UNIQUEIDENTIFIER NOT NULL,
 	[PatientKey] UNIQUEIDENTIFIER NOT NULL, 
     [PatientFirstName] NVARCHAR(50) NOT NULL, 
     [PatientLastName] NVARCHAR(50) NOT NULL, 
@@ -11,12 +13,14 @@
     [AssessmentCode] NVARCHAR(50) NOT NULL, 
     [Title] NVARCHAR(500) NULL, 
     [Start] DATETIME NOT NULL, 
-	[End] DATETIME NULL, 
-    [Status] NVARCHAR(50) NOT NULL, 
+	[End] DATETIME NOT NULL, 
+    [Status] NVARCHAR(50) NOT NULL,	
     [ReminderDays] float NOT NULL, 
+	[Recurrence] NVARCHAR(50) NOT NULL, 
 	[SendToEmail] NVARCHAR(200) NULL, 
     [AlertSentDate] DATETIME NULL,
-	[ForSelfAdministration] bit NULL
+	[ForSelfAdministration] bit NULL, 
+    [RecurrenceKey] UNIQUEIDENTIFIER NOT NULL
 );
 GO
 

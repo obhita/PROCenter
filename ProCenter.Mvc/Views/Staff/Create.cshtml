@@ -1,0 +1,38 @@
+﻿@using ProCenter.Primitive
+@model ProCenter.Service.Message.Organization.OrganizationSummaryDto
+
+@{
+    var name = new PersonName();
+}
+
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span5">
+            @Html.LabelFor( a => name.Prefix )
+            @Html.TextBoxFor( a => name.Prefix )
+        </div>
+        <div class="span5">
+            @Html.LabelFor( a => name.FirstName )
+            @Html.TextBoxFor( a => name.FirstName )
+            @Html.ValidationMessageFor( a => name.FirstName )
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span5">
+            @Html.LabelFor( a => name.MiddleName )
+            @Html.TextBoxFor( a => name.MiddleName )
+            @Html.ValidationMessageFor( a => name.MiddleName )
+        </div>
+        <div class="span5">
+            @Html.LabelFor( a => name.LastName )
+            @Html.TextBoxFor( a => name.LastName )
+            @Html.ValidationMessageFor( a => name.LastName )
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span5">
+            @Html.LabelFor( a => name.Suffix )
+            @Html.TextBoxFor( a => name.Suffix )
+        </div>
+    </div>
+</div>

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,150 +25,120 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Service.Handler.Organization
 {
-    using System.Net;
-    using System.Net.Http;
+    #region Using Statements
+
     using Common;
     using Domain.SecurityModule;
-    using NLog;
+    using global::AutoMapper;
+    using Infrastructure.Service;
     using Pillar.Domain.Primitives;
+    using ProCenter.Common.Permission;
     using Service.Message.Common;
     using Service.Message.Organization;
     using Service.Message.Security;
-    using global::AutoMapper;
 
-    public class CreateOrganizationAdminRequestHandler : ServiceRequestHandler<CreateOrganizationAdminRequest, CreateOrganizationAdminResponse> 
+    #endregion
+
+    /// <summary>Handler for creating an organization admin.</summary>
+    public class CreateOrganizationAdminRequestHandler : ServiceRequestHandler<CreateOrganizationAdminRequest, CreateOrganizationAdminResponse>
     {
-        private readonly ISystemAccountRepository _systemAccountRepository;
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+        #region Fields
 
-        public CreateOrganizationAdminRequestHandler (ISystemAccountRepository systemAccountRepository)
+        private readonly IRoleFactory _roleFactory;
+        private readonly ISystemAccountIdentityServiceManager _systemAccountIdentityServiceManager;
+        private readonly ISystemAccountRepository _systemAccountRepository;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="CreateOrganizationAdminRequestHandler" /> class.
+        /// </summary>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        /// <param name="roleFactory">The role factory.</param>
+        /// <param name="systemAccountIdentityServiceManager">The system account identity service manager.</param>
+        public CreateOrganizationAdminRequestHandler ( ISystemAccountRepository systemAccountRepository,
+            IRoleFactory roleFactory,
+            ISystemAccountIdentityServiceManager systemAccountIdentityServiceManager )
         {
             _systemAccountRepository = systemAccountRepository;
+            _roleFactory = roleFactory;
+            _systemAccountIdentityServiceManager = systemAccountIdentityServiceManager;
         }
 
-        protected override void Handle(CreateOrganizationAdminRequest request, CreateOrganizationAdminResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( CreateOrganizationAdminRequest request, CreateOrganizationAdminResponse response )
         {
             var systemAccount = _systemAccountRepository.GetByIdentifier ( request.Email );
+            var addRole = false;
             if ( systemAccount == null )
             {
-                using (var httpClient = new HttpClient { BaseAddress = new Uri(request.BaseIdentityServerUri) })
+                var result = _systemAccountIdentityServiceManager.Create ( request.Email );
+                if ( result.Sucess )
                 {
-                    httpClient.SetToken("Session", request.Token);
-                    var httpResponseMessage = httpClient.GetAsync("api/membership/Create/" + request.Username + "?email=" + request.Email).Result;
-                    if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
-                    {
-                        var membershipUserDto = httpResponseMessage.Content.ReadAsAsync<MembershipUserDto>().Result;
-                        var systemAccountFactory = new SystemAccountFactory();
-                        systemAccount = systemAccountFactory.Create(request.OrganizationKey, membershipUserDto.NameIdentifier, new Email(membershipUserDto.Email));
-                        var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
-                        response.SystemAccountDto = systemAccountDto;
-                    }
-                    else
-                    {
-                        var result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-                        var dataErrorInfo = new DataErrorInfo(result, ErrorLevel.Error);
-                        response.SystemAccountDto = new SystemAccountDto ();
-                        response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
-                    }
+                    var systemAccountFactory = new SystemAccountFactory ();
+                    systemAccount = systemAccountFactory.Create ( request.OrganizationKey, request.Email, new Email ( request.Email ) );
+                    var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto> ( systemAccount );
+                    response.SystemAccountDto = systemAccountDto;
+                    addRole = true;
+                }
+                else
+                {
+                    var dataErrorInfo = new DataErrorInfo ( result.ErrorMessage, ErrorLevel.Error );
+                    response.SystemAccountDto = new SystemAccountDto ();
+                    response.SystemAccountDto.AddDataErrorInfo ( dataErrorInfo );
                 }
             }
             else
             {
-                //Reset password....
+                var result = _systemAccountIdentityServiceManager.ResetPassword ( systemAccount.Identifier );
+                if ( result.Sucess )
+                {
+                    var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto> ( systemAccount );
+                    response.SystemAccountDto = systemAccountDto;
+                    addRole = true;
+                }
+                else
+                {
+                    var dataErrorInfo = new DataErrorInfo ( result.ErrorMessage, ErrorLevel.Error );
+                    response.SystemAccountDto = new SystemAccountDto ();
+                    response.SystemAccountDto.AddDataErrorInfo ( dataErrorInfo );
+                }
             }
-            //if (request.SystemAccountDto.CreateNew)
-            //{
-            //    var systemAccount = _systemAccountRepository.GetByIdentifier(request.SystemAccountDto.Identifier);
-            //    if (systemAccount != null) // account existing
-            //    {
-            //        var dataErrorInfo = new DataErrorInfo(string.Format("Cannot create account because an account with the email {0} already exists.", request.SystemAccountDto.Identifier), ErrorLevel.Error);
-            //        response.SystemAccountDto = request.SystemAccountDto;
-            //        response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
-            //    }
-            //    else
-            //    {
-            //        // 1. create member login in Identity server
-            //        // 2. Create System account in domain
-            //        // 3. assign system account to the new staff or patient
-            //        // 4. error handling: if the login/account is taken or cannot create new login
-            //        using (var httpClient = new HttpClient {BaseAddress = new Uri(request.BaseIdentityServerUri)})
-            //        {
-            //            httpClient.SetToken("Session", request.Token);
-            //            var httpResponseMessage = httpClient.GetAsync("api/membership/Create/" + request.SystemAccountDto.Username + "?email=" + request.SystemAccountDto.Email).Result;
-            //            if (httpResponseMessage.StatusCode == HttpStatusCode.OK)
-            //            {
-            //                var membershipUserDto = httpResponseMessage.Content.ReadAsAsync<MembershipUserDto>().Result;
-            //                var systemAccountFactory = new SystemAccountFactory();
-            //                systemAccount = systemAccountFactory.Create(request.OrganizationKey, membershipUserDto.NameIdentifier, new Email(membershipUserDto.Email));
-            //                if (request.StaffKey != Guid.Empty)
-            //                {
-            //                    systemAccount.AssignToStaff(request.StaffKey);
-            //                }
-            //                if (request.PatientKey != Guid.Empty)
-            //                {
-            //                    systemAccount.AssignToPatient(request.PatientKey);
-
-            //                    Guid? portalRoleKey;
-            //                    using (var connection = _dbConnectionFactory.CreateConnection())
-            //                    {
-            //                        portalRoleKey = connection.Query<Guid?>("SELECT [RoleKey] FROM [SecurityModule].[Role] WHERE Name=@Name", new {Name = "Patient Portal"}).FirstOrDefault();
-            //                    }
-            //                    if (portalRoleKey.HasValue)
-            //                    {
-            //                        systemAccount.AddRole(portalRoleKey.Value);
-            //                    }
-            //                    else
-            //                    {
-            //                        Logger.Error("Cannot find Patient portal built in role.");
-            //                    }
-            //                }
-            //                var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
-            //                response.SystemAccountDto = systemAccountDto;
-            //            }
-            //            else
-            //            {
-            //                var result = httpResponseMessage.Content.ReadAsStringAsync().Result;
-            //                var dataErrorInfo = new DataErrorInfo(result, ErrorLevel.Error);
-            //                response.SystemAccountDto = request.SystemAccountDto;
-            //                response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
-            //            }
-            //        }
-            //    }
-            //}
-            //else
-            //{
-            //    var systemAccount = _systemAccountRepository.GetByIdentifier(request.SystemAccountDto.Identifier);
-            //    if (systemAccount != null) // account existing
-            //    {
-            //        if (systemAccount.StaffKey == null)
-            //        {
-            //            systemAccount.AssignToStaff(request.StaffKey);
-            //            var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
-            //            response.SystemAccountDto = systemAccountDto;
-            //        }
-            //        else
-            //        {
-            //            var dataErrorInfo = new DataErrorInfo(string.Format("Cannot link account because an account with the email {0} has been assigned to another staff.", request.SystemAccountDto.Identifier), ErrorLevel.Error);
-            //            response.SystemAccountDto = request.SystemAccountDto;
-            //            response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        var dataErrorInfo = new DataErrorInfo(string.Format("Cannot link account because an account with the email {0} does not exist.", request.SystemAccountDto.Identifier), ErrorLevel.Error);
-            //        response.SystemAccountDto = request.SystemAccountDto;
-            //        response.SystemAccountDto.AddDataErrorInfo(dataErrorInfo);
-            //    }
-            //}
+            if ( addRole )
+            {
+                var role = _roleFactory.Create ( "Default Organization Admin", request.OrganizationKey );
+                role.AddPermision ( BasicAccessPermission.AccessUserInterfacePermission );
+                role.AddPermision ( OrganizationPermission.OrganizationViewPermission );
+                role.AddPermision ( OrganizationPermission.OrganizationEditPermission );
+                role.AddPermision ( StaffPermission.StaffAddRolePermission );
+                role.AddPermision ( StaffPermission.StaffCreateAccountPermission );
+                role.AddPermision ( StaffPermission.StaffEditPermission );
+                role.AddPermision ( StaffPermission.StaffLinkAccountPermission );
+                role.AddPermision ( StaffPermission.StaffRemoveRolePermission );
+                role.AddPermision ( StaffPermission.StaffViewPermission );
+                role.AddPermision ( RolePermission.RoleAddPermissionPermission );
+                role.AddPermision ( RolePermission.RoleEditPermission );
+                role.AddPermision ( RolePermission.RoleRemovePermissionPermission );
+                role.AddPermision ( RolePermission.RoleViewPermission );
+                systemAccount.AddRole ( role.Key );
+            }
         }
+
+        #endregion
     }
 }

@@ -1,16 +1,18 @@
 ﻿@using ProCenter.Service.Message.Common.Lookups
+
 @model LookupDto
 
 @{
-    var className = ((ViewData.ContainsKey("LookupCategory") ? ViewData["LookupCategory"].ToString() : string.Empty) == "LikertScale") ? "scaleControl-labels" : string.Empty;
-
-    var placeholder = ViewData.ContainsKey("Placeholder") && ViewData["Placeholder"] != null ? (ViewData["Placeholder"].ToString()) : string.Empty;
-
-    if (Html.ViewData.ModelMetadata.IsRequired)
+    var className = ( ( ViewData.ContainsKey ( "LookupCategory" ) ? ViewData["LookupCategory"].ToString () : string.Empty ) == "LikertScale" ) ? "scaleControl-labels" : string.Empty;
+    var placeholder = ViewData.ContainsKey ( "Placeholder" ) && ViewData["Placeholder"] != null ? ( ViewData["Placeholder"].ToString () ) : string.Empty;
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"]  + " " + ViewData["labelString"];
+    
+    if ( Html.ViewData.ModelMetadata.IsRequired )
     {
         className += " required";
     }
+    
 }
 
-@Html.DropDownListFor(m => m.Code, new SelectList(ViewData["LookupItems"] as IEnumerable<LookupDto>,"Code","Name"), placeholder, new {@class = className, id = ViewData.ModelMetadata.PropertyName})
-@Html.ValidationMessageFor( m => m.Code  )
+@Html.DropDownListFor( m => m.Code, new SelectList ( ViewData["LookupItems"] as IEnumerable<LookupDto>, "Code", "Name" ), placeholder, new {@class = className, data_is_lookup=true, id = ViewData.ModelMetadata.PropertyName, aria_label=@ariaLabel} )
+@Html.ValidationMessageFor( m => m.Code )

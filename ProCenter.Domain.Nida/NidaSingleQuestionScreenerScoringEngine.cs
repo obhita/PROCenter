@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,24 +25,53 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
+    #region Using Statements
+
     using System.Linq;
-    using AssessmentModule;
-    using CommonModule;
 
-    public  class NidaSingleQuestionScreenerScoringEngine: IScoringEngine
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The nida single question screener scoring engine class.</summary>
+    public class NidaSingleQuestionScreenerScoringEngine : IScoringEngine
     {
-        public string AssessmentName { get { return NidaSingleQuestionScreener.AssessmentCodedConcept.Name; } }
+        #region Public Properties
 
-        public void CalculateScore(AssessmentInstance assessment)
+        /// <summary>
+        /// Gets the name of the assessment.
+        /// </summary>
+        /// <value>
+        /// The name of the assessment.
+        /// </value>
+        public string AssessmentName
         {
-            var value = int.Parse(assessment.ItemInstances.First().Value.ToString());
-            var guidance = value > 0
-                               ? new CodedConcept(CodeSystems.Obhita, "guidance_1_and_up", "guidance_1_and_up")
-                               : new CodedConcept(CodeSystems.Obhita, "guidance_0", "guidance_0");
-            assessment.ScoreComplete(new CodedConcept(CodeSystems.Obhita,"",""), value , guidance );
+            get { return NidaSingleQuestionScreener.AssessmentCodedConcept.Name; }
         }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Calculates the score.
+        /// </summary>
+        /// <param name="assessment">The assessment.</param>
+        public void CalculateScore ( AssessmentInstance assessment )
+        {
+            var value = int.Parse ( assessment.ItemInstances.First ().Value.ToString () );
+            var guidance = value > 0
+                ? new CodedConcept ( CodeSystems.Obhita, "guidance_1_and_up", "guidance_1_and_up" )
+                : new CodedConcept ( CodeSystems.Obhita, "guidance_0", "guidance_0" );
+            assessment.ScoreComplete ( new CodedConcept ( CodeSystems.Obhita, string.Empty, string.Empty ), value, false, guidance );
+        }
+
+        #endregion
     }
 }

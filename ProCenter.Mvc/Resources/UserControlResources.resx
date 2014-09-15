@@ -117,16 +117,34 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="InvalidCredentials" xml:space="preserve">
+  <data name="ChangePasswordResponseCode_InvalidCredentials" xml:space="preserve">
     <value>Invalid username/password.</value>
   </data>
-  <data name="MultipleAccount" xml:space="preserve">
+  <data name="ChangePasswordResponseCode_MultipleAccount" xml:space="preserve">
     <value>Your password cannot be changed. The email address for this user account is associated with multiple user accounts.</value>
   </data>
-  <data name="NoAccount" xml:space="preserve">
+  <data name="ChangePasswordResponseCode_NoAccount" xml:space="preserve">
     <value>Cannot find your account by email.</value>
   </data>
-  <data name="Succeed" xml:space="preserve">
+  <data name="ChangePasswordResponseCode_Succeed" xml:space="preserve">
     <value>Your password updated sucessfully.</value>
+  </data>
+  <data name="LockUnLockResponseCode_Error" xml:space="preserve">
+    <value>Unknown error, please contact your administrator if you continue to see this message.</value>
+  </data>
+  <data name="LockUnLockResponseCode_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="LockUnLockResponseCode_UnknownAccount" xml:space="preserve">
+    <value>Account does not exist, please contact your administrator.</value>
+  </data>
+  <data name="ResetPasswordResponseCode_Error" xml:space="preserve">
+    <value>Unknown Error</value>
+  </data>
+  <data name="ResetPasswordResponseCode_Success" xml:space="preserve">
+    <value>Success</value>
+  </data>
+  <data name="ResetPasswordResponseCode_UnknownAccount" xml:space="preserve">
+    <value>Unknown Account</value>
   </data>
 </root>

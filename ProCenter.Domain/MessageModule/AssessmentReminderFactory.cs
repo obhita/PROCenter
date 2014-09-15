@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,51 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule
 {
+    #region Using Statements
+
     using System;
 
+    #endregion
+
+    /// <summary>The assessment reminder factory class.</summary>
     public class AssessmentReminderFactory : IAssessmentReminderFactory
     {
-        public AssessmentReminder Create(Guid organizationKey, Guid patientKey, Guid createdByStaffKey, Guid assessmentDefinitionKey, string title, DateTime start,
-                                                string description)
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Creates the specified organization key.
+        /// </summary>
+        /// <param name="organizationKey">The organization key.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="createdByStaffKey">The created by staff key.</param>
+        /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="reminderRecurrence">The reminder recurrence.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>
+        /// A <see cref="AssessmentReminder" />.
+        /// </returns>
+        public AssessmentReminder Create (
+            Guid organizationKey,
+            Guid patientKey,
+            Guid createdByStaffKey,
+            Guid assessmentDefinitionKey,
+            string title,
+            DateTime start,
+            string description,
+            AssessmentReminderRecurrence reminderRecurrence,
+            DateTime? end)
         {
-            return new AssessmentReminder(organizationKey, patientKey, createdByStaffKey, assessmentDefinitionKey, title, start, description);
+            return new AssessmentReminder ( organizationKey, patientKey, createdByStaffKey, assessmentDefinitionKey, title, start, description, reminderRecurrence, end);
         }
+
+        #endregion
     }
 }

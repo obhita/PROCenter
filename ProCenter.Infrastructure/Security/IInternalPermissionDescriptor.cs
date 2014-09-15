@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,30 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Security
 {
+    #region Using Statements
+
     using Pillar.Security.AccessControl;
 
+    #endregion
+
+    /// <summary>Interface for internal permission descriptor.</summary>
     public interface IInternalPermissionDescriptor : IPermissionDescriptor
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [is internal].
+        /// </summary>
+        /// <value>
+        ///   <c>True</c> if [is internal]; otherwise, <c>false</c>.
+        /// </value>
         bool IsInternal { get; }
+
+        #endregion
     }
 }

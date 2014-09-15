@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,12 +25,15 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
+    /// <summary>The report names class.</summary>
     public class ReportNames
     {
-        #region Static Fields
+        #region Constants
 
         public const string NidaPatientSummaryReport = "NidaWorkflowPatientSummaryReport";
 

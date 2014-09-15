@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,33 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service
 {
     #region Using Statements
 
     using System;
+    using System.Collections.Generic;
     using System.Reflection;
     using System.Resources;
+    using System.Runtime.Caching;
     using Common;
-    using Pillar.Common.InversionOfControl;
+    using NLog;
 
     #endregion
 
-    /// <summary>
-    ///     Manages resources
-    /// </summary>
-    public class ResourcesManager : IResourcesManager
+    /// <summary>Manages resources.</summary>
+    public class ResourcesManager : IResourcesManager, IDisposable
     {
         #region Fields
 
-        private readonly IContainer _container;
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger ();
+        private readonly MemoryCache _cache = MemoryCache.Default;
+        private readonly CacheItemPolicy _cacheItemPolicy = new CacheItemPolicy ();
+        private readonly string _cachePrefix = typeof(ResourceManager).FullName + ".";
+        private readonly Dictionary<string, Func<ResourceManager>> _resourceManagerMap = new Dictionary<string, Func<ResourceManager>> ();
 
         #endregion
 
@@ -53,10 +60,15 @@ namespace ProCenter.Mvc.Infrastructure.Service
         /// <summary>
         ///     Initializes a new instance of the <see cref="ResourcesManager" /> class.
         /// </summary>
-        /// <param name="container">The container.</param>
-        public ResourcesManager ( IContainer container )
+        public ResourcesManager ()
         {
-            _container = container;
+            _cacheItemPolicy.RemovedCallback += arguments =>
+            {
+                if ( arguments.CacheItem.Value is IDisposable )
+                {
+                    ( arguments.CacheItem.Value as IDisposable ).Dispose ();
+                }
+            };
         }
 
         #endregion
@@ -64,33 +76,80 @@ namespace ProCenter.Mvc.Infrastructure.Service
         #region Public Methods and Operators
 
         /// <summary>
+        /// Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        public void Dispose ()
+        {
+            Dispose ( true );
+            GC.SuppressFinalize ( this );
+        }
+
+        /// <summary>
         ///     Gets the resource manager by name.
         /// </summary>
-        /// <param name="name">The name.</param>
+        /// <param name="name">The name of the resource manager.</param>
         /// <returns>
         ///     A <see cref="ResourceManager" />.
         /// </returns>
         public ResourceManager GetResourceManagerByName ( string name )
         {
-            return _container.Resolve<ResourceManager> ( name );
+            var cacheName = _cachePrefix + name;
+            if ( !_resourceManagerMap.ContainsKey ( name ) )
+            {
+                return EmptyResources.ResourceManager;
+            }
+            if ( !_cache.Contains ( cacheName ) )
+            {
+                _cache.Add ( new CacheItem ( cacheName, _resourceManagerMap[name] () ), _cacheItemPolicy );
+            }
+            return _cache[cacheName] as ResourceManager;
         }
 
-        public void Register<TResource> (string code = null)
+        /// <summary>Registers the specified code.</summary>
+        /// <typeparam name="TResource">The type of the resource.</typeparam>
+        /// <param name="code">The code.</param>
+        public void Register<TResource> ( string code = null )
         {
             Register ( typeof(TResource), code );
         }
 
-        public void Register(Type resourceType, string code = null)
+        /// <summary>Registers a resource manager for the type.</summary>
+        /// <param name="resourceType">Type of the resource.</param>
+        /// <param name="code">The code.</param>
+        public void Register ( Type resourceType, string code = null )
         {
             Register ( resourceType.Name, resourceType.FullName, resourceType.Assembly, code );
         }
 
-        public void Register(string name, string fullName, Assembly assembly, string code = null)
+        /// <summary>Registers a resource manager.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="fullName">The full name.</param>
+        /// <param name="assembly">The assembly.</param>
+        /// <param name="code">The code.</param>
+        public void Register ( string name, string fullName, Assembly assembly, string code = null )
         {
-            _container.RegisterInstance(typeof(ResourceManager), new ResourceManager(fullName, assembly), name);
-            if (!string.IsNullOrEmpty(code))
+            _logger.Debug ( "Resource Registered: {0} - {1} - {2} - {3}", name, fullName, assembly.FullName, code );
+            _resourceManagerMap.Add ( name, () => new ResourceManager ( fullName, assembly ) );
+            if ( !string.IsNullOrEmpty ( code ) )
             {
-                _container.RegisterInstance(typeof (ResourceManager), new ResourceManager(fullName, assembly), code);
+                _resourceManagerMap.Add ( code, () => new ResourceManager ( fullName, assembly ) );
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.</param>
+        protected virtual void Dispose ( bool disposing )
+        {
+            if ( disposing )
+            {
+                _resourceManagerMap.Clear ();
+                _cache.Dispose ();
             }
         }
 

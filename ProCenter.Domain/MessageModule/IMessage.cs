@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,12 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule
 {
+    /// <summary>Interface for message.</summary>
     public interface IMessage
     {
-        MessageType MessageType { get; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [for self administration].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [for self administration]; otherwise, <c>false</c>.
+        /// </value>
         bool ForSelfAdministration { get; }
+
+        /// <summary>
+        /// Gets the type of the message.
+        /// </summary>
+        /// <value>
+        /// The type of the message.
+        /// </value>
+        MessageType MessageType { get; }
+
+        #endregion
     }
 }

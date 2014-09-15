@@ -3,23 +3,28 @@
 
 <div class="address">
     <div style="float: left; margin-right: 10px;">
-        @Html.LabelFor(m => m.FirstStreetAddress)
-        @Html.TextBoxFor(m => m.FirstStreetAddress)
+        @Html.LabelFor( m => m.FirstStreetAddress )
+        @Html.EditorFor(m => m.FirstStreetAddress)
+        @Html.ValidationMessageFor( m => m.FirstStreetAddress )
     </div>
     <div style="float: left; margin-right: 10px;">
-        @Html.LabelFor(m => m.SecondStreetAddress)
-        @Html.TextBoxFor(m => m.SecondStreetAddress)
+        @Html.LabelFor( m => m.SecondStreetAddress )
+        @Html.EditorFor(m => m.SecondStreetAddress)
+        @Html.ValidationMessageFor(m => m.SecondStreetAddress)
     </div>
     <div style="float: left; margin-right: 10px;">
-        @Html.LabelFor(m => m.CityName)
-        @Html.TextBoxFor(m => m.CityName)
+        @Html.LabelFor( m => m.CityName )
+        @Html.EditorFor(m => m.CityName)
+        @Html.ValidationMessageFor(m => m.CityName)
     </div>
     <div style="float: left; margin-right: 10px;">
-        @Html.LabelFor(m => m.StateProvince)
-        @Html.EditorFor(m => m.StateProvince, new {LookupItems = Html.GetLookupOptionsForCategory("StateProvince"), LookupCategory = "StateProvince"})
+        @Html.LabelFor( m => m.StateProvince )
+        @Html.EditorFor(m => m.StateProvince, new { LookupItems = Html.GetLookupOptionsForCategory("StateProvince"), LookupCategory = "StateProvince" })
+        @Html.ValidationMessageFor(m => m.StateProvince)
     </div>
     <div style="float: left; margin-right: 10px;">
-        @Html.LabelFor(m => m.PostalCode)
-        @Html.TextBoxFor(m => m.PostalCode)
+        @Html.LabelFor( m => m.PostalCode )
+        @Html.EditorFor(m => m.PostalCode)
+        @Html.ValidationMessageFor(m => m.PostalCode)
     </div>
 </div>

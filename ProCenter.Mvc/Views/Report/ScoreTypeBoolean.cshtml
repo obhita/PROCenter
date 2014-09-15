@@ -1,0 +1,8 @@
+﻿@model ProCenter.Service.Message.Report.ScoreTypeBooleanDto
+
+<div>
+    @Html.CheckBoxFor(m => m.IsAtRisk)
+    @Html.LabelFor(m => m.IsAtRisk, new { @Class = "parameterSpanBool"})
+</div>
+
+@Html.HiddenFor(m => m.Type)

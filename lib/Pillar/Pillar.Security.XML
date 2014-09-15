@@ -328,6 +328,17 @@
                 Defines a request for a <see cref="T:Pillar.Security.AccessControl.Resource"/>.
             </summary>
         </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceRequest.#ctor">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Security.AccessControl.ResourceRequest"/> class.
+            </summary>
+        </member>
+        <member name="M:Pillar.Security.AccessControl.ResourceRequest.#ctor(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+                Initializes a new instance of the <see cref="T:Pillar.Security.AccessControl.ResourceRequest"/> class.
+            </summary>
+            <param name="hierarchy">The hierarchy.</param>
+        </member>
         <member name="M:Pillar.Security.AccessControl.ResourceRequest.Add(System.String)">
             <summary>
                 Adds the specified resource name.

@@ -117,7 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AssessmentSummary_EmailSentDate" xml:space="preserve">
+    <value>Email Last Sent:</value>
+  </data>
   <data name="AssessmentSummary_LastModifiedTime" xml:space="preserve">
     <value>Last Modified: </value>
+  </data>
+  <data name="ErrorOccurred" xml:space="preserve">
+    <value>Email Not Sent.</value>
+  </data>
+  <data name="SelfAdministrableAssessmentCreatedEmailBody" xml:space="preserve">
+    <value>&lt;p&gt;Dear {0},&lt;/p&gt;&lt;p&gt;A time-sensitive assessment has been created, and is ready for you to access through your PRO Center Account. Please click on the link provided below to log in to your account, and begin your assessment.&lt;/p&gt;&lt;p&gt;&lt;a href='{1}'&gt;PRO Center Login&lt;/a&gt;&lt;/p&gt;                                         &lt;p&gt;Sincerely, &lt;br /&gt;PRO Center Team&lt;/p&gt; &lt;p&gt;&lt;i&gt;&lt;b&gt;Disclaimer:&lt;/b&gt;To help keep your account secure, never share or disclose your password to anyone you do not trust via email, phone or by any other means. If you are unsure or have any questions regarding your account, please contact your primary care provider for information. If someone has requested your password or account information, or you believe your account has been compromised, please contact your PRO Center Administrator &lt;/i&gt;&lt;/p&gt;</value>
+  </data>
+  <data name="SelfAdministrableAssessmentCreatedEmailSubject" xml:space="preserve">
+    <value>PRO Center Assessment</value>
+  </data>
+  <data name="SendEmail" xml:space="preserve">
+    <value>Send Email</value>
   </data>
 </root>

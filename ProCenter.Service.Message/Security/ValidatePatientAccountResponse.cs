@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,38 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using Agatha.Common;
 
+    #endregion
+
+    /// <summary>The validate patient account response class.</summary>
     public class ValidatePatientAccountResponse : Response
     {
-        public bool Validated { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is locked].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is locked]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsLocked { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [validated].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [validated]; otherwise, <c>false</c>.
+        /// </value>
+        public bool Validated { get; set; }
+
+        #endregion
     }
 }

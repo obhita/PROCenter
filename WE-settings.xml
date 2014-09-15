@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <webessentials version="1.9">
   <settings>
-    <CoffeeScriptGenerateJsFile>True</CoffeeScriptGenerateJsFile>
-    <CoffeeScriptMinify>True</CoffeeScriptMinify>
-    <CoffeeScriptShowPreviewWindow>True</CoffeeScriptShowPreviewWindow>
-    <CoffeeScriptWrapClosure>True</CoffeeScriptWrapClosure>
+    <CoffeeScriptCompileOnBuild>false</CoffeeScriptCompileOnBuild>
+    <CoffeeScriptCompileToFolder>false</CoffeeScriptCompileToFolder>
+    <CoffeeScriptEnableIced>false</CoffeeScriptEnableIced>
+    <CoffeeScriptGenerateJsFile>true</CoffeeScriptGenerateJsFile>
+    <CoffeeScriptMinify>true</CoffeeScriptMinify>
+    <CoffeeScriptShowPreviewWindow>true</CoffeeScriptShowPreviewWindow>
+    <CoffeeScriptWrapClosure>true</CoffeeScriptWrapClosure>
     <CssAutoCloseCurlyBraces>true</CssAutoCloseCurlyBraces>
+    <CssEnableGzipping>false</CssEnableGzipping>
     <CssEnableMinification>true</CssEnableMinification>
     <CssEnableSelectorHighligting>true</CssEnableSelectorHighligting>
     <CssErrorLocation>1</CssErrorLocation>
@@ -20,39 +24,87 @@
     <EnableSpeedTyping>false</EnableSpeedTyping>
     <HtmlEnableMustache>true</HtmlEnableMustache>
     <HtmlEnableZenCoding>true</HtmlEnableZenCoding>
-    <JavaScriptAutoCloseBraces>True</JavaScriptAutoCloseBraces>
-    <JavaScriptEnableMinification>True</JavaScriptEnableMinification>
-    <JavascriptEnableRegions>True</JavascriptEnableRegions>
-    <JavaScriptGenerateSourceMaps>True</JavaScriptGenerateSourceMaps>
-    <JavaScriptOutlining>True</JavaScriptOutlining>
-    <JsHint_bitwise>True</JsHint_bitwise>
-    <JsHint_browser>True</JsHint_browser>
-    <JsHint_debug>True</JsHint_debug>
-    <JsHint_devel>True</JsHint_devel>
-    <JsHint_eqeqeq>True</JsHint_eqeqeq>
-    <JsHint_es5>True</JsHint_es5>
-    <JsHint_expr>True</JsHint_expr>
-    <JsHint_jquery>True</JsHint_jquery>
-    <JsHint_laxbreak>True</JsHint_laxbreak>
-    <JsHint_laxcomma>True</JsHint_laxcomma>
+    <JavaScriptAutoCloseBraces>true</JavaScriptAutoCloseBraces>
+    <JavaScriptEnableGzipping>false</JavaScriptEnableGzipping>
+    <JavaScriptEnableMinification>true</JavaScriptEnableMinification>
+    <JavascriptEnableRegions>true</JavascriptEnableRegions>
+    <JavaScriptGenerateSourceMaps>true</JavaScriptGenerateSourceMaps>
+    <JavaScriptOutlining>true</JavaScriptOutlining>
+    <JsHint_asi>false</JsHint_asi>
+    <JsHint_bitwise>true</JsHint_bitwise>
+    <JsHint_boss>false</JsHint_boss>
+    <JsHint_browser>true</JsHint_browser>
+    <JsHint_camelcase>false</JsHint_camelcase>
+    <JsHint_couch>false</JsHint_couch>
+    <JsHint_curly>false</JsHint_curly>
+    <JsHint_debug>true</JsHint_debug>
+    <JsHint_devel>true</JsHint_devel>
+    <JsHint_dojo>false</JsHint_dojo>
+    <JsHint_eqeqeq>true</JsHint_eqeqeq>
+    <JsHint_eqnull>false</JsHint_eqnull>
+    <JsHint_es5>true</JsHint_es5>
+    <JsHint_esnext>false</JsHint_esnext>
+    <JsHint_evil>false</JsHint_evil>
+    <JsHint_expr>true</JsHint_expr>
+    <JsHint_forin>false</JsHint_forin>
+    <JsHint_funcscope>false</JsHint_funcscope>
+    <JsHint_globalstrict>false</JsHint_globalstrict>
+    <JsHint_immed>false</JsHint_immed>
+    <JsHint_indent>-1</JsHint_indent>
+    <JsHint_iterator>false</JsHint_iterator>
+    <JsHint_jquery>true</JsHint_jquery>
+    <JsHint_lastsemic>false</JsHint_lastsemic>
+    <JsHint_latedef>false</JsHint_latedef>
+    <JsHint_laxbreak>true</JsHint_laxbreak>
+    <JsHint_laxcomma>true</JsHint_laxcomma>
+    <JsHint_loopfunc>false</JsHint_loopfunc>
     <JsHint_maxerr>50</JsHint_maxerr>
-    <JsHint_regexdash>True</JsHint_regexdash>
-    <JsHint_smarttabs>True</JsHint_smarttabs>
-    <JsHintEnable>True</JsHintEnable>
+    <JsHint_mootools>false</JsHint_mootools>
+    <JsHint_multistr>false</JsHint_multistr>
+    <JsHint_newcap>false</JsHint_newcap>
+    <JsHint_noarg>false</JsHint_noarg>
+    <JsHint_node>false</JsHint_node>
+    <JsHint_noempty>false</JsHint_noempty>
+    <JsHint_nonew>false</JsHint_nonew>
+    <JsHint_nonstandard>false</JsHint_nonstandard>
+    <JsHint_onecase>false</JsHint_onecase>
+    <JsHint_plusplus>false</JsHint_plusplus>
+    <JsHint_proto>false</JsHint_proto>
+    <JsHint_prototypejs>false</JsHint_prototypejs>
+    <JsHint_quotmark>false</JsHint_quotmark>
+    <JsHint_regexdash>true</JsHint_regexdash>
+    <JsHint_regexp>false</JsHint_regexp>
+    <JsHint_rhino>false</JsHint_rhino>
+    <JsHint_scripturl>false</JsHint_scripturl>
+    <JsHint_shadow>false</JsHint_shadow>
+    <JsHint_smarttabs>true</JsHint_smarttabs>
+    <JsHint_strict>false</JsHint_strict>
+    <JsHint_sub>false</JsHint_sub>
+    <JsHint_supernew>false</JsHint_supernew>
+    <JsHint_trailing>false</JsHint_trailing>
+    <JsHint_undef>false</JsHint_undef>
+    <JsHint_unused>false</JsHint_unused>
+    <JsHint_validthis>false</JsHint_validthis>
+    <JsHint_worker>false</JsHint_worker>
+    <JsHint_wsh>false</JsHint_wsh>
+    <JsHintEnable>true</JsHintEnable>
     <JsHintErrorLocation>2</JsHintErrorLocation>
+    <JsHintRunOnBuild>false</JsHintRunOnBuild>
     <KeepImportantComments>false</KeepImportantComments>
     <LessCompileOnBuild>true</LessCompileOnBuild>
     <LessCompileToFolder>false</LessCompileToFolder>
     <LessGenerateCssFile>true</LessGenerateCssFile>
     <LessMinify>true</LessMinify>
     <LessShowPreviewWindow>true</LessShowPreviewWindow>
+    <LessStrictMath>false</LessStrictMath>
     <ScssGenerateCssFile>True</ScssGenerateCssFile>
     <ScssMinify>True</ScssMinify>
     <ScssShowPreviewWindow>True</ScssShowPreviewWindow>
     <TypeScriptAddGeneratedFilesToProject>True</TypeScriptAddGeneratedFilesToProject>
     <TypeScriptGenerateJsFile>True</TypeScriptGenerateJsFile>
     <TypeScriptMinify>True</TypeScriptMinify>
-    <TypeScriptShowPreviewWindow>True</TypeScriptShowPreviewWindow>
+    <TypeScriptShowPreviewWindow>true</TypeScriptShowPreviewWindow>
+    <UseBom>false</UseBom>
     <ValidateVendorSpecifics>false</ValidateVendorSpecifics>
   </settings>
 </webessentials>

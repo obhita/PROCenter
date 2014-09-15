@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,50 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule.Event
 {
+    #region Using Statements
+
     using System;
     using System.Linq.Expressions;
-    using CommonModule;
+
     using Pillar.Common.Utility;
 
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The staff changed event class.</summary>
     public class StaffChangedEvent : CommitEventBase
     {
-        public StaffChangedEvent()
-            : base(Guid.Empty, -1)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StaffChangedEvent"/> class.
+        /// </summary>
+        public StaffChangedEvent ()
+            : base ( Guid.Empty, -1 )
         {
         }
 
-
-        public StaffChangedEvent(Guid staffKey, int version, Expression<Func<Staff, object>> propertyExpression, object value) : base(staffKey, version)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="StaffChangedEvent"/> class.
+        /// </summary>
+        /// <param name="staffKey">The staff key.</param>
+        /// <param name="version">The version.</param>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="value">The value.</param>
+        public StaffChangedEvent ( Guid staffKey, int version, Expression<Func<Staff, object>> propertyExpression, object value )
+            : base ( staffKey, version )
         {
-            Property = PropertyUtil.ExtractPropertyName(propertyExpression);
+            Property = PropertyUtil.ExtractPropertyName ( propertyExpression );
             Value = value;
         }
+
+        #endregion
 
         #region Public Properties
 

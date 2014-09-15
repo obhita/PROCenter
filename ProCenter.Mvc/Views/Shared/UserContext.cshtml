@@ -1,38 +1,39 @@
 ﻿@using ProCenter.Common
 @using ProCenter.Mvc.Models
+@using ProCenter.Mvc.Views.Shared
 
 <div id="changePasswordModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="changePasswordModalLabel">Change Password</h3>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="changePasswordModalLabel">@Shared.ChangePassword</h3>
     </div>
     <form>
         <div id="change-password-message" class="field-validation-error hidden modal-error">
         </div>
         <div class="modal-body">
             @{
-                var changePasswordViewModel = new ChangePasswordViewModel();
+                var changePasswordViewModel = new ChangePasswordViewModel ();
             }
-            @Html.EditorFor(m => changePasswordViewModel)
-            @Html.ValidationMessageFor(m => changePasswordViewModel)
+            @Html.EditorFor( m => changePasswordViewModel, null, htmlFieldName: string.Empty )
+            @Html.ValidationMessageFor( m => changePasswordViewModel )
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <a id="change-password-btn" href="@Url.Action("ChangPassword", "Staff")" class="btn btn-primary" aria-hidden="true" data-loadelementid="change-password-loading-indicator">Change</a>
+            <button class="btn" data-dismiss="modal" aria-hidden="true">@Shared.Cancel</button>
+            <a id="change-password-btn" href="@Url.Action( "ChangePassword", "SystemAccount", new {httproute = true} )" role="button" class="btn btn-primary" data-loadelementid="change-password-loading-indicator" >@Shared.Change</a>
         </div>
         <div id="change-password-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
     </form>
 </div>
 
 <a data-toggle="dropdown" class="dropdown-toggle">
-    <span class="fs1" aria-hidden="true" data-icon="&#xe074;">@UserContext.Current.DisplayName</span>
+    <span class="fs1" aria-label="@Shared.ChangePasswordMessage" data-icon="&#xe074;">@UserContext.Current.DisplayName</span>
     <span class="caret"></span>
 </a>
 <ul class="dropdown-menu pull-right">
     <li>
-        <a href="#changePasswordModal" data-toggle="modal">Change Password</a>
+        <a href="#changePasswordModal" aria-label="@Shared.ChangePassword" data-toggle="modal">@Shared.ChangePassword</a>
     </li>
     <li>
-        @Html.ActionLink("Logout", "Logout", "Account")
+        @Html.ActionLink( Shared.LogOut, "Logout", "Account")
     </li>
 </ul>

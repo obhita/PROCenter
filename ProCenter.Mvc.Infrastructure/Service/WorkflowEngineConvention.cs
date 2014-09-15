@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service
 {
     #region Using Statements
@@ -37,20 +40,30 @@ namespace ProCenter.Mvc.Infrastructure.Service
 
     #endregion
 
+    /// <summary>The workflow engine convention class.</summary>
     public class WorkflowEngineConvention : IRegistrationConvention
     {
-        public void Process(Type type, Registry registry)
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Processes the specified type.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        /// <param name="registry">The registry.</param>
+        public void Process ( Type type, Registry registry )
         {
-            if (typeof (IWorkflowEngine).IsAssignableFrom(type))
+            if ( typeof(IWorkflowEngine).IsAssignableFrom ( type ) )
             {
                 var assessmentNames =
-                    type.GetCustomAttributes(typeof (WorkflowAssessmentsAttribute), true)
-                        .SelectMany(attr => ((WorkflowAssessmentsAttribute) attr).AssessmentNames);
-                foreach (var assessmentName in assessmentNames)
+                    type.GetCustomAttributes ( typeof(WorkflowAssessmentsAttribute), true )
+                        .SelectMany ( attr => ( (WorkflowAssessmentsAttribute) attr ).AssessmentNames );
+                foreach ( var assessmentName in assessmentNames )
                 {
-                    registry.For(typeof (IWorkflowEngine)).Add(type).Named(assessmentName);
+                    registry.For ( typeof(IWorkflowEngine) ).Add ( type ).Named ( assessmentName );
                 }
             }
         }
+
+        #endregion
     }
 }

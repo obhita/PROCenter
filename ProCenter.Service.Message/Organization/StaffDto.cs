@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,26 +25,79 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
-    using System.ComponentModel.DataAnnotations;
-    using Common;
-    using Primitive;
-    using Security;
+    #region Using Statements
 
+    using System.ComponentModel.DataAnnotations;
+
+    using ProCenter.Primitive;
+    using ProCenter.Service.Message.Common;
+    using ProCenter.Service.Message.Security;
+
+    #endregion
+
+    /// <summary>The staff dto class.</summary>
     public class StaffDto : KeyedDataTransferObject
     {
-        public PersonName Name { get; set; }
-        public string Email { get; set; }
-        public string Location { get; set; }
-        public string NPI { get; set; }
-        public SystemAccountDto SystemAccount { get; set; }
+        #region Public Properties
 
-        [ScaffoldColumn(false)]
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        /// <summary>
+        /// Gets a value indicating whether [has account].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [has account]; otherwise, <c>false</c>.
+        /// </value>
+        [ScaffoldColumn ( false )]
         public bool HasAccount
         {
             get { return SystemAccount != null; }
         }
+
+        /// <summary>
+        /// Gets or sets the location.
+        /// </summary>
+        /// <value>
+        /// The location.
+        /// </value>
+        public string Location { get; set; }
+
+        /// <summary>
+        /// Gets or sets the npi.
+        /// </summary>
+        /// <value>
+        /// The npi.
+        /// </value>
+        public string NPI { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        public PersonName Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system account.
+        /// </summary>
+        /// <value>
+        /// The system account.
+        /// </value>
+        public SystemAccountDto SystemAccount { get; set; }
+
+        #endregion
     }
 }

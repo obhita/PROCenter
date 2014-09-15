@@ -1,48 +1,38 @@
-﻿#region License Header
-// /*******************************************************************************
-//  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
-//  * 
-//  * Redistribution and use in source and binary forms, with or without
-//  * modification, are permitted provided that the following conditions are met:
-//  *     * Redistributions of source code must retain the above copyright
-//  *       notice, this list of conditions and the following disclaimer.
-//  *     * Redistributions in binary form must reproduce the above copyright
-//  *       notice, this list of conditions and the following disclaimer in the
-//  *       documentation and/or other materials provided with the distribution.
-//  *     * Neither the name of the <organization> nor the
-//  *       names of its contributors may be used to endorse or promote products
-//  *       derived from this software without specific prior written permission.
-//  * 
-//  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-//  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-//  * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-//  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-//  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-//  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-//  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-//  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-//  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//  ******************************************************************************/
-#endregion
+﻿/*
+ * Copyright (c) Dominick Baier, Brock Allen.  All rights reserved.
+ * see license.txt
+ */
+
 using System.IdentityModel.Tokens;
 using System.Security.Cryptography.X509Certificates;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Thinktecture.IdentityServer.Protocols;
 using Thinktecture.IdentityServer.Repositories;
 using Thinktecture.IdentityServer.Web.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
 
 namespace Thinktecture.IdentityServer.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Collections.Specialized;
+    using System.Linq;
+    using System.Security.Cryptography;
+    using System.Text;
+    using System.Threading;
+    using System.Web.Security;
+    using App_LocalResources.Account;
+    using Controller.Api;
+    using NLog;
+    using Resources;
+    using SetupAccountModel = ViewModels.SetupAccountModel;
+    using SignInModel = ViewModels.SignInModel;
+
     public class AccountController : AccountControllerBase
     {
+        private static Logger _logger = LogManager.GetCurrentClassLogger();
+
         public AccountController() : base()
         { }
 
@@ -66,14 +56,27 @@ namespace Thinktecture.IdentityServer.Web.Controllers
 
         // handles the signin
         [HttpPost]
+        [ValidateAntiForgeryToken]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public ActionResult SignIn(SignInModel model)
         {
             if (ModelState.IsValid)
             {
+                var setupNeeded = false;
+                var user = Membership.GetUser(model.UserName);
+                if ( user != null && user.LastPasswordChangedDate > user.LastLoginDate )
+                {
+                    setupNeeded = true;
+                }
                 if (UserRepository.ValidateUser(model.UserName, model.Password))
                 {
                     // establishes a principal, set the session cookie and redirects
                     // you can also pass additional claims to signin, which will be embedded in the session token
+                    if ( user.PasswordQuestion == null || setupNeeded )
+                    {
+                        model.Password = "change";
+                        return RedirectToAction ( "SetupAccount", model );
+                    }
 
                     return SignIn(
                         model.UserName, 
@@ -120,7 +123,136 @@ namespace Thinktecture.IdentityServer.Web.Controllers
             return View("Error");
         }
 
+        // shows the signin screen
+        public ActionResult SetupAccount(SignInModel model)
+        {
+            // you can call AuthenticationHelper.GetRelyingPartyDetailsFromReturnUrl to get more information about the requested relying party
 
+            var vm = new SetupAccountModel(model);
+
+            vm.Password = null;
+
+            SetupSecurityQuestions ();
+
+            return View(vm);
+        }
+
+        // handles the signin
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
+        public ActionResult SetupAccount(SetupAccountModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                if (UserRepository.ValidateUser(model.UserName, model.Password))
+                {
+                    var user = Membership.GetUser(model.UserName);
+                    if ( user.ChangePasswordQuestionAndAnswer ( model.Password, model.SecurityQuestion, model.SecurityAnswer ) )
+                    {
+                        user.ChangePassword ( model.Password, model.NewPassword );
+                        UserRepository.ValidateUser ( model.UserName, model.NewPassword );
+                        return SignIn ( model.UserName,
+                            AuthenticationMethods.X509,
+                            model.ReturnUrl,
+                            false,
+                            ConfigurationRepository.Global.SsoCookieLifetime );
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", Resources.AccountController.BadSecurityAnswer);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", Resources.AccountController.IncorrectCredentialsNoAuthorization);
+                }
+            }
+            SetupSecurityQuestions ();
+            return View(model);
+        }
+
+        private void SetupSecurityQuestions ()
+        {
+            var questions = new List<string>();
+            var index = 1;
+            var key = "Question";
+            var value = SecurityQuestions.ResourceManager.GetString(key);
+            while (value != null)
+            {
+                questions.Add(value);
+                value = SecurityQuestions.ResourceManager.GetString(key + index);
+                index++;
+            }
+
+            ViewData["SecurityQuestions"] = questions.Select(q => new SelectListItem { Text = q });
+        }
+
+        public ActionResult ForgotPassword(string returnUrl)
+        {
+            // you can call AuthenticationHelper.GetRelyingPartyDetailsFromReturnUrl to get more information about the requested relying party
+
+            var vm = new ForgotPasswordModel()
+            {
+                ReturnUrl = returnUrl
+            };
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ForgotPassword(ForgotPasswordModel forgotPasswordModel)
+        {
+            // you can call AuthenticationHelper.GetRelyingPartyDetailsFromReturnUrl to get more information about the requested relying party
+            if ( forgotPasswordModel.SecurityAnswer == null )
+            {
+                var user = Membership.GetUser ( forgotPasswordModel.UserName );
+                if ( user == null )
+                {
+                    _logger.Debug("Unknown user: " + forgotPasswordModel.UserName);
+                    ModelState.AddModelError ( "forgotPasswordModel", ForgotPassword_cshtml.UnknownUser );
+                }
+                else
+                {
+                    forgotPasswordModel.SecurityQuestion = user.PasswordQuestion;
+                    if ( forgotPasswordModel.SecurityQuestion == null || user.Email == null )
+                    {
+                        ModelState.AddModelError("forgotPasswordModel", ForgotPassword_cshtml.CannotReset);
+                    }
+                }
+            }
+            else
+            {
+                var user = Membership.GetUser(forgotPasswordModel.UserName);
+                if (user == null)
+                {
+                    _logger.Debug("Unknown user: " + forgotPasswordModel.UserName);
+                    ModelState.AddModelError("forgotPasswordModel", ForgotPassword_cshtml.UnknownUser);
+                }
+                else
+                {
+                    try
+                    {
+                        var password = user.ResetPassword ( forgotPasswordModel.SecurityAnswer );
+                        MembershipController.SendEmailNotification ( user, password );
+                        ViewData["PasswordResetSent"] = true;
+                        _logger.Trace ( "Password reset for user: " + forgotPasswordModel.UserName );
+                    }
+                    catch ( MembershipPasswordException exception )
+                    {
+                        _logger.DebugException("Error resetting password for user: " + user.Email, exception);
+                        ModelState.AddModelError("forgotPasswordModel", ForgotPassword_cshtml.InvalidResponse);
+                    }
+                    catch ( Exception exception)
+                    {
+                        _logger.DebugException ( "Error resetting password for user: " + user.Email, exception );
+                        ModelState.AddModelError("forgotPasswordModel", ForgotPassword_cshtml.UnknownError);
+                    }
+                }
+            }
+            return View(forgotPasswordModel);
+        }
 
         // handle external EHR authentication
         public ActionResult ExternalSignIn()

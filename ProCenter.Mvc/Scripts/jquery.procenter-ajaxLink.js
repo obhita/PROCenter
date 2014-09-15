@@ -35,6 +35,8 @@
                     throw "href is required.";
                 }
 
+                settings.url = url;
+
                 var loadElement = $('#' + $link.data("loadelementid"));
 
                 var paramsObject = settings.getParams.call($link[0]);
@@ -51,7 +53,10 @@
                             url += "?" + params;
                         }
                     }
-
+                    var successCallback = settings.success;
+                    settings.success = function(data) {
+                        successCallback.apply(settings,[data, $link]);
+                    };
                     $.ajax(url, settings).always(function () { loadElement.fadeOut(); });
                 }
             });

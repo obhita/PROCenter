@@ -31,8 +31,14 @@ namespace ProCenter.Domain.Nida.Tests
 
     using System;
     using System.Collections.Generic;
+    using System.Security.Claims;
+    using System.Threading;
+
     using AssessmentModule.Event;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using NSubstitute;
+
     using Pillar.Common.Tests;
     using AssessmentModule;
     using CommonModule;
@@ -41,6 +47,9 @@ namespace ProCenter.Domain.Nida.Tests
     using Moq;
     using Pillar.Common.Utility;
     using Pillar.Domain.Event;
+
+    using ProCenter.Common;
+    using ProCenter.Domain.AssessmentModule.Lookups;
 
     #endregion
 
@@ -61,10 +70,11 @@ namespace ProCenter.Domain.Nida.Tests
                 CommitEvent.RegisterAll(events.Add);
 
                 // Exercise
-                Guid defGuid = CombGuid.NewCombGuid();
                 Guid patientGuid = CombGuid.NewCombGuid();
-                var assessment = new AssessmentInstance(defGuid, patientGuid, "TestName");
-                assessment.UpdateItem("", itemValue);
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+
+                var assessment = new AssessmentInstanceFactory().Create(assessmentDefinition, patientGuid, "TestName");
+                assessment.UpdateItem(new ItemDefinition(new CodedConcept(new CodeSystem("1", "1", "Test"), "1", "Test"), ItemType.Question, null), itemValue);
 
                 var nidaSingleQuestionScreenerScoringEngine = new NidaSingleQuestionScreenerScoringEngine();
                 nidaSingleQuestionScreenerScoringEngine.CalculateScore(assessment);
@@ -88,6 +98,11 @@ namespace ProCenter.Domain.Nida.Tests
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<ICommitDomainEventService>().Singleton().Use<CommitDomainEventService>());
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IUnitOfWorkProvider>().Use<UnitOfWorkProvider>());
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IUnitOfWork>().Use(new Mock<IUnitOfWork>().Object));
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(
+                new List<Claim>
+                {
+                    new Claim(ProCenterClaimType.StaffKeyClaimType, Guid.NewGuid().ToString())
+                }));
         }
 
         #endregion

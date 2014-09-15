@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain
 {
     #region Using Statements
 
     using System;
+
     using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for aggregate factory.
-    /// </summary>
+    /// <summary>Interface for aggregate factory.</summary>
     public interface IAggregateFactory
     {
         #region Public Methods and Operators
@@ -48,7 +50,7 @@ namespace ProCenter.Infrastructure.Domain
         /// <param name="key">The key.</param>
         /// <param name="memento">The memento.</param>
         /// <returns>An aggregate.</returns>
-        TAggregate Build<TAggregate>(Guid key, IMemento memento)
+        TAggregate Build<TAggregate> ( Guid key, IMemento memento )
             where TAggregate : class, IAggregateRoot;
 
         #endregion

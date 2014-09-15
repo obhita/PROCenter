@@ -1,5 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
+﻿// /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
 //  * Redistribution and use in source and binary forms, with or without
@@ -24,52 +23,77 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using Pillar.Common.InversionOfControl;
+    using System.Linq;
+
+    using NEventStore;
+    using NEventStore.Dispatcher;
+
     using Pillar.Common.Utility;
-    using PipelineHook;
-    using Service.ReadSideService;
-    using global::EventStore;
-    using global::EventStore.Dispatcher;
+
+    using ProCenter.Infrastructure.EventStore.PipelineHook;
 
     #endregion
 
-    /// <summary>
-    ///     Factory for building event stores based on aggregate types.
-    /// </summary>
+    /// <summary>Factory for building event stores based on aggregate types.</summary>
     public class EventStoreFactory : IEventStoreFactory
     {
-        private readonly IDispatchCommits _commitDispatcher;
-
         #region Fields
 
-        private readonly Dictionary<Type, IStoreEvents> _eventStores = new Dictionary<Type, IStoreEvents>();
+        private readonly IDispatchCommits _commitDispatcher;
+
+        private readonly Dictionary<Type, IStoreEvents> _eventStores = new Dictionary<Type, IStoreEvents> ();
 
         #endregion
 
-        public EventStoreFactory(IDispatchCommits commitDispatcher)
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="EventStoreFactory" /> class.
+        /// </summary>
+        /// <param name="commitDispatcher">The commit dispatcher.</param>
+        public EventStoreFactory ( IDispatchCommits commitDispatcher )
         {
             _commitDispatcher = commitDispatcher;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the cached event stores.
+        /// </summary>
+        /// <value>
+        ///     The cached event stores.
+        /// </value>
+        public IReadOnlyCollection<IStoreEvents> CachedEventStores
+        {
+            get { return _eventStores.Values.ToList ().AsReadOnly (); }
+        }
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
-        /// Builds the event store for aggregates of type <typeparam name="TAggregate"></typeparam>.
+        ///     Builds the event store for aggregates of type
+        ///     <typeparam name="TAggregate"></typeparam>
+        ///     .
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <returns>
-        /// An <see cref="IStoreEvents" />.
+        ///     An <see cref="IStoreEvents" />.
         /// </returns>
-        public IStoreEvents Build<TAggregate>()
+        public IStoreEvents Build<TAggregate> ()
         {
-            return Build(typeof (TAggregate));
+            return Build ( typeof(TAggregate) );
         }
 
         /// <summary>
@@ -79,25 +103,25 @@ namespace ProCenter.Infrastructure.EventStore
         /// <returns>
         ///     An <see cref="IStoreEvents" />.
         /// </returns>
-        public IStoreEvents Build(Type aggregateType)
+        public IStoreEvents Build ( Type aggregateType )
         {
-            Check.IsNotNull(aggregateType, "Aggregate type cannot be null.");
+            Check.IsNotNull ( aggregateType, "Aggregate type cannot be null." );
 
-            lock (_eventStores)
+            lock ( _eventStores )
             {
-                if (!_eventStores.ContainsKey(aggregateType))
+                if ( !_eventStores.ContainsKey ( aggregateType ) )
                 {
                     //TODO: Add configuration for compression/encryption parameters
-                    var eventStore = Wireup.Init()
-                                           .LogToOutputWindow()
-                                           .UsingRavenPersistence("RavenDbPROCenter").Partition(aggregateType.Name)
-                                           .ConsistentQueries()
-                                           .InitializeStorageEngine()
-                                           .UsingAsynchronousDispatchScheduler()
-                                           .DispatchTo(_commitDispatcher)
-                                           .HookIntoPipelineUsing(new AuditPipelineHook(null))
-                                           .Build();
-                    _eventStores.Add(aggregateType, eventStore);
+                    var eventStore = Wireup.Init ()
+                        .LogToOutputWindow ()
+                        .UsingRavenPersistence ( "RavenDbPROCenter" ).Partition ( aggregateType.Name )
+                        .ConsistentQueries ()
+                        .InitializeStorageEngine ()
+                        .UsingCustomSerialization ( new ProCenterJsonSerializer () )
+                        .UsingAsynchronousDispatchScheduler ( _commitDispatcher )
+                        .HookIntoPipelineUsing ( new AuditPipelineHook ( null ) )
+                        .Build ();
+                    _eventStores.Add ( aggregateType, eventStore );
                 }
                 return _eventStores[aggregateType];
             }
@@ -106,27 +130,38 @@ namespace ProCenter.Infrastructure.EventStore
         /// <summary>
         ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
         /// </summary>
-        public void Dispose()
+        public void Dispose ()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            Dispose ( true );
+            GC.SuppressFinalize ( this );
         }
 
         #endregion
 
         #region Methods
 
-        protected virtual void Dispose(bool disposing)
+        /// <summary>
+        ///     Releases unmanaged and - optionally - managed resources.
+        /// </summary>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only
+        ///     unmanaged resources.
+        /// </param>
+        protected virtual void Dispose ( bool disposing )
         {
-            if (!disposing)
-                return;
-
-            lock (_eventStores)
+            if ( !disposing )
             {
-                foreach (var eventStore in _eventStores)
-                    eventStore.Value.Dispose();
+                return;
+            }
 
-                _eventStores.Clear();
+            lock ( _eventStores )
+            {
+                foreach ( var eventStore in _eventStores )
+                {
+                    eventStore.Value.Dispose ();
+                }
+
+                _eventStores.Clear ();
             }
         }
 

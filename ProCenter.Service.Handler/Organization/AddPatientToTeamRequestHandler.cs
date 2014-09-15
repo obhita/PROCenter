@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
     #region Using Statements
@@ -36,9 +39,7 @@ namespace ProCenter.Service.Handler.Organization
 
     #endregion
 
-    /// <summary>
-    ///     Handler for adding patient to team.
-    /// </summary>
+    /// <summary>Handler for adding patient to team.</summary>
     public class AddPatientToTeamRequestHandler : ServiceRequestHandler<AddDtoRequest<TeamPatientDto>, DtoResponse<TeamPatientDto>>
     {
         #region Fields

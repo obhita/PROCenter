@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
     #region Using Statements
@@ -32,23 +35,29 @@ namespace ProCenter.Domain.Nida
     using System.Collections;
     using System.Collections.Generic;
     using System.ComponentModel;
-    using Common.Report;
+
+    using ProCenter.Common.Report;
 
     #endregion
 
     /// <summary>
-    /// Data collection for NIDA Report
+    ///     Data collection for NIDA Report.
     /// </summary>
     public class NidaReportDataCollection : ArrayList, ITypedList
     {
         #region Public Methods and Operators
 
         /// <summary>
-        /// Returns the <see cref="T:System.ComponentModel.PropertyDescriptorCollection" /> that represents the properties on each item used to bind data.
+        ///     Returns the <see cref="T:System.ComponentModel.PropertyDescriptorCollection" /> that represents the properties on
+        ///     each item used to bind data.
         /// </summary>
-        /// <param name="listAccessors">An array of <see cref="T:System.ComponentModel.PropertyDescriptor" /> objects to find in the collection as bindable. This can be null.</param>
+        /// <param name="listAccessors">
+        ///     An array of <see cref="T:System.ComponentModel.PropertyDescriptor" /> objects to find in
+        ///     the collection as bindable. This can be null.
+        /// </param>
         /// <returns>
-        /// The <see cref="T:System.ComponentModel.PropertyDescriptorCollection" /> that represents the properties on each item used to bind data.
+        ///     The <see cref="T:System.ComponentModel.PropertyDescriptorCollection" /> that represents the properties on each item
+        ///     used to bind data.
         /// </returns>
         public PropertyDescriptorCollection GetItemProperties ( PropertyDescriptor[] listAccessors )
         {
@@ -64,11 +73,14 @@ namespace ProCenter.Domain.Nida
         }
 
         /// <summary>
-        /// Returns the name of the list.
+        ///     Returns the name of the list.
         /// </summary>
-        /// <param name="listAccessors">An array of <see cref="T:System.ComponentModel.PropertyDescriptor" /> objects, for which the list name is returned. This can be null.</param>
+        /// <param name="listAccessors">
+        ///     An array of <see cref="T:System.ComponentModel.PropertyDescriptor" /> objects, for which
+        ///     the list name is returned. This can be null.
+        /// </param>
         /// <returns>
-        /// The name of the list.
+        ///     The name of the list.
         /// </returns>
         public string GetListName ( PropertyDescriptor[] listAccessors )
         {

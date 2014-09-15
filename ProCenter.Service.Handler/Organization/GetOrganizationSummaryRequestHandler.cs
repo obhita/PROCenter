@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
     #region Using Statements
 
     using Common;
-    using Domain.OrganizationModule;
+    using ProCenter.Domain.OrganizationModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Organization;
-    using global::AutoMapper;
 
     #endregion
 
-    /// <summary>
-    ///     Get <see cref="Organization" /> summary request handler.
-    /// </summary>
+    /// <summary>Get <see cref="Organization" /> summary request handler.</summary>
     public class GetOrganizationSummaryRequestHandler :
         ServiceRequestHandler<GetDtoByKeyRequest<OrganizationSummaryDto>, DtoResponse<OrganizationSummaryDto>>
     {
@@ -72,7 +73,7 @@ namespace ProCenter.Service.Handler.Organization
         protected override void Handle ( GetDtoByKeyRequest<OrganizationSummaryDto> request, DtoResponse<OrganizationSummaryDto> response )
         {
             var organization = _organizationRepository.GetByKey ( request.Key );
-            response.DataTransferObject = Mapper.Map<Organization, OrganizationSummaryDto> ( organization );
+            response.DataTransferObject = Mapper.Map<Organization, OrganizationSummaryDto>( organization );
         }
 
         #endregion

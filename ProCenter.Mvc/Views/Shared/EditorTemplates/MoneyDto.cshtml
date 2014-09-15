@@ -1,0 +1,4 @@
+﻿@{
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+<b>$</b>@Html.TextBoxFor(m => m, new { @class = "currencyFormat", id = ViewData["id"], aria_label=@ariaLabel })

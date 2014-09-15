@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service.Completeness
 {
-    #region
+    #region Using Statements
 
     using System.Collections.Generic;
     using System.Linq;
@@ -35,28 +38,61 @@ namespace ProCenter.Mvc.Infrastructure.Service.Completeness
 
     #endregion
 
+    /// <summary>The completeness model validator class.</summary>
     public class CompletenessModelValidator : ModelValidator
     {
+        #region Fields
+
         private readonly string _completenessCategory;
 
-        public CompletenessModelValidator(ModelMetadata metadata, ControllerContext controllerContext, string completenessCategory) : base(metadata, controllerContext)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompletenessModelValidator"/> class.
+        /// </summary>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="controllerContext">The controller context.</param>
+        /// <param name="completenessCategory">The completeness category.</param>
+        public CompletenessModelValidator ( ModelMetadata metadata, ControllerContext controllerContext, string completenessCategory )
+            : base ( metadata, controllerContext )
         {
             _completenessCategory = completenessCategory;
         }
 
-        public override IEnumerable<ModelValidationResult> Validate(object container)
-        {
-            return Enumerable.Empty<ModelValidationResult>();
-        }
+        #endregion
 
-        public override IEnumerable<ModelClientValidationRule> GetClientValidationRules()
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// When implemented in a derived class, returns metadata for client validation.
+        /// </summary>
+        /// <returns>
+        /// The metadata for client validation.
+        /// </returns>
+        public override IEnumerable<ModelClientValidationRule> GetClientValidationRules ()
         {
             var rule = new ModelClientValidationRule
-                {
-                    ValidationType = ValidationType.Completeness,
-                };
-            rule.ValidationParameters.Add(new KeyValuePair<string, object>(_completenessCategory.ToLower(), null));
+            {
+                ValidationType = ValidationType.Completeness,
+            };
+            rule.ValidationParameters.Add ( new KeyValuePair<string, object> ( _completenessCategory.ToLower (), null ) );
             return new List<ModelClientValidationRule> {rule};
         }
+
+        /// <summary>
+        /// When implemented in a derived class, validates the object.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        /// <returns>
+        /// A list of validation results.
+        /// </returns>
+        public override IEnumerable<ModelValidationResult> Validate ( object container )
+        {
+            return Enumerable.Empty<ModelValidationResult> ();
+        }
+
+        #endregion
     }
 }

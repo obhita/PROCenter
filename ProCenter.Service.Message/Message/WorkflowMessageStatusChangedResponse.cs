@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Message
 {
     #region Using Statements
@@ -33,6 +36,7 @@ namespace ProCenter.Service.Message.Message
 
     #endregion
 
+    /// <summary>The workflow message status changed response class.</summary>
     public class WorkflowMessageStatusChangedResponse : Response
     {
     }

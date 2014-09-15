@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Report
 {
     #region Using Statements
 
     using System.Collections.Generic;
-    using Common;
-    using Domain.AssessmentModule;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
-    /// <summary>
-    ///     Data transfer object for <see cref="ReportModel" />
-    /// </summary>
+    /// <summary>Data transfer object for <see cref="ReportModel" /></summary>
     public class ReportModelDto : KeyedDataTransferObject
     {
         #region Public Properties
@@ -49,22 +51,6 @@ namespace ProCenter.Service.Message.Report
         ///     <c>true</c> if this instance is customizable; otherwise, <c>false</c>.
         /// </value>
         public bool IsCustomizable { get; set; }
-
-        /// <summary>
-        /// Gets or sets the report severity.
-        /// </summary>
-        /// <value>
-        /// The report severity.
-        /// </value>
-        public ReportSeverity ReportSeverity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the report status.
-        /// </summary>
-        /// <value>
-        /// The report status.
-        /// </value>
-        public string ReportStatus { get; set; }
 
         /// <summary>
         ///     Gets or sets the item metadata.
@@ -89,6 +75,22 @@ namespace ProCenter.Service.Message.Report
         ///     The report items.
         /// </value>
         public IEnumerable<ReportItemDto> ReportItems { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the report severity.
+        /// </summary>
+        /// <value>
+        ///     The report severity.
+        /// </value>
+        public ReportSeverity ReportSeverity { get; set; }
+
+        /// <summary>
+        ///     Gets or sets the report status.
+        /// </summary>
+        /// <value>
+        ///     The report status.
+        /// </value>
+        public string ReportStatus { get; set; }
 
         #endregion
     }

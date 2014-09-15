@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Patient
 {
     #region Using Statements
 
     using System;
+
     using Agatha.Common;
 
     #endregion
 
+    /// <summary>The get patient dashboard request class.</summary>
     public class GetPatientDashboardRequest : Request
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
         public Guid PatientKey { get; set; }
+
+        #endregion
     }
 }

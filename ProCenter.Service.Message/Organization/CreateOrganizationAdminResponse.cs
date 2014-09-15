@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
-    using Agatha.Common;
-    using Security;
+    #region Using Statements
 
+    using Agatha.Common;
+
+    using ProCenter.Service.Message.Security;
+
+    #endregion
+
+    /// <summary>The create organization admin response class.</summary>
     public class CreateOrganizationAdminResponse : Response
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the system account dto.
+        /// </summary>
+        /// <value>
+        /// The system account dto.
+        /// </value>
         public SystemAccountDto SystemAccountDto { get; set; }
+
+        #endregion
     }
 }

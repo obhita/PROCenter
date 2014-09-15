@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Report
 {
     #region Using Statements
 
     using System.Collections.Generic;
-    using Domain.AssessmentModule;
+
+    using ProCenter.Domain.AssessmentModule;
 
     #endregion
 
-    /// <summary>
-    ///     Data Transfer object for <see cref="ReportItem" />
-    /// </summary>
+    /// <summary>Data Transfer object for <see cref="ReportItem" /></summary>
     public class ReportItemDto
     {
         #region Public Properties
@@ -50,7 +52,7 @@ namespace ProCenter.Service.Message.Report
         public ItemMetadata ItemMetadata { get; set; }
 
         /// <summary>
-        ///     Gets the name.
+        ///     Gets or sets the name.
         /// </summary>
         /// <value>
         ///     The name.
@@ -58,7 +60,7 @@ namespace ProCenter.Service.Message.Report
         public string Name { get; set; }
 
         /// <summary>
-        ///     Gets the report items.
+        ///     Gets or sets the report items.
         /// </summary>
         /// <value>
         ///     The report items.
@@ -66,7 +68,7 @@ namespace ProCenter.Service.Message.Report
         public IEnumerable<ReportItemDto> ReportItems { get; set; }
 
         /// <summary>
-        ///     Gets the should show.
+        ///     Gets or sets the should show.
         /// </summary>
         /// <value>
         ///     The should show.
@@ -74,7 +76,7 @@ namespace ProCenter.Service.Message.Report
         public bool? ShouldShow { get; set; }
 
         /// <summary>
-        ///     Gets the text.
+        ///     Gets or sets the text.
         /// </summary>
         /// <value>
         ///     The text.

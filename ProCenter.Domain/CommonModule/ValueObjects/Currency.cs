@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,32 +25,47 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using ProCenter.Domain.CommonModule.Lookups;
 
 namespace ProCenter.Domain.CommonModule.ValueObjects
 {
-    /// <summary>
-    ///     The Currency lookup contains a list of currencies.
-    /// </summary>
+    #region Using Statements
+
+    using ProCenter.Domain.CommonModule.Lookups;
+
+    #endregion
+
+    /// <summary>The Currency lookup contains a list of currencies.</summary>
     public class Currency : Lookup
     {
+        #region Static Fields
+
+        public static readonly Currency UnitedStatesEnglish = new Currency ( "en-US" )
+                                                              {
+                                                                  CodedConcept = new CodedConcept ( CodeSystems.Obhita, "en-US", "en-US" ),
+                                                                  SortOrder = 0,
+                                                                  Value = 0
+                                                              };
+
+        #endregion
+
         #region Constructors and Destructors
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Currency" /> class.
         /// </summary>
-        /// <param name="cultureName">Name of the culture.</param>
-        public Currency(string cultureName)
+        protected internal Currency ()
         {
-            CultureName = cultureName;
         }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Currency" /> class.
         /// </summary>
-        protected internal Currency()
+        /// <param name="cultureName">Name of the culture.</param>
+        private Currency ( string cultureName )
         {
+            CultureName = cultureName;
         }
 
         #endregion
@@ -57,7 +73,7 @@ namespace ProCenter.Domain.CommonModule.ValueObjects
         #region Public Properties
 
         /// <summary>
-        ///     Gets the name of the culture.
+        ///     Gets or sets the name of the culture.
         /// </summary>
         /// <value>
         ///     The name of the culture.
@@ -65,12 +81,5 @@ namespace ProCenter.Domain.CommonModule.ValueObjects
         public virtual string CultureName { get; protected set; }
 
         #endregion
-
-        public static readonly Currency UnitedStatesEnglish = new Currency("en-US")
-            {
-                CodedConcept = new CodedConcept(CodeSystems.Obhita, "en-US", "en-US"),
-                SortOrder = 0,
-                Value = 0
-            };
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,26 +25,39 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
-    #region
+    #region Using Statements
 
     using Common;
     using Domain.SecurityModule;
-    using Service.Message.Security;
     using global::AutoMapper;
+    using ProCenter.Common;
+    using Service.Message.Security;
 
     #endregion
 
+    /// <summary>The create role request handler class.</summary>
     public class CreateRoleRequestHandler : ServiceRequestHandler<CreateRoleRequest, CreateRoleResponse>
     {
-        protected override void Handle(CreateRoleRequest request, CreateRoleResponse response)
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( CreateRoleRequest request, CreateRoleResponse response )
         {
-            var roleFactory = new RoleFactory();
-            var role = roleFactory.Create(request.Name);
-            var roleDto = Mapper.Map<Role, RoleDto>(role);
+            var roleFactory = new RoleFactory ();
+            var role = roleFactory.Create ( request.Name, UserContext.Current.OrganizationKey );
+            var roleDto = Mapper.Map<Role, RoleDto> ( role );
             response.Role = roleDto;
         }
+
+        #endregion
     }
 }

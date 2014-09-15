@@ -30,12 +30,21 @@ namespace ProCenter.Infrastructure.Tests.Domain
     #region Using Statements
 
     using System;
+    using System.Collections.Generic;
+    using System.Security.Claims;
+    using System.Threading;
+
     using Infrastructure.EventStore;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
+    using NSubstitute;
+
     using Pillar.Common.Tests;
     using Pillar.Common.Utility;
     using Pillar.Domain.Event;
+
+    using ProCenter.Common;
     using ProCenter.Domain.AssessmentModule;
     using ProCenter.Domain.AssessmentModule.Event;
     using ProCenter.Domain.CommonModule;
@@ -57,10 +66,11 @@ namespace ProCenter.Infrastructure.Tests.Domain
                 DomainEvent.Register<AssessmentSubmittedEvent>(s => eventRaised = true);
 
                 // Exercise
-                Guid defGuid = CombGuid.NewCombGuid();
                 Guid patientGuid = CombGuid.NewCombGuid();
-                var source = new AssessmentInstance(defGuid, patientGuid, "testName");
-                source.Submit();
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+
+                var assessment = new AssessmentInstanceFactory().Create(assessmentDefinition, patientGuid, "TestName");
+                assessment.Submit();
 
                 // Verify
                 Assert.IsTrue(eventRaised);
@@ -77,6 +87,7 @@ namespace ProCenter.Infrastructure.Tests.Domain
                 c => c.For<IUnitOfWork>().Use(new Mock<IUnitOfWork>().Object));
             serviceLocatorFixture.StructureMapContainer.Configure(
                 c => c.For<IDomainEventService>().Use(context => context.GetInstance<ICommitDomainEventService>()));
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(new List<Claim> { new Claim(ProCenterClaimType.StaffKeyClaimType, Guid.NewGuid().ToString()) }));
         }
     }
 }

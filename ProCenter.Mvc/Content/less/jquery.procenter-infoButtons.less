@@ -1,0 +1,35 @@
+﻿.info-buttons-btn{
+    float: right;
+    margin: 10px 5px;
+    color: inherit;
+
+    &:hover{
+            text-decoration: none;
+    }
+
+    .info-icon
+    {
+        padding-right: 18px;
+
+        &:before {
+            font-size: 18px;
+            font-family: 'icomoon';
+            content: '\e0f7';
+            -webkit-font-smoothing: antialiased;
+        }
+
+        &:hover {
+            &:before {
+                content: '\e0f8';
+            }
+        }
+    }
+}
+
+.popover.left.shift {
+    right: 68px;
+    left: initial !important;
+    .arrow{
+        top: 40%;
+    }
+}

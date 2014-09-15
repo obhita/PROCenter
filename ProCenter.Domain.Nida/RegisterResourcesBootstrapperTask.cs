@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,14 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
     #region Using Statements
 
-    using Common;
-    using Pillar.Common.Bootstrapper;
+    using ProCenter.Common;
 
     #endregion
 
@@ -58,7 +60,17 @@ namespace ProCenter.Domain.Nida
 
         #endregion
 
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the order.
+        /// </summary>
+        /// <value>
+        /// The order.
+        /// </value>
         public int Order { get; private set; }
+
+        #endregion
 
         #region Public Methods and Operators
 
@@ -67,10 +79,10 @@ namespace ProCenter.Domain.Nida
         /// </summary>
         public void Execute ()
         {
-            _resourcesManager.Register<NidaSingleQuestionScreener> ( NidaSingleQuestionScreener.AssessmentCodedConcept.Code);
-            _resourcesManager.Register<DrugAbuseScreeningTest> ( DrugAbuseScreeningTest.AssessmentCodedConcept.Code);
-            _resourcesManager.Register<NidaAssessFurther>(NidaAssessFurther.AssessmentCodedConcept.Code);
-            _resourcesManager.Register<NidaWorkflowPatientSummaryReport>();
+            _resourcesManager.Register<NidaSingleQuestionScreener> ( NidaSingleQuestionScreener.AssessmentCodedConcept.Code );
+            _resourcesManager.Register<DrugAbuseScreeningTest> ( DrugAbuseScreeningTest.AssessmentCodedConcept.Code );
+            _resourcesManager.Register<NidaAssessFurther> ( NidaAssessFurther.AssessmentCodedConcept.Code );
+            _resourcesManager.Register<NidaWorkflowPatientSummaryReport> ();
         }
 
         #endregion

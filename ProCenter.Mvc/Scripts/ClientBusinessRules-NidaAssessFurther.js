@@ -6,7 +6,7 @@
             }
             var val = $('input[name="3269985_Value"]').val().trim();
             if (val === undefined || val === "") {
-                $("#3269984_Value").val("").trigger("change").closest('.question-root').hide();
+                $("#3269984_Value").val("").closest('.question-root').hide();
             } else {
                 $("#3269984_Value").closest('.question-root').show();
             }
@@ -17,7 +17,7 @@
             }
             var val = $('input[name="3269978_Value"]').prop('checked');
             if (val === undefined || !val) {
-                $("#3269986_Value").val("").trigger("change").closest('.question-root').hide();
+                $("#3269986_Value").val("").closest('.question-root').hide();
             } else {
                 $("#3269986_Value").closest('.question-root').show();
             }

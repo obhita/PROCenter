@@ -1,13 +1,15 @@
 ﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Shared
 @using ProCenter.Service.Message.Patient
+
 @model ProCenter.Service.Message.Message.AssessmentReminderDto
 
 @{
     var patient = ViewData["Patient"] as PatientDto;
-    var message = string.Format("Reminder: {0} should complete assessment {1} by {2:M/d/yyyy}",
-                                patient.FullName(),
-                                Html.GetAssessmentResource(Model.AssessmentName),
-                                Model.Start);
+    var message = string.Format ( @Shared.ConmpleteAssessmentMessage,
+        patient.FullName (),
+        Model.AssessmentName,
+        Model.Start );
 }
 
 <div class="reminder-message @Model.Key">
@@ -15,9 +17,9 @@
     <div class="feed-right" data-icon="&#xe04c;">
         <div class="title">@message</div>
         <div class="tools">
-            @Html.ActionLink("Administer Assessment Now", "AdministerAssessment", "AssessmentReminder", new {key = Model.Key, patientKey = Model.PatientKey, assessmentDefinitionKey = Model.AssessmentDefinitionKey}, new {@class = "btn btn-success"})
+            @Html.ActionLink( @Shared.AdministerAssessmentNowButton, "AdministerAssessment", "AssessmentReminder", new {key = Model.Key, patientKey = Model.PatientKey, assessmentDefinitionKey = Model.AssessmentDefinitionKey, recurrenceKey = Model.RecurrenceKey}, new {@class = "btn btn-success", aria_label = @message + " " + @Shared.AdministerAssessmentNowButton } )
         </div>
     </div>
-    @Html.ActionLink(" ", "Achknowledge", "AssessmentReminder", new {key = Model.Key, assessmentKey = Model.Key, patientKey = Model.PatientKey}, new {@class = "btn btn-danger btn-acknowledge", data_icon= "\ue0fd"})
-    <div class="clear"></div>
+    @Html.ActionLink( " ", "Acknowledge", "AssessmentReminder", new {key = Model.Key, assessmentKey = Model.Key, patientKey = Model.PatientKey, recurrenceKey = Model.RecurrenceKey}, new {@class = "btn btn-danger btn-acknowledge", data_icon = "\ue0fd", aria_label = @message + " " + Shared.Cancel} )
+    <div class="clearfix"></div>
 </div>

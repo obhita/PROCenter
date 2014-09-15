@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,37 +25,61 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers.Api
 {
     #region Using Statements
 
-    using System.Data;
     using System.Linq;
     using Common;
     using Dapper;
     using Infrastructure;
     using Models;
-    using ProCenter.Infrastructure.Service.ReadSideService;
     using Service.Message.Assessment;
 
     #endregion
 
+    /// <summary>All assessments data table controller class.</summary>
     public class AllAssessmentsDataTableController : BaseApiController
     {
+        #region Fields
+
         private readonly IDbConnectionFactory _connectionFactory;
         private readonly IResourcesManager _resourcesManager;
 
-        public AllAssessmentsDataTableController(IDbConnectionFactory connectionFactory, IResourcesManager resourcesManager)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AllAssessmentsDataTableController"/> class.
+        /// </summary>
+        /// <param name="connectionFactory">The connection factory.</param>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public AllAssessmentsDataTableController ( IDbConnectionFactory connectionFactory, IResourcesManager resourcesManager )
         {
             _connectionFactory = connectionFactory;
             _resourcesManager = resourcesManager;
         }
 
-        public DataTableResponse<AssessmentSummaryDto> Get(string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Gets the specified s echo.
+        /// </summary>
+        /// <param name="sEcho">The s echo.</param>
+        /// <param name="iDisplayStart">The i display start.</param>
+        /// <param name="iDisplayLength">Display length of the i.</param>
+        /// <param name="sSearch">The s search.</param>
+        /// <returns>A <see cref="DataTableResponse{AssessmentSummaryDto}"/>.</returns>
+        public DataTableResponse<AssessmentSummaryDto> Get ( string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null )
         {
-            const string whereConstraint = "WHERE [p1].OrganizationKey = @OrganizationKey AND ( [p1].FirstName LIKE @search+'%' OR [p1].LastName LIKE @search+'%')";
-            const string query = @"
+            const string WhereConstraint = "WHERE [p1].OrganizationKey = @OrganizationKey AND ( [p1].FirstName LIKE @search+'%' OR [p1].LastName LIKE @search+'%')";
+            const string Query = @"
                              SELECT COUNT(*) as TotalCount FROM AssessmentModule.AssessmentInstance
                              SELECT [t].*                                    
                              FROM ( 
@@ -79,29 +104,32 @@ namespace ProCenter.Mvc.Controllers.Api
 
             var start = iDisplayStart;
             var end = start + iDisplayLength;
-            var replaceString = string.IsNullOrWhiteSpace(sSearch) ? "" : whereConstraint;
-            var completeQuery = string.Format(query, replaceString);
+            var replaceString = string.IsNullOrWhiteSpace ( sSearch ) ? string.Empty : WhereConstraint;
+            var completeQuery = string.Format ( Query, replaceString );
 
-            using (var conn = _connectionFactory.CreateConnection())
-            using (var multiQuery = conn.QueryMultiple(completeQuery, new { start, end, search = sSearch, UserContext.Current.OrganizationKey }))
+            using ( var conn = _connectionFactory.CreateConnection () )
+            using ( var multiQuery = conn.QueryMultiple ( completeQuery, new {start, end, search = sSearch, UserContext.Current.OrganizationKey} ) )
             {
-                var totalCount = multiQuery.Read<int>().Single();
-                var assessmentSummaryDtos = multiQuery.Read<AssessmentSummaryDto>().ToList();
-                foreach (var assessmentSummaryDto in assessmentSummaryDtos)
+                var totalCount = multiQuery.Read<int> ().Single ();
+                var assessmentSummaryDtos = multiQuery.Read<AssessmentSummaryDto> ().ToList ();
+                foreach ( var assessmentSummaryDto in assessmentSummaryDtos )
                 {
                     assessmentSummaryDto.AssessmentName =
-                        _resourcesManager.GetResourceManagerByName(assessmentSummaryDto.AssessmentName).GetString(SharedStringNames.ResourceKeyPrefix + assessmentSummaryDto.AssessmentCode);
+                        _resourcesManager.GetResourceManagerByName ( assessmentSummaryDto.AssessmentName )
+                            .GetString ( SharedStringNames.ResourceKeyPrefix + assessmentSummaryDto.AssessmentCode );
                 }
                 var dataTableResponse = new DataTableResponse<AssessmentSummaryDto>
-                    {
-                        Data = assessmentSummaryDtos,
-                        Echo = sEcho,
-                        TotalDisplayRecords = totalCount,
-                        TotalRecords = totalCount,
-                    };
+                {
+                    Data = assessmentSummaryDtos,
+                    Echo = sEcho,
+                    TotalDisplayRecords = totalCount,
+                    TotalRecords = totalCount,
+                };
 
                 return dataTableResponse;
             }
         }
+
+        #endregion
     }
 }

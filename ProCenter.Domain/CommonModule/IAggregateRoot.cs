@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Domain;
 
     #endregion
 
-    /// <summary>
-    ///     Aggregate root marker interface.
-    /// </summary>
+    /// <summary>Aggregate root marker interface.</summary>
     public interface IAggregateRoot : IAggregateRoot<Guid>
     {
         #region Public Methods and Operators
@@ -50,11 +52,11 @@ namespace ProCenter.Domain.CommonModule
         /// <summary>
         ///     Gets the snapshot.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The snapshot.</returns>
         IMemento GetSnapshot ();
 
         /// <summary>
-        /// Restores the snapshot.
+        ///     Restores the snapshot.
         /// </summary>
         /// <param name="memento">The memento.</param>
         void RestoreSnapshot ( IMemento memento );

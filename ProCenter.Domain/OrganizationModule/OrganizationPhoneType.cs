@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,34 +25,45 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
     #region Using Statements
 
-    using CommonModule;
-    using CommonModule.Lookups;
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.CommonModule.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Organization Phone Type
-    /// </summary>
+    /// <summary>Organization Phone Type.</summary>
     public class OrganizationPhoneType : Lookup
     {
         #region Static Fields
+
+        private static readonly CodeSystem _codeSystem = CodeSystems.Obhita;
 
         /// <summary>
         ///     Office = 0.
         /// </summary>
         public static readonly OrganizationPhoneType Office = new OrganizationPhoneType
-            {
-                CodedConcept = new CodedConcept ( code: "Office", codeSystem: CodeSystem, name: "Office" ),
-                SortOrder = 1,
-                Value = 0
-            };
+                                                              {
+                                                                  CodedConcept = new CodedConcept ( code: "Office", codeSystem: _codeSystem, name: "Office" ),
+                                                                  SortOrder = 1,
+                                                                  Value = 0
+                                                              };
 
-        private static readonly CodeSystem CodeSystem = CodeSystems.Obhita;
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrganizationPhoneType"/> class.
+        /// </summary>
+        protected internal OrganizationPhoneType ()
+        {
+        }
 
         #endregion
     }

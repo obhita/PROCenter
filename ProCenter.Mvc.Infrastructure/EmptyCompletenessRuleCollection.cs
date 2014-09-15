@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,42 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure
 {
-    #region
+    #region Using Statements
 
     using Domain.AssessmentModule;
     using Pillar.FluentRuleEngine;
 
     #endregion
 
+    /// <summary>The empty completeness rule collection class.</summary>
     public class EmptyCompletenessRuleCollection : AbstractRuleCollection<AssessmentInstance>, ICompletenessRuleCollection<AssessmentInstance>
     {
-        public string CompletenessCategory {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the completeness category.
+        /// </summary>
+        /// <value>
+        /// The completeness category.
+        /// </value>
+        public string CompletenessCategory
+        {
             get { return Domain.AssessmentModule.CompletenessCategory.Report; }
         }
 
+        /// <summary>
+        /// Gets the completeness rule set.
+        /// </summary>
+        /// <value>
+        /// The completeness rule set.
+        /// </value>
         public IRuleSet CompletenessRuleSet { get; private set; }
+
+        #endregion
     }
 }

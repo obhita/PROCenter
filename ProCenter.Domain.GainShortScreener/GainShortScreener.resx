@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="A80001_0" xml:space="preserve">
+    <value>Low</value>
+  </data>
+  <data name="A80002_0" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="A80003_0" xml:space="preserve">
+    <value>High</value>
+  </data>
+  <data name="CrimeViolenceItems" xml:space="preserve">
+    <value>4a-4e</value>
+  </data>
+  <data name="ExternalizingDisorderItems" xml:space="preserve">
+    <value>2a-2e</value>
+  </data>
+  <data name="Header_Items" xml:space="preserve">
+    <value>Items</value>
+  </data>
+  <data name="Header_Lifetime" xml:space="preserve">
+    <value>Lifetime (4s, 3s, 2s, 1s)</value>
+  </data>
+  <data name="Header_Past90Days" xml:space="preserve">
+    <value>Past 90 Days (4s, 3s)</value>
+  </data>
+  <data name="Header_PastMonth" xml:space="preserve">
+    <value>Past monnth (4s)</value>
+  </data>
+  <data name="Header_PastYear" xml:space="preserve">
+    <value>Past year (4s, 3s, 2s)</value>
+  </data>
+  <data name="Header_Screener" xml:space="preserve">
+    <value>Screener</value>
+  </data>
+  <data name="InternalizingDisorderItems" xml:space="preserve">
+    <value>1a-1e</value>
+  </data>
+  <data name="PatientHelpInformation" xml:space="preserve">
+    <value>The Global Appraisal of Individual Needs Short Screener (GAIN-SS) is a short assessment instrument for screening a general population. It is designed to quickly and accurately identify clients who may have one or more behavioral health disorders. 
+ &lt;br/&gt; &lt;br/&gt;
+The GAIN-SS version 3.0 is implemented in PRO Center, and its administration time is about five minutes. 
+For more information about GAIN-SS instrument, please visit 
+ &lt;br/&gt; &lt;br/&gt;
+http://www.gaincc.org/about-gain/</value>
+  </data>
+  <data name="ReportName" xml:space="preserve">
+    <value>GAIN-SS Profile</value>
+  </data>
+  <data name="SubstanceDisorderItems" xml:space="preserve">
+    <value>3a-3e</value>
+  </data>
+  <data name="TotalDisorderItems" xml:space="preserve">
+    <value>1a-4e</value>
+  </data>
+  <data name="_6125001_instruction" xml:space="preserve">
+    <value>The following questions are about common psychological, behavioral, and personal 
+problems. These problems are considered significant when you have them for two 
+or more weeks, when they keep coming back, when they keep you from meeting 
+your responsibilities, or when they make you feel like you can’t go on. 
+ 
+After each of the following questions, please tell us the last time, if ever, you had the 
+problem by answering whether it was in the past month, 2 to 3 months ago, 4 to 12 
+months ago, 1 or more years ago, or never.</value>
+  </data>
+  <data name="_6125002" xml:space="preserve">
+    <value>Internalizing Disorder</value>
+  </data>
+  <data name="_6125002_instruction" xml:space="preserve">
+    <value>1. when was the last time that you had significant problems with…</value>
+  </data>
+  <data name="_6125003" xml:space="preserve">
+    <value>a. feeling very trapped, lonely, sad, blue, depressed, or hopeless about the future?</value>
+  </data>
+  <data name="_6125004" xml:space="preserve">
+    <value>GAIN Short Screener</value>
+  </data>
+  <data name="_6125005" xml:space="preserve">
+    <value>b. sleep trouble, such as bad dreams, sleeping restlessly, or falling asleep during the day?</value>
+  </data>
+  <data name="_6125006" xml:space="preserve">
+    <value>c. feeling very anxious, nervous, tense, scared, panicked, or like something bad was going to happen?</value>
+  </data>
+  <data name="_6125007" xml:space="preserve">
+    <value>d. becoming very distressed and upset when something reminded you of the past?</value>
+  </data>
+  <data name="_6125008" xml:space="preserve">
+    <value>e. thinking about ending your life or committing suicide?</value>
+  </data>
+  <data name="_6125009" xml:space="preserve">
+    <value>f. seeing or hearing things that no one else could see or hear or feeling that someone else could read or control your thoughts?</value>
+  </data>
+  <data name="_6125010" xml:space="preserve">
+    <value>Externalizing Disorder</value>
+  </data>
+  <data name="_6125010_instruction" xml:space="preserve">
+    <value>2. When was the last time that you did the following things two or more times?</value>
+  </data>
+  <data name="_6125011" xml:space="preserve">
+    <value>a. lied or conned to get things you wanted or to avoid having to do something</value>
+  </data>
+  <data name="_6125012" xml:space="preserve">
+    <value>b. had a hard time paying attention at school, work, or home</value>
+  </data>
+  <data name="_6125013" xml:space="preserve">
+    <value>c. had a hard time listening to instructions at school, work, or home</value>
+  </data>
+  <data name="_6125014" xml:space="preserve">
+    <value>d. had a hard time waiting for your turn</value>
+  </data>
+  <data name="_6125015" xml:space="preserve">
+    <value>e. were a bully or threatened other people</value>
+  </data>
+  <data name="_6125016" xml:space="preserve">
+    <value>f. started physical fights with other people</value>
+  </data>
+  <data name="_6125017" xml:space="preserve">
+    <value>g. tried to win back your gambling losses by going back another day</value>
+  </data>
+  <data name="_6125018" xml:space="preserve">
+    <value>Substance Disorder</value>
+  </data>
+  <data name="_6125018_instruction" xml:space="preserve">
+    <value>3. When was the last time that...</value>
+  </data>
+  <data name="_6125019" xml:space="preserve">
+    <value>a. you used alcohol or other drugs weekly or more often?</value>
+  </data>
+  <data name="_6125020" xml:space="preserve">
+    <value>b. you spent a lot of time either getting alcohol or other drugs, using alcohol or other drugs, or recovering from the effects of alcohol or other drugs (e.g., feeling sick)?</value>
+  </data>
+  <data name="_6125021" xml:space="preserve">
+    <value>c. you kept using alcohol or other drugs even though it was causing social 
+problems, leading to fights, or getting you into trouble with other people?</value>
+  </data>
+  <data name="_6125022" xml:space="preserve">
+    <value>d. your use of alcohol or other drugs caused you to give up or reduce your involvement in activities at work, school, home, or social events?</value>
+  </data>
+  <data name="_6125023" xml:space="preserve">
+    <value>e. you had withdrawal problems from alcohol or other drugs like shaky hands, throwing up, having trouble sitting still or sleeping, or you used any alcohol or other drugs to stop being sick or avoid withdrawal problems?</value>
+  </data>
+  <data name="_6125024" xml:space="preserve">
+    <value>Crime and Violence</value>
+  </data>
+  <data name="_6125024_instruction" xml:space="preserve">
+    <value>4. When was the last time that you...</value>
+  </data>
+  <data name="_6125025" xml:space="preserve">
+    <value>a. had a disagreement in which you pushed, grabbed, or shoved someone?</value>
+  </data>
+  <data name="_6125026" xml:space="preserve">
+    <value>b. took something from a store without paying for it?</value>
+  </data>
+  <data name="_6125027" xml:space="preserve">
+    <value>c. sold, distributed, or helped to make illegal drugs?</value>
+  </data>
+  <data name="_6125028" xml:space="preserve">
+    <value>d. drove a vehicle while under the influence of alcohol or illegal drugs?</value>
+  </data>
+  <data name="_6125029" xml:space="preserve">
+    <value>e. purposely damaged or destroyed property that did not belong to you?</value>
+  </data>
+  <data name="_6125030" xml:space="preserve">
+    <value>5. Do you have other significant psychological, behavioral, or personal problems that you want treatment for or help with?</value>
+  </data>
+  <data name="_6125031" xml:space="preserve">
+    <value>If yes, please describe</value>
+  </data>
+  <data name="_6125032" xml:space="preserve">
+    <value>6. What is your gender?</value>
+  </data>
+  <data name="_6125033" xml:space="preserve">
+    <value>If other, please describe</value>
+  </data>
+  <data name="_6125034" xml:space="preserve">
+    <value>7. How old are you today?</value>
+  </data>
+  <data name="_6125035" xml:space="preserve">
+    <value>7a. How many minutes did it take you to complete this survey?</value>
+  </data>
+  <data name="_6125036" xml:space="preserve">
+    <value>Total Disorder Screener</value>
+  </data>
+  <data name="_A10001_0" xml:space="preserve">
+    <value>Past Month</value>
+  </data>
+  <data name="_A10001_1" xml:space="preserve">
+    <value>2 to 3 months ago</value>
+  </data>
+  <data name="_A10001_2" xml:space="preserve">
+    <value>4 to 12 months ago</value>
+  </data>
+  <data name="_A10001_3" xml:space="preserve">
+    <value>1+ years ago</value>
+  </data>
+  <data name="_A10001_4" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="_A20001_0" xml:space="preserve">
+    <value>Male</value>
+  </data>
+  <data name="_A20001_1" xml:space="preserve">
+    <value>Female</value>
+  </data>
+  <data name="_A20001_2" xml:space="preserve">
+    <value>Other</value>
+  </data>
+</root>

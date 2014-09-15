@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
     #region Using Statements
@@ -33,24 +36,25 @@ namespace ProCenter.Domain.PatientModule
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Common;
-    using CommonModule;
-    using Event;
+
     using Pillar.Common.InversionOfControl;
     using Pillar.Common.Utility;
     using Pillar.Domain.Primitives;
     using Pillar.FluentRuleEngine;
-    using Primitive;
-    using SecurityModule;
+
+    using ProCenter.Common;
+    using ProCenter.Common.Extension;
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.PatientModule.Event;
+    using ProCenter.Domain.SecurityModule;
+    using ProCenter.Primitive;
 
     #endregion
 
-    /// <summary>
-    ///     Patient class.
-    /// </summary>
+    /// <summary>Patient class.</summary>
     public class Patient : AggregateRootBase
     {
-        #region Fields
+        #region Static Fields
 
         private static Dictionary<string, PropertyInfo> _propertyCache;
 
@@ -66,24 +70,26 @@ namespace ProCenter.Domain.PatientModule
         }
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Patient" /> class.
+        /// Initializes a new instance of the <see cref="Patient" /> class.
         /// </summary>
         /// <param name="orgaizationKey">Organization Key.</param>
         /// <param name="name">The name.</param>
         /// <param name="dateOfBirth">The date of birth.</param>
         /// <param name="gender">The gender.</param>
-        internal Patient (Guid orgaizationKey, PersonName name, DateTime? dateOfBirth, Gender gender )
+        /// <param name="email">The email.</param>
+        internal Patient ( Guid orgaizationKey, PersonName name, DateTime? dateOfBirth, Gender gender, Email email )
         {
-            Check.IsNotNull(orgaizationKey, () => OrganizationKey);
+            Check.IsNotNull ( orgaizationKey, () => OrganizationKey );
             Check.IsNotNull ( name, () => Name );
             Check.IsNotNull ( dateOfBirth, () => DateOfBirth );
             Check.IsNotNull ( gender, () => Gender );
 
-            Key = CombGuid.NewCombGuid();
+            Key = CombGuid.NewCombGuid ();
 
-            var patientUniqueIdentifierGenerator = IoC.CurrentContainer.Resolve<IPatientUniqueIdentifierGenerator>();
-            var uniqueIdentifier = patientUniqueIdentifierGenerator.GenerateUniqueIdentifier(Key, name.LastName, gender, dateOfBirth.Value);
-            RaiseEvent(new PatientCreatedEvent(Key, Version, orgaizationKey, name, dateOfBirth, gender, uniqueIdentifier ));
+            var patientUniqueIdentifierGenerator = IoC.CurrentContainer.Resolve<IPatientUniqueIdentifierGenerator> ();
+            var uniqueIdentifier = patientUniqueIdentifierGenerator.GenerateUniqueIdentifier ( Key, name.LastName, gender, dateOfBirth.Value );
+            Email = email;
+            RaiseEvent ( new PatientCreatedEvent ( Key, Version, orgaizationKey, name, dateOfBirth, gender, uniqueIdentifier ) );
         }
 
         #endregion
@@ -91,23 +97,7 @@ namespace ProCenter.Domain.PatientModule
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets the unique identifier.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public string UniqueIdentifier { get; protected set; }
-
-        /// <summary>
-        /// Gets or sets the organization key.
-        /// </summary>
-        /// <value>
-        /// The organization key.
-        /// </value>
-        public Guid OrganizationKey { get; protected set; }
-
-        /// <summary>
-        ///     Gets the date of birth.
+        ///     Gets or sets the date of birth.
         /// </summary>
         /// <value>
         ///     The date of birth.
@@ -115,32 +105,7 @@ namespace ProCenter.Domain.PatientModule
         public DateTime? DateOfBirth { get; protected set; }
 
         /// <summary>
-        ///     Gets the ethnicity.
-        /// </summary>
-        /// <value>
-        ///     The ethnicity.
-        /// </value>
-        public Ethnicity Ethnicity { get; protected set; }
-
-        /// <summary>
-        ///     Gets the gender.
-        /// </summary>
-        /// <value>
-        ///     The gender.
-        /// </value>
-        public Gender Gender { get; protected set; }
-
-        /// <summary>
-        ///     Gets the name.
-        /// </summary>
-        /// <value>
-        ///     The name.
-        /// </value>
-        public PersonName Name { get; protected set; }
-
-
-        /// <summary>
-        ///     Gets the email.
+        ///     Gets or sets the email.
         /// </summary>
         /// <value>
         ///     The email.
@@ -148,12 +113,52 @@ namespace ProCenter.Domain.PatientModule
         public Email Email { get; protected set; }
 
         /// <summary>
-        ///     Gets the religion.
+        ///     Gets or sets the ethnicity.
+        /// </summary>
+        /// <value>
+        ///     The ethnicity.
+        /// </value>
+        public Ethnicity Ethnicity { get; protected set; }
+
+        /// <summary>
+        ///     Gets or sets the gender.
+        /// </summary>
+        /// <value>
+        ///     The gender.
+        /// </value>
+        public Gender Gender { get; protected set; }
+
+        /// <summary>
+        ///     Gets or sets the name.
+        /// </summary>
+        /// <value>
+        ///     The name.
+        /// </value>
+        public PersonName Name { get; protected set; }
+
+        /// <summary>
+        ///     Gets or sets the organization key.
+        /// </summary>
+        /// <value>
+        ///     The organization key.
+        /// </value>
+        public Guid OrganizationKey { get; protected set; }
+
+        /// <summary>
+        ///     Gets or sets the religion.
         /// </summary>
         /// <value>
         ///     The religion.
         /// </value>
         public Religion Religion { get; protected set; }
+
+        /// <summary>
+        ///     Gets or sets the unique identifier.
+        /// </summary>
+        /// <value>
+        ///     The unique identifier.
+        /// </value>
+        public string UniqueIdentifier { get; protected set; }
 
         #endregion
 
@@ -169,8 +174,20 @@ namespace ProCenter.Domain.PatientModule
             new RuleEngineExecutor<Patient> ( this )
                 .ForCallingMethodRuleSet ()
                 .WithContext ( patientChangedEvent )
-                .Execute ( () => RaiseEvent (patientChangedEvent) );
+                .Execute ( () => RaiseEvent ( patientChangedEvent ) );
+        }
 
+        /// <summary>
+        ///     Revises the email.
+        /// </summary>
+        /// <param name="email">The email.</param>
+        public virtual void ReviseEmail ( Email email )
+        {
+            var patientChangedEvent = new PatientChangedEvent(Key, Version, p => p.Email, email);
+            new RuleEngineExecutor<Patient>(this)
+                .ForCallingMethodRuleSet()
+                .WithContext(patientChangedEvent)
+                .Execute(() => RaiseEvent(patientChangedEvent));
         }
 
         /// <summary>
@@ -181,7 +198,7 @@ namespace ProCenter.Domain.PatientModule
         {
             Check.IsNotNull ( ethnicity, () => Ethnicity );
 
-            RaiseEvent(new PatientChangedEvent(Key, Version, p => p.Ethnicity, ethnicity));
+            RaiseEvent ( new PatientChangedEvent ( Key, Version, p => p.Ethnicity, ethnicity ) );
         }
 
         /// <summary>
@@ -192,7 +209,7 @@ namespace ProCenter.Domain.PatientModule
         {
             Check.IsNotNull ( gender, () => Gender );
 
-            RaiseEvent(new PatientChangedEvent(Key, Version, p => p.Gender, gender));
+            RaiseEvent ( new PatientChangedEvent ( Key, Version, p => p.Gender, gender ) );
         }
 
         /// <summary>
@@ -203,16 +220,7 @@ namespace ProCenter.Domain.PatientModule
         {
             Check.IsNotNull ( name, () => Name );
 
-            RaiseEvent(new PatientChangedEvent(Key, Version, p => p.Name, name));
-        }
-
-        /// <summary>
-        ///     Revises the email.
-        /// </summary>
-        /// <param name="email">The email.</param>
-        public virtual void ReviseEmail(Email email)
-        {
-            RaiseEvent(new PatientChangedEvent(Key, Version, p => p.Email, email));
+            RaiseEvent ( new PatientChangedEvent ( Key, Version, p => p.Name, name ) );
         }
 
         /// <summary>
@@ -223,10 +231,15 @@ namespace ProCenter.Domain.PatientModule
         {
             Check.IsNotNull ( religion, () => Religion );
 
-            RaiseEvent(new PatientChangedEvent(Key, Version, p => p.Religion, religion));
+            RaiseEvent ( new PatientChangedEvent ( Key, Version, p => p.Religion, religion ) );
         }
 
-        public ValidationStatus ValidateInfo(SystemAccount systemAccount, string patientIdentifier, DateTime dateOfBirth)
+        /// <summary>Validates the information.</summary>
+        /// <param name="systemAccount">The system account.</param>
+        /// <param name="patientIdentifier">The patient identifier.</param>
+        /// <param name="dateOfBirth">The date of birth.</param>
+        /// <returns>A <see cref="ValidationStatus"/>.</returns>
+        public ValidationStatus ValidateInfo ( SystemAccount systemAccount, string patientIdentifier, DateTime dateOfBirth )
         {
             if ( string.Equals ( patientIdentifier, UniqueIdentifier ) && DateOfBirth.Value == dateOfBirth )
             {
@@ -234,9 +247,9 @@ namespace ProCenter.Domain.PatientModule
                 UserContext.Current.RefreshValidationAttempts ();
                 return ValidationStatus.Valid;
             }
-            if( UserContext.Current.ValidationAttempts >= 3 )
+            if ( UserContext.Current.ValidationAttempts >= 3 )
             {
-                systemAccount.Lock();
+                systemAccount.TemporaryLock ();
                 return ValidationStatus.Locked;
             }
             UserContext.Current.FailedValidationAttempt ();
@@ -246,17 +259,6 @@ namespace ProCenter.Domain.PatientModule
         #endregion
 
         #region Methods
-
-        private static Type GetConvertToType ( Type propertyType )
-        {
-            var convertToType = propertyType;
-            var underlyingType = Nullable.GetUnderlyingType ( convertToType );
-            if ( underlyingType != null )
-            {
-                convertToType = underlyingType;
-            }
-            return convertToType;
-        }
 
         private void Apply ( PatientCreatedEvent patientCreatedEvent )
         {
@@ -275,8 +277,9 @@ namespace ProCenter.Domain.PatientModule
             {
                 _propertyCache =
                     GetType ()
-                        .GetProperties ( BindingFlags.Public | BindingFlags.Instance |
-                                         BindingFlags.FlattenHierarchy )
+                        .GetProperties (
+                                        BindingFlags.Public | BindingFlags.Instance |
+                                        BindingFlags.FlattenHierarchy )
                         .ToDictionary ( pi => pi.Name );
             }
             var property = _propertyCache.ContainsKey ( propertyName ) ? _propertyCache[propertyName] : null;
@@ -287,7 +290,7 @@ namespace ProCenter.Domain.PatientModule
 
             if ( value != null && !property.PropertyType.IsInstanceOfType ( value ) )
             {
-                var convertToType = GetConvertToType ( property.PropertyType );
+                var convertToType = property.PropertyType.GetConvertToType ();
                 value = Convert.ChangeType ( value, convertToType );
             }
 

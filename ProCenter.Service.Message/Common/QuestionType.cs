@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,47 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
+    /// <summary>Question type.</summary>
     public enum QuestionType
     {
+        /// <summary>
+        /// The general question.
+        /// </summary>
         GeneralQuestion,
+
+        /// <summary>
+        /// The scripted question.
+        /// </summary>
         ScriptedQuestion,
+
+        /// <summary>
+        /// The interviewer question.
+        /// </summary>
         InterviewerQuestion,
+
+        /// <summary>
+        /// The vertical question.
+        /// </summary>
         VerticalQuestion,
+
+        /// <summary>
+        /// The vertical scale legend.
+        /// </summary>
         VerticalScaleLegend,
+
+        /// <summary>
+        /// The single vertical scale legend.
+        /// </summary>
         SingleVerticalScaleLegend,
+
+        /// <summary>
+        /// The read only question.
+        /// </summary>
         ReadOnlyQuestion
     }
 }

@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
@@ -33,9 +36,7 @@ namespace ProCenter.Domain.CommonModule
 
     #endregion
 
-    /// <summary>
-    ///     Class for holding coding system standardization information.
-    /// </summary>
+    /// <summary>Class for holding coding system standardization information.</summary>
     public class CodeSystem : IValueObject, IEquatable<CodeSystem>
     {
         #region Constructors and Destructors
@@ -86,22 +87,22 @@ namespace ProCenter.Domain.CommonModule
         #region Public Methods and Operators
 
         /// <summary>
-        ///     ==s the specified left.
+        ///     Checks equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public static bool operator == ( CodeSystem left, CodeSystem right )
         {
             return Equals ( left, right );
         }
 
         /// <summary>
-        ///     !=s the specified left.
+        ///     Checks not equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are not equal.</returns>
         public static bool operator != ( CodeSystem left, CodeSystem right )
         {
             return !Equals ( left, right );
@@ -111,13 +112,17 @@ namespace ProCenter.Domain.CommonModule
         ///     Equalses the specified other.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public bool Equals ( CodeSystem other )
         {
             if ( ReferenceEquals ( null, other ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, other ) )
+            {
                 return true;
+            }
             return string.Equals ( Code, other.Code ) && string.Equals ( Version, other.Version );
         }
 
@@ -133,12 +138,18 @@ namespace ProCenter.Domain.CommonModule
         public override bool Equals ( object obj )
         {
             if ( ReferenceEquals ( null, obj ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, obj ) )
+            {
                 return true;
+            }
             if ( obj.GetType () != this.GetType () )
+            {
                 return false;
-            return Equals ( (CodeSystem) obj );
+            }
+            return Equals ( (CodeSystem)obj );
         }
 
         /// <summary>

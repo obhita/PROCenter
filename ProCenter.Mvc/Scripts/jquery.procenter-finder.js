@@ -4,21 +4,82 @@
     var finderSelector = '[data-control=finder],.finder-wrapper'
     , Finder = function (element, options) {
         var self = this;
-        var $el = $(element).on('click.finder.data-api', self.open)
-            .on('blur.finder.data-api', function() {
-                if (self.settings.autoClose) {
+        var $el = $(element);
+
+        $el.on('click.finder.data-api', function (e) {
+            var value = $el.val();
+            if (!value || value == "") {
+                e.stopImmediatePropagation();
+                self.clearSelected();
+                self.getAll = true;
+                self.refresh();
+                self.open.call($el[0]);
+            }
+        });
+
+        $el.on('keydown', function (e) {
+            var selected = $(".finder-popover li.selected");
+            switch (e.keyCode) {
+                case 13: // enter
+                    self.select.apply($el[0], [$(selected).children().first()]);
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
                     self.close.call($el[0]);
-                    var value = $el.val();
-                    if (!value || value == "") {
-                        self.clearSelected();
+                    focusNext(this);
+                    break;
+                case 38: //up                
+                    if (selected.length === 0) {
+                        return true;
                     }
-                }
-            }).on('keyup', function() {
-                if (self.selectedData) {
-                    self.selectedData = self.selectedElement = self.$selectedElement = null;
-                    $el.trigger('selectionChanged', null);
-                }
-            });
+                    if (selected.prev().length != 0) {
+                        $(".finder-popover li").removeClass("selected");
+                        selected.prev().addClass("selected");
+                    }
+                    break;
+                case 40: //down   
+                    var data = getFinder(this);
+                    if (!data.settings.$wrapper.hasClass('open')) {
+                        e.stopImmediatePropagation();
+                        self.clearSelected();
+                        self.getAll = true;
+                        self.refresh();
+                        self.open.call($el[0]);
+                    }
+                    if (selected.length === 0) {
+                        $(".finder-popover li:first-child").addClass("selected");
+                    } else {
+                        if (selected.next().length != 0) {
+                            $(".finder-popover li").removeClass("selected");
+                            selected.next().addClass("selected");
+                        }
+                    }
+                    break;
+            };
+            return true;
+        });
+        $el.on('keyup', function (e) {
+            switch (e.keyCode) {
+                case 13: // enter
+                    return true;
+                case 38: //up   
+                    return true;
+                case 40: //down
+                    return true;
+            }
+            e.stopImmediatePropagation();
+            var value = $el.val();
+            if (!value || value == "") {
+                self.clearSelected();
+                self.getAll = true;
+            }
+            self.refresh();
+            if (self.selectedData) {
+                self.selectedData = self.selectedElement = self.$selectedElement = null;
+                $el.trigger('selectionChanged', null);
+            }
+            self.open();
+            return true;
+        });
         $el.on('selectionChanged', selectionChanged);
         self.settings = options;
         self.settings.$element = $el;
@@ -66,11 +127,16 @@
                     self.nextPage.call($el[0]);
                 }
             });
-            $el.on('keyup', self.refresh);
             $btn.on('click', function (e) {
+                if ($(this).attr('disabled') != undefined) return;
+                var popover = $(".finder-popover, .question-lookup, .question-lookup-no-results-found");
+                if (popover.length > 0) {
+                    popover.hide();
+                }
                 e.stopImmediatePropagation();
                 self.clearSelected();
                 self.getAll = true;
+                self.refresh();
                 self.open.call($el[0]);
             });
         }
@@ -87,22 +153,26 @@
         }
     };
 
+    var focusNext = function(currentControl)
+    {
+        var focusables = $(":focusable");
+        var current = focusables.index(currentControl),
+        next = focusables.eq(current + 1).length ? focusables.eq(current + 1) : focusables.eq(0);
+        next.focus();
+    }
+
     Finder.prototype = {
         constructor: Finder,
         getAll: false,
         currentPage: 0,
         open: function () {
             var data = getFinder(this);
+            $(data.settings.$wrapper).find("div.finder-popover").show();
             var $el = data.settings.$element;
             if (!data.settings.$wrapper.hasClass('open')) {
-
                 if ($el.is('.disabled, :disabled')) return;
-
                 data.settings.$wrapper.addClass('open');
-
                 $el.focus();
-
-                data.refresh();
             }
         },
         close: function () {
@@ -130,19 +200,29 @@
         select: function ($element) {
             var data = getFinder(this);
             var selected = undefined;
+            var isJqueryObject = $element instanceof jQuery;
             if (data.settings.isServerSide) {
-                var index = $element.parent().index();
-                selected = data.data[index];
+                if (isJqueryObject) {
+                    var index = $element.parent().index();
+                    selected = data.data[index];
+                } else {
+                    selected = $element;
+                }
             } else {
                 selected = $element[0];
             }
-            selectInternal(data,selected);
-            $element.addClass("selected");
-            if (data.$selectedElement) {
-                data.$selectedElement.removeClass("selected");
+            selectInternal(data, selected);
+
+            if (isJqueryObject) {
+                $element.addClass("selected");
+                if (data.$selectedElement) {
+                    data.$selectedElement.removeClass("selected");
+                }
+            
+                data.$selectedElement = $element;
+                data.selectedElement = $element[0];
             }
-            data.$selectedElement = $element;
-            data.selectedElement = $element[0];
+            $(data.settings.$wrapper).find("div.finder-popover").hide();
         },
         updateResults: function() {
             var data = getFinder(this);
@@ -292,6 +372,7 @@
 
     $.fn.finder = function (option) {
         var retVal = undefined;
+        var outerArgs = arguments;
         var eachReturn = this.each(function () {
             var $this = $(this)
               , data = $this.data('finder'),
@@ -303,7 +384,7 @@
                 $this.data('finder', (data = new Finder(this, opts)));
             }
             if (typeof option == 'string' && typeof data[option] == 'function') {
-                var args = Array.prototype.slice.call(arguments, 1);
+                var args = Array.prototype.slice.call(outerArgs, 1);
                 retVal = data[option].apply($this, args);
             }
           
@@ -326,8 +407,8 @@
         templates: {
             wrapper: "<div class='finder-wrapper'></div>",
             popover: "<div class='finder-popover'></div>",
-            list: "<ul class='finder-list'></ul>",
-            item: "<li class='finder-item'><a href='#' class='finder-value'></a></li>",
+            list: "<ul tabindex='-1' class='finder-list'></ul>",
+            item: "<li class='finder-item'><a tabindex='-1' href='#' class='finder-value'></a></li>",
             loading: "<div class='finder-loading-indicator'></div>",
             allButton: "<a class='finder-all-button'></a>"
         }

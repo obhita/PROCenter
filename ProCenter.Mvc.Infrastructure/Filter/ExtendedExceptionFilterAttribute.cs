@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Filter
 {
-    #region
+    #region Using Statements
 
     using System.Net;
     using System.Net.Http;
@@ -36,21 +39,34 @@ namespace ProCenter.Mvc.Infrastructure.Filter
 
     #endregion
 
+    /// <summary>The extended exception filter attribute class.</summary>
     public class ExtendedExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        private readonly Logger _logger = LogManager.GetCurrentClassLogger();
+        #region Fields
 
-        public override void OnException(HttpActionExecutedContext httpActionExecutedContext)
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger ();
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Called when exception.
+        /// </summary>
+        /// <param name="httpActionExecutedContext">The HTTP action executed context.</param>
+        public override void OnException ( HttpActionExecutedContext httpActionExecutedContext )
         {
-            if (httpActionExecutedContext.Response == null)
+            if ( httpActionExecutedContext.Response == null )
             {
-                httpActionExecutedContext.Response = new HttpResponseMessage();
+                httpActionExecutedContext.Response = new HttpResponseMessage ();
             }
 
-            _logger.Error(httpActionExecutedContext.Exception.Message, httpActionExecutedContext.Exception);
+            _logger.Error ( httpActionExecutedContext.Exception.Message, httpActionExecutedContext.Exception );
             httpActionExecutedContext.Response.StatusCode = HttpStatusCode.InternalServerError;
-            httpActionExecutedContext.Response.Content = new StringContent("An error occurred while processing your request.");
-            base.OnException(httpActionExecutedContext);
+            httpActionExecutedContext.Response.Content = new StringContent ( "An error occurred while processing your request." );
+            base.OnException ( httpActionExecutedContext );
         }
+
+        #endregion
     }
 }

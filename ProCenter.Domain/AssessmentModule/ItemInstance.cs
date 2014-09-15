@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,33 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
     #region Using Statements
 
     using System;
-    using Event;
+
+    using ProCenter.Domain.AssessmentModule.Event;
 
     #endregion
 
+    /// <summary>The item instance class.</summary>
     public class ItemInstance
     {
         #region Constructors and Destructors
 
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="ItemInstance" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="ItemInstance" /> class.</summary>
         /// <param name="itemDefinitionCode">The item definition code.</param>
         /// <param name="value">The value.</param>
-        public ItemInstance ( string itemDefinitionCode, object value )
+        /// <param name="isRequired">If set to <c>True</c> is required.</param>
+        public ItemInstance ( string itemDefinitionCode, object value, bool isRequired )
         {
             ItemDefinitionCode = itemDefinitionCode;
             Value = value;
+            IsRequired = isRequired;
         }
 
         #endregion
@@ -68,6 +73,10 @@ namespace ProCenter.Domain.AssessmentModule
         ///     The value.
         /// </value>
         public object Value { get; private set; }
+
+        /// <summary>Gets a value indicating whether this is required.</summary>
+        /// <value><c>True</c> if this is required; otherwise, <c>False</c>.</value>
+        public bool IsRequired { get; private set; }
 
         #endregion
 

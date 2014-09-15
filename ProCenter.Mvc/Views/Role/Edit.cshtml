@@ -1,76 +1,80 @@
 ﻿@using Pillar.Common.Utility
 @using ProCenter.Mvc.Infrastructure.Extension
-@model ProCenter.Service.Message.Security.RoleDto
+@using ProCenter.Service.Message.Security
+
+@model RoleDto
 
 @{
-    var disable = !Html.CanAccess("Role", "Edit", "POST") ? "true" : "false";
+    var disable = !Html.CanAccess ( "Role", "Edit", "POST" ) ? "true" : "false";
 }
 
 <div class="role-editor dashboard-wrapper">
     <div class="editor-content container-fluid" data-disabled="@disable">
+        <form id="role-editor-form">
         <div class="questions">
-            @Html.HiddenFor(m => m.Key, new { id = "current-role-key" })
-            <div class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Name)" data-ajax-container="true">
+            @Html.HiddenFor( m => m.Key, new {id = "current-role-key"} )
+            <div class="question-root @PropertyUtil.ExtractPropertyName( () => Model.Name )" data-ajax-container="true">
                 <div>
-                    @Html.LabelFor(m => m.Name)
+                    @Html.LabelFor( m => m.Name )
                 </div>
                 <div class="question-answer-wrapper">
-                    @if (Model.IsBuiltIn)
+                    @if ( Model.IsBuiltIn )
                     {
-                        @Html.DisplayFor(m => m.Name, new {placeholder = Html.DisplayNameFor(m => m.Name)})
+                        @Html.DisplayFor( m => m.Name, new {placeholder = Html.DisplayNameFor ( m => m.Name )} )
                     }
                     else
                     {
-                        @Html.EditorFor(m => m.Name, new {placeholder = Html.DisplayNameFor(m => m.Name)})
+                        @Html.EditorFor( m => m.Name, new {placeholder = Html.DisplayNameFor ( m => m.Name )} )
                     }
-                    @Html.ValidationMessageFor(m => m.Name)
+                    @Html.ValidationMessageFor( m => m.Name )
                     <div class="ajax-loading-indicator"><span>Saving...</span></div>
-                    <div class="clear"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
 
-            <div id="permissions-container" class="question-root @PropertyUtil.ExtractPropertyName(() => Model.Permissions)" data-ajax-container="true" data-ajaxform-ignore="true">
+            <div id="permissions-container" class="question-root @PropertyUtil.ExtractPropertyName( () => Model.Permissions )" data-ajax-container="true" data-ajaxform-ignore="true">
                 <div>
-                    @Html.Label("Permissions")
+                    @Html.Label( "Permissions" )
                 </div>
-                @if (Model.Permissions != null)
+                @if ( Model.Permissions != null )
                 {
                     <div class="question-answer-wrapper">
                         <div class="add-remove-permissions">
                             <div class="available-items-section permissions">
-                                @Html.Label("AvailablePermissions", "Available Permissions")
-                                @Html.ListBox("AvailablePermissions", (List<SelectListItem>)ViewData["AvailablePermissions"], new { id = "available-permissions" })
-                                <div class="clear"></div>
+                                @Html.Label( "AvailablePermissions", "Available Permissions" )
+                                @Html.ListBox( "AvailablePermissions", (List<SelectListItem>) ViewData["AvailablePermissions"], new {id = "available-permissions"} )
+                                <div class="clearfix"></div>
                             </div>
                             <div class="add-remove-items-btn-section permissions">
                                 <div>
-                                    @if (@Html.CanAccess("Role", "AddPermissions", "POST"))
+                                    @if ( @Html.CanAccess ( "Role", "AddPermissions", "POST" ) )
                                     {
-                                        @Html.SecureActionLink("Add >", "AddPermissions", "Role", new { key = Model.Key }, new { @class = "btn btn-primary disabled", id = "add-permissions-btn" })
+                                        @Html.SecureActionLink( "Add >", "AddPermissions", "Role", new {key = Model.Key}, new {@class = "btn btn-primary disabled", id = "add-permissions-btn"} )
                                     }
                                 </div>
                                 <div>
-                                    @if (@Html.CanAccess("Role", "RemovePermissions", "POST"))
+                                    @if ( @Html.CanAccess ( "Role", "RemovePermissions", "POST" ) )
                                     {
-                                        @Html.SecureActionLink("< Remove", "RemovePermissions", "Role", new { key = Model.Key }, new { @class = "btn btn-primary disabled", id = "remove-permissions-btn" })
+                                        @Html.SecureActionLink( "< Remove", "RemovePermissions", "Role", new {key = Model.Key}, new {@class = "btn btn-primary disabled", id = "remove-permissions-btn"} )
                                     }
                                 </div>
-                                <div class="clear"></div>
+                                <div class="clearfix"></div>
                             </div>
                             <div class="current-items-section permissions">
-                                @Html.Label("CurrentPermissions", "Current Permissions")
+                                @Html.Label( "CurrentPermissions", "Current Permissions" )
                                 @{
-                                    var currentPermissions = Model.Permissions.Select(r => new SelectListItem { Selected = false, Text = r, Value = r }).ToList();
+                                    var currentPermissions = Model.Permissions.Select ( r => new SelectListItem {Selected = false, Text = r, Value = r} ).ToList ();
                                 }
-                                @Html.ListBox("CurrentPermissions", currentPermissions, new { id = "current-permissions" })
-                                <div class="clear"></div>
+                                @Html.ListBox( "CurrentPermissions", currentPermissions, new {id = "current-permissions"} )
+                                <div class="clearfix"></div>
                             </div>
                             <div class="ajax-loading-indicator"><span>Saving...</span></div>
-                            <div class="clear"></div>
+                            <div class="clearfix"></div>
                         </div>
                     </div>
                 }
             </div>
         </div>
+        </form>
     </div>
 </div>

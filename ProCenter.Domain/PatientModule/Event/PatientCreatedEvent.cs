@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,26 +25,27 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
-    using Primitive;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Primitive;
 
     #endregion
 
-    /// <summary>
-    ///     Event for when a patient is created.
-    /// </summary>
+    /// <summary>Event for when a patient is created.</summary>
     public class PatientCreatedEvent : CommitEventBase
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PatientCreatedEvent" /> class.
+        ///     Initializes a new instance of the <see cref="PatientCreatedEvent" /> class.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="version">The version.</param>
@@ -52,7 +54,7 @@ namespace ProCenter.Domain.PatientModule.Event
         /// <param name="dateOfBirth">The date of birth.</param>
         /// <param name="gender">The gender.</param>
         /// <param name="uniqueIdentifier">The unique identifier.</param>
-        public PatientCreatedEvent(Guid key, int version, Guid organizationKey, PersonName name, DateTime? dateOfBirth, Gender gender, string uniqueIdentifier)
+        public PatientCreatedEvent ( Guid key, int version, Guid organizationKey, PersonName name, DateTime? dateOfBirth, Gender gender, string uniqueIdentifier )
             : base ( key, version )
         {
             OrganizationKey = organizationKey;
@@ -65,8 +67,6 @@ namespace ProCenter.Domain.PatientModule.Event
         #endregion
 
         #region Public Properties
-
-        public Guid OrganizationKey { get; private set; }
 
         /// <summary>
         ///     Gets the date of birth.
@@ -85,20 +85,28 @@ namespace ProCenter.Domain.PatientModule.Event
         public Gender Gender { get; private set; }
 
         /// <summary>
-        /// Gets the unique identifier.
-        /// </summary>
-        /// <value>
-        /// The unique identifier.
-        /// </value>
-        public string UniqueIdentifier { get; private set; }
-
-        /// <summary>
         ///     Gets the name.
         /// </summary>
         /// <value>
         ///     The name.
         /// </value>
         public PersonName Name { get; private set; }
+
+        /// <summary>
+        /// Gets the organization key.
+        /// </summary>
+        /// <value>
+        /// The organization key.
+        /// </value>
+        public new Guid OrganizationKey { get; private set; }
+
+        /// <summary>
+        ///     Gets the unique identifier.
+        /// </summary>
+        /// <value>
+        ///     The unique identifier.
+        /// </value>
+        public string UniqueIdentifier { get; private set; }
 
         #endregion
     }

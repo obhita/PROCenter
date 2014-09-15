@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,34 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
+    #region Using Statements
+
     using System;
+
     using Pillar.Domain.Primitives;
 
+    #endregion
+
+    /// <summary>The system account factory class.</summary>
     public class SystemAccountFactory : ISystemAccountFactory
     {
-        public SystemAccount Create(Guid organizationKey, string identifier, Email email)
+        #region Public Methods and Operators
+
+        /// <summary>Creates the specified organization key.</summary>
+        /// <param name="organizationKey">The organization key.</param>
+        /// <param name="identifier">The identifier.</param>
+        /// <param name="email">The email.</param>
+        /// <returns>A <see cref="SystemAccount"/>.</returns>
+        public SystemAccount Create ( Guid organizationKey, string identifier, Email email )
         {
-            return new SystemAccount(organizationKey, identifier, email);
+            return new SystemAccount ( organizationKey, identifier, email );
         }
+
+        #endregion
     }
 }

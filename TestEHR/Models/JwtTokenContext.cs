@@ -56,8 +56,8 @@ namespace TestEHR.Models
             {
                 httpClient.SetBasicAuthentication(admin, adminPassword);
 
-                //var response = httpClient.GetAsync(@"issue/simple?realm=" + WebConfigurationManager.AppSettings["WsFederationRealm"] + "&tokenType=jwt").Result;
-                var response = httpClient.GetAsync("https://localhost:44305/issue/simple?realm=https://localhost:44302/api/&tokenType=jwt").Result;//@"issue/simple?realm=" + @"https://localhost:44302/api/" + "&tokenType=jwt").Result;
+                var response = httpClient.GetAsync(@"issue/simple?realm=" + WebConfigurationManager.AppSettings["WsFederationRealm"] + "&tokenType=jwt").Result;
+                //var response = httpClient.GetAsync("https://localhost:44305/issue/simple?realm=https://localhost:44302/api/&tokenType=jwt").Result;//@"issue/simple?realm=" + @"https://localhost:44302/api/" + "&tokenType=jwt").Result;
                 response.EnsureSuccessStatusCode();
 
                 var tokenResponse = response.Content.ReadAsStringAsync().Result;

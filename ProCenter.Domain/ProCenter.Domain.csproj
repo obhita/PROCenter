@@ -34,6 +34,54 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=2.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\AutoMapper.2.2.1\lib\net40\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="Dapper, Version=1.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Dapper-Async.1.03\lib\net45\Dapper.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Charts.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.Charts.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Data.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.Data.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Office.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.Office.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.PivotGrid.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.PivotGrid.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.Printing.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.Printing.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.RichEdit.v13.1.Core, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.RichEdit.v13.1.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraCharts.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.XtraCharts.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="DevExpress.XtraReports.v13.1, Version=13.1.5.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\DevExpress\DevExpress.XtraReports.v13.1.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+    </Reference>
     <Reference Include="Pillar.Common">
       <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
     </Reference>
@@ -56,9 +104,37 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.Security.dll</HintPath>
     </Reference>
+    <Reference Include="ProCenter.Mvc.Infrastructure, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\ProCenter.Mvc\Bin\ProCenter.Mvc.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.20710.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -70,18 +146,35 @@
     <Compile Include="..\VersionInfo.cs">
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="AssessmentModule\Assessment.cs" />
     <Compile Include="AssessmentModule\AssessmentDefinition.cs" />
-    <Compile Include="AssessmentModule\AssessmentRuleEngineExecutor.cs" />
     <Compile Include="AssessmentModule\AssessmentInstance.cs" />
     <Compile Include="AssessmentModule\AssessmentInstanceFactory.cs" />
+    <Compile Include="AssessmentModule\AssessmentPart.cs" />
+    <Compile Include="AssessmentModule\Attributes\CodeSystemAttribute.cs" />
+    <Compile Include="AssessmentModule\Attributes\DisplayOrderAttribute.cs" />
+    <Compile Include="AssessmentModule\Attributes\IsRequiredAttribute.cs" />
+    <Compile Include="AssessmentModule\Attributes\CodeAttribute.cs" />
+    <Compile Include="AssessmentModule\Attributes\ItemTemplate.cs" />
+    <Compile Include="AssessmentModule\Attributes\MetadataAttribute.cs" />
+    <Compile Include="AssessmentModule\Attributes\ScoreTypeAttribute.cs" />
+    <Compile Include="AssessmentModule\Attributes\ValueTypeAttribute.cs" />
     <Compile Include="AssessmentModule\CompletenessCategory.cs" />
     <Compile Include="AssessmentModule\Event\AssessmentAddedToWorkflowEvent.cs" />
     <Compile Include="AssessmentModule\Event\AssessmentCanBeSelfAdministeredEvent.cs" />
-    <Compile Include="AssessmentModule\Event\PercentCompleteUpdatedEvent.cs" />
+    <Compile Include="AssessmentModule\Event\UpdateEmailSentDateEvent.cs" />
     <Compile Include="AssessmentModule\IAssessmentDefinitionRepository.cs" />
     <Compile Include="AssessmentModule\IAssessmentInstanceRepository.cs" />
-    <Compile Include="AssessmentModule\IAssessmentRuleCollection.cs" />
     <Compile Include="AssessmentModule\ICompletenessRuleCollection.cs" />
+    <Compile Include="AssessmentModule\Group.cs" />
+    <Compile Include="AssessmentModule\IGenerateReport.cs" />
+    <Compile Include="AssessmentModule\IItemDefinitionProvider.cs" />
+    <Compile Include="AssessmentModule\IReportModel.cs" />
+    <Compile Include="AssessmentModule\Metadata\TemplateNameMetadataItem.cs" />
+    <Compile Include="AssessmentModule\Metadata\ItemTemplateMetadataItem.cs" />
+    <Compile Include="AssessmentModule\Metadata\NonResponseTypeMetadataItem.cs" />
+    <Compile Include="AssessmentModule\Section.cs" />
+    <Compile Include="AssessmentModule\IValueTypeProvider.cs" />
     <Compile Include="AssessmentModule\IWorkflowEngine.cs" />
     <Compile Include="AssessmentModule\Event\AssessmentScoreCreatedEvent.cs" />
     <Compile Include="AssessmentModule\Event\AssessmentScoredEvent.cs" />
@@ -98,9 +191,27 @@
     <Compile Include="AssessmentModule\ItemDefinition.cs" />
     <Compile Include="AssessmentModule\ItemMetadata.cs" />
     <Compile Include="AssessmentModule\Lookups\ItemType.cs" />
+    <Compile Include="AssessmentModule\Metadata\RequiredForCompletenessMetadataItem.cs" />
     <Compile Include="AssessmentModule\ReportItem.cs" />
     <Compile Include="AssessmentModule\ReportModel.cs" />
     <Compile Include="AssessmentModule\ReportSeverity.cs" />
+    <Compile Include="AssessmentModule\ReportType.cs" />
+    <Compile Include="AssessmentModule\Rules\AbstractAssessmentRuleCollection.cs" />
+    <Compile Include="AssessmentModule\Rules\AssessmentRuleCollectionFactory.cs" />
+    <Compile Include="AssessmentModule\Rules\AssessmentRuleEngineExecutor.cs" />
+    <Compile Include="AssessmentModule\Rules\ConstraintExstensions.cs" />
+    <Compile Include="AssessmentModule\Rules\EmptyAssessmentRuleCollection.cs" />
+    <Compile Include="AssessmentModule\Rules\IAssessmentRuleCollection.cs" />
+    <Compile Include="AssessmentModule\Rules\IAssessmentRuleCollectionFactory.cs" />
+    <Compile Include="AssessmentModule\Rules\IItemSkippingRule.cs" />
+    <Compile Include="AssessmentModule\Rules\IItemSkippingRuleBuilder.cs" />
+    <Compile Include="AssessmentModule\Rules\IItemSkippingRuleBuilderFinalizer.cs" />
+    <Compile Include="AssessmentModule\Rules\IItemSkippingRuleBuilderInitializer.cs" />
+    <Compile Include="AssessmentModule\Rules\ItemSkippingRuleBuilder.cs" />
+    <Compile Include="AssessmentModule\Rules\ItemSkippingRuleBuilderInitializer.cs" />
+    <Compile Include="AssessmentModule\Rules\RuleBuilderExtensions.cs" />
+    <Compile Include="AssessmentModule\Rules\ItemSkippingRule.cs" />
+    <Compile Include="AssessmentModule\Rules\SkippingContext.cs" />
     <Compile Include="AssessmentModule\Score.cs" />
     <Compile Include="AssessmentModule\ScoreItem.cs" />
     <Compile Include="AssessmentModule\WorkflowAssessmentsAttribute.cs" />
@@ -111,6 +222,7 @@
     <Compile Include="CommonModule\CodeSystems.cs" />
     <Compile Include="CommonModule\CommitEvent.cs" />
     <Compile Include="CommonModule\CommitEventBase.cs" />
+    <Compile Include="CommonModule\CompletenessResults.cs" />
     <Compile Include="CommonModule\ConventionEventRouter.cs" />
     <Compile Include="CommonModule\IAggregateRoot.cs" />
     <Compile Include="CommonModule\ICommitDomainEventService.cs" />
@@ -120,10 +232,12 @@
     <Compile Include="CommonModule\IReport.cs" />
     <Compile Include="CommonModule\IRepository.cs" />
     <Compile Include="CommonModule\IRouteEvents.cs" />
-    <Compile Include="CommonModule\LookupRegistration.cs" />
+    <Compile Include="CommonModule\LookupRegistrationAttribute.cs" />
     <Compile Include="CommonModule\Lookups\Lookup.cs" />
     <Compile Include="CommonModule\IValueObject.cs" />
+    <Compile Include="CommonModule\Lookups\NonResponseLookups.cs" />
     <Compile Include="CommonModule\Phone.cs" />
+    <Compile Include="CommonModule\ScoreTypeEnum.cs" />
     <Compile Include="CommonModule\StateProvince.cs" />
     <Compile Include="CommonModule\UnitedStates.cs" />
     <Compile Include="CommonModule\ValueObjects\Currency.cs" />
@@ -131,13 +245,18 @@
     <Compile Include="CommonModule\Friends.cs" />
     <Compile Include="AssessmentModule\IReportEngine.cs" />
     <Compile Include="ContextObjectProviderRuleBuilderExtensions.cs" />
+    <Compile Include="Friends.cs" />
     <Compile Include="MessageModule\AssessmentReminder.cs" />
     <Compile Include="MessageModule\AssessmentReminderFactory.cs" />
     <Compile Include="MessageModule\AssessmentReminderStatus.cs" />
+    <Compile Include="MessageModule\Event\AssessmentRecurrenceRevisedEvent.cs" />
     <Compile Include="MessageModule\Event\AssessmentReminderCreatedEvent.cs" />
     <Compile Include="MessageModule\Event\AssessmentReminderRevisedEvent.cs" />
     <Compile Include="MessageModule\Event\AssessmentReminderUpdatedEvent.cs" />
+    <Compile Include="MessageModule\Event\AdministerAssessmentNowEvent.cs" />
+    <Compile Include="MessageModule\Event\AssessmentReminderStatusChangedEvent.cs" />
     <Compile Include="MessageModule\Event\MessageForSelfAdministrationEvent.cs" />
+    <Compile Include="MessageModule\Event\MessageNotForSelfAdministrationEvent.cs" />
     <Compile Include="MessageModule\Event\WorkflowMessageAdvancedEvent.cs" />
     <Compile Include="MessageModule\Event\WorkflowMessageReportReadyEvent.cs" />
     <Compile Include="MessageModule\Event\WorkflowMessageCreatedEvent.cs" />
@@ -152,6 +271,7 @@
     <Compile Include="MessageModule\MessageType.cs" />
     <Compile Include="MessageModule\WorkflowMessage.cs" />
     <Compile Include="MessageModule\WorkflowMessageStatus.cs" />
+    <Compile Include="OrganizationModule\Event\TeamRemovedEvent.cs" />
     <Compile Include="OrganizationModule\Event\OrganizaionPrimaryAddressChangedEvent.cs" />
     <Compile Include="OrganizationModule\Event\OrganizaionPrimaryPhoneChangedEvent.cs" />
     <Compile Include="OrganizationModule\Event\AssessmentDefinitionAddedEvent.cs" />
@@ -180,6 +300,12 @@
     <Compile Include="OrganizationModule\OrganizationAddressType.cs" />
     <Compile Include="OrganizationModule\OrganizationPhone.cs" />
     <Compile Include="OrganizationModule\OrganizationPhoneType.cs" />
+    <Compile Include="OrganizationModule\OrganizationResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OrganizationResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="OrganizationModule\StaffRuleCollection.cs" />
     <Compile Include="OrganizationModule\Staff.cs" />
     <Compile Include="OrganizationModule\StaffFactory.cs" />
     <Compile Include="OrganizationModule\Team.cs" />
@@ -197,6 +323,131 @@
     <Compile Include="PatientModule\PatientUniqueIdentifierGenerator.cs" />
     <Compile Include="PatientModule\Religion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportsModule\AssessmentScoreOverTimeData.cs" />
+    <Compile Include="ReportsModule\AssessmentScoreOverTimeParameters.cs" />
+    <Compile Include="ReportsModule\AssessmentScoreOverTimeDataCollection.cs" />
+    <Compile Include="ReportsModule\AssessmentScoreOverTimeReport.cs">
+      <SubType>Component</SubType>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="ReportsModule\AssessmentScoreOverTimeReport.Designer.cs">
+      <DependentUpon>AssessmentScoreOverTimeReport.cs</DependentUpon>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="ReportsModule\AssessmentScoreOverTimeReportEngine.cs" />
+    <Compile Include="ReportsModule\AssessmentScoreOverTime.Designer.cs">
+      <ExcludeFromStyleCop>true</ExcludeFromStyleCop>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AssessmentScoreOverTime.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsModule\BaseReportParameters.cs" />
+    <Compile Include="ReportsModule\ChartAcrossAssessments\Assessment.cs" />
+    <Compile Include="ReportsModule\ChartAcrossAssessments\AssessmentDefinitionDto.cs" />
+    <Compile Include="ReportsModule\ChartAcrossAssessments\PatientsWithSpecificResponseAcrossAssessments.Designer.cs">
+      <DependentUpon>PatientsWithSpecificResponseAcrossAssessments.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ReportsModule\ChartAcrossAssessments\ChartAcrossAssessmentsData.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\ChartAcrossAssessments\ChartAcrossAssessmentsDataCollection.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\ChartAcrossAssessments\ChartAcrossAssessmentsDataObject.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\ChartAcrossAssessments\ChartAcrossAssessmentsReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\ChartAcrossAssessments\ChartAcrossAssessmentsReport.Designer.cs">
+      <DependentUpon>ChartAcrossAssessmentsReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsModule\ChartAcrossAssessments\QuestionResponse.cs" />
+    <Compile Include="ReportsModule\ChartAcrossAssessments\BubbleValue.cs" />
+    <Compile Include="ReportsModule\IReportDefinitionFactory.cs" />
+    <Compile Include="ReportsModule\LookupDto.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\Assessment.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\AssessmentDefinitionDto.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessment.Designer.cs">
+      <DependentUpon>NotCompletedAssessment.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentData.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentDataCollection.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentDataObject.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentDto.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentParameters.cs" />
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentReport.Designer.cs">
+      <DependentUpon>NotCompletedAssessmentReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentReportEngine.cs" />
+    <Compile Include="ReportsModule\PatientDto.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\Assessment.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\AssessmentDefinitionDto.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponse.Designer.cs">
+      <DependentUpon>PatientsWithSpecificResponse.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseData.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseDataCollection.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseDataObject.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseDto.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseParameters.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseReport.Designer.cs">
+      <DependentUpon>PatientsWithSpecificResponseReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseReportEngine.cs" />
+    <Compile Include="ReportsModule\PatientsWithSpecificResponseReport\QuestionResponse.cs" />
+    <Compile Include="ReportsModule\ReportDefinitionFactory.cs" />
+    <Compile Include="ReportsModule\Event\ReportDefinitionCreatedEvent.cs" />
+    <Compile Include="ReportsModule\ReportDefinition.cs" />
+    <Compile Include="ReportsModule\IRecentReportRepository.cs" />
+    <Compile Include="ReportsModule\Event\RecentReportCreatedEvent.cs" />
+    <Compile Include="ReportsModule\Event\ReportTemplateNameChangedEvent.cs" />
+    <Compile Include="ReportsModule\Event\ReportTemplateParametersChangedEvent.cs" />
+    <Compile Include="ReportsModule\Event\ReportTemplateReportStateChangedEvent.cs" />
+    <Compile Include="ReportsModule\Event\ReportTemplateReportTypeChangedEvent.cs" />
+    <Compile Include="ReportsModule\IReportTemplateFactory.cs" />
+    <Compile Include="ReportsModule\IReportTemplateRepository.cs" />
+    <Compile Include="ReportsModule\IScoreType.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeDto.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeParameters.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRange.Designer.cs">
+      <DependentUpon>PatientScoreRange.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeData.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeDataCollection.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeDataObject.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeReportEngine.cs" />
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeReport.Designer.cs">
+      <DependentUpon>PatientScoreRangeReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ReportsModule\RegisterReportResourcesBootstrapperTask.cs" />
+    <Compile Include="ReportsModule\RecentReport.cs" />
+    <Compile Include="ReportsModule\ReportNames.cs" />
+    <Compile Include="ReportsModule\ReportState.cs" />
+    <Compile Include="ReportsModule\ReportTemplate.cs" />
+    <Compile Include="ReportsModule\ReportTemplateFactory.cs" />
+    <Compile Include="ReportsModule\Event\ReportTemplateCreatedEvent.cs" />
+    <Compile Include="ReportsModule\ReportTimePeriod.cs" />
+    <Compile Include="ReportsModule\ScoreData.cs" />
+    <Compile Include="ReportsModule\ScoreTypeBoolean.cs" />
+    <Compile Include="ReportsModule\ScoreTypeInt.cs" />
     <Compile Include="RuleEngineExecutorExtensions.cs" />
     <Compile Include="SecurityModule\Event\AssignedPatientToSystemAccountEvent.cs" />
     <Compile Include="SecurityModule\Event\AssignedStaffToSystemAccountEvent.cs" />
@@ -220,12 +471,27 @@
     <Compile Include="SecurityModule\RoleType.cs" />
     <Compile Include="SecurityModule\SystemAccount.cs" />
     <Compile Include="SecurityModule\SystemAccountFactory.cs" />
-    <Compile Include="AssessmentModule\WorkflowReportsAttribute.cs" />
+    <Compile Include="AssessmentModule\ReportEngineAttribute.cs" />
     <Compile Include="SecurityModule\ValidationStatus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="AssessmentModule\AssessmentDomain.cd" />
     <None Include="OrganizationModule\OrganizationModule.cd" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.AssessmentScoreOverTimeData.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.ChartAcrossAssessments.ChartAcrossAssessmentsData.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.NotCompletedAssessmentReport.NotCompletedAssessmentData.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientScoreRangeReport.PatientScoreRangeData.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.Assessment.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.AssessmentDefinitionDto.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponse.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseData.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseDataCollection.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseDataObject.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseDto.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseParameters.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseReport.datasource" />
+    <None Include="Properties\DataSources\ProCenter.Domain.ReportsModule.PatientsWithSpecificResponseReport.PatientsWithSpecificResponseReportEngine.datasource" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="AssessmentModule\Lookups\ItemType.resx">
@@ -243,6 +509,10 @@
     <EmbeddedResource Include="OrganizationModule\OrganizationPhoneType.resx">
       <DependentUpon>OrganizationPhoneType.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="OrganizationModule\OrganizationResource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>OrganizationResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="PatientModule\Ethnicity.resx">
       <DependentUpon>Ethnicity.cs</DependentUpon>
     </EmbeddedResource>
@@ -251,6 +521,49 @@
     </EmbeddedResource>
     <EmbeddedResource Include="PatientModule\Religion.resx">
       <DependentUpon>Religion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="ReportsModule\AssessmentScoreOverTimeReport.resx">
+      <DependentUpon>AssessmentScoreOverTimeReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\AssessmentScoreOverTime.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>AssessmentScoreOverTime.Designer.cs</LastGenOutput>
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\ChartAcrossAssessments\PatientsWithSpecificResponseAcrossAssessments.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PatientsWithSpecificResponseAcrossAssessments.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\ChartAcrossAssessments\ChartAcrossAssessmentsReport.resx">
+      <DependentUpon>ChartAcrossAssessmentsReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessment.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>NotCompletedAssessment.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\NotCompletedAssessmentReport\NotCompletedAssessmentReport.resx">
+      <DependentUpon>NotCompletedAssessmentReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\PatientScoreRangeReport\PatientScoreRange.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PatientScoreRange.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\PatientScoreRangeReport\PatientScoreRangeReport.resx">
+      <DependentUpon>PatientScoreRangeReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponse.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>PatientsWithSpecificResponse.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\PatientsWithSpecificResponseReport\PatientsWithSpecificResponseReport.resx">
+      <DependentUpon>PatientsWithSpecificResponseReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\ReportState.resx">
+      <DependentUpon>ReportState.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ReportsModule\ReportTimePeriod.resx">
+      <DependentUpon>ReportTimePeriod.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +578,7 @@
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\lib\Shared\Stylecop\StyleCop.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

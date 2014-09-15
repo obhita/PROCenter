@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,24 +25,50 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
-    #region
+    #region Using Statements
 
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    using Common;
+
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
+    /// <summary>The role dto class.</summary>
     public class RoleDto : KeyedDataTransferObject
     {
-        [Required]
-        public string Name { get; set; }
+        #region Public Properties
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [is built in].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is built in]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsBuiltIn { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
+        [Required(ErrorMessage = "The Name field is required.")]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
         public IEnumerable<string> Permissions { get; set; }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using CommonModule;
-    using Event;
+
     using Pillar.Common.Utility;
     using Pillar.Security.AccessControl;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.SecurityModule.Event;
 
     #endregion
 
@@ -45,26 +50,30 @@ namespace ProCenter.Domain.SecurityModule
     {
         #region Fields
 
-        private readonly List<Permission> _permissions = new List<Permission>();
+        private readonly List<Permission> _permissions = new List<Permission> ();
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Role" /> class.
+        ///     Initializes a new instance of the <see cref="Role" /> class.
         /// </summary>
         /// <param name="name">The name.</param>
+        /// <param name="organizationKey">The organization key.</param>
         /// <param name="roleType">Type of the role.</param>
-        public Role(string name, RoleType roleType = RoleType.UserDefined)
+        public Role ( string name, Guid? organizationKey, RoleType roleType = RoleType.UserDefined )
         {
-            Check.IsNotNullOrWhitespace(name, () => Name);
+            Check.IsNotNullOrWhitespace ( name, () => Name );
 
-            Key = CombGuid.NewCombGuid();
-            RaiseEvent(new RoleCreatedEvent(Key, Version, name, roleType));
+            Key = CombGuid.NewCombGuid ();
+            RaiseEvent ( new RoleCreatedEvent ( Key, Version, name, organizationKey, roleType ) );
         }
 
-        public Role()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Role"/> class.
+        /// </summary>
+        public Role ()
         {
         }
 
@@ -100,10 +109,10 @@ namespace ProCenter.Domain.SecurityModule
         }
 
         /// <summary>
-        /// Gets the type of the role.
+        ///     Gets the type of the role.
         /// </summary>
         /// <value>
-        /// The type of the role.
+        ///     The type of the role.
         /// </value>
         public RoleType RoleType { get; private set; }
 
@@ -111,49 +120,51 @@ namespace ProCenter.Domain.SecurityModule
 
         #region Public Methods and Operators
 
-        public void ReviseName(string name)
-        {
-            RaiseEvent(new RoleNameRevisedEvent(Key, Version, name));
-        }
-
         /// <summary>
         ///     Adds the permision.
         /// </summary>
         /// <param name="permission">The permission.</param>
-        public void AddPermision(Permission permission)
+        public void AddPermision ( Permission permission )
         {
-            RaiseEvent(new PermissionAddedEvent(Key, Version, permission));
+            RaiseEvent ( new PermissionAddedEvent ( Key, Version, permission ) );
         }
 
         /// <summary>
         ///     Removes the permision.
         /// </summary>
         /// <param name="permission">The permission.</param>
-        public void RemovePermision(Permission permission)
+        public void RemovePermision ( Permission permission )
         {
-            RaiseEvent(new PermissionRemovedEvent(Key, Version, permission));
+            RaiseEvent ( new PermissionRemovedEvent ( Key, Version, permission ) );
+        }
+
+        /// <summary>Revises the name.</summary>
+        /// <param name="name">The name.</param>
+        public void ReviseName ( string name )
+        {
+            RaiseEvent ( new RoleNameRevisedEvent ( Key, Version, name ) );
         }
 
         #endregion
 
         #region Methods
 
-        private void Apply(RoleNameRevisedEvent roleNameRevisedEvent)
+        private void Apply ( RoleNameRevisedEvent roleNameRevisedEvent )
         {
             Name = roleNameRevisedEvent.Name;
         }
 
-        private void Apply(PermissionAddedEvent permissionAddedEvent)
+        private void Apply ( PermissionAddedEvent permissionAddedEvent )
         {
-            _permissions.Add(permissionAddedEvent.Permission);
+            _permissions.Add ( permissionAddedEvent.Permission );
         }
 
-        private void Apply(PermissionRemovedEvent permissionRemovedEvent)
+        private void Apply ( PermissionRemovedEvent permissionRemovedEvent )
         {
-            _permissions.Remove(permissionRemovedEvent.Permission);
+            _permissions.Remove ( permissionRemovedEvent.Permission );
         }
 
-        private void Apply(RoleCreatedEvent roleCreatedEvent)
+        private void Apply ( RoleCreatedEvent roleCreatedEvent )
         {
             OrganizationKey = roleCreatedEvent.OrganizationKey;
             Name = roleCreatedEvent.Name;

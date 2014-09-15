@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,30 +25,38 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
+    #region Using Statements
+
     using System;
 
-    /// <summary>
-    /// Interface for common aggregate memento.
-    /// </summary>
+    #endregion
+
+    /// <summary>Interface for common aggregate memento.</summary>
     public interface IMemento
     {
+        #region Public Properties
+
         /// <summary>
-        /// Gets or sets the key.
+        ///     Gets or sets the key.
         /// </summary>
         /// <value>
-        /// The key.
+        ///     The key.
         /// </value>
         Guid Key { get; set; }
 
         /// <summary>
-        /// Gets or sets the version.
+        ///     Gets or sets the version.
         /// </summary>
         /// <value>
-        /// The version.
+        ///     The version.
         /// </value>
         int Version { get; set; }
+
+        #endregion
     }
 }

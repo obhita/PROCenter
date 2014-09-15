@@ -1,4 +1,3 @@
-#region License Header
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,15 +23,18 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
 namespace ProCenter.Infrastructure.Tests.EventStore
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using Infrastructure.EventStore;
-    using global::EventStore;
+    using System.Linq;
+
+    using NEventStore;
+
+    using ProCenter.Infrastructure.EventStore;
 
     #endregion
 
@@ -40,56 +42,73 @@ namespace ProCenter.Infrastructure.Tests.EventStore
     {
         #region Fields
 
-        private readonly Dictionary<Type, IStoreEvents> _eventStores = new Dictionary<Type, IStoreEvents>();
+        private readonly Dictionary<Type, IStoreEvents> _eventStores = new Dictionary<Type, IStoreEvents> ();
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        ///     Gets the cached event stores.
+        /// </summary>
+        /// <value>
+        ///     The cached event stores.
+        /// </value>
+        public IReadOnlyCollection<IStoreEvents> CachedEventStores
+        {
+            get { return _eventStores.Values.ToList ().AsReadOnly (); }
+        }
 
         #endregion
 
         #region Public Methods and Operators
 
-        public IStoreEvents Build<TAggregate>()
+        public IStoreEvents Build<TAggregate> ()
         {
-            return Build(typeof (TAggregate));
+            return Build ( typeof(TAggregate) );
         }
 
-
-        public IStoreEvents Build(Type aggregateType)
+        public IStoreEvents Build ( Type aggregateType )
         {
-            lock (_eventStores)
+            lock ( _eventStores )
             {
-                if (!_eventStores.ContainsKey(aggregateType))
+                if ( !_eventStores.ContainsKey ( aggregateType ) )
                 {
-                    var eventStore = Wireup.Init()
-                                           .UsingInMemoryPersistence()
-                                           .InitializeStorageEngine()
-                                           .Build();
-                    _eventStores.Add(aggregateType, eventStore);
+                    var eventStore = Wireup.Init ()
+                                           .UsingInMemoryPersistence ()
+                                           .InitializeStorageEngine ()
+                                           .Build ();
+                    _eventStores.Add ( aggregateType, eventStore );
                 }
                 return _eventStores[aggregateType];
             }
         }
 
-
-        public void Dispose()
+        public void Dispose ()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            Dispose ( true );
+            GC.SuppressFinalize ( this );
         }
 
         #endregion
 
         #region Methods
 
-        protected virtual void Dispose(bool disposing)
+        protected virtual void Dispose ( bool disposing )
         {
-            if (!disposing)
-                return;
-
-            lock (_eventStores)
+            if ( !disposing )
             {
-                foreach (var eventStore in _eventStores)
-                    eventStore.Value.Dispose();
+                return;
+            }
 
-                _eventStores.Clear();
+            lock ( _eventStores )
+            {
+                foreach ( var eventStore in _eventStores )
+                {
+                    eventStore.Value.Dispose ();
+                }
+
+                _eventStores.Clear ();
             }
         }
 

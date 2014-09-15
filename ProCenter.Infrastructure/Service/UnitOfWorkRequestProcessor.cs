@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service
 {
     #region Using Statements
@@ -32,26 +35,31 @@ namespace ProCenter.Infrastructure.Service
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using Agatha.Common;
     using Agatha.Common.Caching;
     using Agatha.ServiceLayer;
+
     using Pillar.Domain.Event;
     using Pillar.Domain.FluentRuleEngine.Event;
 
     #endregion
 
-    /// <summary>
-    ///     Request processor that manages the unit of work.
-    /// </summary>
+    /// <summary>Request processor that manages the unit of work.</summary>
     public class UnitOfWorkRequestProcessor : RequestProcessorBase
     {
+        #region Fields
+
         private readonly IUnitOfWorkProvider _unitOfWorkProvider;
+
         private bool _validationFailureOccurred;
+
+        #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="UnitOfWorkRequestProcessor" /> class.
+        ///     Initializes a new instance of the <see cref="UnitOfWorkRequestProcessor" /> class.
         /// </summary>
         /// <param name="serviceLayerConfiguration">The service layer configuration.</param>
         /// <param name="cacheManager">The cache manager.</param>
@@ -59,7 +67,7 @@ namespace ProCenter.Infrastructure.Service
         public UnitOfWorkRequestProcessor (
             ServiceLayerConfiguration serviceLayerConfiguration,
             ICacheManager cacheManager,
-            IUnitOfWorkProvider unitOfWorkProvider)
+            IUnitOfWorkProvider unitOfWorkProvider )
             : base ( serviceLayerConfiguration, cacheManager )
         {
             _unitOfWorkProvider = unitOfWorkProvider;
@@ -68,12 +76,6 @@ namespace ProCenter.Infrastructure.Service
         #endregion
 
         #region Methods
-
-        protected override void BeforeProcessing(IEnumerable<Request> requests)
-        {
-            DomainEvent.Register<RuleViolationEvent>(failure => { _validationFailureOccurred = true; });
-            base.BeforeProcessing(requests);
-        }
 
         /// <summary>
         ///     Afters the processing.
@@ -89,7 +91,21 @@ namespace ProCenter.Infrastructure.Service
                 var unitOfWork = _unitOfWorkProvider.GetCurrentUnitOfWork ();
 
                 unitOfWork.Commit ();
+                if ( unitOfWork is IDisposable )
+                {
+                    (unitOfWork as IDisposable).Dispose ();
+                }
             }
+        }
+
+        /// <summary>
+        /// Befores the processing.
+        /// </summary>
+        /// <param name="requests">The requests.</param>
+        protected override void BeforeProcessing ( IEnumerable<Request> requests )
+        {
+            DomainEvent.Register<RuleViolationEvent> ( failure => { _validationFailureOccurred = true; } );
+            base.BeforeProcessing ( requests );
         }
 
         /// <summary>
@@ -99,7 +115,7 @@ namespace ProCenter.Infrastructure.Service
         {
             base.DisposeUnmanagedResources ();
 
-            var unitOfWork = _unitOfWorkProvider.GetCurrentUnitOfWork();
+            var unitOfWork = _unitOfWorkProvider.GetCurrentUnitOfWork ();
 
             if ( unitOfWork is IDisposable )
             {

@@ -1,30 +1,8 @@
-﻿#region License Header
-// /*******************************************************************************
-//  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
-//  * 
-//  * Redistribution and use in source and binary forms, with or without
-//  * modification, are permitted provided that the following conditions are met:
-//  *     * Redistributions of source code must retain the above copyright
-//  *       notice, this list of conditions and the following disclaimer.
-//  *     * Redistributions in binary form must reproduce the above copyright
-//  *       notice, this list of conditions and the following disclaimer in the
-//  *       documentation and/or other materials provided with the distribution.
-//  *     * Neither the name of the <organization> nor the
-//  *       names of its contributors may be used to endorse or promote products
-//  *       derived from this software without specific prior written permission.
-//  * 
-//  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-//  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-//  * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-//  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-//  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-//  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-//  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-//  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-//  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//  ******************************************************************************/
-#endregion
+﻿/*
+ * Copyright (c) Dominick Baier, Brock Allen.  All rights reserved.
+ * see license.txt
+ */
+
 using BrockAllen.OAuth2;
 using Newtonsoft.Json.Linq;
 using System;
@@ -41,6 +19,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI;
 using Thinktecture.IdentityServer.Models;
 using Thinktecture.IdentityServer.Repositories;
 using Thinktecture.IdentityServer.TokenService;
@@ -76,6 +55,7 @@ namespace Thinktecture.IdentityServer.Protocols.WSFederation
         #region Protocol Implementation
         [HttpGet]
         [ActionName("Issue")]
+        [OutputCache(Location = OutputCacheLocation.None, NoStore = true)]
         public ActionResult ProcessRequest()
         {
             Tracing.Verbose("HRD endpoint called.");
@@ -189,6 +169,24 @@ namespace Thinktecture.IdentityServer.Protocols.WSFederation
 
             return ProcessOAuthResponse(cp, ctx);
         }
+
+        [HttpGet]
+        public ActionResult SignoutRedirect(string rp)
+        {
+            if (!String.IsNullOrWhiteSpace(rp))
+            {
+                try
+                {
+                    var bytes = Convert.FromBase64String(rp);
+                    bytes = System.Web.Security.MachineKey.Unprotect(bytes);
+                    var url = System.Text.Encoding.UTF8.GetString(bytes);
+                    return Redirect(url);
+                }
+                catch { }
+            }
+            return ShowSignOutPage(null);
+        }
+        
         #endregion
 
         #region Helper
@@ -234,12 +232,40 @@ namespace Thinktecture.IdentityServer.Protocols.WSFederation
             }
 
             var signOutMessage = new SignOutRequestMessage(new Uri(idp));
-            if (!string.IsNullOrWhiteSpace(message.Reply))
+            if (!string.IsNullOrWhiteSpace(message.Reply) && IsValidReplyTo(message.Reply))
             {
-                signOutMessage.Reply = message.Reply;
+                var bytes = System.Text.Encoding.UTF8.GetBytes(message.Reply);
+                bytes = System.Web.Security.MachineKey.Protect(bytes);
+                var param = Url.Encode(Convert.ToBase64String(bytes));
+
+                var host = this.ConfigurationRepository.Global.PublicHostName;
+                if (String.IsNullOrWhiteSpace(host))
+                {
+                    host = Request.Headers["host"];
+                }
+
+                var builder = new UriBuilder();
+                builder.Host = host;
+                builder.Scheme = Uri.UriSchemeHttps;
+                if (this.ConfigurationRepository.Global.HttpsPort != 443)
+                {
+                    builder.Port = this.ConfigurationRepository.Global.HttpsPort;
+                }
+                builder.Path = Request.ApplicationPath;
+                if (!builder.Path.EndsWith("/")) builder.Path += "/";
+                builder.Path += Thinktecture.IdentityServer.Endpoints.Paths.WSFedHRDSignoutRedirect;
+                builder.Query = "rp=" + param;
+                signOutMessage.Reply = builder.ToString();
             }
 
             return Redirect(signOutMessage.WriteQueryString());
+        }
+
+        private bool IsValidReplyTo(string url)
+        {
+            // check to see if the URL is in the RPs we've logged into
+            var mgr = new SignInSessionsManager(HttpContext, _cookieName, ConfigurationRepository.Global.MaximumTokenLifetime);
+            return mgr.ContainsUrl(url);
         }
 
         private ActionResult ProcessWSFedSignOutCleanupRequest(SignOutCleanupRequestMessage message)
@@ -249,14 +275,15 @@ namespace Thinktecture.IdentityServer.Protocols.WSFederation
 
         private ActionResult ShowSignOutPage(string returnUrl)
         {
+            var mgr = new SignInSessionsManager(HttpContext, _cookieName);
+
             // check for return url
-            if (!string.IsNullOrWhiteSpace(returnUrl))
+            if (!string.IsNullOrWhiteSpace(returnUrl) && mgr.ContainsUrl(returnUrl))
             {
                 ViewBag.ReturnUrl = returnUrl;
             }
 
             // check for existing sign in sessions
-            var mgr = new SignInSessionsManager(HttpContext, _cookieName);
             var realms = mgr.GetEndpoints();
             mgr.ClearEndpoints();
 
@@ -302,6 +329,8 @@ namespace Thinktecture.IdentityServer.Protocols.WSFederation
                     return new OAuth2ActionResult(oauth2, ProviderType.Facebook, null);
                 case OAuth2ProviderTypes.Live:
                     return new OAuth2ActionResult(oauth2, ProviderType.Live, null);
+                case OAuth2ProviderTypes.LinkedIn:
+                    return new OAuth2ActionResult(oauth2, ProviderType.LinkedIn, null);
             }
 
             return View("Error");
@@ -361,6 +390,7 @@ namespace Thinktecture.IdentityServer.Protocols.WSFederation
                 case OAuth2ProviderTypes.Facebook: return ProviderType.Facebook;
                 case OAuth2ProviderTypes.Live: return ProviderType.Live;
                 case OAuth2ProviderTypes.Google: return ProviderType.Google;
+                case OAuth2ProviderTypes.LinkedIn: return ProviderType.LinkedIn;
                 default: throw new Exception("Invalid OAuthProfileTypes");
             }
         }

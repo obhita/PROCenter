@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,32 +25,61 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers.Api
 {
+    #region Using Statements
+
     using System;
     using System.Linq;
     using System.Web.Http;
+    using Common;
     using Dapper;
     using Models;
-    using ProCenter.Infrastructure.Service.ReadSideService;
     using Service.Message.Organization;
     using Service.Message.Security;
 
+    #endregion
+
+    /// <summary>The system admin controller class.</summary>
     public class SystemAdminController : BaseApiController
     {
+        #region Fields
+
         private readonly IDbConnectionFactory _connectionFactory;
 
-        public SystemAdminController(IDbConnectionFactory dbConnectionFactory)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemAdminController"/> class.
+        /// </summary>
+        /// <param name="dbConnectionFactory">The database connection factory.</param>
+        public SystemAdminController ( IDbConnectionFactory dbConnectionFactory )
         {
             _connectionFactory = dbConnectionFactory;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Organizations the data table search.
+        /// </summary>
+        /// <param name="sEcho">The s echo.</param>
+        /// <param name="iDisplayStart">The i display start.</param>
+        /// <param name="iDisplayLength">Display length of the i.</param>
+        /// <param name="sSearch">The s search.</param>
+        /// <returns>A <see cref="DataTableResponse{OrganizationSummaryDto}"/>.</returns>
         [HttpGet]
-        public DataTableResponse<OrganizationSummaryDto> OrganizationDataTableSearch(string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null)
+        public DataTableResponse<OrganizationSummaryDto> OrganizationDataTableSearch ( string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null )
         {
-            const string searchWhereConstraint = "WHERE Name LIKE @search+'%'";
-            const string query = @"
+            const string SearchWhereConstraint = "WHERE Name LIKE @search+'%'";
+            const string Query = @"
                              SELECT COUNT(*) as TotalCount FROM OrganizationModule.Organization
                                  {0}
                              SELECT [t].Name,
@@ -67,30 +97,38 @@ namespace ProCenter.Mvc.Controllers.Api
 
             var start = iDisplayStart;
             var end = start + iDisplayLength;
-            var completeQuery = string.Format ( query, sSearch == null ? "" : searchWhereConstraint );
+            var completeQuery = string.Format ( Query, sSearch == null ? string.Empty : SearchWhereConstraint );
 
-            using (var connection = _connectionFactory.CreateConnection())
-            using (var multiQuery = connection.QueryMultiple( completeQuery, new { start, end, search = sSearch } ))
+            using ( var connection = _connectionFactory.CreateConnection () )
+            using ( var multiQuery = connection.QueryMultiple ( completeQuery, new {start, end, search = sSearch} ) )
             {
                 var totalCount = multiQuery.Read<int> ().Single ();
-                var organizationDtos = multiQuery.Read<OrganizationSummaryDto>();
+                var organizationDtos = multiQuery.Read<OrganizationSummaryDto> ();
                 var dataTableResponse = new DataTableResponse<OrganizationSummaryDto>
-                    {
-                        Data = organizationDtos.ToList (),
-                        Echo = sEcho,
-                        TotalDisplayRecords = totalCount,
-                        TotalRecords = totalCount,
-                    };
+                {
+                    Data = organizationDtos.ToList (),
+                    Echo = sEcho,
+                    TotalDisplayRecords = totalCount,
+                    TotalRecords = totalCount,
+                };
 
                 return dataTableResponse;
             }
         }
 
+        /// <summary>
+        /// Systems the administrators data table search.
+        /// </summary>
+        /// <param name="sEcho">The s echo.</param>
+        /// <param name="iDisplayStart">The i display start.</param>
+        /// <param name="iDisplayLength">Display length of the i.</param>
+        /// <param name="sSearch">The s search.</param>
+        /// <returns>A <see cref="DataTableResponse{SystemAccountDto}"/>.</returns>
         [HttpGet]
-        public DataTableResponse<SystemAccountDto> SystemAdministratorsDataTableSearch(string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null)
+        public DataTableResponse<SystemAccountDto> SystemAdministratorsDataTableSearch ( string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null )
         {
-            const string searchWhereConstraint = "AND Identifier LIKE @search+'%'";
-            const string query = @"
+            const string SearchWhereConstraint = "AND Identifier LIKE @search+'%'";
+            const string Query = @"
                              SELECT COUNT(*) as TotalCount FROM SecurityModule.SystemAccount
                                  WHERE OrganizationKey = @OrganizationKey {0}
                              SELECT [t].Identifier,
@@ -110,16 +148,16 @@ namespace ProCenter.Mvc.Controllers.Api
 
             var start = iDisplayStart;
             var end = start + iDisplayLength;
-            var completeQuery = string.Format(query, sSearch == null ? "" : searchWhereConstraint);
+            var completeQuery = string.Format ( Query, sSearch == null ? string.Empty : SearchWhereConstraint );
 
-            using (var connection = _connectionFactory.CreateConnection())
-            using (var multiQuery = connection.QueryMultiple(completeQuery, new { start, end, search = sSearch, OrganizationKey = Guid.Empty }))
+            using ( var connection = _connectionFactory.CreateConnection () )
+            using ( var multiQuery = connection.QueryMultiple ( completeQuery, new {start, end, search = sSearch, OrganizationKey = Guid.Empty} ) )
             {
-                var totalCount = multiQuery.Read<int>().Single();
-                var systemAccountDtos = multiQuery.Read<SystemAccountDto>();
+                var totalCount = multiQuery.Read<int> ().Single ();
+                var systemAccountDtos = multiQuery.Read<SystemAccountDto> ();
                 var dataTableResponse = new DataTableResponse<SystemAccountDto>
                 {
-                    Data = systemAccountDtos.ToList(),
+                    Data = systemAccountDtos.ToList (),
                     Echo = sEcho,
                     TotalDisplayRecords = totalCount,
                     TotalRecords = totalCount,
@@ -128,5 +166,7 @@ namespace ProCenter.Mvc.Controllers.Api
                 return dataTableResponse;
             }
         }
+
+        #endregion
     }
 }

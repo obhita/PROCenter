@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,35 +25,60 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.EventListener
 {
     #region Using Statements
 
-    using EventStore;
     using Pillar.Common.InversionOfControl;
     using Pillar.Domain.Event;
+
     using ProCenter.Domain.AssessmentModule;
     using ProCenter.Domain.AssessmentModule.Event;
-    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>The assessment scored event handler class.</summary>
     public class AssessmentScoredEventHandler : IDomainEventHandler<AssessmentScoredEvent>
     {
+        #region Fields
+
         private readonly IAssessmentInstanceRepository _assessmentInstanceRepository;
 
-        public AssessmentScoredEventHandler(IAssessmentInstanceRepository assessmentInstanceRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentScoredEventHandler"/> class.
+        /// </summary>
+        /// <param name="assessmentInstanceRepository">The assessment instance repository.</param>
+        public AssessmentScoredEventHandler ( IAssessmentInstanceRepository assessmentInstanceRepository )
         {
             _assessmentInstanceRepository = assessmentInstanceRepository;
         }
 
-        public void Handle(AssessmentScoredEvent args)
-        {
-            var assessmentInstance = _assessmentInstanceRepository.GetByKey(args.Key);
+        #endregion
 
-            var workflowEngine = IoC.CurrentContainer.Resolve<IWorkflowEngine>(assessmentInstance.AssessmentName);
-            workflowEngine.Run(assessmentInstance);
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Handles the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        public void Handle ( AssessmentScoredEvent args )
+        {
+            var assessmentInstance = _assessmentInstanceRepository.GetByKey ( args.Key );
+
+            var workflowEngine = IoC.CurrentContainer.TryResolve<IWorkflowEngine> ( assessmentInstance.AssessmentName );
+            if ( workflowEngine != null )
+            {
+                workflowEngine.Run ( assessmentInstance );
+            }
         }
+
+        #endregion
     }
 }

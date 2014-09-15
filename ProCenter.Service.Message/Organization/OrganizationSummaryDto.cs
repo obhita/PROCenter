@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,18 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
     #region Using Statements
 
-    using Common;
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
-    /// <summary>
-    ///     Organization Summary data transfer object.
-    /// </summary>
+    /// <summary>Organization Summary data transfer object.</summary>
     public class OrganizationSummaryDto : KeyedDataTransferObject
     {
         #region Public Properties

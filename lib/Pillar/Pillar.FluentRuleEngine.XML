@@ -24,14 +24,6 @@
                 <c>true</c> if this instance is initialized; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="P:Pillar.FluentRuleEngine.IRuleCollection`1.RuleSets">
-            <summary>
-            Gets the rule sets.
-            </summary>
-            <value>
-            The rule sets.
-            </value>
-        </member>
         <member name="M:Pillar.FluentRuleEngine.AbstractRuleCollection`1.#ctor">
             <summary>
                 Initializes a new instance of the <see cref="T:Pillar.FluentRuleEngine.AbstractRuleCollection`1"/> class.
@@ -143,6 +135,10 @@
                 <see cref="T:System.Action"/> that creates the rules.
             </param>
         </member>
+        <member name="M:Pillar.FluentRuleEngine.AbstractRuleCollection`1.AddRule(Pillar.FluentRuleEngine.IRule)">
+            <summary>Adds the rule.</summary>
+            <param name="rule">The rule.</param>
+        </member>
         <member name="P:Pillar.FluentRuleEngine.AbstractRuleCollection`1.AutoValidatePropertyRules">
             <summary>
                 Gets or sets a value indicating whether to auto validate property rules.
@@ -157,14 +153,6 @@
             </summary>
             <value>
                 <c>true</c> if this instance is initialized; otherwise, <c>false</c> .
-            </value>
-        </member>
-        <member name="P:Pillar.FluentRuleEngine.AbstractRuleCollection`1.RuleSets">
-            <summary>
-                Gets the rule sets.
-            </summary>
-            <value>
-                The rule sets.
             </value>
         </member>
         <member name="T:Pillar.FluentRuleEngine.ErrorMessageProvider">
@@ -1555,6 +1543,13 @@
                 useful in situations where the actual class is compiled at runtime such as Razor views.
             </param>
         </member>
+        <member name="M:Pillar.FluentRuleEngine.IRuleCollectionFactory.CreateRuleCollection(System.Type)">
+            <summary>
+            Creates the rule collection.
+            </summary>
+            <param name="subjectType">Type of subject of the rule collection.</param>
+            <returns>A rule collection object.</returns>
+        </member>
         <member name="T:Pillar.FluentRuleEngine.IRuleEngine">
             <summary>
                 Interface for Defining a RuleEngine for running rules in a RuleCollection.
@@ -1740,6 +1735,13 @@
                 A <see cref="T:Pillar.FluentRuleEngine.IRuleEngine`1">Rule Engine</see> .
             </returns>
         </member>
+        <member name="M:Pillar.FluentRuleEngine.IRuleEngineFactory.CreateRuleEngine(System.Type)">
+            <summary>
+            Creates the rule engine.
+            </summary>
+            <param name="subjectType">Type of the subject.</param>
+            <returns>A <see cref="T:Pillar.FluentRuleEngine.IRuleEngine"/>.</returns>
+        </member>
         <member name="T:Pillar.FluentRuleEngine.IRuleProcessor">
             <summary>
                 Interface for processing a <see cref="T:Pillar.FluentRuleEngine.IRule">rule</see>.
@@ -1755,7 +1757,6 @@
             <param name="rule">
                 The <see cref="T:Pillar.FluentRuleEngine.IRule">Rule</see> to process.
             </param>
-            <returns>Whether the rule was executed or not.</returns>
         </member>
         <member name="T:Pillar.FluentRuleEngine.IRuleSet">
             <summary>
@@ -2193,6 +2194,13 @@
                 A <see cref="T:Pillar.FluentRuleEngine.IRuleCollection`1">RuleCollection&lt;TSubject&gt;</see>
             </returns>
         </member>
+        <member name="M:Pillar.FluentRuleEngine.RuleCollectionFactory.CreateRuleCollection(System.Type)">
+            <summary>
+            Creates the rule collection.
+            </summary>
+            <param name="subjectType">Type of subject of the rule collection.</param>
+            <returns>A rule collection.</returns>
+        </member>
         <member name="M:Pillar.FluentRuleEngine.RuleCollectionFactory.CustomizeRuleCollection``1(Pillar.FluentRuleEngine.IRuleCollection{``0},System.Boolean)">
             <summary>
                 Customizes a <see cref="T:Pillar.FluentRuleEngine.IRuleCollection`1">Rule Collection</see>.
@@ -2533,17 +2541,27 @@
                 A <see cref="T:Pillar.FluentRuleEngine.IRuleEngine`1">Rule Engine</see>.
             </returns>
         </member>
+        <member name="M:Pillar.FluentRuleEngine.RuleEngineFactory.CreateRuleEngine(System.Type)">
+            <summary>
+            Creates the rule engine.
+            </summary>
+            <param name="subjectType">Type of the subject.</param>
+            <returns>
+            A <see cref="T:Pillar.FluentRuleEngine.IRuleEngine"/>.
+            </returns>
+        </member>
         <member name="T:Pillar.FluentRuleEngine.RuleExecutionResult">
             <summary>
                 Results of a Rule Engine Execution.
             </summary>
         </member>
-        <member name="M:Pillar.FluentRuleEngine.RuleExecutionResult.#ctor(System.Collections.Generic.IEnumerable{Pillar.FluentRuleEngine.RuleViolation},System.Int32)">
+        <member name="M:Pillar.FluentRuleEngine.RuleExecutionResult.#ctor(System.Collections.Generic.IEnumerable{Pillar.FluentRuleEngine.RuleViolation})">
             <summary>
-            Initializes a new instance of the <see cref="T:Pillar.FluentRuleEngine.RuleExecutionResult"/> class.
+                Initializes a new instance of the <see cref="T:Pillar.FluentRuleEngine.RuleExecutionResult"/> class.
             </summary>
-            <param name="ruleViolations">List of <see cref="T:Pillar.FluentRuleEngine.RuleViolation">rule violations</see> that occurred to rule engine execution.</param>
-            <param name="numberOfRulesExecuted">The number of rules executed.</param>
+            <param name="ruleViolations">
+                List of <see cref="T:Pillar.FluentRuleEngine.RuleViolation">rule violations</see> that occurred to rule engine execution.
+            </param>
         </member>
         <member name="P:Pillar.FluentRuleEngine.RuleExecutionResult.HasRuleViolation">
             <summary>
@@ -2557,14 +2575,6 @@
             <summary>
                 Gets the list of <see cref="T:Pillar.FluentRuleEngine.RuleViolation">rule violations</see>.
             </summary>
-        </member>
-        <member name="P:Pillar.FluentRuleEngine.RuleExecutionResult.NumberOfRulesExecuted">
-            <summary>
-            Gets the number of rules executed.
-            </summary>
-            <value>
-            The number of rules executed.
-            </value>
         </member>
         <member name="T:Pillar.FluentRuleEngine.RuleExtensions">
             <summary>
@@ -2637,6 +2647,49 @@
             </summary>
             <param name="rule">Rule to disable.</param>
         </member>
+        <member name="M:Pillar.FluentRuleEngine.RuleExtensions.ReportRuleViolation``1(Pillar.FluentRuleEngine.RuleEngineContext{``0},Pillar.FluentRuleEngine.IRule,System.String,System.Collections.Generic.IDictionary{System.String,System.String},System.String[])">
+            <summary>
+                Reports the rule violation with the specified rule violation message.
+            </summary>
+            <typeparam name="TSubject">The type of the subject.</typeparam>
+            <param name="ruleEngineContext">The rule engine context.</param>
+            <param name="rule">The rule.</param>
+            <param name="message">
+                Message to use in the <see cref="T:Pillar.FluentRuleEngine.RuleViolation"/>.
+            </param>
+            <param name="nameDictionary">
+                <see cref="T:System.Collections.Generic.IDictionary`2"/> to use when formatting the <paramref name="message"/>.
+            </param>
+            <param name="propertyNames">Params of property names that caused the rule violation.</param>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.RuleExtensions.ReportRuleViolation``1(Pillar.FluentRuleEngine.RuleEngineContext{``0},Pillar.FluentRuleEngine.IRule,System.Func{``0,Pillar.FluentRuleEngine.RuleEngineContext{``0},System.String},System.Collections.Generic.IDictionary{System.String,System.String},System.String[])">
+            <summary>
+                Reports the rule violation with the message given by the message function.
+            </summary>
+            <typeparam name="TSubject">The type of the subject.</typeparam>
+            <param name="ruleEngineContext">The rule engine context.</param>
+            <param name="rule">The rule.</param>
+            <param name="getMessageFunc">
+                <see cref="T:System.Func`3"/> to get the Message to use in <see cref="T:Pillar.FluentRuleEngine.RuleViolation"/>.
+            </param>
+            <param name="nameDictionary">
+                <see cref="T:System.Collections.Generic.IDictionary`2"/> to use when formatting the message.
+            </param>
+            <param name="propertyNames">Params of property names that caused the rule violation.</param>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.RuleExtensions.ReportRuleViolation``1(Pillar.FluentRuleEngine.RuleEngineContext{``0},Pillar.FluentRuleEngine.IRule,System.Object,System.Collections.Generic.IDictionary{System.String,System.String},System.String[])">
+            <summary>
+                Reports the rule violation with the message that is provided by the built-in <see cref="T:Pillar.FluentRuleEngine.IErrorMessageProvider"/>.
+            </summary>
+            <typeparam name="TSubject">The type of the subject.</typeparam>
+            <param name="ruleEngineContext">The rule engine context.</param>
+            <param name="rule">The rule.</param>
+            <param name="objectInstance">The object instance that owns the violation message.</param>
+            <param name="nameDictionary">
+                <see cref="T:System.Collections.Generic.IDictionary`2"/> to use when formatting the message.
+            </param>
+            <param name="propertyNames">Params of property names that caused the rule violation.</param>
+        </member>
         <member name="M:Pillar.FluentRuleEngine.RuleExtensions.RunForProperty``3(Pillar.FluentRuleEngine.Rules.IRuleBuilderInitializer{``0,``1},System.Linq.Expressions.Expression{System.Func{``1,``2}})">
             <summary>
                 Adds an attribute to the rule with the key "PropertyChain".
@@ -2681,7 +2734,7 @@
                 A <see cref="T:Pillar.FluentRuleEngine.Rules.IRuleBuilder`2"/>.
             </returns>
         </member>
-        <member name="M:Pillar.FluentRuleEngine.RuleExtensions.ThenReportRuleViolation``2(Pillar.FluentRuleEngine.Rules.IRuleBuilder{``0,``1},System.Func{``1,``0,System.String},System.Collections.Generic.IDictionary{System.String,System.String},System.String[])">
+        <member name="M:Pillar.FluentRuleEngine.RuleExtensions.ThenReportRuleViolation``2(Pillar.FluentRuleEngine.Rules.IRuleBuilder{``0,``1},System.Func{``1,Pillar.FluentRuleEngine.RuleEngineContext{``1},System.String},System.Collections.Generic.IDictionary{System.String,System.String},System.String[])">
             <summary>
                 Adds a Then Clause to a Rule that Reports a <see cref="T:Pillar.FluentRuleEngine.RuleViolation"/> using the specified
                 error message.
@@ -3856,6 +3909,13 @@
             <returns>
                 A <see cref="T:Pillar.FluentRuleEngine.WorkingMemory"/>
             </returns>
+        </member>
+        <member name="M:Pillar.FluentRuleEngine.WorkingMemory.MergeWorkingMemory(Pillar.FluentRuleEngine.WorkingMemory)">
+            <summary>
+            Merges the working memory by taking the union of current with the passed in working memory.
+            If entry exists in both sets the current entry takes precedence.
+            </summary>
+            <param name="workingMemory">The working memory.</param>
         </member>
         <member name="M:Pillar.FluentRuleEngine.WorkingMemory.GetContextObject``1">
             <summary>

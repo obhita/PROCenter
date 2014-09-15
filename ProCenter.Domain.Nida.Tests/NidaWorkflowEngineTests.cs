@@ -30,7 +30,11 @@ namespace ProCenter.Domain.Nida.Tests
     #region Using Statements
 
     using System;
+    using System.Collections.Generic;
     using System.Linq;
+    using System.Security.Claims;
+    using System.Threading;
+
     using AssessmentModule;
     using Common;
     using CommonModule;
@@ -40,6 +44,9 @@ namespace ProCenter.Domain.Nida.Tests
     using MessageModule;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
+    using NSubstitute;
+
     using Pillar.Common.Tests;
     using Pillar.FluentRuleEngine;
 
@@ -69,7 +76,9 @@ namespace ProCenter.Domain.Nida.Tests
                 var nidaWorkflowRuleCollection = serviceLocatorFixture.StructureMapContainer.GetInstance<NidaWorkflowRuleCollection> ();
                 var nidaWorkflowEngine = new NidaWorkflowEngine ( null, ruleEngineFactoryMock.Object, new MessageCollector () );
 
-                var assessmentInstance = new AssessmentInstance ( Guid.NewGuid (), Guid.NewGuid (), DrugAbuseScreeningTest.AssessmentCodedConcept.Name );
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+
+                var assessmentInstance = new AssessmentInstanceFactory().Create(assessmentDefinition, Guid.NewGuid(), DrugAbuseScreeningTest.AssessmentCodedConcept.Name, false);
 
                 nidaWorkflowEngine.Run ( assessmentInstance );
 
@@ -100,7 +109,9 @@ namespace ProCenter.Domain.Nida.Tests
                 var nidaWorkflowRuleCollection = serviceLocatorFixture.StructureMapContainer.GetInstance<NidaWorkflowRuleCollection> ();
                 var nidaWorkflowEngine = new NidaWorkflowEngine ( null, ruleEngineFactoryMock.Object, new MessageCollector () );
 
-                var assessmentInstance = new AssessmentInstance ( Guid.NewGuid (), Guid.NewGuid (), NidaAssessFurther.AssessmentCodedConcept.Name );
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+
+                var assessmentInstance = new AssessmentInstanceFactory().Create(assessmentDefinition, Guid.NewGuid(), NidaAssessFurther.AssessmentCodedConcept.Name, false);
 
                 nidaWorkflowEngine.Run ( assessmentInstance );
 
@@ -131,7 +142,9 @@ namespace ProCenter.Domain.Nida.Tests
                 var nidaWorkflowRuleCollection = serviceLocatorFixture.StructureMapContainer.GetInstance<NidaWorkflowRuleCollection> ();
                 var nidaWorkflowEngine = new NidaWorkflowEngine ( null, ruleEngineFactoryMock.Object, new MessageCollector () );
 
-                var assessmentInstance = new AssessmentInstance ( Guid.NewGuid (), Guid.NewGuid (), NidaSingleQuestionScreener.AssessmentCodedConcept.Name );
+                var assessmentDefinition = Substitute.For<AssessmentDefinition>();
+
+                var assessmentInstance = new AssessmentInstanceFactory().Create(assessmentDefinition, Guid.NewGuid(), NidaSingleQuestionScreener.AssessmentCodedConcept.Name, false);
 
                 nidaWorkflowEngine.Run ( assessmentInstance );
 
@@ -163,6 +176,11 @@ namespace ProCenter.Domain.Nida.Tests
                                                                    c => c.For<IWorkflowMessageRepository>().Use(new Mock<IWorkflowMessageRepository>().Object));
             serviceLocatorFixture.StructureMapContainer.Configure(
                                                                    c => c.For<IResourcesManager>().Use(new Mock<IResourcesManager>().Object));
+            Thread.CurrentPrincipal = new ClaimsPrincipal(new ClaimsIdentity(
+                new List<Claim>
+                {
+                    new Claim(ProCenterClaimType.StaffKeyClaimType, Guid.NewGuid().ToString())
+                }));
         }
 
         #endregion

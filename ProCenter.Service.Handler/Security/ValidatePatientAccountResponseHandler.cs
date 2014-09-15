@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
     #region Using Statements
@@ -36,6 +39,7 @@ namespace ProCenter.Service.Handler.Security
 
     #endregion
 
+    /// <summary>The validate patient account response handler class.</summary>
     public class ValidatePatientAccountResponseHandler : ServiceRequestHandler<ValidatePatientAccountRequest, ValidatePatientAccountResponse>
     {
         #region Fields
@@ -47,6 +51,11 @@ namespace ProCenter.Service.Handler.Security
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ValidatePatientAccountResponseHandler"/> class.
+        /// </summary>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        /// <param name="patientRepository">The patient repository.</param>
         public ValidatePatientAccountResponseHandler ( ISystemAccountRepository systemAccountRepository, IPatientRepository patientRepository )
         {
             _systemAccountRepository = systemAccountRepository;
@@ -57,6 +66,11 @@ namespace ProCenter.Service.Handler.Security
 
         #region Methods
 
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
         protected override void Handle ( ValidatePatientAccountRequest request, ValidatePatientAccountResponse response )
         {
             var systemAccount = _systemAccountRepository.GetByKey ( request.SystemAccountKey );

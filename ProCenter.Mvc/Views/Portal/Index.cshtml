@@ -1,16 +1,34 @@
-﻿@using ProCenter.Mvc.Infrastructure.Extension
-@using ProCenter.Common
+﻿@using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Portal
+@using ProCenter.Mvc.Views.ReportsCenter
 @model ProCenter.Service.Message.Patient.PatientDto
 
 @{
-    ViewBag.Title = "Portal Dashboard";
     var patientKey = Model == null ? string.Empty : Model.Key.ToString();
+    var patientFullName = Model == null ? string.Empty : Model.Name.FullName;
+    ViewBag.Title = Portal.PortalDashboardTitle;
 }
 
 @section subnav{
     <div class="sub-nav">
     </div>
 }
+
+<ol id="patientPortalTour">
+    <li data-id="userProfile" class="fixed-tip">@Portal.GuideChangePassword</li>
+    <li data-id="patientFeed">@Portal.GuideCurrentActivities</li>
+    <li data-id="patientReports">@Portal.GuideRecentReports</li>
+    <li data-id="patientRecentAssessments">@Portal.GuideAllAssessments</li>
+    <li data-id="calendar-widget">@Portal.GuideCalendar</li>
+</ol>
+
+<ol id="patientPortalInfoButtons" class="hidden">
+    <li data-id="patientFeed">@Portal.InfoButtonCurrentActivities</li>
+    <li data-id="patientReports">@Portal.InfoButtonRecentReports</li>
+    <li data-id="patientRecentAssessments">@Portal.InfoButtonAllAssessments</li>
+    <li data-id="calendar-widget">@Portal.InfoButtonCalendar</li>
+</ol>
 
 <div class="dashboard-wrapper full-height">
     <div class="patient-dashboard">
@@ -34,41 +52,105 @@
                 @Html.Partial( "../Widgets/AssessmentReminderPartial" )
             }
         </div>
-        <div class="clear"></div>
+        <div class="clearfix"></div>
     </div>
     <div id="ajax-loader" style="display: none"></div>
 </div>
 
 @section scripts 
 {
-    @if ( Model != null )
+    @if (Model != null)
     {
-        @Scripts.Render( "~/bundles/patient" )
+        @Scripts.Render("~/bundles/patient")
+        @Scripts.Render("~/bundles/patientPortal")
         <script>
             $(document).ready(function() {
-                var canViewReports = @Html.CanAccess( "Report", "Get" ).ToString().ToLower();
+                var canViewReports = @Html.CanAccess("Report", "Get").ToString().ToLower();
                 if (canViewReports) {
                     window.procenter.InitializePatientReports('@Url.Content("~/Assessment")', '@Url.Content("~/api/Assessment")', '@patientKey', '@Url.Action("Get", "Report")', '', false);
                 }
-                
-                var canViewPatientFeed = @Html.CanAccess( "Assessment", "PatientFeed" ).ToString().ToLower();
+
+                var canViewPatientFeed = @Html.CanAccess("Assessment", "PatientFeed").ToString().ToLower();
+                var alertMessageFormat = '@Portal.IncompleteAssessment';
                 if (canViewPatientFeed) {
-                    window.procenter.InitializePatientFeed('@Url.Content("~/Patient")', '@patientKey');
+                    window.procenter.InitializePatientFeed('@Url.Content("~/Patient")', '@patientKey', alertMessageFormat);
                 }
-                
-                var canViewPatientAssessments = @Html.CanAccess( "Assessment", "Edit" ).ToString().ToLower();
+
+                var canViewPatientAssessments = @Html.CanAccess("Assessment", "Edit").ToString().ToLower();
                 if (canViewPatientAssessments) {
-                    var canEditAssessments = @Html.CanAccess( "Assessment", "Edit", "POST" ).ToString().ToLower();
+                    var canEditAssessments = @Html.CanAccess("Assessment", "Edit", "POST").ToString().ToLower();
                     window.procenter.InitializePatientRecentAssessments('@Url.Content("~/api/PatientAssessmentsDataTable")', '@patientKey', '@Url.Action("Edit", "Assessment")', canEditAssessments);
                 }
 
-                var canViewReminders = @Html.CanAccess( "AssessmentReminder", "Get" ).ToString().ToLower();
+                var canViewReminders = @Html.CanAccess("AssessmentReminder", "Get").ToString().ToLower();
                 if (canViewReminders) {
-                    var canEditReminders = @Html.CanAccess( "AssessmentReminder", "Edit", "POST" ).ToString().ToLower();
-                    window.procenter.InitializeReminders('@Url.Content( "~/AssessmentReminder" )', '@Url.Content( "~/api/AssessmentReminder" )', canEditReminders, '@patientKey');
+                    var canEditReminders = @Html.CanAccess("AssessmentReminder", "Edit", "POST").ToString().ToLower();
+                    window.procenter.InitializeReminders('@Url.Content("~/AssessmentReminder")', '@Url.Content("~/api/AssessmentReminder")', canEditReminders, '@patientKey', '@patientFullName', '@DateTime.Today');
                 }
+
+                var systemAccountKey = '@UserContext.Current.SystemAccountKey';
+                window.procenter.InitializeReportBuilder('@Url.Content("~/Report/")', systemAccountKey, '@patientKey', '@ReportsCenter.NoAssessmentWarning', new Array('@ReportsCenter.HeightUnit1', '@ReportsCenter.HeightUnit2'));
+
+                $('body').append('<button class="btn btn-portal-guide" data-layout-ignore>Guide</button>');
+                $('#patientPortalTour').joyride({
+                    //tipContainer: '#mainContent',
+                    tipLocation: 'right',
+                    mode: 'focus',
+                    affectHeight: false,
+                    postRideCallback: function() {
+                        fixSizes();
+                    }
+                });
+
+                $('#patientPortalInfoButtons').infoButtons();
+
+                $('.btn-portal-guide').on('click', function() {
+                    $("#mainContent").stop().animate({
+                        scrollTop: 0
+                    }, 200, function() {
+                        $('#patientPortalTour').joyride('restart');
+                    });
+                });
+                var $patientWidgets = $('#patientReports, #patientRecentAssessments, #calendar-widget');
+                $patientWidgets.on('expanded', function() {
+                    $('.btn-portal-guide').hide();
+                    $('#patientPortalTour').joyride("hide");
+                });
+                $patientWidgets.on('collapsed', function() {
+                    $('.btn-portal-guide').show();
+                });
+
+                $('.btn').button();
+                $("#content-templates").hide();
+                $("#content-saved-reports").hide();
+                $("#content-parameters").show();
+                $("#report-parameters").addClass("disabled");
+
+                $("#report-parameters").on("click", function() {
+                    showReportArea($(this), $("#content-parameters"));
+                });
+                $("#report-saved").on("click", function() {
+                    showReportArea($(this), $("#content-saved-reports"));
+                });
+                $("#report-templates").on("click", function() {
+                    showReportArea($(this), $("#content-templates"));
+                });
             });
+
+            function showReportArea(button, area) {
+                $("#content-parameters").hide();
+                $("#report-parameters-div").hide();
+                $("#content-templates").hide();
+                $("#content-saved-reports").hide();
+                if (button.hasClass("disabled")) {
+                    $(button).removeClass("disabled");
+                } else {
+                    $("#report-parameters, #report-saved, #report-templates").removeClass("disabled");
+                    area.show();
+                    $(button).addClass("disabled");
+                }
+            }
         </script>
-        <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+        <noscript>@Portal.NoScript</noscript>
     }
 }

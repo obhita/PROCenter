@@ -78,9 +78,21 @@
     clear: both;
     font-weight: normal;
     line-height: @baseLineHeight;
-    color: @dropdownLinkColor;
+    color: @dropdownLinkColor !important;
     white-space: nowrap;
   }
+}
+
+.dropdown-menu.disabled {
+    text-decoration: none !important;
+    background-color: #eeeeee !important;
+    background-image: none; // Remove CSS gradient
+    .reset-filter();
+    cursor: not-allowed !important;
+    color: black !important;
+    border: solid 1px #cccccc;
+    border-radius: 5px;
+    background: #eeeeee !important;  
 }
 
 // Hover/Focus state
@@ -90,7 +102,7 @@
 .dropdown-submenu:hover > a,
 .dropdown-submenu:focus > a {
   text-decoration: none;
-  color: @dropdownLinkColorHover;
+  color: @dropdownLinkColorHover !important;
   #gradient > .vertical(@dropdownLinkBackgroundHover, darken(@dropdownLinkBackgroundHover, 5%));
 }
 
@@ -99,7 +111,7 @@
 .dropdown-menu > .active > a,
 .dropdown-menu > .active > a:hover,
 .dropdown-menu > .active > a:focus {
-  color: @dropdownLinkColorActive;
+  color: @dropdownLinkColorActive !important;
   text-decoration: none;
   outline: 0;
   #gradient > .vertical(@dropdownLinkBackgroundActive, darken(@dropdownLinkBackgroundActive, 5%));
@@ -108,19 +120,42 @@
 // Disabled state
 // --------------
 // Gray out text and ensure the hover/focus state remains gray
-.dropdown-menu > .disabled > a,
-.dropdown-menu > .disabled > a:hover,
-.dropdown-menu > .disabled > a:focus {
-  color: @grayLight;
-}
-// Nuke hover/focus effects
-.dropdown-menu > .disabled > a:hover,
-.dropdown-menu > .disabled > a:focus {
-  text-decoration: none;
-  background-color: transparent;
+.dropdown-menu > .disabled > li > a,
+.dropdown-menu > .disabled > li > a:hover,
+.dropdown-menu > .disabled > li > a:focus {
+  text-decoration: none !important;
+  background-color: #eeeeee !important;
   background-image: none; // Remove CSS gradient
   .reset-filter();
-  cursor: default;
+  cursor: not-allowed !important;
+  color: black !important;
+  border: solid 1px #cccccc;
+  border-radius: 5px;
+  background: #eeeeee !important;
+}
+// Nuke hover/focus effects
+.dropdown-menu > .disabled > li > a:hover,
+.dropdown-menu > .disabled > li > a:focus {
+  text-decoration: none !important;
+  background-color: #eeeeee !important;
+  background-image: none; // Remove CSS gradient
+  .reset-filter();
+  cursor: not-allowed !important;
+  color: black !important;
+  border: solid 1px #cccccc;
+  border-radius: 5px;
+  background: #eeeeee !important;
+}
+.dropdown-menu.disabled > li > a:hover {
+  text-decoration: none !important;
+  background-color: #eeeeee !important;
+  background-image: none; // Remove CSS gradient
+  .reset-filter();
+  cursor: not-allowed !important;
+  color: black !important;
+  border: solid 1px #cccccc;
+  border-radius: 5px;
+  background: #eeeeee !important;
 }
 
 // Open state for the dropdown

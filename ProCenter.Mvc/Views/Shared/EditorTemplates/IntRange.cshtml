@@ -1,0 +1,17 @@
+﻿@using ProCenter.Mvc.Views.Shared
+@{
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+
+@if (Model != null && Model.Count > 1)
+{
+    <input type="text" pattern="[-0-9]*" value="@Model[0]" class="number intRange" data-name-intrange="intRangeLow" aria-label="@ariaLabel"/>
+    @Html.Label(Shared.To, new { @class = "intRangeTo", })
+    <input type="text" pattern="[-0-9]*" value="@Model[1]" class="number intRange" data-name-intrange="intRangeHigh" aria-label="@ariaLabel"/>
+}
+else
+{
+    @Html.TextBoxFor(m => m, new { type = "text", pattern = "[-0-9]*", @class = "number intRange", id = ViewData["id"], data_name_intrange="intRangeLow", aria_label=@ariaLabel }) 
+    @Html.Label(Shared.To, new { @class = "intRangeTo", }) 
+    @Html.TextBoxFor(m => m, new { type = "text", pattern = "[-0-9]*", @class = "number intRange", id = ViewData["id"], data_name_intrange="intRangeHigh", aria_label=@ariaLabel })
+}

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Infrastructure
 {
+    /// <summary>Interface for user context service.</summary>
     public interface IUserContextService
     {
-        string UserName { get; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the user identifier.
+        /// </summary>
+        /// <value>
+        /// The user identifier.
+        /// </value>
         string UserId { get; }
+
+        /// <summary>
+        /// Gets the name of the user.
+        /// </summary>
+        /// <value>
+        /// The name of the user.
+        /// </value>
+        string UserName { get; }
+
+        #endregion
     }
 }

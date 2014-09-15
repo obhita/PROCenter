@@ -1,0 +1,92 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Report
+@model ProCenter.Service.Message.Report.BaseParametersDto
+@{
+    var isSpecifyRange = Model.TimePeriod == null;
+}
+
+@Html.HiddenFor( m => m.ControllerAction )
+<div>
+    <div>
+        <div class="dateRangeOptionGroup">
+            <div>
+                <input type="radio" id="report-specify-range" name="daterange" title="@Report.EnterDateRange" checked="@isSpecifyRange"  value="specifyRange"><span id="span-report-specify-range" class="dateRangeOptions">@Report.SpecifyRange</span>
+            </div>
+            <div>
+                <input type="radio" id="report-time-period" name="daterange" title="@Report.SelectTimePeriod" checked="@(!isSpecifyRange)" value="timePeriod"><span id="span-report-time-period" class="dateRangeOptions">@Report.TimePeriod</span>
+            </div>
+        </div>
+        <div id="specify-range">
+            <div>
+                @Html.LabelFor(m => m.StartDate)
+                @Html.EditorFor(m => m.StartDate)
+            </div>
+            <div>
+                @Html.LabelFor(m => m.EndDate)
+                @Html.EditorFor(m => m.EndDate)
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="time-period">
+            @{
+                var lookupCategory = Html.GetLookupCategory("ReportTimePeriod");
+            }
+            @Html.LabelFor(m => m.TimePeriod)
+            @Html.EditorFor(m => m.TimePeriod, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory })
+            @Html.ActionLink(Report.SaveTemplate, "SaveReportTemplate" + ViewData["ReportName"], "Report", null, new { key = ViewData["ReportTemplateKey"], id = "save-template", @class = "btn btn-info" })
+        </div>
+    </div>
+   
+    <div class="tools">
+        @Html.ActionLink(Report.Generate, "GetReportContainer", "Report", null, new { id = "generate-report", @class = "btn btn-success" })
+    </div>
+    <div class="clearfix"></div>
+</div>
+
+<script>
+    function showSaveTemplate() {
+        if ($("#TimePeriod").val() != "") {
+            $("#save-template").show();
+        } else {
+            $("#save-template").hide();
+        }
+    }
+
+    $(document).ready(function () {
+        $("#save-template").hide();
+        $("#time-period").hide();
+        $("#specify-range").show();
+        $("#TimePeriod").on("change", function () {
+            showSaveTemplate();
+        });
+
+        var isSpecifyRange = '@(isSpecifyRange)';
+        if (isSpecifyRange == 'True') {
+            $("#time-period").hide();
+            $("#specify-range").show();
+        } else {
+            $("#time-period").show();
+            $("#specify-range").hide();
+        }
+
+        $("#report-specify-range,#span-report-specify-range").on('click', function (e) {
+            $("#time-period").hide();
+            $("#specify-range").show();
+            $("#report-specify-range").prop("checked", true);
+            $("#report-time-period").prop("checked", false);
+            $("#TimePeriod").val("");
+            $("#save-template").hide();
+        });
+
+        $("#report-time-period, #span-report-time-period").on("click", function () {
+            $("#specify-range").hide();
+            $("#time-period").show();
+            $("#report-specify-range").prop("checked", false);
+            $("#report-time-period").prop("checked", true);
+            $("#Parameters_StartDate").val("");
+            $("#Parameters_EndDate").val("");
+            showSaveTemplate();
+        });
+    });
+</script>

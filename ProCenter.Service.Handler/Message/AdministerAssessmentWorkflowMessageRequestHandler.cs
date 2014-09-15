@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,37 +25,59 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Message
 {
     #region Using Statements
 
     using Common;
-    using Domain.CommonModule;
     using Domain.MessageModule;
-    using Infrastructure.Domain;
     using Service.Message.Message;
 
     #endregion
 
+    /// <summary>The administer assessment workflow message request handler class.</summary>
     public class AdministerAssessmentWorkflowMessageRequestHandler :
         ServiceRequestHandler<AdministerAssessmentWorkflowMessageRequest, WorkflowMessageStatusChangedResponse>
     {
+        #region Fields
+
         private readonly IWorkflowMessageRepository _workflowMessageRepository;
 
-        public AdministerAssessmentWorkflowMessageRequestHandler(IWorkflowMessageRepository workflowMessageRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AdministerAssessmentWorkflowMessageRequestHandler"/> class.
+        /// </summary>
+        /// <param name="workflowMessageRepository">The workflow message repository.</param>
+        public AdministerAssessmentWorkflowMessageRequestHandler ( IWorkflowMessageRepository workflowMessageRepository )
         {
             _workflowMessageRepository = workflowMessageRepository;
         }
 
-        protected override void Handle(AdministerAssessmentWorkflowMessageRequest request,
-                                       WorkflowMessageStatusChangedResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( AdministerAssessmentWorkflowMessageRequest request,
+            WorkflowMessageStatusChangedResponse response )
         {
-            var workflowMessage = _workflowMessageRepository.GetByKey(request.WorkflowMessageKey);
-            if (workflowMessage != null)
+            var workflowMessage = _workflowMessageRepository.GetByKey ( request.WorkflowMessageKey );
+            if ( workflowMessage != null )
             {
-                workflowMessage.AdministerAssessment();
+                workflowMessage.AdministerAssessment ();
             }
         }
+
+        #endregion
     }
 }

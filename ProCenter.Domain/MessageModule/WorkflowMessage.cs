@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule
 {
     #region Using Statements
@@ -32,63 +35,163 @@ namespace ProCenter.Domain.MessageModule
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AssessmentModule;
-    using CommonModule;
-    using Event;
+
     using Pillar.Common.Utility;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.MessageModule.Event;
 
     #endregion
 
+    /// <summary>The workflow message class.</summary>
     public class WorkflowMessage : AggregateRootBase, IMessage
     {
-        private Dictionary<string,Guid> _workflowAssessments = new Dictionary<string, Guid> ();
+        #region Fields
 
-        public WorkflowMessage()
-        {
-            WorkflowReports = new List<ReportModel>();
-        }
+        private readonly Dictionary<string, Guid> _workflowAssessments = new Dictionary<string, Guid> ();
 
-        public WorkflowMessage(Guid patientKey,
-                               Guid initiatingAssessmentKey,
-                               string initiatingAssessmentCode,
-                               Guid recommendedAssessmentDefinitionKey,
-                               string recommendedAssessmentDefinitionCode,
-                               Score initiatingAssessmentScore)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowMessage"/> class.
+        /// </summary>
+        public WorkflowMessage ()
         {
-            Key = CombGuid.NewCombGuid();
-            RaiseEvent(new WorkflowMessageCreatedEvent(Key,
-                                                       MessageType,
-                                                       patientKey,
-                                                       WorkflowMessageStatus.WaitingForResponse, 
-                                                       initiatingAssessmentKey,
-                                                       initiatingAssessmentCode,
-                                                       recommendedAssessmentDefinitionKey,
-                                                       recommendedAssessmentDefinitionCode,
-                                                       initiatingAssessmentScore));
             WorkflowReports = new List<ReportModel> ();
         }
 
-        public Guid InitiatingAssessmentKey { get; private set; }
-        public string InitiatingAssessmentCode { get; private set; }
-        public Guid RecommendedAssessmentDefinitionKey { get; private set; }
-        public string RecommendedAssessmentDefinitionCode { get; private set; }
-        public WorkflowMessageStatus Status { get; private set; }
-        public Guid PatientKey { get; private set; }
-        public Score InitiatingAssessmentScore { get; private set; }
-        public IEnumerable<ReportModel> WorkflowReports { get; private set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowMessage"/> class.
+        /// </summary>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="initiatingAssessmentKey">The initiating assessment key.</param>
+        /// <param name="initiatingAssessmentCode">The initiating assessment code.</param>
+        /// <param name="recommendedAssessmentDefinitionKey">The recommended assessment definition key.</param>
+        /// <param name="recommendedAssessmentDefinitionCode">The recommended assessment definition code.</param>
+        /// <param name="initiatingAssessmentScore">The initiating assessment score.</param>
+        public WorkflowMessage (
+            Guid patientKey,
+            Guid initiatingAssessmentKey,
+            string initiatingAssessmentCode,
+            Guid recommendedAssessmentDefinitionKey,
+            string recommendedAssessmentDefinitionCode,
+            Score initiatingAssessmentScore )
+        {
+            Key = CombGuid.NewCombGuid ();
+            RaiseEvent (
+                        new WorkflowMessageCreatedEvent (
+                            Key,
+                            MessageType,
+                            patientKey,
+                            WorkflowMessageStatus.WaitingForResponse,
+                            initiatingAssessmentKey,
+                            initiatingAssessmentCode,
+                            recommendedAssessmentDefinitionKey,
+                            recommendedAssessmentDefinitionCode,
+                            initiatingAssessmentScore ) );
+            WorkflowReports = new List<ReportModel> ();
+        }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [for self administration].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [for self administration]; otherwise, <c>false</c>.
+        /// </value>
         public bool ForSelfAdministration { get; private set; }
 
+        /// <summary>
+        /// Gets the initiating assessment code.
+        /// </summary>
+        /// <value>
+        /// The initiating assessment code.
+        /// </value>
+        public string InitiatingAssessmentCode { get; private set; }
+
+        /// <summary>
+        /// Gets the initiating assessment key.
+        /// </summary>
+        /// <value>
+        /// The initiating assessment key.
+        /// </value>
+        public Guid InitiatingAssessmentKey { get; private set; }
+
+        /// <summary>
+        /// Gets the initiating assessment score.
+        /// </summary>
+        /// <value>
+        /// The initiating assessment score.
+        /// </value>
+        public Score InitiatingAssessmentScore { get; private set; }
+
+        /// <summary>
+        /// Gets the type of the message.
+        /// </summary>
+        /// <value>
+        /// The type of the message.
+        /// </value>
         public MessageType MessageType
         {
             get { return MessageType.RecommendAssessment; }
         }
 
-        public void Reject()
+        /// <summary>
+        /// Gets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
+        public Guid PatientKey { get; private set; }
+
+        /// <summary>
+        /// Gets the recommended assessment definition code.
+        /// </summary>
+        /// <value>
+        /// The recommended assessment definition code.
+        /// </value>
+        public string RecommendedAssessmentDefinitionCode { get; private set; }
+
+        /// <summary>
+        /// Gets the recommended assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The recommended assessment definition key.
+        /// </value>
+        public Guid RecommendedAssessmentDefinitionKey { get; private set; }
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
+        public WorkflowMessageStatus Status { get; private set; }
+
+        /// <summary>
+        /// Gets the workflow reports.
+        /// </summary>
+        /// <value>
+        /// The workflow reports.
+        /// </value>
+        public IEnumerable<ReportModel> WorkflowReports { get; private set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Administers the assessment.</summary>
+        public void AdministerAssessment ()
         {
-            if (Status == WorkflowMessageStatus.WaitingForResponse)
+            if ( Status == WorkflowMessageStatus.WaitingForResponse )
             {
-                RaiseEvent(new WorkflowMessageStatusChangedEvent(Key, MessageType, WorkflowMessageStatus.Rejected));
+                RaiseEvent ( new WorkflowMessageStatusChangedEvent ( Key, MessageType, WorkflowMessageStatus.InProgress ) );
             }
             else
             {
@@ -96,54 +199,61 @@ namespace ProCenter.Domain.MessageModule
             }
         }
 
-        public void AdministerAssessment()
+        /// <summary>Advances the specified initiating assessment key.</summary>
+        /// <param name="initiatingAssessmentKey">The initiating assessment key.</param>
+        /// <param name="initiatingAssessmentCode">The initiating assessment code.</param>
+        /// <param name="recommendedAssessmentDefinitionKey">The recommended assessment definition key.</param>
+        /// <param name="recommendedAssessmentDefinitionCode">The recommended assessment definition code.</param>
+        /// <param name="initiatingAssessmentScore">The initiating assessment score.</param>
+        public void Advance (
+            Guid initiatingAssessmentKey,
+            string initiatingAssessmentCode,
+            Guid recommendedAssessmentDefinitionKey,
+            string recommendedAssessmentDefinitionCode,
+            Score initiatingAssessmentScore )
         {
-            if (Status == WorkflowMessageStatus.WaitingForResponse)
+            if ( Status == WorkflowMessageStatus.InProgress )
             {
-                RaiseEvent(new WorkflowMessageStatusChangedEvent(Key, MessageType, WorkflowMessageStatus.InProgress));
-            }
-            else
-            {
-                //TODO: throw error
+                RaiseEvent (
+                            new WorkflowMessageAdvancedEvent (
+                                Key,
+                                MessageType,
+                                initiatingAssessmentKey,
+                                initiatingAssessmentCode,
+                                recommendedAssessmentDefinitionKey,
+                                recommendedAssessmentDefinitionCode,
+                                initiatingAssessmentScore ) );
+
+                RaiseEvent ( new WorkflowMessageStatusChangedEvent ( Key, MessageType, WorkflowMessageStatus.WaitingForResponse ) );
             }
         }
 
-        public void Complete(params ReportModel[] workflowReports)
+        /// <summary>Allows for self administration.</summary>
+        public void AllowSelfAdministration ()
         {
-            if (Status == WorkflowMessageStatus.InProgress)
+            RaiseEvent ( new MessageForSelfAdministrationEvent ( Key, MessageType ) );
+        }
+
+        /// <summary>Completes the specified workflow reports.</summary>
+        /// <param name="workflowReports">The workflow reports.</param>
+        public void Complete ( params ReportModel[] workflowReports )
+        {
+            if ( Status == WorkflowMessageStatus.InProgress )
             {
-                RaiseEvent(new WorkflowMessageStatusChangedEvent(Key, MessageType, WorkflowMessageStatus.Complete));
+                RaiseEvent ( new WorkflowMessageStatusChangedEvent ( Key, MessageType, WorkflowMessageStatus.Complete ) );
                 if ( workflowReports != null )
                 {
                     foreach ( var workflowReport in workflowReports )
                     {
-                        RaiseEvent(new WorkflowMessageReportReadyEvent(Key, MessageType, workflowReport, PatientKey));
+                        RaiseEvent ( new WorkflowMessageReportReadyEvent ( Key, MessageType, workflowReport, PatientKey ) );
                     }
                 }
             }
         }
 
-        public void Advance(
-            Guid initiatingAssessmentKey,
-            string initiatingAssessmentCode,
-            Guid recommendedAssessmentDefinitionKey,
-            string recommendedAssessmentDefinitionCode,
-            Score initiatingAssessmentScore)
-        {
-            if (Status == WorkflowMessageStatus.InProgress)
-            {
-                RaiseEvent(new WorkflowMessageAdvancedEvent(Key,
-                                                            MessageType, 
-                                                            initiatingAssessmentKey,
-                                                            initiatingAssessmentCode,
-                                                            recommendedAssessmentDefinitionKey,
-                                                            recommendedAssessmentDefinitionCode,
-                                                            initiatingAssessmentScore));
-
-                RaiseEvent(new WorkflowMessageStatusChangedEvent(Key, MessageType, WorkflowMessageStatus.WaitingForResponse));
-            }
-        }
-
+        /// <summary>Gets the assessment keyfor code in workflow.</summary>
+        /// <param name="assessmentCode">The assessment code.</param>
+        /// <returns>A <see cref="Nullable{Guid}"/>.</returns>
         public Guid? GetAssessmentKeyforCodeInWorkflow ( string assessmentCode )
         {
             if ( _workflowAssessments.ContainsKey ( assessmentCode ) )
@@ -153,41 +263,61 @@ namespace ProCenter.Domain.MessageModule
             return null;
         }
 
+        /// <summary>Rejects this instance.</summary>
+        public void Reject ()
+        {
+            if ( Status == WorkflowMessageStatus.WaitingForResponse )
+            {
+                RaiseEvent ( new WorkflowMessageStatusChangedEvent ( Key, MessageType, WorkflowMessageStatus.Rejected ) );
+            }
+            else
+            {
+                //TODO: throw error
+            }
+        }
+
+        /// <summary>Updates the report item.</summary>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="shouldShow">The should show.</param>
+        /// <param name="text">The text.</param>
         public void UpdateReportItem ( string reportName, string name, bool? shouldShow, string text )
         {
             RaiseEvent ( new WorkflowMessageReportItemUpdatedEvent ( Key, MessageType, reportName, name, shouldShow, text ) );
         }
 
-        public void AllowSelfAdministration()
-        {
-            RaiseEvent(new MessageForSelfAdministrationEvent(Key, MessageType));
-        }
+        #endregion
+
+        #region Methods
 
         private void Apply ( MessageForSelfAdministrationEvent messageForSelfAdministrationEvent )
         {
             ForSelfAdministration = true;
         }
 
-        private void Apply(WorkflowMessageReportItemUpdatedEvent workflowMessageReportItemUpdatedEvent)
+        private void Apply ( WorkflowMessageReportItemUpdatedEvent workflowMessageReportItemUpdatedEvent )
         {
             var report = WorkflowReports.FirstOrDefault ( r => r.Name == workflowMessageReportItemUpdatedEvent.ReportName );
             if ( report != null )
             {
-                report.UpdateReportItem ( workflowMessageReportItemUpdatedEvent.Name, workflowMessageReportItemUpdatedEvent.ShouldShow, workflowMessageReportItemUpdatedEvent.Text );
+                report.UpdateReportItem ( 
+                    workflowMessageReportItemUpdatedEvent.Name, 
+                    workflowMessageReportItemUpdatedEvent.ShouldShow, 
+                    workflowMessageReportItemUpdatedEvent.Text );
             }
         }
 
         private void Apply ( WorkflowMessageReportReadyEvent workflowMessageReportReadyEvent )
         {
-            (WorkflowReports as IList<ReportModel> ).Add(workflowMessageReportReadyEvent.WorkflowReport);
+            ( WorkflowReports as IList<ReportModel> ).Add ( workflowMessageReportReadyEvent.WorkflowReport );
         }
 
-        private void Apply(WorkflowMessageStatusChangedEvent workflowMessageStatusChangedEvent)
+        private void Apply ( WorkflowMessageStatusChangedEvent workflowMessageStatusChangedEvent )
         {
             Status = workflowMessageStatusChangedEvent.Status;
         }
 
-        private void Apply(WorkflowMessageCreatedEvent workflowMessageCreatedEvent)
+        private void Apply ( WorkflowMessageCreatedEvent workflowMessageCreatedEvent )
         {
             PatientKey = workflowMessageCreatedEvent.PatientKey;
             InitiatingAssessmentKey = workflowMessageCreatedEvent.InitiatingAssessmentKey;
@@ -202,14 +332,16 @@ namespace ProCenter.Domain.MessageModule
             }
         }
 
-        private void Apply(WorkflowMessageAdvancedEvent workflowMessageAdvancedEvent)
+        private void Apply ( WorkflowMessageAdvancedEvent workflowMessageAdvancedEvent )
         {
             InitiatingAssessmentKey = workflowMessageAdvancedEvent.InitiatingAssessmentKey;
             InitiatingAssessmentCode = workflowMessageAdvancedEvent.InitiatingAssessmentCode;
             RecommendedAssessmentDefinitionKey = workflowMessageAdvancedEvent.RecommendedAssessmentDefinitionKey;
             RecommendedAssessmentDefinitionCode = workflowMessageAdvancedEvent.RecommendedAssessmentDefinitionCode;
             InitiatingAssessmentScore = workflowMessageAdvancedEvent.InitiatingAssessmentScore;
-            _workflowAssessments.Add(InitiatingAssessmentCode, InitiatingAssessmentKey);
+            _workflowAssessments.Add ( InitiatingAssessmentCode, InitiatingAssessmentKey );
         }
+
+        #endregion
     }
 }

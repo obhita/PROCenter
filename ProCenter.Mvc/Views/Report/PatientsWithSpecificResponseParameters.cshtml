@@ -1,0 +1,166 @@
+﻿@using ProCenter.Domain.ReportsModule
+@using ProCenter.Mvc.Controllers
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Assessment
+@using Newtonsoft.Json
+@using ProCenter.Service.Message.Report
+@using ProCenter.Common
+@model object
+@{
+    var model = Model as PatientsWithSpecificResponseParametersDto;
+    var assessmentAttributes = new Dictionary<string, object>
+        {
+            {"placeholder", "Search"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content ( "~/api/Organization/FinderSearchActive" )},
+            {"data-finder-display", "AssessmentName"},
+            {"id", "assessmentdefinitioncode-finder"}
+        };
+
+    if (model != null && !string.IsNullOrEmpty(model.AssessmentDefinitionCode))
+    {
+        // retrieving saved report or template, reset the assessment dropdown
+        if (model.ReportName.Equals(ReportNames.PatientsWithSpecificResponseAcrossAssessments))
+        {
+            model.AssessmentDefinitionCode = string.Empty;
+        }
+        else
+        {
+
+            assessmentAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new AssessmentDefinitionDto
+                                                                                                     {
+                                                                                                         AssessmentName = model.AssessmentName,
+                                                                                                         AssessmentCode = model.AssessmentDefinitionCode,
+                                                                                                         Key = ViewData["AssessmentDefinitionKey"] != null ? 
+                                                                                                         new Guid(ViewData["AssessmentDefinitionKey"].ToString()) : Guid.Empty
+                                                                                                     }));
+        }
+    }
+
+    var resourcesManager = ViewData["ResourcesManager"] as IResourcesManager;
+}
+
+<style>
+    .multiselect-container {
+        display: block;
+        position: relative;
+        background: transparent;
+        border: solid 1px #cccccc;
+        border-radius: 5px;
+        box-shadow: none;
+        margin-top: 3px;
+    }
+
+        .multiselect-container > li.active > a > label.checkbox {
+            color: white;
+        }
+
+        .multiselect-container > li > a > label.checkbox {
+            padding: 3px 20px 3px 40px !important;
+        }
+</style>
+
+<div class="parameter-spacing">
+    <input type="hidden" value="@ViewData["ReportName"]" id="ReportName" />
+    <input type="hidden" value="@ViewData["ReportDisplayName"]" id="ReportDisplayName" />
+    <div>
+        @Html.LabelFor(m => model.AssessmentDefinitionCode)
+        @Html.TextBoxFor(m => model.AssessmentDefinitionCode, assessmentAttributes)
+        @Html.HiddenFor(m => model.AssessmentName)
+    </div>
+    @Html.Hidden("ReportTemplateKey", ViewData.ContainsKey("ReportTemplateKey"))
+    <div>
+        <label>@ProCenter.Mvc.Views.Report.Report.AgeRange</label>
+        <input class="number" data-val="true" aria-label="@ProCenter.Mvc.Views.Report.Report.LowAgeRange" data-val-number="The field AgeRangeLow must be a number." name="Parameters.AgeRangeLow" id="Parameters.AgeRangeLow" pattern="[-0-9]*" type="text" value="">
+        <span class="parameterSpan">@ProCenter.Mvc.Views.Report.Report.To</span>
+        <input class="number" data-val="true" aria-label="@ProCenter.Mvc.Views.Report.Report.HighAgeRange" data-val-number="The field AgeRangeHigh must be a number." name="Parameters.AgeRangeHigh" id="Parameters.AgeRangeHigh" pattern="[-0-9]*" type="text" value="">
+    </div>
+
+    <div>
+        <label for="Gender">@ProCenter.Mvc.Views.Report.Report.Gender</label>
+        @{
+            var lookupCategory = Html.GetLookupCategory("Gender");
+        }
+        @Html.EditorFor(m => model.Gender, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory })
+    </div>
+
+    <div id="searchQuestionsAndQuestionsGrid">
+        <div class="question-lookup-container">
+            <label for="question-lookup-text">@Controllers.SearchQuestion</label>
+            <input type="text" value="" placeholder="Search" id="question-lookup-text" data-bind="onTyping: OnTextChange" />
+            <div class="question-lookup">
+                <div data-bind="template: { name: 'MasterTemplate', foreach: Items }"></div>
+            </div>
+            <div class="question-lookup-no-results-found">
+                No results found.
+            </div>
+        </div>
+        <div id="questionsGrid">
+        </div>
+    </div>
+    @Html.Partial("ReportCommonParametersPartial", model)
+</div>
+
+<script type="text/html" id="MasterTemplate">
+    <div data-bind="template: { name: ItemType }"></div>
+</script>
+<script type="text/html" id="Section">
+    <div class="question-lookup-section" data-bind="style: { paddingLeft: (Level * 17) + 'px' }">
+        <span data-bind="text: Name"></span>
+    </div>
+    <div data-bind="template: { name: 'MasterTemplate', foreach: Items }"></div>
+</script>
+<script type="text/html" id="Group">
+    <div class="question-lookup-group" data-bind="style: { paddingLeft: (Level * 17) + 'px' }">
+        <span data-bind="text: Name"></span>
+    </div>
+    <div data-bind="template: { name: 'MasterTemplate', foreach: Items }"></div>
+</script>
+<script type="text/html" id="Question">
+    <div class="question-lookup-question" style="padding-right: 20px; position: relative;" data-bind="style: { paddingLeft: (Level * 17) + 'px' }, event: { click: AddQuestion }">
+        <div data-bind="text: Name" style="display: inline;"></div>
+        <div style="position: absolute; right: 4px; display: inline; top: 5px;"><a href="#" class="fs1" data-icon="&#xe102;" title="Add Question"></a></div>
+    </div>
+</script>
+
+<script type="text/javascript">
+    $(function () {
+        ko.bindingHandlers.onTyping = {
+            init: function (element, valueAccessor) {
+                $(element).typing({
+                    stop: function () {
+                        var observable = valueAccessor();
+                        observable();
+                    },
+                    delay: 300
+                });
+            }
+        };
+        var vm = new window.procenter.AssessmentViewModel();
+        ko.applyBindings(vm, document.getElementById('searchQuestionsAndQuestionsGrid'));
+
+        $('.question-lookup').hide();
+        $('.question-lookup-no-results-found').hide();
+        
+        var questionsHtmlDictionary = {};
+        @foreach (var item in model.Items)
+        {
+            if (resourcesManager != null)
+            {
+                ViewData["ResourceManager"] = resourcesManager.GetResourceManagerByName(item.AssessmentName);
+            }
+            <text>
+        questionsHtmlDictionary['@item.ItemDefinitionCode'] = @(Html.Raw(Json.Encode(Html.Partial("~/Views/Assessment/QuestionForLookup.cshtml", item).ToHtmlString())));           
+            </text>
+        }
+        
+        var jsonResponse = '@(string.IsNullOrEmpty(model.JsonResponse) ? null : Html.Raw(Json.Encode(model.JsonResponse)))';
+        if (jsonResponse && jsonResponse.length > 0) {
+            var questions = JSON.parse(@(Html.Raw(Json.Encode(model.JsonResponse))));
+            window.procenter.InitQuestionsDictionary(questions, questionsHtmlDictionary);
+            $('#questionsGrid').find("select[data-role=multiselect]").multiselect();
+            $('#questionsGrid').find(".heightTotalInches").renderHeight();
+        }
+    });
+</script>

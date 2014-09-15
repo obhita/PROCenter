@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,33 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Security
 {
+    #region Using Statements
+
     using Pillar.Security.AccessControl;
 
+    #endregion
+
+    /// <summary>The system administration permission class.</summary>
     public class SystemAdministrationPermission
     {
-        public static Permission SystemAdminPermission = new Permission { Name = "securitymodule/systemadmin" };
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the system admin permission.
+        /// </summary>
+        /// <value>
+        /// The system admin permission.
+        /// </value>
+        public static Permission SystemAdminPermission
+        {
+            get { return new Permission { Name = "securitymodule/systemadmin" }; }
+        }
+
+        #endregion
     }
 }

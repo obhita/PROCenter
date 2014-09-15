@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,33 +25,115 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
+    using System;
     using System.Collections.Generic;
-    using Common;
-    using Common.Lookups;
-    using Domain.AssessmentModule;
-    using Metadata;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Service.Message.Common;
+    using ProCenter.Service.Message.Common.Lookups;
 
     #endregion
 
+    /// <summary>The item dto class.</summary>
     public class ItemDto : KeyedDataTransferObject, IAssessmentDto, IContainItems
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The assessment definition key.
+        /// </value>
+        public Guid AssessmentDefinitionKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the assessment code.
+        /// </summary>
+        /// <value>
+        /// The assessment code.
+        /// </value>
+        public string AssessmentCode { get; set; }
+
+        /// <summary>
+        /// Gets or sets the item definition code.
+        /// </summary>
+        /// <value>
+        /// The item definition code.
+        /// </value>
         public string ItemDefinitionCode { get; set; }
 
+        /// <summary>
+        /// Gets or sets the name of the item definition.
+        /// </summary>
+        /// <value>
+        /// The name of the item definition.
+        /// </value>
         public string ItemDefinitionName { get; set; }
 
-        public IEnumerable<LookupDto> Options { get; set; }
-
-        public object Value { get; set; }
-
-        public ItemMetadata Metadata { get; set; }
-
+        /// <summary>
+        /// Gets or sets the type of the item.
+        /// </summary>
+        /// <value>
+        /// The type of the item.
+        /// </value>
         public string ItemType { get; set; }
 
-        public IList<ItemDto> Items { get; set; } 
+        /// <summary>
+        /// Gets or sets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
+        public IList<ItemDto> Items { get; set; }
+
+        /// <summary>
+        /// Gets or sets the metadata.
+        /// </summary>
+        /// <value>
+        /// The metadata.
+        /// </value>
+        public ItemMetadata Metadata { get; set; }
+
+        /// <summary>
+        /// Gets or sets the options.
+        /// </summary>
+        /// <value>
+        /// The options.
+        /// </value>
+        public IEnumerable<LookupDto> Options { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
+        public object Value { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the parent.
+        /// </summary>
+        /// <value>
+        /// The name of the parent.
+        /// </value>
+        public string ParentName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the assessment.
+        /// </summary>
+        /// <value>
+        /// The name of the assessment.
+        /// </value>
+        public string AssessmentName { get; set; }
+
+        #endregion
     }
 }

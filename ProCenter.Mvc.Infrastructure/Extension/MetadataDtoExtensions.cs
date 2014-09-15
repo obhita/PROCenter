@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Extension
 {
     #region Using Statements
@@ -36,9 +39,7 @@ namespace ProCenter.Mvc.Infrastructure.Extension
 
     #endregion
 
-    /// <summary>
-    ///     Metadata Dto Extensions
-    /// </summary>
+    /// <summary>Metadata Dto Extensions.</summary>
     public static class MetadataDtoExtensions
     {
         #region Public Methods and Operators
@@ -49,8 +50,8 @@ namespace ProCenter.Mvc.Infrastructure.Extension
         /// <typeparam name="TMetadataItem">The type of the metadata item.</typeparam>
         /// <param name="metadataDto">The metadata dto.</param>
         /// <param name="callback">The callback.</param>
-        /// <returns></returns>
-        public static bool MetadataItemExists<TMetadataItem> ( this MetadataDto metadataDto, Predicate<TMetadataItem> callback ) where TMetadataItem : IMetadataItemDto
+        /// <returns>Whether metadata item exists.</returns>
+        public static bool MetadataItemExists<TMetadataItem> ( this MetadataDto metadataDto, Predicate<TMetadataItem> callback )
         {
             if ( metadataDto.MetadataItemDtos != null )
             {

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,25 +25,28 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.EventStore.PipelineHook
 {
     #region Using Statements
 
     using System;
-    using global::EventStore;
+
+    using NEventStore;
 
     #endregion
 
-    /// <summary>
-    ///     Event store <see cref="IPipelineHook" /> to add audit headers to events.
-    /// </summary>
+    /// <summary>Event store <see cref="IPipelineHook" /> to add audit headers to events.</summary>
     public class AuditPipelineHook : IPipelineHook
     {
         #region Static Fields
 
         public static readonly string TimestampHeader = "Audit-Timestamp";
+
         public static readonly string UserIdHeader = "Audit-UserId";
+
         public static readonly string UserNameHeader = "Audit-UserName";
 
         #endregion
@@ -95,11 +99,11 @@ namespace ProCenter.Infrastructure.EventStore.PipelineHook
             var time = DateTime.Now;
             foreach ( var eventMessage in attempt.Events )
             {
-            //    eventMessage.Headers.Add ( UserNameHeader, _userContextService.UserName );
-            //    eventMessage.Headers.Add ( UserIdHeader, _userContextService.UserId );
-                eventMessage.Headers.Add(TimestampHeader, time);
+                //    eventMessage.Headers.Add ( UserNameHeader, _userContextService.UserName );
+                //    eventMessage.Headers.Add ( UserIdHeader, _userContextService.UserId );
+                eventMessage.Headers.Add ( TimestampHeader, time );
             }
-            attempt.Headers.Add(TimestampHeader, time);
+            attempt.Headers.Add ( TimestampHeader, time );
             return true;
         }
 

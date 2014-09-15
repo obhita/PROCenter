@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,23 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule.Event
 {
-    #region
+    #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>The role name revised event class.</summary>
     public class RoleNameRevisedEvent : CommitEventBase
     {
-        public RoleNameRevisedEvent(Guid key, int version, string name) : base(key, version)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoleNameRevisedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="version">The version.</param>
+        /// <param name="name">The name.</param>
+        public RoleNameRevisedEvent ( Guid key, int version, string name )
+            : base ( key, version )
         {
             Name = name;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; set; }
+
+        #endregion
     }
 }

@@ -1,42 +1,72 @@
-﻿@using System.Web.Mvc.Html
+﻿@using System
+@using System.Linq
+@using ProCenter.Domain.AssessmentModule.Metadata
+@using ProCenter.Domain.CommonModule.Lookups
 @using ProCenter.Mvc.Infrastructure
 @using ProCenter.Mvc.Infrastructure.Extension
-@using ProCenter.Service.Message.Metadata
+
 @model ProCenter.Service.Message.Assessment.ItemDto
+@using ProCenter.Mvc.Models
 
 @{
     var itemTemplateMetadata = Html.ViewData.Model.Metadata == null ? null : Html.ViewData.Model.Metadata.FindMetadataItem<ItemTemplateMetadataItem>();
-
+    var nonResponseType = ((Html.ViewData.Model.Metadata == null ? null : Html.ViewData.Model.Metadata.FindMetadataItem<NonResponseTypeMetadataItem>()));
+    var selectedNonResponse = Model.Value != null ? Model.Value.ToString() : string.Empty;
     if (itemTemplateMetadata != null)
     {
-        if ( itemTemplateMetadata.TemplateName == typeof(bool).Name )
+        if (Model.Value != null && NonResponseLookups.NonResponse.Select(nr => nr.CodedConcept.Name).Contains(Model.Value.ToString()))
         {
-            if ( Model.Value != null )
+            Model.Value = "";
+        }
+
+        if (itemTemplateMetadata.TemplateName == typeof (bool).Name)
             {
-                Model.Value = Boolean.Parse ( Model.Value.ToString () );
+            if (Model.Value != null && (string)Model.Value != "")
+            {
+                Model.Value = Boolean.Parse(Model.Value.ToString());
             }
         }
-        else if ( itemTemplateMetadata.TemplateName == "LookupDto" )
+        else if (itemTemplateMetadata.TemplateName == "LookupDto" || itemTemplateMetadata.TemplateName == "MultipleSelect")
         {
-            ViewData["LookupItems"] = Model.Options.Select ( l =>
+            ViewData["LookupItems"] = Model.Options.Select(l =>
                 {
-                    l.Name = Html.GetResource ( l );
+                    l.Name = Html.GetResource(l);
                     return l;
-                } );
+                });
         }
     }
     var itemKey = Model.ItemDefinitionCode + SharedStringNames.ItemDefinitionSuffix;
-    
+    var tag = string.Empty;
+    if ( ViewBag.LevelMap != null )
+    {
+        tag = ViewBag.LevelMap[ViewBag.Level];
+        ViewBag.Level = Math.Min(ViewBag.LevelMap.Count - 1, ViewBag.Level + 1);
+    }
 }
 
-<div class="question-root @Model.ItemDefinitionName" data-ajax-container="true">
-    <div class="question-label-wrapper offset1 span6">
+<@tag class="question-root @Model.ItemDefinitionName" data-ajax-container="true">
+    <div class="question-label-wrapper span7">
         @Html.LabelFor(m => m.Value, Html.GetResource(Model), itemKey)
     </div>
     <div class="question-answer-wrapper span5">
         @Html.HiddenFor(m => m.ItemDefinitionCode)
-        @HtmlHelpers.EditorFor(Html ,m => m.Value, itemTemplateMetadata == null ? null : itemTemplateMetadata.TemplateName, itemKey)
+        @{
+            ViewData["id"] = itemKey;
+            ViewData["labelString"] = Html.GetResource(Model);
+        }
+        @HtmlHelpers.EditorFor(Html, m => m.Value, itemTemplateMetadata == null ? null : itemTemplateMetadata.TemplateName, itemKey)
+        @if (nonResponseType != null)
+        {
+            Html.RenderPartial("NonResponse", new NonResponseViewModel
+                                                        {
+                                                            ValuesToExclude = nonResponseType.AnswersToExclude,
+                                                            ItemKey = itemKey,
+                                                            SelectedValue = selectedNonResponse
+                                                        });
+        }
+        @Html.ValidationMessageFor(m => m.Value)
         <div class="ajax-loading-indicator"><span>Saving...</span></div>
     </div>
-    <div class="clear"></div>
-</div>
+    <div class="clearfix"></div>
+</@tag>
+

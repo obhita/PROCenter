@@ -506,22 +506,47 @@
                 Prevents a default instance of the <see cref="T:Pillar.Domain.Primitives.DateRange"/> class from being created.
             </summary>
         </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.op_Equality(Pillar.Domain.Primitives.DateRange,Pillar.Domain.Primitives.DateRange)">
+            <summary>
+                Determines whether two specified date ranges have the same value.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>true if the value of left is the same as the value of right; otherwise, false.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.op_Inequality(Pillar.Domain.Primitives.DateRange,Pillar.Domain.Primitives.DateRange)">
+            <summary>
+                Determines whether two specified date ranges have the same value.
+            </summary>
+            <param name="left">The left.</param>
+            <param name="right">The right.</param>
+            <returns>true if the value of left is different from the value of right; otherwise, false.</returns>
+        </member>
+        <member name="M:Pillar.Domain.Primitives.DateRange.Equals(Pillar.Domain.Primitives.DateRange)">
+            <summary>
+                Indicates whether the current object is equal to another object of the same type.
+            </summary>
+            <returns>
+                True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+            </returns>
+            <param name="other">An object to compare with this object.</param>
+        </member>
         <member name="M:Pillar.Domain.Primitives.DateRange.Equals(System.Object)">
             <summary>
-                Determines whether the specified <see cref="T:System.Object"/> is equal to this instance.
+                Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
             </summary>
-            <param name="obj">
-                The <see cref="T:System.Object"/> to compare with the current <see cref="T:System.Object"/>.
-            </param>
             <returns>
-                <c>true</c> if the specified <see cref="T:System.Object"/> is equal to this instance; otherwise, <c>false</c>.
+                True if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.
             </returns>
+            <param name="obj">The object to compare with the current object. </param>
         </member>
         <member name="M:Pillar.Domain.Primitives.DateRange.GetHashCode">
             <summary>
-                Returns a hash code for this instance.
+                Serves as a hash function for a particular type.
             </summary>
-            <returns>A hash code for this instance, suitable for use in hashing algorithms and data structures like a hash table.</returns>
+            <returns>
+                A hash code for the current <see cref="T:System.Object" />.
+            </returns>
         </member>
         <member name="M:Pillar.Domain.Primitives.DateRange.Includes(System.DateTime)">
             <summary>

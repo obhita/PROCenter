@@ -1836,26 +1836,6 @@
                 <c>true</c> if this instance is disabled; otherwise, <c>false</c>.
             </value>
         </member>
-        <member name="T:Pillar.Common.Metadata.Dtos.HiddenMetadataItemDto">
-            <summary>
-                Data transfer object for HiddenMetadataItem class.
-            </summary>
-        </member>
-        <member name="T:Pillar.Common.Metadata.Dtos.IMetadataItemDto">
-            <summary>
-                IMetadataItemDto marker interface.
-                <see href="http://msdn.microsoft.com/en-us/library/ms575141.aspx" />
-                See IKnowTypeProvider and MetadataKnownTypeProvider.
-            </summary>
-        </member>
-        <member name="P:Pillar.Common.Metadata.Dtos.HiddenMetadataItemDto.IsHidden">
-            <summary>
-                Gets or sets a value indicating whether this instance is hidden.
-            </summary>
-            <value>
-                <c>true</c> if this instance is hidden; otherwise, <c>false</c>.
-            </value>
-        </member>
         <member name="T:Pillar.Common.Metadata.MetadataDto">
             <summary>
                 Data transfer object for Metadata class.

@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using Lookups;
+
+    using ProCenter.Domain.CommonModule.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for lookup provider
-    /// </summary>
+    /// <summary>Interface for lookup provider.</summary>
     public interface ILookupProvider
     {
         #region Public Methods and Operators
@@ -45,9 +47,9 @@ namespace ProCenter.Domain.CommonModule
         /// <summary>
         ///     Finds the specified code.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">The lookup type.</typeparam>
         /// <param name="code">The code.</param>
-        /// <returns></returns>
+        /// <returns>A lookup of type T.</returns>
         T Find<T> ( string code ) where T : Lookup;
 
         /// <summary>
@@ -55,27 +57,27 @@ namespace ProCenter.Domain.CommonModule
         /// </summary>
         /// <param name="lookupType">Type of the lookup.</param>
         /// <param name="code">The code.</param>
-        /// <returns></returns>
+        /// <returns>A lookup.</returns>
         Lookup Find ( string lookupType, string code );
 
         /// <summary>
         ///     Gets all.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <returns></returns>
+        /// <typeparam name="T">The type of lookup.</typeparam>
+        /// <returns>A list of lookups.</returns>
         IEnumerable<T> GetAll<T> () where T : Lookup;
 
         /// <summary>
         ///     Gets all.
         /// </summary>
         /// <param name="lookupType">Type of the lookup.</param>
-        /// <returns></returns>
+        /// <returns>A list of lookups.</returns>
         IEnumerable<Lookup> GetAll ( string lookupType );
 
         /// <summary>
         ///     Registers this instance.
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="T">Type of lookup.</typeparam>
         void Register<T> () where T : Lookup;
 
         /// <summary>

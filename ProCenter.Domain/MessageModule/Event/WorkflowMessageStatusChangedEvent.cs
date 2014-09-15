@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
     #region Using Statements
@@ -33,14 +36,35 @@ namespace ProCenter.Domain.MessageModule.Event
 
     #endregion
 
+    /// <summary>The workflow message status changed event class.</summary>
     public class WorkflowMessageStatusChangedEvent : MessageEventBase
     {
-        public WorkflowMessageStatusChangedEvent(Guid key, MessageType messageType, WorkflowMessageStatus status)
-            : base(key, messageType)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowMessageStatusChangedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="status">The status.</param>
+        public WorkflowMessageStatusChangedEvent ( Guid key, MessageType messageType, WorkflowMessageStatus status )
+            : base ( key, messageType )
         {
             Status = status;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
         public WorkflowMessageStatus Status { get; private set; }
+
+        #endregion
     }
 }

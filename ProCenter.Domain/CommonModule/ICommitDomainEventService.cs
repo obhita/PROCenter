@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Domain.Event;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for domain service that handles commiting of events.
-    /// </summary>
+    /// <summary>Interface for domain service that handles commiting of events.</summary>
     public interface ICommitDomainEventService : IDomainEventService
     {
         #region Public Methods and Operators
@@ -50,10 +52,10 @@ namespace ProCenter.Domain.CommonModule
         void RaiseCommit<TEvent> ( IAggregateRoot aggregateRoot, TEvent commitEvent ) where TEvent : ICommitEvent;
 
         /// <summary>
-        /// Registers for all events.
+        ///     Registers for all events.
         /// </summary>
         /// <param name="callback">The callback.</param>
-        void RegisterAll(Action<IDomainEvent> callback);
+        void RegisterAll ( Action<IDomainEvent> callback );
 
         #endregion
     }

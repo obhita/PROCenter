@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,51 +25,60 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
+    #region Using Statements
+
     using System;
 
-    /// <summary>
-    /// This class provides the algorithm to Generate a unique identifier for a patient.
-    /// </summary>
+    #endregion
+
+    /// <summary>This class provides the algorithm to Generate a unique identifier for a patient.</summary>
     public class PatientUniqueIdentifierGenerator : IPatientUniqueIdentifierGenerator
     {
+        #region Public Methods and Operators
 
         /// <summary>
-        /// Generates the unique identifier.
+        ///     Generates the unique identifier.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="lastName">The last name.</param>
         /// <param name="gender">The gender.</param>
         /// <param name="dateOfBirth">The date of birth.</param>
         /// <returns>The generated unique identifier.</returns>
-        public string GenerateUniqueIdentifier(Guid key, string lastName, Gender gender, DateTime dateOfBirth)
+        public string GenerateUniqueIdentifier ( Guid key, string lastName, Gender gender, DateTime dateOfBirth )
         {
-            var identifier = key.ToString();
+            var identifier = key.ToString ();
 
-            if (gender != null && dateOfBirth != default(DateTime))
+            if ( gender != null && dateOfBirth != default( DateTime ) )
             {
-                identifier = GenerateUniqueUniqueIdentifier(lastName, gender.CodedConcept.Name, dateOfBirth);
+                identifier = GenerateUniqueUniqueIdentifier ( lastName, gender.CodedConcept.Name, dateOfBirth );
             }
 
             return identifier;
         }
 
-        private string GenerateUniqueUniqueIdentifier(string lastName, string gender, DateTime birthDate)
+        #endregion
+
+        #region Methods
+
+        private string GenerateUniqueUniqueIdentifier ( string lastName, string gender, DateTime birthDate )
         {
-            var firstDigitLastName = lastName.Substring(0, 1);
-            var firstDigitGender = gender.Substring(0, 1);
-            var birthDateAsString = birthDate.ToString("MMddyyyy");
+            var firstDigitLastName = lastName.Substring ( 0, 1 );
+            var firstDigitGender = gender.Substring ( 0, 1 );
+            var birthDateAsString = birthDate.ToString ( "MMddyyyy" );
 
             var identifier = firstDigitGender + birthDateAsString + firstDigitLastName;
 
             var oddChars = string.Empty;
             var evenChars = string.Empty;
-            for (var chIdx = 0; chIdx < identifier.Length; chIdx++)
+            for ( var chIdx = 0; chIdx < identifier.Length; chIdx++ )
             {
                 var ch = identifier[chIdx];
-                if (chIdx % 2 == 0)
+                if ( chIdx % 2 == 0 )
                 {
                     evenChars += ch;
                 }
@@ -82,5 +92,7 @@ namespace ProCenter.Domain.PatientModule
 
             return identifier;
         }
+
+        #endregion
     }
 }

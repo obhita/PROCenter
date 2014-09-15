@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
@@ -35,9 +38,7 @@ namespace ProCenter.Service.Message.Common
 
     #endregion
 
-    /// <summary>
-    ///     The <see cref="DataErrorInfo" /> class stores information about a rule violation.
-    /// </summary>
+    /// <summary>The <see cref="DataErrorInfo" /> class stores information about a rule violation.</summary>
     [DataContract]
     public class DataErrorInfo
     {
@@ -52,9 +53,9 @@ namespace ProCenter.Service.Message.Common
         /// <param name="errorLevel">
         ///     The error level.
         /// </param>
-        public DataErrorInfo(string message, ErrorLevel errorLevel)
+        public DataErrorInfo ( string message, ErrorLevel errorLevel )
             :
-                this(message, errorLevel, null)
+                this ( message, errorLevel, null )
         {
         }
 
@@ -70,17 +71,17 @@ namespace ProCenter.Service.Message.Common
         /// <param name="propertyNames">
         ///     The property names.
         /// </param>
-        public DataErrorInfo(
+        public DataErrorInfo (
             string message,
             ErrorLevel errorLevel,
-            params string[] propertyNames)
+            params string[] propertyNames )
         {
-            if (propertyNames != null)
+            if ( propertyNames != null )
             {
-                var emptyPropertyNames = propertyNames.Where(string.IsNullOrEmpty).ToList();
-                if (emptyPropertyNames.Any())
+                var emptyPropertyNames = propertyNames.Where ( string.IsNullOrEmpty ).ToList ();
+                if ( emptyPropertyNames.Any () )
                 {
-                    throw new ArgumentException("Null or empty property names are not allowed.");
+                    throw new ArgumentException ( "Null or empty property names are not allowed." );
                 }
             }
 
@@ -103,13 +104,13 @@ namespace ProCenter.Service.Message.Common
             {
                 var type = DataErrorInfoType.ObjectLevel;
 
-                if (Properties != null)
+                if ( Properties != null )
                 {
-                    if (Properties.Length == 1)
+                    if ( Properties.Length == 1 )
                     {
                         type = DataErrorInfoType.PropertyLevel;
                     }
-                    else if (Properties.Length > 1)
+                    else if ( Properties.Length > 1 )
                     {
                         type = DataErrorInfoType.CrossPropertyLevel;
                     }
@@ -126,7 +127,7 @@ namespace ProCenter.Service.Message.Common
         public ErrorLevel ErrorLevel { get; internal set; }
 
         /// <summary>
-        ///     Gets the error message.
+        ///     Gets or sets the error message.
         /// </summary>
         [DataMember]
         public string Message { get; set; }
@@ -139,7 +140,7 @@ namespace ProCenter.Service.Message.Common
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
         ///     Returns a <see cref="System.String" /> that represents this instance.
@@ -147,7 +148,7 @@ namespace ProCenter.Service.Message.Common
         /// <returns>
         ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
+        public override string ToString ()
         {
             return Message;
         }

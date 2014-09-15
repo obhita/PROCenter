@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
+  <data name="AdministerAssessmentNowButton" xml:space="preserve">
+    <value>Administer Assessment Now</value>
+  </data>
+  <data name="Button" xml:space="preserve">
+    <value>Button</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="ChangePassword" xml:space="preserve">
+    <value>Change Password</value>
+  </data>
+  <data name="ChangePasswordMessage" xml:space="preserve">
+    <value>Click to change password or logou</value>
+  </data>
+  <data name="ConmpleteAssessmentMessage" xml:space="preserve">
+    <value>Reminder: {0} should complete assessment {1} by {2:M/d/yyyy}</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="ErrorAjaxAborted" xml:space="preserve">
+    <value>Ajax request aborted.</value>
+  </data>
+  <data name="ErrorInternalServerError" xml:space="preserve">
+    <value>Internal Server Error:\n</value>
+  </data>
+  <data name="ErrorJsonParser" xml:space="preserve">
+    <value>Error.\nParsing JSON Request failed.</value>
+  </data>
+  <data name="ErrorOffline" xml:space="preserve">
+    <value>You are offline!!\n Please Check Your Network.</value>
+  </data>
+  <data name="ErrorRequestTimeout" xml:space="preserve">
+    <value>Request Time out.</value>
+  </data>
+  <data name="ErrorUnknown" xml:space="preserve">
+    <value>Unknown Error:\n</value>
+  </data>
+  <data name="ErrorUrlNotFound" xml:space="preserve">
+    <value>Requested URL not found.</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="JavaScriptNoEnabled" xml:space="preserve">
+    <value>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</value>
+  </data>
+  <data name="LogOut" xml:space="preserve">
+    <value>Log Out</value>
+  </data>
+  <data name="LogOutNow" xml:space="preserve">
+    <value>Log Out Now</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="NotificationInterval" xml:space="preserve">
+    <value>Notification Interval</value>
+  </data>
+  <data name="OneTime" xml:space="preserve">
+    <value>One Time</value>
+  </data>
+  <data name="Recurring" xml:space="preserve">
+    <value>Recurring</value>
+  </data>
+  <data name="RejectButton" xml:space="preserve">
+    <value>Reject</value>
+  </data>
+  <data name="ReportsCenter" xml:space="preserve">
+    <value>Reports Center</value>
+  </data>
+  <data name="SearchAssessment" xml:space="preserve">
+    <value>Search Assessment</value>
+  </data>
+  <data name="SearchPatient" xml:space="preserve">
+    <value>Search Patient</value>
+  </data>
+  <data name="SessionExpiration" xml:space="preserve">
+    <value>Session Expiration</value>
+  </data>
+  <data name="SessionExprirationWarning" xml:space="preserve">
+    <value>Your session is about to expire warning</value>
+  </data>
+  <data name="SessionIsGoingToExpire" xml:space="preserve">
+    <value>Your session will expire in another </value>
+  </data>
+  <data name="SetNotificationButton" xml:space="preserve">
+    <value>Set Notification</value>
+  </data>
+  <data name="Since" xml:space="preserve">
+    <value>Since:</value>
+  </data>
+  <data name="SkipToMain" xml:space="preserve">
+    <value>skip to main content</value>
+  </data>
+  <data name="StayConnected" xml:space="preserve">
+    <value>Stay Connected</value>
+  </data>
+  <data name="SystemAdmin" xml:space="preserve">
+    <value>System Admin</value>
+  </data>
+  <data name="Tab" xml:space="preserve">
+    <value>tab</value>
+  </data>
+  <data name="To" xml:space="preserve">
+    <value>To</value>
+  </data>
+  <data name="TotalAssessments" xml:space="preserve">
+    <value>Total Assessments</value>
+  </data>
+  <data name="WorkflowMessage" xml:space="preserve">
+    <value>Because patient {0} scored {1} on {2} it is recommended that the patient takes {3}.</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+</root>

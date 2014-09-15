@@ -1,30 +1,34 @@
-﻿@using ProCenter.Mvc.Infrastructure.Extension
+﻿@using System
 @using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Home
+
 @{
-    ViewBag.Title = "Home Dashboard";
+    ViewBag.Title = @Home.HomeDashboard;
 }
 
 @section subnav{
     <div class="sub-nav">
-        <input id="dashboard-filter" type="search" placeholder="Search" class="input-search" />
-        @Html.SecureActionLink("New Patient", "Create", "Patient", null, new {id = "main-add-patient", @class = "add-patient btn btn-success", data_icon = "\ue102"})
+        <label class="sr-only" for="dashboard-filter">@Home.SearchAll</label>
+        <input id="dashboard-filter" type="search" placeholder="@Home.Search" class="input-search" title="@Home.SearchAll" />
+        @Html.SecureActionLink( "New Patient", "Create", "Patient", null, new {id = "main-add-patient", @class = "add-patient btn btn-success", data_icon = "\ue102"} )
     </div>
 }
 
 <div id="createPatientModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="create-patient-label" aria-hidden="true">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="create-patient-label">Create Patient</h3>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="create-patient-label">@Home.CreatePatient</h3>
     </div>
     <div class="field-validation-error hidden modal-error">
     </div>
-    @using(Html.BeginForm( "Create", "Patient", new {}, FormMethod.Post, new { id = "create-patient-form"}))
+    @using ( Html.BeginForm ( "Create", "Patient", new {}, FormMethod.Post, new {id = "create-patient-form"} ) )
     {
         <div class="modal-body">
         </div>
         <div class="modal-footer">
-            <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-            <input value="Create" type="submit" class="save-btn btn btn-primary" aria-hidden="true"/>
+            <button class="btn" data-dismiss="modal">@Home.Cancel</button>
+            <button value="Create" type="submit" class="save-btn btn btn-primary">@Home.Save</button>
         </div>
     }
     <div id="patient-create-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
@@ -36,20 +40,21 @@
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        Patients
+                        <span class="fs1" aria-hidden="true" data-icon="&#xe074;"></span>
+                        @Home.Patients
                     </div>
                     <span class="tools">
-                        @Html.SecureActionLink(" ", "Create", "Patient", null, new {@class = "add-patient fs1", data_icon = "\ue102", title = "Add patient"})
+                        @Html.SecureActionLink( " ", "Create", "Patient", null, new {@class = "add-patient fs1", data_icon = "\ue102", id = "create-patient-link", title = Home.AddPatient} )
                     </span>
                 </div>
                 <div class="widget-body" data-layout-height="*">
                     <div class="dataTable_wrapper">
-                        <table id="patientSearchDataTable">
+                        <table id="patientSearchDataTable" summary="List of Patients">
                             <thead>
                                 <tr>
-                                    <th style="width: 15%;">First Name</th>
-                                    <th style="width: 40%">Last Name</th>
-                                    <th style="width: 10%">Gender</th>
+                                    <th id="patient-fname" style="width: 15%;">@Home.FirstName</th>
+                                    <th id="patient-lname" style="width: 40%">@Home.LastName</th>
+                                    <th id="patient-gender" style="width: 10%">@Home.Gender</th>
                                     <th style="width: 18%"></th>
                                 </tr>
                             </thead>
@@ -57,13 +62,14 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="clear"></div>
+                    <div class="clearfix"></div>
                 </div>
             </div>
             <div class="widget">
                 <div class="widget-header">
                     <div class="title">
-                        Recent Assessments
+                        <span class="fs1" aria-hidden="true" data-icon="&#xe025;"></span>
+                        @Home.RecentAssessments
                     </div>
                 </div>
                 <div class="widget-body" data-layout-height="*">
@@ -71,11 +77,11 @@
                         <table id="recentAssessmentsDataTable">
                             <thead>
                                 <tr>
-                                    <th class="width-10;">First Name</th>
-                                    <th class="width-10;">Last Name</th>
-                                    <th class="width-20;">Assessment</th>
-                                    <th class="width-10;">Date Started</th>
-                                    <th class="width-10;">Complete</th>
+                                    <th class="width-10;">@Home.FirstName</th>
+                                    <th class="width-10;">@Home.LastName</th>
+                                    <th class="width-20;">@Home.Assessment</th>
+                                    <th class="width-10;">@Home.DateStarted</th>
+                                    <th class="width-10;">@Home.Complete</th>
                                     <th class="width-10;"></th>
                                 </tr>
                             </thead>
@@ -95,22 +101,55 @@
 </div>
 @section scripts
 {
-    @Scripts.Render("~/bundles/home")
+    @Scripts.Render("~/bundles/assessmentReminder")
+    @Scripts.Render("~/bundles/patient")
     <script>
         $(document).ready(function() {
             var updateTableSizes = function() {
-                $('.dataTable_wrapper .dataTables_scroll,.dataTable_wrapper .dataTables_scroll .dataTables_scrollBody').attr("data-layout-height", "*");
+                $('.dataTable_wrapper .dataTables_scroll, .dataTable_wrapper .dataTables_scroll .dataTables_scrollBody').attr("data-layout-height", "*");
                 fixSizes(true);
             };
 
-            var canViewReminders = @Html.CanAccess( "AssessmentReminder", "Get" ).ToString().ToLower();
+            $("#create-patient-link").attr("aria-haspopup", "true");
+            $("#main-add-patient").attr("aria-haspopup", "true");
+
+            var canViewReminders = @Html.CanAccess("AssessmentReminder", "Get").ToString().ToLower();
             if (canViewReminders) {
-                var canEditReminders = @Html.CanAccess( "AssessmentReminder", "Edit", "POST" ).ToString().ToLower();
-                window.procenter.InitializeReminders('@Url.Content( "~/AssessmentReminder" )', '@Url.Content( "~/api/AssessmentReminder" )', canEditReminders);
+                var canEditReminders = @Html.CanAccess("AssessmentReminder", "Edit", "POST").ToString().ToLower();
+                window.procenter.InitializeReminders('@Url.Content("~/AssessmentReminder")', '@Url.Content("~/api/AssessmentReminder")', canEditReminders, null, null, '@DateTime.Today');
+            }
+
+            function addPatientModalValidators() {
+                $('#DateOfBirth').datepicker({
+                    maxDate: '+0d',
+                    onSelect: function() {
+                        $(this).trigger('blur');
+                    }
+                });
+                $.validator.addMethod("noFutureDate", function(value) {
+                    if (value !== undefined) {
+                        var dob = Date.parse(value);
+                        var today = new Date();
+                        if (dob > today) {
+                            return false;
+                        }
+                        return true;
+                    }
+                    return true;
+                }, "@Home.DobError1"); 
+
+                $('#DateOfBirth').rules('add', { noFutureDate: true });
+                $.validator.addMethod("validDate", function(value) {
+                    var bits = value.split('/');
+                    var d = new Date(bits[2], bits[0] - 1, bits[1]);
+                    var isValid = (d.getMonth()) == bits[0] - 1 && d.getDate() == Number(bits[1]);
+                    return isValid;
+                }, "@Home.DobError2");
+                $('#DateOfBirth').rules('add', { validDate: true });
             }
 
             var patientSearchDataTable = $('#patientSearchDataTable').dataTable({
-                "sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span6'i><'span6'p>>",
+                "sDom": "<'row-fluid'<'span6'l><'span6'>r>t<'row-fluid'<'span6'i><'span6'p>>",
                 "sPaginationType": "bootstrap",
                 "sScrollY": "100%",
                 "sScrollX": "100%",
@@ -120,36 +159,54 @@
                 "bProcessing": true,
                 "bServerSide": true,
                 "bSort": false,
-                "sAjaxSource": '@Url.Content( "~/api/Patient/DataTableSearch/" )' + '@UserContext.Current.OrganizationKey',
+                "sAjaxSource": '@Url.Content("~/api/Patient/DataTableSearch/")' + '@UserContext.Current.OrganizationKey',
                 "aoColumns": [
                     {
                         "mData": "Name.FirstName",
-                        "sClass": "FirstColumn",
+                        "sClass": "FirstColumn"
                     },
                     {
                         "mData": "Name.LastName",
-                        "sClass": "Sue",
                     },
                     {
                         "mData": "Gender.Name",
-                        "sClass": "LastColumn",
                     },
-                    { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
+                    {
+                        "mData": "Key",
+                        "sClass": "LastColumn",
+                        "bSortable": false,
+                        "bSearchable": false,
+                        "fnRender": function(oObj) {
+                            var icon = '&#xe005;';
+                            var text = "@Home.Edit";
+                            var description = text + " patient " + oObj.aData.Name.FirstName + " " + oObj.aData.Name.LastName;
+                            var canEdit = @Html.CanAccess("Patient", "Index").ToString().ToLower();
+                            if (canEdit) {
+                                return "<div>" +
+                                    "<button type='button' aria-label='" + description + "' class='btn btn-mini btn-info edit-patient' id='" + oObj.aData.Key +
+                                    "' data-id='" + oObj.aData.Key + "' data-fullname='" + oObj.aData.Name.LastName + " " + oObj.aData.Name.FirstName +
+                                    "' data-icon='" + icon + "'>" + text +
+                                    "</button>" +
+                                    "</div>";
+                            } else {
+                                return "<div></div>";
+                            }
+                        }
+                    }
                 ],
                 "fnDrawCallback": function() {
                     updateTableSizes();
+                    @if (Html.CanAccess("Patient", "Index"))
+                    {
+                    <text>
+                    $("button.edit-patient").click(function (event) {
+                        window.procenter.patientTabManager.tabManager("addTab", { key: $(this).attr("data-id"), name: $(this).attr("data-fullname") });
+                        window.location = '@Url.Content("~/Patient")' + '/Index/' + $(this).attr("data-id");
+                    });
+                    </text>
+                    }
                 }
             });
-
-            @if ( Html.CanAccess ( "Patient", "Index" ) )
-            {
-                <text>
-            $("#patientSearchDataTable tbody").click(function (event) {
-                var key = patientSearchDataTable.fnGetData(event.target.parentNode).Key;
-                window.location = '@Url.Content( "~/Patient" )' + '/Index/' + key;
-            });
-            </text>
-            }
 
             $('.add-patient').ajaxLink({
                 type: 'GET',
@@ -166,40 +223,9 @@
                     $form.data("validator", null);
                     $form.data("unobtrusiveValidation", null);
                     $.validator.unobtrusive.parse('#create-patient-form');
-                    //birth date
-                    //todo: duplicate code with Patient/Edit.cshtml
-
-                    function isValidDate(dtValue) {
-                        var dtRegex = new RegExp(/\b\d{1,2}[\/-]\d{1,2}[\/-]\d{4}\b/);
-                        return dtRegex.test(dtValue);
-                    }
-
-                    $('#DateOfBirth').datepicker({
-                        maxDate: '+0d',
-                        onSelect: function() {
-                            $(this).trigger('blur');
-                        }
-                    });
-                    $.validator.addMethod("noFutureDate", function(value) {
-                        if (value !== undefined) {
-                            var dob = Date.parse(value);
-                            var today = new Date();
-                            if (dob > today) {
-                                return false;
-                            }
-                            return true;
-                        }
-                        return true;
-                    }, "Birth Date cannot be a future date.");
-                    $('#DateOfBirth').rules('add', { noFutureDate: true });
-
-                    $.validator.addMethod("validDate", function(value) {
-                        return isValidDate(value);
-                    }, "The field Birth Date must be a date in format mm/dd/yyyy.");
-                    $('#DateOfBirth').rules('add', { validDate: true });
-
+                    addPatientModalValidators();
                 },
-                error: function(jqXHR, status, error) {
+                error: function(jqXhr, status, error) {
                     $('#createPatientModal .modal-error').text(error);
                     $('#createPatientModal .save-btn').hide();
                 },
@@ -219,7 +245,7 @@
                 "bProcessing": true,
                 "bServerSide": true,
                 "bSort": false,
-                "sAjaxSource": '@Url.Content( "~/api/AllAssessmentsDataTable" )',
+                "sAjaxSource": '@Url.Content("~/api/AllAssessmentsDataTable")',
                 "aoColumns": [
                     {
                         "mData": "PatientFirstName",
@@ -227,19 +253,18 @@
                     },
                     {
                         "mData": "PatientLastName",
-                        "sClass": "Sue",
+                        "sClass": "LastColumn",
                     },
                     {
                         "mData": "AssessmentName",
-                        "sClass": "Sue"
                     },
                     {
                         "mData": "CreatedTimeString",
-                        "sClass": "Sue"
+                        "sClass": "invisible-column-max648",
                     },
                     {
                         "mData": "PercentComplete",
-                        "sClass": "Sue",
+                        "sClass": "invisible-column-max648",
                         "fnRender": function(oObj) {
                             return (oObj.aData.PercentComplete * 100).toFixed(0) + " %";
                         }
@@ -251,15 +276,24 @@
                         "bSearchable": false,
                         "fnRender": function(oObj) {
                             var icon = '&#xe005;';
-                            var text = "Edit";
-                            var canEdit = @Html.CanAccess( "Assessment", "Edit", "Post" ).ToString().ToLower();
+                            var text = "@Home.Edit";
+                            var canEdit = @Html.CanAccess("Assessment", "Edit", "Post").ToString().ToLower();
                             var canView = @Html.CanAccess("Assessment", "Edit").ToString().ToLower();
                             if (oObj.aData.IsSubmitted || !canEdit) {
                                 icon = '&#xe07f;';
                                 text = "View";
                             }
                             if (canView || canEdit) {
-                                return "<div><a class='btn btn-mini btn-info' data-icon='" + icon + "' href=" + '@Url.Action( "Edit", "Assessment" )' + '/' + oObj.aData.AssessmentInstanceKey + "?patientKey=" + oObj.aData.PatientKey + ">" + text + "</a></div>";
+                                var description = text + " assessment " + oObj.aData.AssessmentName + " for " + oObj.aData.PatientFirstName + " " +  oObj.aData.PatientLastName;
+                                return "<div>" +
+                                    "<button type='button' aria-label='" + description + 
+                                    "' class='btn btn-mini btn-info open-assessment' id='" + oObj.aData.PatientKey + 
+                                    "' patient-id='" + oObj.aData.PatientKey + 
+                                    "' assessment-id='" + oObj.aData.AssessmentInstanceKey +
+                                    "' data-fullname='" + oObj.aData.PatientLastName + " " + oObj.aData.PatientFirstName + "' data-icon='" + icon +
+                                    "' href=" + '@Url.Action("Edit", "Assessment")' + '/' + oObj.aData.AssessmentInstanceKey + "?patientKey=" + oObj.aData.PatientKey + ">" +
+                                    text + "</button>" +
+                                    "</div>";
                             } else {
                                 return "<div></div>";
                             }
@@ -268,14 +302,22 @@
                 ],
                 "fnDrawCallback": function() {
                     updateTableSizes();
+                    $('button.open-assessment').on("click", function(e) {
+                        window.procenter.patientTabManager.tabManager("addTab", { key: $(this).attr("patient-id"), name: $(this).attr("data-fullname") });
+                        window.location = "@Url.Content("~/Assessment/Edit")" + "/" + $(this).attr("assessment-id") + "/?patientKey=" + $(this).attr("patient-id");
+                    });
                 }
             });
 
             $('#dashboard-filter').clearable();
 
-            //test calling Identity Srv web api from ajax
-
+            $("#dashboard-filter").on("keyup search", function() {
+                var tables = $.fn.dataTable.fnTables(true);
+                for (var i = 0; i < tables.length; i++) {
+                    $(tables[i]).dataTable().fnFilter(this.value);
+                }
+            });
         });
     </script>
-    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+    <noscript>@Home.NoScript</noscript>
 }

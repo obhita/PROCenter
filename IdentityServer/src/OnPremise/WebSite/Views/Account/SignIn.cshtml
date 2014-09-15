@@ -16,6 +16,7 @@
 
 @using (Html.BeginForm())
 {
+    @Html.AntiForgeryToken()
     @Html.ValidationSummary(true, SignIn_cshtml.SignInWasUnsuccessful)
     <fieldset class="editor small signin">
         <legend>@SignIn_cshtml.Login</legend>
@@ -29,8 +30,10 @@
             @Html.LabelFor(m => m.Password)
             @Html.PasswordFor(m => m.Password)
             @Html.ValidationMessageFor(m => m.Password)
-        </div>
-                
+            <div class="forgot-password">
+                @Html.ActionLink(SignIn_cshtml.ForgotPassword, "ForgotPassword", new { ReturnUrl = Model.ReturnUrl ?? Url.Action ( "SignIn", "Account" ) })
+            </div>
+        </div>    
         <div>
             @Html.LabelFor(m => m.EnableSSO)
             @Html.CheckBoxFor(m => m.EnableSSO)

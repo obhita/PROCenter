@@ -38,7 +38,7 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
         <body style='padding: 0 50px;'>
             <table cellpadding='0' cellspacing='0' border='0' align='center' width='70%' bgcolor='#ffffff' style='padding-top: 10px; font-family: Helvetica, Arial, sans-serif;'>
                 <tr>
-                    <td bgcolor='#fafafa' style='vertical-align: middle; border: 1px #d2d2d2 solid; font-size: 18px; line-height: 30px; font-weight: 600; color: #777777; padding: 12px'>Password Setup<span><img src='http://procenter-qa.obhita.org/Images/procenter.png' alt='pro-center' width='auto' height='32' align='right' /></span></td>
+                    <td bgcolor='#fafafa' style='vertical-align: middle; border: 1px #d2d2d2 solid; font-size: 18px; line-height: 30px; font-weight: 600; color: #777777; padding: 12px'>Password Setup<span><img src='https://procenter-qa.obhita.org/Images/procenter.png' alt='pro-center' width='auto' height='32' align='right' /></span></td>
                 </tr>
             </table>
             <table align='center' width='70%' border='0' cellspacing='0' cellpadding='0' style='padding-top: 10px; font-family: Helvetica, Arial, sans-serif;'>
@@ -52,7 +52,7 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
                                 <td style='font-size: 16px; padding-top: 20px;'></td>
                             </tr>
                             <tr>
-                                <td style='padding: 20px; background-color: #fcf8e3;'>Use the temporary password provided to <a href='http://procenter-qa.obhita.org' style='color: #006699;'><strong>Log in</strong></a> and update your account information with a new and unique password.
+                                <td style='padding: 20px; background-color: #fcf8e3;'>Use the temporary password provided to <a href='https://procenter-qa.obhita.org' style='color: #006699;'><strong>Log in</strong></a> and update your account information with a new and unique password.
                                     <p style='font-weight: 700;'>Username: <span style='color: Black'>{1}</span></p>
                                     <p style='font-weight: 700;'>Password: <span style='color: Black'>{2}</span></p>
                                 </td>
@@ -70,7 +70,7 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
                                 <td style='font-size: 14px; padding-top: 10px;'><em>--The PROCenter Team</em></td>
                             </tr>
                             <tr>
-                                <td style='font-size: 12px; margin-top: -7px;'><a href='' style='color: #006699;'>http://procenter-qa.obhita.org/</a></td>
+                                <td style='font-size: 12px; margin-top: -7px;'><a href='' style='color: #006699;'>https://procenter-qa.obhita.org/</a></td>
                             </tr>
                         </table>
                     </td>

@@ -1,259 +1,337 @@
-﻿@using ProCenter.Mvc.Infrastructure.Extension
+﻿@using System
 @using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Shared
 @using ProCenter.Service.Message.Patient
 
 @{
-    var patient = ViewData["Patient"] as PatientDto;
-    var patientName = "";
-    Guid? patientKey = null;
-    if (patient != null)
-    {
-        patientName = string.Format("{1}, {0}", patient.Name.FirstName, patient.Name.LastName);
-        patientKey = patient.Key;
-    }
+	var patient = ViewData["Patient"] as PatientDto;
+	var patientName = "";
+	Guid? patientKey = null;
+	if ( patient != null )
+	{
+		patientName = string.Format ( "{1}, {0}", patient.Name.FirstName, patient.Name.LastName );
+		patientKey = patient.Key;
+	}
 
-    var controllerName = ViewContext.RouteData.Values["controller"].ToString();
-    const string selected = "selected";
-    var homeClass = controllerName == "Home" || controllerName == "Portal" ? selected : null;
-    var systemAdminClass = controllerName == "SystemAdmin" ? selected : null;
-    var patientClass = (controllerName == "Patient" || controllerName == "Assessment") ? selected : null;
-    var organizationClass = (controllerName == "Organization" || controllerName == "Staff" || controllerName == "Role") ? selected : null;
+	var controllerName = ViewContext.RouteData.Values["controller"].ToString ();
+	const string Selected = "selected";
+	var homeClass = controllerName == "Home" || controllerName == "Portal" ? Selected : null;
+	var systemAdminClass = controllerName == "SystemAdmin" ? Selected : null;
+	var patientClass = ( controllerName == "Patient" || controllerName == "Assessment" ) ? Selected : null;
+	var organizationClass = ( controllerName == "Organization" || controllerName == "Staff" || controllerName == "Role" ) ? Selected : null;
+	var reportCenterClass = controllerName == "ReportsCenter" ? Selected : null;
 }
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>@ViewBag.Title</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <meta name="viewport" content="width=device-width" />
-    @Styles.Render("~/Content/themes/base/css")
-    @Styles.Render("~/Content/procenter")
-    <!--[if gte IE 9]>
+	<meta charset="utf-8" />
+	<title>@ViewBag.Title</title>
+	<link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+	<meta name="viewport" content="width=device-width" />
+		@Styles.Render( "~/Content/themes/base/css" )
+		@Styles.Render( "~/Content/procenter" )
+	<!--[if gte IE 9]>
   <style type="text/css">
-    .gradient {
-       filter: none !important;
-    }
+				.gradient { filter: none !important; }
   </style>
 <![endif]-->
-    <!--[if gte IE 6]>
+	<!--[if gte IE 6]>
 	<link href="~/Content/ie.css" rel="stylesheet" type="text/css" />
 <![endif]-->
 </head>
 <body>
-    <div id="skip"><a href="#main-content">skip to main content</a></div>
+@*    <div id="skip"><a href="#main-content">@Shared.SkipToMain</a></div>*@
+	<header>
+		<div id="procenter-logo">
+			<span>PRO</span><span> Center</span>
+		</div>
+		<div class="user-profile">
+			@Html.Partial( "UserContext" )
+		</div>
+		<div class="mini-nav">
+			<span class="organizationname-header" aria-hidden="true">@UserContext.Current.OrganizationName</span>   
+		</div>
+		<div class="clearfix"></div>
+	</header>
+	<div class="main-container" data-layout-height="*">
+		 <a id="main-content" name="main-content"></a>
+		<div class="dashboard-container">
+			<div class="top-nav">
+				<ul>
+						@if ( Html.CanAccess ( "SystemAdmin", "Index" ) )
+					{
+						<li>
+								<a href="@Url.Action( "Index", "SystemAdmin" )" aria-label="@Shared.Admin @Shared.Tab" class="@systemAdminClass">
+								<span class="fs1" aria-hidden="true" data-icon="&#xe08f;"></span>
+								@Shared.Admin
+							</a>
+						</li>
+					}
+					else 
+					{
+						<li>
+							<a href="@Url.Action( "Index", "Home" )" aria-label="@Shared.Home @Shared.Tab" class="@homeClass">
+								<span class="fs1" aria-hidden="true" data-icon="&#xe000;"></span>
+								@Shared.Home
+							</a>
+						</li>
+					}
 
-    <header>
-        <div id="procenter-logo">
-            <span>PRO</span><span> Center</span>
-        </div>
-        <div class="user-profile">
-            @Html.Partial("UserContext")
-        </div>
-        <ul class="mini-nav">
-            <li>
-                <a href="#">
-                    <div class="fs1" aria-hidden="true" data-icon="&#xe040;"></div>
-                    <span class="info-label">3
-                    </span>
-                </a>
-            </li>
-        </ul>
-        <div class="clear"></div>
-    </header>
-    <div class="main-container" data-layout-height="*">
-         <a id="main-content" name="main-content"></a>
-        <div class="dashboard-container">
-            <div class="top-nav">
-                <ul>
-                    @if (Html.CanAccess("SystemAdmin", "Index"))
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "SystemAdmin")" class="@systemAdminClass">
-                                <span class="fs1" aria-hidden="true" data-icon="&#xe08f;"></span>
-                                System Admin
-                            </a>
-                        </li>
-                    }
-                    else 
-                    {
-                        <li>
-                            <a href="@Url.Action( "Index", "Home" )" class="@homeClass">
-                                <span class="fs1" aria-hidden="true" data-icon="&#xe000;"></span>
-                                Home
-                            </a>
-                        </li>
-                    }
-                    @if (Html.CanAccess("Organization", "Index"))
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "Organization", new { key = UserContext.Current.OrganizationKey })" class="@organizationClass">
-                                <span class="fs1" aria-hidden="true" data-icon="&#xe08f;"></span>
-                                Admin
-                            </a>
-                        </li>
-                    }
-                    @if (patient != null)
-                    {
-                        <li>
-                            <a href="@Url.Action("Index", "Patient", new { key = patientKey })" class="@patientClass">
-                                <span class="fs1" aria-hidden="true" data-icon="&#xe075;"></span>
-                                @patientName
-                            </a>
-                        </li>
-                    }
-                </ul>
-                <div class="dropdown-wrapper dropdown hide">
-                    <a data-toggle="dropdown" class="dropdown-toggle">
-                    </a>
-                    <ul class="dropdown-menu">
-                    </ul>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            @RenderSection("subnav", required: false)
-            <div class="clearfix"></div>
-        </div>
-        <div id="mainContent" data-layout-height="*">
-                @RenderBody()
-        </div>
-    </div>
-    <script>
-        window.procenter = {};
-        var isSmall = false;
-        window.fixSize = function (selector) {
-            if ($(window).width() < 648) {
-                isSmall = true;
-                $('.dataTable_wrapper .dataTables_scroll,.dataTable_wrapper .dataTables_scroll .dataTables_scrollBody, .widget-body').removeAttr('data-layout-height').height('auto');
-            }
-            else if (isSmall) {
-                $('.dataTable_wrapper .dataTables_scroll,.dataTable_wrapper .dataTables_scroll .dataTables_scrollBody, .widget-body').attr('data-layout-height', '*');
-            }
-            $(selector).each(function() {
-                var $main = $(this);
-                var headerHeight = 0;
-                $main.prevAll(':visible').each(function() {
-                    headerHeight += $(this).outerHeight(true);
-                });
-                $main.nextAll(':visible').each(function() {
-                    headerHeight += $(this).outerHeight(true);
-                });
-                var newHeight = $main.parent().height() - headerHeight;
-                if (newHeight > 0) {
-                    $main.height(newHeight);
-                }
-            });
-        };
-        window.fixSizes = function (noTables) {
-            if (!noTables) {
-                var tables = $.fn.dataTable.fnTables(true);
-                for (var i = 0; i < tables.length; i++) {
-                    var dataTable = $(tables[i]).dataTable();
-                    dataTable.fnAdjustColumnSizing(false);
-                }
-            }
-            fixSize('[data-layout-height="*"]');
-        };
+					@if ( Html.CanAccess ( "Organization", "Index" ) )
+					{
+						<li>
+								<a href="@Url.Action( "Index", "Organization", new {key = UserContext.Current.OrganizationKey} )" aria-label="@Shared.Admin @Shared.Tab" class="@organizationClass">
+								<span class="fs1" aria-hidden="true" data-icon="&#xe08f;"></span>
+								@Shared.Admin
+							</a>
+						</li>
+					}
+					@if ( Html.CanAccess ( "ReportsCenter", "Index" ) )
+					{
+						<li>
+							<a href="@Url.Action( "Index", "ReportsCenter" )" aria-label="@Shared.ReportsCenter @Shared.Tab"class="@reportCenterClass">
+								<span class="fs1" aria-hidden="true" data-icon="&#xe051;"></span>
+								@Shared.ReportsCenter
+							</a>
+						</li>
+					}
+					@if ( patient != null )
+					{
+						<li class="patient-tab" data-key="@patientKey">
+								<a href="@Url.Action( "Index", "Patient", new {key = patientKey} )" aria-label="@patientName @Shared.Tab" class="@patientClass">
+								<span class="fs1" aria-hidden="true" data-icon="&#xe075;">@patientName</span>
+							</a>
+						</li>
+					}
+				</ul>
+				<div class="dropdown-wrapper dropdown hide">
+					<a data-toggle="dropdown" class="dropdown-toggle">
+					</a>
+					<ul class="dropdown-menu">
+					</ul>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+				@RenderSection( "subnav", required: false )
+			<div class="clearfix"></div>
+		</div>
+		<div id="mainContent" data-layout-height="*">
+			@RenderBody()
+			<div id="messageModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+				<form id="messageForm">
+					<div class="modal-header">
+						<button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+						<h3 id="messageModalHeader"></h3>
+					</div>
+					<div class="modal-body">
+					</div>
+				</form>
+			</div>
+				<div id="sessionManagerModal" class="sessionManagerModal hide fade" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+					<div class="modal-header">
+						@Shared.SessionExpiration
+					</div>
+					<div class="modal-body">
+		            </div>
+					<div>
+						<input type="button" aria-label="@Shared.SessionExprirationWarning, @Shared.StayConnected" value="@Shared.StayConnected" id="sessionManagerModalStayConnected" class="btn btn-info"/>
+						<input type="button" aria-label="@Shared.SessionExprirationWarning, @Shared.LogOutNow" value="@Shared.LogOutNow" id="sessionManagerModalLogout" class="btn btn-danger"/>
+	             </div>
+				</div>
+			</div>
+		</div>
+	<script>
+		window.procenter = {};
+		var isSmall = false;
+		window.fixSize = function(selector) {
+			if ($(window).width() < 648) {
+				isSmall = true;
+				$('.dataTable_wrapper .dataTables_scroll, .dataTable_wrapper .dataTables_scroll .dataTables_scrollBody, .widget-body').removeAttr('data-layout-height').height('auto');
+			} else if (isSmall) {
+				$('.dataTable_wrapper .dataTables_scroll, .dataTable_wrapper .dataTables_scroll .dataTables_scrollBody, .widget-body').attr('data-layout-height', '*');
+			}
+			$(selector).each(function() {
+				var $main = $(this);
+				var headerHeight = 0;
+				$main.prevAll(':visible').each(function() {
+					headerHeight += $(this).outerHeight(true);
+				});
+				$main.nextAll(':visible').each(function() {
+					headerHeight += $(this).outerHeight(true);
+				});
+				var newHeight = $main.parent().height() - headerHeight;
+				if (newHeight > 0) {
+					$main.height(newHeight);
+				}
+			});
+		};
+		window.fixSizes = function(noTables) {
+			if (!noTables) {
+				var tables = $.fn.dataTable.fnTables(true);
+				for (var i = 0; i < tables.length; i++) {
+					var dataTable = $(tables[i]).dataTable();
+					dataTable.fnAdjustColumnSizing(false);
+				}
+			}
+			fixSize('[data-layout-height="*"]');
+		};
    
-    </script>
-    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+	</script>
+	<noscript>@Shared.JavaScriptNoEnabled</noscript>
   
-    @Scripts.Render("~/bundles/vendor")
-    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
-    @RenderSection("scripts", required: false)
-     <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+		@Scripts.Render( "~/bundles/vendor" )
+		@Scripts.Render( "~/bundles/miscellaneous" )
+	<noscript>@Shared.JavaScriptNoEnabled</noscript>
+		@RenderSection( "scripts", required: false )
+	 <noscript>@Shared.JavaScriptNoEnabled</noscript>
  
-    <script>
-       
-        $(document).ready(function() {
-            fixSizes();
-            $(window).resize(function() {
-                fixSizes();
-            });
+	<script>
+		function closePopover(e) {
+			var container = $(".finder-popover, .question-lookup, .question-lookup-no-results-found");
+			if (!container.is(e.target)
+				&& container.has(e.target).length === 0 && !(e.target.className == "finder-all-button") && !(e.target.className == "question-lookup")
+				&& !(e.target.className == "question-lookup-no-results-found")) {
+				container.hide();
+			}
+		}
 
-            var $navList = $('.top-nav ul');
-            var $selectedTab = $navList.find('.selected');
-            $('.top-nav .dropdown-wrapper ul').html($navList.html());
-            var dropdownLinkHtml = $selectedTab.find('.fs1')[0].outerHTML + $selectedTab.text() + "<span class='fs1 tabs-dropdown-caret' data-icon='&#xe0b8;'></span>";
-            $('.top-nav .dropdown-wrapper > a').html(dropdownLinkHtml);
+		$(document).mousedown(function (e) {
+			closePopover(e);
+		});
 
-            $('.question-root').focusContainer();
-            $.fn.placeholder();
+		$(document).keyup(function (e) {
+			if (e.which == 9 && e.shiftKey) {
+				closePopover(e);
+			}
+		});
 
-            $(".dashboard-wrapper").dashboard();
-            
+		$(document).keydown(function (e) {
+			if (e.which == 9) {
+				closePopover(e);
+			}
+		});
 
-            $("#change-password-btn").ajaxLink({ 
-                getData: function() {
-                    var data = {};
-                    var isValid = true;
-                    $('#changePasswordModal').find('.modal-body :input').each(function() {
-                        data[this.name] = this.value;
-                        isValid = isValid & $(this).valid();
-                    });
-                    if (!isValid) {
-                        return false;
-                    }
-                    return data;
-                },
-                success: function(data) {
-                    var resultCode = data[0];
-                    var $changePasswordMessage = $('#change-password-message');
-                    $changePasswordMessage.html(data[1]);
-                    $changePasswordMessage.removeClass('hidden');
-                    if (resultCode === "Succeed") {
-                        $('#changePasswordModal .modal-body').hide();
-                        $('#changePasswordModal .modal-footer').hide();
-                        $changePasswordMessage.css('color', 'green');
-                    }
-                }
-            });
+		$(document).ready(function () {
+			fixSizes();
+			$(window).resize(function() {
+				fixSizes();
+			});
 
-            $('#changePasswordModal').on('hidden', function() { //reset form
-                var $changePasswordMessage = $('#change-password-message');
-                $changePasswordMessage.html();
-                $changePasswordMessage.addClass('hidden');
-                $changePasswordMessage.removeAttr("style");
-                $('#changePasswordModal').find('.modal-body :input').each(function() {
-                    $(this).val("");
-                });
-                $('#changePasswordModal .modal-body').show();
-                $('#changePasswordModal .modal-footer').show();
-            });
+			var $navList = $('.top-nav ul');
+			var $selectedTab = $navList.find('.selected');
+			$('.top-nav .dropdown-wrapper ul').html($navList.html());
+			var dropdownLinkHtml = $selectedTab.find('.fs1')[0].outerHTML + $selectedTab.text() + "<span class='fs1 tabs-dropdown-caret' data-icon='&#xe0b8;'></span>";
+			$('.top-nav .dropdown-wrapper > a').html(dropdownLinkHtml);
 
-            $(document).ajaxError(function(e, jqxhr, settings, exception) {
-                e.stopPropagation();
-                var response;
-                if (jqxhr.status === 0) {
-                    alert('You are offline!!\n Please Check Your Network.');
-                } else if (jqxhr.status === 404) {
-                    alert('Requested URL not found.');
-                } else if (jqxhr.status === 500) {
-                    response = JSON.parse(jqxhr.responseText);
-                    if (response.message) {
-                        alert("Internal Server Error:\n" + response.message);
-                    } else {
-                        alert('Internal Server Error.');
-                    }
-                } else if (exception === 'parsererror') {
-                    alert('Error.\nParsing JSON Request failed.');
-                } else if (exception === 'timeout') {
-                    alert('Request Time out.');
-                } else if (exception === 'abort') {
-                    alert('Ajax request aborted.');
-                } else {
-                    response = JSON.parse(jqxhr.responseText);
-                    if (response.message) {
-                        alert(response.message);
-                    } else {
-                        alert('Unknown Error:\n' + jqxhr.responseText);
-                    }
-                }
-            });
+			window.procenter.patientTabManager = $('.top-nav ul').tabManager({ url: '/Patient/Index/' });
 
-        });
-      
-    </script>
-    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+			$('.question-root').focusContainer();
+			$.fn.placeholder();
+
+			$(".dashboard-wrapper").dashboard();
+
+			$(document).ajaxError(function(e, jqxhr, settings, exception) {
+				e.stopPropagation();
+				var response;
+				if (jqxhr.status === 0) {
+					alert('@Shared.ErrorOffline');
+				} else if (jqxhr.status === 404) {
+					alert('@Shared.ErrorUrlNotFound');
+				} else if (jqxhr.status === 500) {
+					try {
+						response = JSON.parse(jqxhr.responseText);
+					} catch (e) {
+						response = { message: jqxhr.responseText };
+					} 
+					if (response.message) {
+						alert("@Shared.ErrorInternalServerError" + response.message);
+					} else {
+						alert('@Shared.ErrorInternalServerError');
+					}
+				} else if (exception === 'parsererror') {
+					alert('@Shared.ErrorJsonParser');
+				} else if (exception === 'timeout') {
+					alert('@Shared.ErrorRequestTimeout');
+				} else if (exception === 'abort') {
+					alert('@Shared.ErrorAjaxAborted');
+				} else {
+					try {
+						response = JSON.parse(jqxhr.responseText);
+					} catch (e) {
+						response = { message: jqxhr.responseText };
+					}
+					if (response.message) {
+						alert(response.message);
+					} else {
+						alert('@Shared.ErrorUnknown' + jqxhr.responseText);
+					}
+				}
+			});
+
+			$("[data-dismiss='modal']").on('click', function () {
+				$("span.field-validation-error").html("");
+			});
+
+			$('.modal').on('shown', function () {
+				$(this).find(":input:not(:button):not(:hidden):enabled[data-val=true]:first").focus();
+			});
+
+			$(".modal-body").on('keydown', function (e) {
+				if (e.which == 13 && e.target.nodeName != "TEXTAREA") {
+					e.preventDefault();
+					if ($(this).closest('[data-ajaxform-ignore]').length === 0) {
+						$(".btn-primary:visible").click();
+					}
+				}
+			});
+
+			$("input.number").on('keypress', function (e) {
+				var charCode = e.which || e.keyCode;
+				if (charCode > 31 && (charCode <= 47 || charCode > 57))
+					return false;
+				if (e.shiftKey) return false;
+				return true;
+			});
+
+			$('#changePasswordModal').on('hidden', function () { //reset form
+				var $changePasswordMessage = $('#change-password-message');
+				$changePasswordMessage.html();
+				$changePasswordMessage.addClass('hidden');
+				$changePasswordMessage.removeAttr("style");
+				$('#changePasswordModal').find('.modal-body :input').val("");
+				$('#changePasswordModal .modal-body').show();
+				$('#changePasswordModal .modal-footer').show();
+			});
+
+			$(".system-account-lock").ajaxLink({
+				success: function (data, $link) {
+					$link.text(data.text);
+					$link.attr('href', data.location);
+				}
+			});
+
+			$(".system-account-reset-password").ajaxLink({
+				type: 'POST',
+				success: function (data) {
+					if (data) {
+						if (data.Data.text != "" || data.Data.error != "") {
+							var msg = data.Data.text + data.Data.error;
+							$('#messageModal .modal-body').text(msg);
+							$("#messageModal").modal("show");
+						}
+					}
+				},
+				error: function () {
+				}
+			});
+
+			window.procenter.SessionManager = window.procenter.SessionManagerModule();
+			window.procenter.SessionManager.Initialize();
+		});
+
+	</script>
+	<noscript>@Shared.JavaScriptNoEnabled</noscript>
 </body>
 </html>

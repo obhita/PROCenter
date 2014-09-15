@@ -42,13 +42,14 @@ variables is recommended.
 @layout-color-2: rgb(180, 180, 180);
 @layout-color-3: rgb(128, 128, 128);
 @layout-color-4: rgb(72, 71, 71);
+@title-color: #57798f;
 
 //Borders 
 @border-radius-1: 4px;
 @border-radius-2: 8px;
 @dropshadow-inset: inset 0px 0px 20px #000000;
 @dropshadow-1: 0px 0px 20px #000000;
-@dropshadow-2: 4px 4px 20px #000000;
+@dropshadow-2: 4px 4px 20px #505e64;
 .dropshadow (@dropshadow: @dropshadow-1){
     -moz-box-shadow:@dropshadow;
     -webkit-box-shadow:@dropshadow;
@@ -78,6 +79,9 @@ variables is recommended.
 @background-color: #212121;
 @foreground-color: black;
 @light-foreground-color: white;
+@dark-blue: #2b6588;
+@medium-blue: ;
+@light-blue: ;
 .solid-brush (@solid-color){
     background-color: @solid-color;
 }
@@ -106,7 +110,7 @@ background: linear-gradient(to bottom, rgba(255,255,255,0.4) 0%,rgba(0,0,0,0.4) 
 }
 
 /*Master Layout*/
-@tab-color:#3693cf;
+@tab-color:#5bb2d5;
 .main-header-style {
     .gradient-brush(theme-color-1);
     .main-header-border;

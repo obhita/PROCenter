@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,26 +25,60 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
-    using AssessmentModule;
-    using System.Linq;
-    using CommonModule;
+    #region Using Statements
 
+    using System.Linq;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The drug abuse screening test scoring engine class.</summary>
     public class DrugAbuseScreeningTestScoringEngine : IScoringEngine
     {
-        public string AssessmentName { get { return DrugAbuseScreeningTest.AssessmentCodedConcept.Name; } }
+        #region Public Properties
 
-        public void CalculateScore(AssessmentInstance assessment)
+        /// <summary>
+        /// Gets the name of the assessment.
+        /// </summary>
+        /// <value>
+        /// The name of the assessment.
+        /// </value>
+        public string AssessmentName
         {
-            var value = assessment.ItemInstances.Count(i => (bool.Parse(i.Value.ToString())));
-
-            var guidance = value <= 2
-                               ? new CodedConcept(CodeSystems.Obhita, "guidance_0_to_2", "guidance_0_to_2")
-                               : new CodedConcept(CodeSystems.Obhita, "guidance_3_and_up", "guidance_3_and_up");
-
-            assessment.ScoreComplete(new CodedConcept(CodeSystems.Obhita, "", ""), value, guidance);
+            get { return typeof(DrugAbuseScreeningTest).Name; }
         }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Calculates the score.
+        /// </summary>
+        /// <param name="assessment">The assessment.</param>
+        public void CalculateScore ( AssessmentInstance assessment )
+        {
+            var dast = new DrugAbuseScreeningTest ( assessment );
+            var count = assessment.ItemInstances.Count ( i => ( bool.Parse ( i.Value.ToString () ) ) );
+            if ( dast.SubstanceAbusePrescriptionIllicitSubstanceOvertheCounterProductCessationAbilityPersonalMedicalHistoryInd2 )
+            {
+                count--;
+            }
+
+            var guidance = count <= 2
+                ? new CodedConcept ( CodeSystems.Obhita, "guidance_0_to_2", "guidance_0_to_2" )
+                : new CodedConcept ( CodeSystems.Obhita, "guidance_3_and_up", "guidance_3_and_up" );
+
+            assessment.ScoreComplete ( new CodedConcept ( CodeSystems.Obhita, string.Empty, string.Empty ), count, false, guidance );
+        }
+
+        #endregion
     }
 }

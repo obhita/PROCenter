@@ -6,21 +6,23 @@
     <div class="sub-nav">
     </div>
 }
-
 <div class="patient-editor dashboard-wrapper">
     <div class="editor-content container-fluid" data-layout-height="*">
         @using ( Html.BeginForm ( "ValidateLogin", "Portal" ) )
         {
             <div class="questions" data-ajax-container="true">
                 <fieldset>
-                    <legend>Validate</legend>
-                    @Html.ValidationSummary()
+                    @if (!ViewData.ModelState.IsValid) {
+                        <legend>Validate</legend>
+                        @Html.ValidationSummary()
+                    }
                     <div class="question-root">
                         <div>
                             @Html.Label( "patientId", "Patient Identifier" )
                         </div>
                         <div>
-                            @Html.TextBox( "patientId" )
+                            @Html.TextBox("patientId", null, new {@class = "required"} )
+                            @Html.ValidationMessage("patientId")
                         </div>
                     </div>
                     <div class="question-root">
@@ -28,7 +30,8 @@
                             @Html.Label( "dateOfBirth", "Date Of Birth" )
                         </div>
                         <div>
-                            @Html.TextBox( "dateOfBirth", null, new {@class = "datepicker"} )
+                            @Html.TextBox( "dateOfBirth", null, new {@class = "required"} )
+                            @Html.ValidationMessage("dateOfBirth")
                         </div>
                     </div>
                     <input type="submit" value="Validate" class="btn btn-success"/>
@@ -37,5 +40,3 @@
         }
     </div>
 </div>
-
-

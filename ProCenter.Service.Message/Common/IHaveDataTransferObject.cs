@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,11 +25,24 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
+    /// <summary>Interface for have data transfer object.</summary>
     public interface IHaveDataTransferObject : IDtoResponse
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the dto.
+        /// </summary>
+        /// <value>
+        /// The dto.
+        /// </value>
         object Dto { get; }
+
+        #endregion
     }
 }

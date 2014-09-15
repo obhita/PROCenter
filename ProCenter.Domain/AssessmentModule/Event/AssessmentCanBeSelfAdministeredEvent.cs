@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,26 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
-    using System;
-    using CommonModule;
+    #region Using Statements
 
-    /// <summary>
-    /// Assessment can be self administered event.
-    /// </summary>
+    using System;
+
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>Assessment can be self administered event.</summary>
     public class AssessmentCanBeSelfAdministeredEvent : CommitEventBase
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        /// Initializes a new instance of the <see cref="AssessmentCanBeSelfAdministeredEvent" /> class.
+        ///     Initializes a new instance of the <see cref="AssessmentCanBeSelfAdministeredEvent" /> class.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="version">The version.</param>
@@ -44,5 +52,7 @@ namespace ProCenter.Domain.AssessmentModule.Event
             : base ( key, version )
         {
         }
+
+        #endregion
     }
 }

@@ -1,31 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
-//  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
-//  * 
-//  * Redistribution and use in source and binary forms, with or without
-//  * modification, are permitted provided that the following conditions are met:
-//  *     * Redistributions of source code must retain the above copyright
-//  *       notice, this list of conditions and the following disclaimer.
-//  *     * Redistributions in binary form must reproduce the above copyright
-//  *       notice, this list of conditions and the following disclaimer in the
-//  *       documentation and/or other materials provided with the distribution.
-//  *     * Neither the name of the <organization> nor the
-//  *       names of its contributors may be used to endorse or promote products
-//  *       derived from this software without specific prior written permission.
-//  * 
-//  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
-//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
-//  * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-//  * DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
-//  * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
-//  * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
-//  * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
-//  * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-//  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
-//  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-//  ******************************************************************************/
-#endregion
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Configuration.Provider;
@@ -98,21 +71,23 @@ namespace Thinktecture.IdentityServer.Repositories
             { }
         }
 
-        public IEnumerable<string> GetUsers()
+        public IEnumerable<string> GetUsers(int pageIndex, int count, out int totalCount)
         {
-            var items = Membership.GetAllUsers().OfType<MembershipUser>();
+            var items = Membership.GetAllUsers(pageIndex, count, out totalCount).OfType<MembershipUser>();
             return items.Select(x => x.UserName);
         }
 
-        public IEnumerable<string> GetUsers(string filter)
+        public IEnumerable<string> GetUsers(string filter, int pageIndex, int count, out int totalCount)
         {
             var items = Membership.GetAllUsers().OfType<MembershipUser>();
+			filter = filter.ToLower();
             var query =
                 from user in items
-                where user.UserName.Contains(filter) ||
-                      (user.Email != null && user.Email.Contains(filter))
+                where user.UserName.ToLower().Contains(filter) ||
+                      (user.Email != null && user.Email.ToLower().Contains(filter))
                 select user.UserName;
-            return query;
+            totalCount = query.Count();
+            return query.Skip(pageIndex * count).Take(count);
         }
 
         public void SetPassword(string userName, string password)
@@ -125,7 +100,22 @@ namespace Thinktecture.IdentityServer.Repositories
             {
                 throw new ValidationException("Password is required");
             }
+            
+            ValidatePasswordStrength(password);
 
+            try
+            {
+                var user = Membership.GetUser(userName);
+                user.ChangePassword(user.ResetPassword(), password);
+            }
+            catch (MembershipPasswordException mex)
+            {
+                throw new ValidationException(mex.Message, mex);
+            }
+        }
+
+        private static void ValidatePasswordStrength(string password)
+        {
             var provider = Membership.Provider;
             if (password.Length < provider.MinRequiredPasswordLength)
             {
@@ -146,20 +136,10 @@ namespace Thinktecture.IdentityServer.Repositories
                     throw new ValidationException(String.Format("{0} is the minimum number of non-alphanumeric characters", provider.MinRequiredNonAlphanumericCharacters));
                 }
             }
-            if (!String.IsNullOrWhiteSpace(provider.PasswordStrengthRegularExpression) && 
-                !System.Text.RegularExpressions.Regex.IsMatch(provider.PasswordStrengthRegularExpression, password))
+            if (!String.IsNullOrWhiteSpace(provider.PasswordStrengthRegularExpression) &&
+                !System.Text.RegularExpressions.Regex.IsMatch(password, provider.PasswordStrengthRegularExpression))
             {
                 throw new ValidationException(String.Format("Password does not match the regular expression {0}", provider.PasswordStrengthRegularExpression));
-            }
-
-            try
-            {
-                var user = Membership.GetUser(userName);
-                user.ChangePassword(user.ResetPassword(), password);
-            }
-            catch (MembershipPasswordException mex)
-            {
-                throw new ValidationException(mex.Message, mex);
             }
         }
     }

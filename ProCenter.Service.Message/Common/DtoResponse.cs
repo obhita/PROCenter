@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
@@ -33,9 +36,7 @@ namespace ProCenter.Service.Message.Common
 
     #endregion
 
-    /// <summary>
-    ///     Generic Data transfer object response
-    /// </summary>
+    /// <summary>Generic Data transfer object response.</summary>
     /// <typeparam name="TDto">The type of the dto.</typeparam>
     public class DtoResponse<TDto> : Response, IDtoResponse
         where TDto : KeyedDataTransferObject

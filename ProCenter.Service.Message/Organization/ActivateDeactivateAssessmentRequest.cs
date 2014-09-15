@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
+    #region Using Statements
+
     using System;
+
     using Agatha.Common;
 
+    #endregion
+
+    /// <summary>The activate deactivate assessment request class.</summary>
     public class ActivateDeactivateAssessmentRequest : Request
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The assessment definition key.
+        /// </value>
+        public Guid AssessmentDefinitionKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is activating].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is activating]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsActivating { get; set; }
 
+        /// <summary>
+        /// Gets or sets the organization key.
+        /// </summary>
+        /// <value>
+        /// The organization key.
+        /// </value>
         public Guid OrganizationKey { get; set; }
 
-        public Guid AssessmentDefinitionKey { get; set; }
+        #endregion
     }
 }

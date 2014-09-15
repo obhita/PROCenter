@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,39 +25,46 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel;
     using System.Linq;
     using System.Reflection;
-    using CommonModule;
-    using Event;
+
     using Pillar.Common.Utility;
     using Pillar.Domain.Primitives;
-    using Primitive;
+    using Pillar.FluentRuleEngine;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.OrganizationModule.Event;
+    using ProCenter.Primitive;
 
     #endregion
 
-    /// <summary>
-    ///     Staff aggregate
-    /// </summary>
+    /// <summary>Staff aggregate.</summary>
     public class Staff : AggregateRootBase
     {
+        #region Static Fields
 
         private static Dictionary<string, PropertyInfo> _propertyCache;
+
+        #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="Staff" /> class.
+        /// Initializes a new instance of the <see cref="Staff" /> class.
         /// </summary>
         /// <param name="organizationKey">The organization key.</param>
         /// <param name="name">The name.</param>
-        public Staff ( Guid organizationKey, PersonName name )
+        public Staff(Guid organizationKey, PersonName name)
         {
             Check.IsNotNull ( name, () => Name );
 
@@ -64,7 +72,10 @@ namespace ProCenter.Domain.OrganizationModule
             RaiseEvent ( new StaffCreatedEvent ( Key, Version, organizationKey, name ) );
         }
 
-        public Staff()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Staff"/> class.
+        /// </summary>
+        public Staff ()
         {
         }
 
@@ -89,6 +100,15 @@ namespace ProCenter.Domain.OrganizationModule
         public string Location { get; private set; }
 
         /// <summary>
+        ///     Gets the National Practive Id.
+        /// </summary>
+        /// <value>
+        ///     The NPI number.
+        /// </value>
+        [DisplayName("NPI")]
+        public string NPI { get; private set; }
+
+        /// <summary>
         ///     Gets the name.
         /// </summary>
         /// <value>
@@ -104,39 +124,61 @@ namespace ProCenter.Domain.OrganizationModule
         /// </value>
         public Guid OrganizationKey { get; private set; }
 
+        #endregion
 
-        /// <summary>
-        ///     Gets the National Practive Id.
-        /// </summary>
-        /// <value> 
-        ///     The NPI number.
-        /// </value>
-        public string NPI { get; private set; }
+        #region Public Methods and Operators
+
+        /// <summary>Revises the email.</summary>
+        /// <param name="email">The email.</param>
+        public virtual void ReviseEmail ( Email email )
+        {
+            var staffChangedEvent = new StaffChangedEvent(Key, Version, p => p.Email, email);
+            new RuleEngineExecutor<Staff>(this)
+                .ForCallingMethodRuleSet()
+                .WithContext(staffChangedEvent)
+                .Execute(() => RaiseEvent(staffChangedEvent));
+        }
+
+        /// <summary>Revises the location.</summary>
+        /// <param name="location">The location.</param>
+        public virtual void ReviseLocation ( string location )
+        {
+            RaiseEvent ( new StaffChangedEvent ( Key, Version, s => s.Location, location ) );
+        }
+
+        /// <summary>Revises the name.</summary>
+        /// <param name="name">The name.</param>
+        public virtual void ReviseName ( PersonName name )
+        {
+            Check.IsNotNull ( name, () => Name );
+            RaiseEvent ( new StaffChangedEvent ( Key, Version, s => s.Name, name ) );
+        }
+
+        /// <summary>Revises the npi.</summary>
+        /// <param name="npi">The npi.</param>
+        public virtual void ReviseNpi ( string npi )
+        {
+            var staffChangedEvent = new StaffChangedEvent(Key, Version, p => p.NPI, npi);
+            new RuleEngineExecutor<Staff> ( this )
+                .ForCallingMethodRuleSet ()
+                .WithContext ( staffChangedEvent )
+                .Execute ( () => RaiseEvent ( staffChangedEvent ) );
+        }
 
         #endregion
 
-        public virtual void ReviseName(PersonName name)
-        {
-            Check.IsNotNull(name, () => Name);
-            RaiseEvent(new StaffChangedEvent(Key, Version, s => s.Name, name));
-        }
-
-        public virtual void ReviseEmail(Email email)
-        {
-            RaiseEvent(new StaffChangedEvent(Key, Version, s=>s.Email, email));
-        }
-
-        public virtual void ReviseLocation(string location)
-        {
-            RaiseEvent(new StaffChangedEvent(Key, Version, s=>s.Location, location));
-        }
-
-        public virtual void ReviseNpi(string npi)
-        {
-            RaiseEvent(new StaffChangedEvent(Key, Version, s=>s.NPI, npi));
-        }
-
         #region Methods
+
+        private static Type GetConvertToType ( Type propertyType )
+        {
+            var convertToType = propertyType;
+            var underlyingType = Nullable.GetUnderlyingType ( convertToType );
+            if ( underlyingType != null )
+            {
+                convertToType = underlyingType;
+            }
+            return convertToType;
+        }
 
         private void Apply ( StaffCreatedEvent staffCreatedEvent )
         {
@@ -144,40 +186,29 @@ namespace ProCenter.Domain.OrganizationModule
             Name = staffCreatedEvent.Name;
         }
 
-        private void Apply(StaffChangedEvent staffChangedEvent)
+        private void Apply ( StaffChangedEvent staffChangedEvent )
         {
             var propertyName = staffChangedEvent.Property;
             var value = staffChangedEvent.Value;
-            if (_propertyCache == null)
+            if ( _propertyCache == null )
             {
                 _propertyCache =
-                    GetType()
-                        .GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy)
-                        .ToDictionary(pi => pi.Name);
+                    GetType ()
+                        .GetProperties ( BindingFlags.Public | BindingFlags.Instance | BindingFlags.FlattenHierarchy )
+                        .ToDictionary ( pi => pi.Name );
             }
-            var property = _propertyCache.ContainsKey(propertyName) ? _propertyCache[propertyName] : null;
-            if (property == null)
+            var property = _propertyCache.ContainsKey ( propertyName ) ? _propertyCache[propertyName] : null;
+            if ( property == null )
             {
-                throw new InvalidOperationException(string.Format("Invalid property name {0}", propertyName));
+                throw new InvalidOperationException ( string.Format ( "Invalid property name {0}", propertyName ) );
             }
-            
-            if (value != null && !property.PropertyType.IsInstanceOfType(value))
-            {
-                var convertToType = GetConvertToType(property.PropertyType);
-                value = Convert.ChangeType(value, convertToType);
-            }
-            property.SetValue(this, value);
-        }
 
-        private static Type GetConvertToType(Type propertyType)
-        {
-            var convertToType = propertyType;
-            var underlyingType = Nullable.GetUnderlyingType(convertToType);
-            if (underlyingType != null)
+            if ( value != null && !property.PropertyType.IsInstanceOfType ( value ) )
             {
-                convertToType = underlyingType;
+                var convertToType = GetConvertToType ( property.PropertyType );
+                value = Convert.ChangeType ( value, convertToType );
             }
-            return convertToType;
+            property.SetValue ( this, value );
         }
 
         #endregion

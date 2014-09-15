@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,120 +25,85 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
-#region Using Statements
 
-using System;
-using Pillar.Common.Utility;
-using Pillar.Domain.Attributes;
+#endregion
+
+#region Using Statements
 
 #endregion
 
 namespace ProCenter.Domain.CommonModule.ValueObjects
 {
-    /// <summary>
-    ///     The Money defines a money object.
-    /// </summary>
+    #region Using Statements
+
+    using System;
+
+    using Pillar.Common.Utility;
+    using Pillar.Domain.Attributes;
+
+    #endregion
+
+    /// <summary>The Money defines a money object.</summary>
     [Component]
     public class Money : IEquatable<Money>
     {
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="Money" /> class.
-        /// </summary>
-        protected Money()
-        {
-        }
+        #region Constructors and Destructors
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Money" /> class.
         /// </summary>
         /// <param name="currency">The currency.</param>
         /// <param name="amount">The amount.</param>
-        public Money(Currency currency, decimal amount)
+        public Money ( Currency currency, decimal amount )
         {
-            Check.IsNotNull(currency, () => Currency);
+            Check.IsNotNull ( currency, () => Currency );
 
             Currency = currency;
             Amount = amount;
         }
 
         /// <summary>
-        ///     Gets the currency.
+        ///     Initializes a new instance of the <see cref="Money" /> class.
         /// </summary>
-        public virtual Currency Currency { get; protected set; }
-
-        /// <summary>
-        ///     Gets the amount.
-        /// </summary>
-        public virtual decimal Amount { get; protected set; }
-
-        #region Implementation of IEquatable<Money>
-
-        bool IEquatable<Money>.Equals(Money other)
+        protected Money ()
         {
-            return Equals(other);
         }
 
         #endregion
 
-        /// <summary>
-        ///     Indicates whether the current object is equal to another object of the same type.
-        /// </summary>
-        /// <param name="other">An object to compare with this object.</param>
-        /// <returns>
-        ///     true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
-        /// </returns>
-        public bool Equals(Money other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-            return other.Amount == Amount && Equals(other.Currency, Currency);
-        }
+        #region Public Properties
 
         /// <summary>
-        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
+        ///     Gets or sets the amount.
         /// </summary>
-        /// <param name="obj">
-        ///     The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" />.
-        /// </param>
-        /// <returns>
-        ///     true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.
-        /// </returns>
-        public override bool Equals(object obj)
-        {
-            if (ReferenceEquals(null, obj))
-            {
-                return false;
-            }
-            if (ReferenceEquals(this, obj))
-            {
-                return true;
-            }
-            if (obj.GetType() != typeof (Money))
-            {
-                return false;
-            }
-            return Equals((Money) obj);
-        }
+        public virtual decimal Amount { get; protected set; }
 
         /// <summary>
-        ///     Serves as a hash function for a particular type.
+        ///     Gets or sets the currency.
         /// </summary>
-        /// <returns>
-        ///     A hash code for the current <see cref="T:System.Object" />.
-        /// </returns>
-        public override int GetHashCode()
+        public virtual Currency Currency { get; protected set; }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Implements the operator +.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
+        public static Money operator + ( Money left, Money right )
         {
-            unchecked
+            if ( left.Currency.CodedConcept.Code.Equals ( right.Currency.CodedConcept.Code ) )
             {
-                return (Amount.GetHashCode()*397) ^ (Currency != null ? Currency.GetHashCode() : 0);
+                return new Money ( left.Currency, left.Amount + right.Amount );
             }
+            throw new NotImplementedException (
+                string.Format (
+                               "Currency conversion between {0} and {1} is not implemented.",
+                    left.Currency.CodedConcept.Name,
+                    right.Currency.CodedConcept.Name ) );
         }
 
         /// <summary>
@@ -146,57 +112,9 @@ namespace ProCenter.Domain.CommonModule.ValueObjects
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>The result of the operator.</returns>
-        public static bool operator ==(Money left, Money right)
+        public static bool operator == ( Money left, Money right )
         {
-            return Equals(left, right);
-        }
-
-        /// <summary>
-        ///     Implements the operator !=.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>The result of the operator.</returns>
-        public static bool operator !=(Money left, Money right)
-        {
-            return !Equals(left, right);
-        }
-
-
-        /// <summary>
-        ///     Implements the operator +.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>The result of the operator.</returns>
-        public static Money operator +(Money left, Money right)
-        {
-            if (left.Currency.CodedConcept.Code.Equals(right.Currency.CodedConcept.Code))
-            {
-                return new Money(left.Currency, left.Amount + right.Amount);
-            }
-            throw new NotImplementedException(
-                string.Format(
-                    "Currency conversion between {0} and {1} is not implemented.", left.Currency.CodedConcept.Name,
-                    right.Currency.CodedConcept.Name));
-        }
-
-        /// <summary>
-        ///     Implements the operator -.
-        /// </summary>
-        /// <param name="left">The left.</param>
-        /// <param name="right">The right.</param>
-        /// <returns>The result of the operator.</returns>
-        public static Money operator -(Money left, Money right)
-        {
-            if (left.Currency.CodedConcept.Code.Equals(right.Currency.CodedConcept.Code))
-            {
-                return new Money(left.Currency, left.Amount - right.Amount);
-            }
-            throw new NotImplementedException(
-                string.Format(
-                    "Currency conversion between {0} and {1} is not implemented.", left.Currency.CodedConcept.Name,
-                    right.Currency.CodedConcept.Name));
+            return Equals ( left, right );
         }
 
         /// <summary>
@@ -207,9 +125,101 @@ namespace ProCenter.Domain.CommonModule.ValueObjects
         /// </summary>
         /// <param name="money">The money.</param>
         /// <returns>The decimal amount of the money.</returns>
-        public static implicit operator decimal(Money money)
+        public static implicit operator decimal ( Money money )
         {
             return money.Amount;
+        }
+
+        /// <summary>
+        ///     Implements the operator !=.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
+        public static bool operator != ( Money left, Money right )
+        {
+            return !Equals ( left, right );
+        }
+
+        /// <summary>
+        ///     Implements the operator -.
+        /// </summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>The result of the operator.</returns>
+        public static Money operator - ( Money left, Money right )
+        {
+            if ( left.Currency.CodedConcept.Code.Equals ( right.Currency.CodedConcept.Code ) )
+            {
+                return new Money ( left.Currency, left.Amount - right.Amount );
+            }
+            throw new NotImplementedException (
+                string.Format (
+                               "Currency conversion between {0} and {1} is not implemented.",
+                    left.Currency.CodedConcept.Name,
+                    right.Currency.CodedConcept.Name ) );
+        }
+
+        /// <summary>
+        ///     Indicates whether the current object is equal to another object of the same type.
+        /// </summary>
+        /// <param name="other">An object to compare with this object.</param>
+        /// <returns>
+        ///     True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+        /// </returns>
+        public bool Equals ( Money other )
+        {
+            if ( ReferenceEquals ( null, other ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, other ) )
+            {
+                return true;
+            }
+            return other.Amount == Amount && Equals ( other.Currency, Currency );
+        }
+
+        /// <summary>
+        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current
+        ///     <see cref="T:System.Object" />.
+        /// </summary>
+        /// <param name="obj">
+        ///     The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" />.
+        /// </param>
+        /// <returns>
+        ///     True if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />;
+        ///     otherwise, false.
+        /// </returns>
+        public override bool Equals ( object obj )
+        {
+            if ( ReferenceEquals ( null, obj ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, obj ) )
+            {
+                return true;
+            }
+            if ( obj.GetType () != typeof(Money) )
+            {
+                return false;
+            }
+            return Equals ( (Money)obj );
+        }
+
+        /// <summary>
+        ///     Serves as a hash function for a particular type.
+        /// </summary>
+        /// <returns>
+        ///     A hash code for the current <see cref="T:System.Object" />.
+        /// </returns>
+        public override int GetHashCode ()
+        {
+            unchecked
+            {
+                return ( Amount.GetHashCode () * 397 ) ^ ( Currency != null ? Currency.GetHashCode () : 0 );
+            }
         }
 
         /// <summary>
@@ -218,9 +228,20 @@ namespace ProCenter.Domain.CommonModule.ValueObjects
         /// <returns>
         ///     A <see cref="System.String" /> that represents this instance.
         /// </returns>
-        public override string ToString()
+        public override string ToString ()
         {
-            return string.Format("{0:c}", Amount);
+            return string.Format ( "{0:c}", Amount );
         }
+
+        #endregion
+
+        #region Explicit Interface Methods
+
+        bool IEquatable<Money>.Equals ( Money other )
+        {
+            return Equals ( other );
+        }
+
+        #endregion
     }
 }

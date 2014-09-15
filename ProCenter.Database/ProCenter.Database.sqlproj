@@ -77,6 +77,8 @@
     <Folder Include="SecurityModule\Tables" />
     <Folder Include="MessageModule" />
     <Folder Include="MessageModule\Tables" />
+    <Folder Include="ReportModule" />
+    <Folder Include="ReportModule\Tables" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Schema Comparisons\CompareToProCenterGenDatabase.scmp" />
@@ -108,6 +110,13 @@
     <Build Include="AssessmentModule\Tables\Report.sql" />
     <Build Include="OrganizationModule\Tables\OrganizationAssessmentDefinition.sql" />
     <Build Include="MessageModule\Tables\AssessmentReminderMessage.sql" />
+    <Build Include="AssessmentModule\Tables\AssessmentScores.sql" />
+    <Build Include="ReportModule\Tables\ReportTemplate.sql" />
+    <Build Include="Security\ReportModule.sql" />
+    <Build Include="OrganizationModule\Tables\RecentReports.sql" />
+    <Build Include="ReportModule\Tables\PatientScoreRangeReport.sql" />
+    <Build Include="ReportModule\Tables\ReportDefinition.sql" />
+    <Build Include="AssessmentModule\Tables\AssessmentInstanceResponse.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="Scripts\PostDeployment.sql" />

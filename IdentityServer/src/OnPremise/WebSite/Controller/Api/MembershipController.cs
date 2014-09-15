@@ -31,31 +31,37 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
 
     using System;
     using System.Collections.Generic;
+    using System.IO;
     using System.Linq;
     using System.Net;
     using System.Net.Http;
     using System.Net.Mail;
     using System.Text;
-    using System.Threading;
+    using System.Web;
     using System.Web.Configuration;
     using System.Web.Http;
     using System.Web.Security;
     using IdentityModel.Authorization.WebApi;
-    using ViewModels;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
+    using NLog;
 
     #endregion
 
     [ClaimsAuthorize(Constants.Actions.WebApi, Constants.Resources.General)] 
     public class MembershipController : ApiController
     {
-        public HttpResponseMessage Get(string username)
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public HttpResponseMessage Get(string email)
         {
             try
             {
-                var user = Membership.GetUser(username);
+                var user = Membership.GetUser(email);
                 if (user == null)
                 {
-                    var httpError = new HttpError(string.Format("The username '{0}' does not exist.", username));
+                    var httpError = new HttpError(string.Format("The email '{0}' does not exist.", email));
+                    Logger.Debug(httpError.Message);
                     httpError["error_sub_code"] = 1003;
                     return Request.CreateErrorResponse(HttpStatusCode.NotFound, httpError);
                 }
@@ -63,7 +69,8 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             }
             catch (Exception ex)
             {
-                var message = string.Format("Cannot retrieve user by username '{0}'.", username);
+                var message = string.Format("Cannot retrieve user by email '{0}'.", email);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1010;
                 httpError["error"] = ex.Message;
@@ -81,6 +88,7 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             catch (Exception ex)
             {
                 var message = string.Format("Cannot retrieve user by email '{0}'.", email);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1009;
                 httpError["error"] = ex.Message;
@@ -88,33 +96,28 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             }
         }
 
-        [AcceptVerbs("GET")]
-        public HttpResponseMessage Create(string username, string email)
+        [AcceptVerbs("PUT")]
+        public HttpResponseMessage Create(string email)
         {
             // Error handling : http://www.asp.net/web-api/overview/web-api-routing-and-actions/exception-handling
             // Web Api return HttpResponseMessage http://stackoverflow.com/questions/12264088/asp-net-web-api-return-clr-object-or-httpresponsemessage
             MembershipUser user;
             try
             {
-                user = Membership.GetUser(username);
+                user = Membership.GetUser(email);
                 if (user != null)
                 {
-                    //var response = new HttpResponseMessage(HttpStatusCode.Conflict)
-                    //    {
-                    //        Content = new StringContent(string.Format("The username '{0}' is already in use.", username)),
-                    //        ReasonPhrase = "The username is already in use."
-                    //    };
-                    //throw new HttpResponseException(response);
-
-                    var message = string.Format("The username '{0}' is already in use.", username);
+                    var message = string.Format("The username '{0}' is already in use.", email);
                     var httpError = new HttpError(message);
+                    Logger.Debug(httpError.Message);
                     httpError["error_sub_code"] = 1001; //can add custom Key-Values to HttpError
                     return Request.CreateErrorResponse(HttpStatusCode.Conflict, httpError);
                 }
             }
             catch (Exception ex)
             {
-                var message = string.Format("Cannot retrieve user by username '{0}'.", username);
+                var message = string.Format("Cannot retrieve user by username '{0}'.", email);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1010;
                 httpError["error"] = ex.Message;
@@ -125,11 +128,12 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             try
             {
                 password = Membership.GeneratePassword(10, 3);
-                user = Membership.CreateUser(username, password, email);
+                user = Membership.CreateUser(email, password, email);
             }
             catch (Exception ex)
             {
-                var message = string.Format("Cannot create user '{0}'.", username);
+                var message = string.Format("Cannot create user '{0}'.", email);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1005;
                 httpError["error"] = ex.Message;
@@ -138,11 +142,12 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
 
             try
             {
-                SetRolesForUser(username, new[] {Constants.Roles.IdentityServerUsers});
+                SetRolesForUser(email, new[] { Constants.Roles.IdentityServerUsers });
             }
             catch (Exception ex)
             {
-                var message = string.Format("Cannot set role for user '{0}'.", username);
+                var message = string.Format("Cannot set role for user '{0}'.", email);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1007;
                 httpError["error"] = ex.Message;
@@ -156,7 +161,8 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             }
             catch (Exception ex)
             {
-                var message = string.Format("Cannot send email out for '{0}'.", username);
+                var message = string.Format("Cannot send email out for '{0}'.", email);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1006;
                 httpError["error"] = ex.Message;
@@ -164,35 +170,67 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             }
         }
 
-        [AcceptVerbs("GET")]
-        public HttpResponseMessage Unlock(string username)
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage Unlock(string email)
         {
+            var username = Membership.GetUserNameByEmail(email);
             var user = Membership.GetUser(username);
             if (user == null)
             {
                 var httpError = new HttpError(string.Format("The username '{0}' does not exist.", username));
+                Logger.Debug(httpError.Message);
                 httpError["error_sub_code"] = 1003;
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, httpError);
             }
-            if (!user.IsLockedOut)
+            if ( !user.IsApproved )
             {
-                var httpError = new HttpError("The user is not locked out.");
-                httpError["error_sub_code"] = 1004;
-                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, httpError);
+                user.IsApproved = true;
             }
-            user.UnlockUser();
+            if (user.IsLockedOut)
+            {
+                user.UnlockUser();
+            }
+            else
+            {
+                Membership.UpdateUser ( user );
+            }
             return Request.CreateResponse(HttpStatusCode.OK, Map(user));
         }
 
-        [AcceptVerbs("GET")]
-        public HttpResponseMessage ChangePassword(string username, string oldPassword, string newPassword)
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage Lock(string email)
         {
+            var username = Membership.GetUserNameByEmail(email);
+            var user = Membership.GetUser(username);
+            if (user == null)
+            {
+                var httpError = new HttpError(string.Format("The username '{0}' does not exist.", username));
+                Logger.Debug(httpError.Message);
+                httpError["error_sub_code"] = 1003;
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, httpError);
+            }
+            if (user.IsApproved)
+            {
+                user.IsApproved = false;
+                Membership.UpdateUser(user);
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, Map(user));
+        }
+
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage ChangePassword(string email)
+        {
+            var json = JsonConvert.DeserializeObject<JObject> ( Request.Content.ReadAsStringAsync ().Result );
+            var oldPassword = json["oldPassword"].Value<string>();
+            var newPassword = json["newPassword"].Value<string>();
+            var username = Membership.GetUserNameByEmail(email);
             var validUser = Membership.ValidateUser(username, oldPassword);
             if (!validUser)
             {
                 var httpError = new HttpError("Invalid username/password.");
+                Logger.Debug(httpError.Message);
                 httpError["error_sub_code"] = 1002;
-                return Request.CreateErrorResponse(HttpStatusCode.NonAuthoritativeInformation, httpError);
+                return Request.CreateErrorResponse(HttpStatusCode.Unauthorized, httpError);
             }
             try
             {
@@ -203,6 +241,7 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             catch (Exception ex)
             {
                 var message = string.Format("Cannot change password for user '{0}'.", username);
+                Logger.DebugException(message, ex);
                 var httpError = new HttpError(message);
                 httpError["error_sub_code"] = 1008;
                 httpError["error"] = ex.Message;
@@ -210,10 +249,47 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
             }
         }
 
-        private static void SendEmailNotification(MembershipUser user, string password)
+        [AcceptVerbs("POST")]
+        public HttpResponseMessage ResetPassword(string email)
         {
-            var fullname = Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(user.UserName.Replace('.', ' ').ToLower());
-            var body = string.Format(EmailTemplate.PasswordSetupMessage, fullname, user.UserName.ToLower(), password);
+            try
+            {
+                var username = Membership.GetUserNameByEmail(email);
+                var user = Membership.GetUser(username);
+
+                var newPassword = user.ResetPassword ();
+
+                try
+                {
+                    SendEmailNotification(user, newPassword);
+                    return Request.CreateResponse(HttpStatusCode.OK, Map(user));
+                }
+                catch (Exception ex)
+                {
+                    var message = string.Format((string) "Cannot send email out for '{0}'.", (object) user.UserName);
+                    Logger.DebugException(message, ex);
+                    var httpError = new HttpError(message);
+                    httpError["error_sub_code"] = 1006;
+                    httpError["error"] = ex.Message;
+                    return Request.CreateErrorResponse(HttpStatusCode.Conflict, httpError);
+                }
+            }
+            catch (Exception ex)
+            {
+                var message = string.Format("Cannot reset password for user with email '{0}'.", email);
+                Logger.DebugException(message, ex);
+                var httpError = new HttpError(message);
+                httpError["error_sub_code"] = 1008;
+                httpError["error"] = ex.Message;
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, httpError);
+            }
+        }
+
+        public static void SendEmailNotification(MembershipUser user, string password)
+        {
+            var fullname = user.UserName;
+            var emailTemplate = File.ReadAllText ( HttpContext.Current.Server.MapPath("~/EmailTemplate.html") );
+            var body = string.Format(emailTemplate, fullname, user.UserName.ToLower(), password);
             using (var message = new MailMessage
                 {
                     Subject = WebConfigurationManager.AppSettings["EmailWelcomeSubject"],
@@ -229,9 +305,11 @@ namespace Thinktecture.IdentityServer.Web.Controller.Api
                     message.CC.Add(new MailAddress(cc));
                 }
 
-                var smtp = new SmtpClient();
-                ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
-                smtp.Send(message);
+                using ( var smtp = new SmtpClient() )
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = delegate { return true; };
+                    smtp.Send(message);
+                }
             }
         }
 

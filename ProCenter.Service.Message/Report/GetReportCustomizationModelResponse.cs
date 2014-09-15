@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Report
 {
     #region Using Statements
@@ -33,10 +36,17 @@ namespace ProCenter.Service.Message.Report
 
     #endregion
 
+    /// <summary>The get report customization model response class.</summary>
     public class GetReportCustomizationModelResponse : Response
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the report model dto.
+        /// </summary>
+        /// <value>
+        /// The report model dto.
+        /// </value>
         public ReportModelDto ReportModelDto { get; set; }
 
         #endregion

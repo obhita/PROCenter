@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,66 +25,75 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
     using System;
-    using EventStore;
+
+    using Pillar.Common.InversionOfControl;
+
     using ProCenter.Domain.CommonModule;
+    using ProCenter.Infrastructure.EventStore;
 
     #endregion
 
-    /// <summary>
-    /// Repository Base
-    /// </summary>
+    /// <summary>Repository Base.</summary>
     /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
     public abstract class RepositoryBase<TAggregate> : IRepository<TAggregate>
         where TAggregate : class, IAggregateRoot
     {
         #region Fields
 
-        /// <summary>
-        /// The _event store repository
-        /// </summary>
-        protected readonly IEventStoreRepository _eventStoreRepository;
+        private readonly IUnitOfWorkProvider _unitOfWorkProvider;
 
         #endregion
 
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="RepositoryBase{TAggregate}" /> class.
-        /// </summary>
-        /// <param name="eventStoreRepository">The event store repository.</param>
-        protected RepositoryBase ( IEventStoreRepository eventStoreRepository )
+        /// <summary>Initializes a new instance of the <see cref="RepositoryBase{TAggregate}" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        protected RepositoryBase ( IUnitOfWorkProvider unitOfWorkProvider )
         {
-            _eventStoreRepository = eventStoreRepository;
+            _unitOfWorkProvider = unitOfWorkProvider;
         }
 
         #endregion
 
         #region Public Methods and Operators
 
-        /// <summary>
-        /// Gets the aggregate by key.
-        /// </summary>
-        /// <param name="key">The key.</param>
-        /// <returns></returns>
-        public TAggregate GetByKey ( Guid key )
+        /// <summary>Gets the event store repository.</summary>
+        /// <value>The event store repository.</value>
+        protected IEventStoreRepository EventStoreRepository
         {
-            return _eventStoreRepository.GetByKey<TAggregate> ( key );
+            get
+            {
+                var unitOfWork = _unitOfWorkProvider.GetCurrentUnitOfWork ();
+                return unitOfWork.EventStoreRepository;
+            }
         }
 
         /// <summary>
-        /// Gets the last modified date.
+        ///     Gets the aggregate by key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>The aggregate.</returns>
+        public TAggregate GetByKey ( Guid key )
+        {
+            return EventStoreRepository.GetByKey<TAggregate> ( key );
+        }
+
+        /// <summary>
+        ///     Gets the last modified date.
         /// </summary>
         /// <param name="key">The aggregate key.</param>
         /// <returns>Last modified date.</returns>
         public DateTime? GetLastModifiedDate ( Guid key )
         {
-            return _eventStoreRepository.GetLastModifiedDate<TAggregate> ( key );
+            return EventStoreRepository.GetLastModifiedDate<TAggregate> ( key );
         }
 
         #endregion

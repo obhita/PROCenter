@@ -1,0 +1,19 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Domain.CommonModule.Lookups;
+@model ProCenter.Mvc.Models.NonResponseViewModel
+
+@{
+    var nonResponseList = NonResponseLookups.NonResponse;
+    if (Model.ValuesToExclude != null)
+    {
+        nonResponseList = nonResponseList.Except(Model.ValuesToExclude).ToList();
+    }
+}
+
+<div class="nonResponseButtons btn-group">
+    @foreach (var nonResponseItem in nonResponseList)
+    {
+        var activeNonResponse = Model.SelectedValue == @nonResponseItem.CodedConcept.Name ? "active" : "";
+        <a class="nonResponse btn btn-small @activeNonResponse" id="nonResponse_@Model.ItemKey">@nonResponseItem.CodedConcept.Name</a>
+    }
+</div>

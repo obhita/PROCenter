@@ -1,6 +1,5 @@
 ﻿window.procenter.InitializeTeam = function(teamBaseUri, teamDataTableUri, staffDataTableUri, patientDataTableUri, updateTableSizes, checkDisabled, canAccessTeamEdit) {
-    var $teamEditor = $('#team-editor');
-    var initializeTeamEditor = function() {
+    var initializeTeamEditor = function ($teamEditor) {
         var $addStaffBtn = $teamEditor.find('.staff-list-editor a.add');
         var $removeStaffBtn = $teamEditor.find('.staff-list-editor a.remove');
         var $addPatientBtn = $teamEditor.find('.patient-list-editor a.add');
@@ -9,6 +8,7 @@
                 
         $teamEditor.ajaxForm({
             url: teamBaseUri + '/Edit/' + currentTeamKey,
+            validate: true,
             success: function () {
             }
         });
@@ -142,7 +142,6 @@
                 },
                 {
                     "mData": "Name.LastName",
-                    "sClass": "Sue",
                 },
                 { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
             ],
@@ -182,7 +181,6 @@
                 },
                 {
                     "mData": "Name.LastName",
-                    "sClass": "Sue",
                 },
                 { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
             ],
@@ -225,7 +223,6 @@
                 },
                 {
                     "mData": "Name.LastName",
-                    "sClass": "Sue",
                 },
                 { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
             ],
@@ -265,7 +262,6 @@
                 },
                 {
                     "mData": "Name.LastName",
-                    "sClass": "Sue",
                 },
                 { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
             ],
@@ -278,20 +274,21 @@
 
     var showTeamGrid = function(widget) {
         $(widget).find('#team-editor').hide();
-        $(widget).find('#team-editor').html('');
+        $(widget).find('#team-editor').children().remove();
         $(widget).find('#team-table').show();
         teamDataTable.fnDraw();
     };
 
     var showTeamEditor = function(innerHtml) {
         var $widget = $('#team-widget');
-        $widget.find('#team-editor').html(innerHtml);
-        initializeTeamEditor();
-        $('.dashboard-wrapper').dashboard('expand', $widget[0], showTeamGrid);
-        $widget.find('#team-editor').show();
+        var $teamEditor = $widget.find('#team-editor');
+        $teamEditor.html(innerHtml);
+        $.validator.unobtrusive.parse('#team-editor'); // to re-initiate unobtrusive validation
+        initializeTeamEditor($teamEditor.find('.team-editor'));
+        $('.dashboard-wrapper').dashboard('expand', $widget[0], showTeamGrid, true);
+        $teamEditor.show();
         $widget.find('.dataTable_wrapper').hide();
     };
-
 
     $("#create-team-btn").ajaxLink({
         getData: function() {
@@ -325,9 +322,56 @@
                 "mData": "Name",
                 "sClass": "FirstColumn",
             },
-            { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
+            {
+                "mData": null,
+                "sClass": "center",
+                "fnRender": function(oObj) {
+                    if (canAccessTeamEdit) {
+                        return '<a href="' + teamBaseUri + '/remove/' + oObj.aData.Key + '" data-icon="&#xe0a7;" class="remove-btn_editor" title="Are you sure you want to delete this team?"></a>';
+                    } else {
+                        return '';
+                    }
+                }
+            },
+            {
+                "mData": "Key",
+                "sClass": "LastColumn",
+                "bSortable": false,
+                "bSearchable": false,
+                "fnRender": function(oObj) {
+                    var icon = '&#xe005;';
+                    var text = "Edit";
+                    var description = text + " team " + oObj.aData.Name;
+                        return "<div>" +
+                            "<button type='button' aria-label='" + description + "' class='btn btn-mini btn-info edit-team' id='" + oObj.aData.Key +
+                            "' data-id='" + oObj.aData.Key + "' data-team-name='" + oObj.aData.Name  + 
+                            "' data-icon='" + icon + "'>" +
+                            "<abbr title='" + text + " team " + oObj.aData.Name + "'>" + text + "</abbr></button>" +
+                            "</div>";
+                }
+            }
         ],
-        "fnDrawCallback": function() {
+        "fnDrawCallback": function () {
+            if (canAccessTeamEdit) {
+                $("button.edit-team").click(function () {
+                    var key = $(this).attr("data-id");
+                    $.get(teamBaseUri + '/Edit/' + key, showTeamEditor);
+                });
+            }
+            $('a.remove-btn_editor').each(function () {
+                $(this).ajaxLink({
+                    getData: function () {
+                        if (!confirm($(this).attr("title"))) {
+                            return false;
+                        }
+                        var iRow = teamDataTable.fnGetPosition($(this).closest('tr')[0]);
+                        return { iRow: iRow };
+                    },
+                    success: function (data) {
+                        teamDataTable.fnDeleteRow(data.iRow, null, true);
+                    }
+                });
+            });
             updateTableSizes();
         }
     });
@@ -336,7 +380,6 @@
         $("#teamDataTable tbody").click(function(event) {
             var key = teamDataTable.fnGetData(event.target.parentNode).Key;
             $.get(teamBaseUri + '/Edit/' + key, showTeamEditor);
-
         });
     }
 }

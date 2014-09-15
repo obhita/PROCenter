@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,48 +25,65 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
     #region Using Statements
 
     using System;
-    using Common;
-    using CommonModule;
+
+    using ProCenter.Common;
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>The message event base class.</summary>
     public abstract class MessageEventBase : ICommitEvent
     {
-        protected MessageEventBase(Guid key, MessageType messageType)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="MessageEventBase"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="messageType">Type of the message.</param>
+        protected MessageEventBase ( Guid key, MessageType messageType )
         {
             Key = key;
             MessageType = messageType;
             OrganizationKey = UserContext.Current.OrganizationKey;
         }
 
-        /// <summary>
-        /// Gets or sets the type of the message.
-        /// </summary>
-        /// <value>
-        /// The type of the message.
-        /// </value>
-        public MessageType MessageType { get; set; }
+        #endregion
+
+        #region Public Properties
 
         /// <summary>
-        /// Gets the key.
+        ///     Gets the key.
         /// </summary>
         /// <value>
-        /// The key.
+        ///     The key.
         /// </value>
         public Guid Key { get; private set; }
 
         /// <summary>
-        /// Gets the organization key.
+        ///     Gets or sets the type of the message.
         /// </summary>
         /// <value>
-        /// The organization key.
+        ///     The type of the message.
+        /// </value>
+        public MessageType MessageType { get; set; }
+
+        /// <summary>
+        ///     Gets the organization key.
+        /// </summary>
+        /// <value>
+        ///     The organization key.
         /// </value>
         public Guid? OrganizationKey { get; private set; }
+
+        #endregion
     }
 }

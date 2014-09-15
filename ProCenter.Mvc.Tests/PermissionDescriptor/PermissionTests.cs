@@ -30,25 +30,29 @@ namespace ProCenter.Mvc.Tests.PermissionDescriptor
     #region
 
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
-    using System.Reflection;
-    using System.Threading.Tasks;
+    using System.Web.Http;
+    using System.Web.Http.Controllers;
+    using System.Web.Http.Dispatcher;
     using System.Web.Mvc;
     using Agatha.Common;
     using Common;
     using Infrastructure.Security;
-    using Infrastructure.Service;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using Moq;
     using Mvc.Controllers;
+    using Mvc.Controllers.Api;
     using Pillar.Common.InversionOfControl;
     using Pillar.Common.Tests;
     using Pillar.Security.AccessControl;
-    using ProCenter.Infrastructure;
-    using ProCenter.Infrastructure.EventStore;
-    using ProCenter.Infrastructure.Service.ReadSideService;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Mvc.Infrastructure.BrowserDetection;
+
     using IAsyncRequestDispatcher = Infrastructure.Service.IAsyncRequestDispatcher;
 
     #endregion
@@ -56,6 +60,44 @@ namespace ProCenter.Mvc.Tests.PermissionDescriptor
     [TestClass]
     public class PermissionTests
     {
+        private IEnumerable<HttpControllerDescriptor> GetHttpControllerDescriptors(IEnumerable<BaseApiController> webApiControllers )
+        {
+            var webApiControllerDescriptors = new ConcurrentDictionary<string, HttpControllerDescriptor>();
+            var controllerTypes = webApiControllers.Select(c => c.GetType());
+            var groupedByName = controllerTypes.GroupBy(
+                t => t.Name.Substring(0, t.Name.Length - DefaultHttpControllerSelector.ControllerSuffix.Length),
+                StringComparer.OrdinalIgnoreCase).ToDictionary(
+                g => g.Key,
+                g => g.ToLookup(t => t.Namespace ?? String.Empty, StringComparer.OrdinalIgnoreCase),
+                StringComparer.OrdinalIgnoreCase);
+
+            var duplicateControllers = new HashSet<string>();
+            foreach (var controllerTypeGroup in groupedByName)
+            {
+                var controllerName = controllerTypeGroup.Key;
+
+                foreach (var controllerTypesGroupedByNs in controllerTypeGroup.Value)
+                {
+                    foreach (var controllerType in controllerTypesGroupedByNs)
+                    {
+                        if (webApiControllerDescriptors.Keys.Contains(controllerName))
+                        {
+                            duplicateControllers.Add(controllerName);
+                            break;
+                        }
+                        webApiControllerDescriptors.TryAdd(controllerName, new HttpControllerDescriptor(GlobalConfiguration.Configuration, controllerName, controllerType));
+                    }
+                }
+            }
+
+            foreach (string duplicateController in duplicateControllers)
+            {
+                HttpControllerDescriptor descriptor;
+                webApiControllerDescriptors.TryRemove(duplicateController, out descriptor);
+            }
+            return webApiControllerDescriptors.Select ( kvp => kvp.Value );
+        }
+
         [TestMethod]
         public void EachPermissionResouceHasValidActionDescriptor()
         {
@@ -81,7 +123,7 @@ namespace ProCenter.Mvc.Tests.PermissionDescriptor
                     }
                     allActionPermissions.Add(controller, actions);
                 }
-               
+
                 var controllers = IoC.CurrentContainer.ResolveAll<BaseController>();
                 var allActions = new Dictionary<string, List<string>>();
                 foreach (var controller in controllers)
@@ -90,7 +132,14 @@ namespace ProCenter.Mvc.Tests.PermissionDescriptor
                     var actionDescriptors = reflectedControllerDescriptor.GetCanonicalActions();
                     var actions = actionDescriptors.Select(actionDescriptor => actionDescriptor.ActionName).ToList();
                     allActions.Add(controller.GetType().FullName, actions);
+                }
 
+                foreach (var controllerDescriptor in GetHttpControllerDescriptors(IoC.CurrentContainer.ResolveAll<BaseApiController>()))
+                {
+                    var controllerServices = controllerDescriptor.Configuration.Services;
+                    var actionMappings = controllerServices.GetActionSelector().GetActionMapping(controllerDescriptor).SelectMany ( m => m );
+                    var actions = actionMappings.Select ( a => a.ActionName ).ToList ();
+                    allActions.Add(controllerDescriptor.ControllerType.FullName, actions);
                 }
 
                 //Assert
@@ -111,9 +160,10 @@ namespace ProCenter.Mvc.Tests.PermissionDescriptor
 
         private static void SetServiceLocatorFixture(ServiceLocatorFixture serviceLocatorFixture)
         {
+            serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IAssessmentDefinitionRepository>().Use(new Mock<IAssessmentDefinitionRepository>().Object));
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IAsyncRequestDispatcherFactory>().Use<FakeAsyncDispatcherFactory>());
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IRequestDispatcherFactory>().Use<FakeDispatcherFactory>());
-            serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IResourcesManager>().Use<ResourcesManager>());
+            serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IResourcesManager>().Use(new Mock<IResourcesManager>().Object));
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IDbConnectionFactory>().Use<FakeSqlConnectionFactory>());
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<ILogoutService>().Use<LogoutService>());
             serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<IProvidePermissions>().Use<ProCenterAccessControlManager>());
@@ -124,7 +174,9 @@ namespace ProCenter.Mvc.Tests.PermissionDescriptor
                     scanner.AssembliesFromApplicationBaseDirectory(p => (p.FullName == null) ? false : p.FullName.Contains("ProCenter."));
                     scanner.AddAllTypesOf<IPermissionDescriptor>();
                     scanner.AddAllTypesOf<BaseController>();
+                    scanner.AddAllTypesOf<BaseApiController>();
                 }));
+            serviceLocatorFixture.StructureMapContainer.Configure(c => c.For<ISupportedBrowser>().Use(new Mock<ISupportedBrowser>().Object));
         }
     }
 

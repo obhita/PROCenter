@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,127 +25,204 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
-    #region
+    #region Using Statements
 
     using System;
-    using AssessmentModule;
-    using Common;
-    using MessageModule;
+    using System.Drawing;
+    using System.Reflection;
+
     using Pillar.FluentRuleEngine;
+
+    using ProCenter.Common;
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.AssessmentModule.Attributes;
+    using ProCenter.Domain.MessageModule;
 
     #endregion
 
+    /// <summary>The nida workflow rule collection class.</summary>
     public class NidaWorkflowRuleCollection : AbstractRuleCollection<AssessmentInstance>
     {
+        #region Fields
+
         private readonly IResourcesManager _resourcesManager;
 
-        public NidaWorkflowRuleCollection(IAssessmentDefinitionRepository assessmentDefinitionRepository, IWorkflowMessageRepository repository,
-                                          IAssessmentInstanceRepository assessmentInstanceRepository, IResourcesManager resourcesManager = null)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NidaWorkflowRuleCollection"/> class.
+        /// </summary>
+        /// <param name="assessmentDefinitionRepository">The assessment definition repository.</param>
+        /// <param name="repository">The repository.</param>
+        /// <param name="assessmentInstanceRepository">The assessment instance repository.</param>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public NidaWorkflowRuleCollection (
+            IAssessmentDefinitionRepository assessmentDefinitionRepository,
+            IWorkflowMessageRepository repository,
+            IAssessmentInstanceRepository assessmentInstanceRepository,
+            IResourcesManager resourcesManager = null )
         {
             _resourcesManager = resourcesManager;
-            NewRule(() => ShouldRecommendDastRule).When(assessment => (int) assessment.Score.Value > 0)
-                                                  .Then((assessment, ctx) =>
-                                                      {
-                                                          var messageReporter =
-                                                              ctx.WorkingMemory.GetContextObject<IMessageCollector>("MessageCollector");
-                                                          var assessmentDefinitionKey =
-                                                              assessmentDefinitionRepository.GetKeyByCode(DrugAbuseScreeningTest.AssessmentCodedConcept.Code);
-                                                          WorkflowMessage message = null;
-                                                          if (assessment.WorkflowKey.HasValue)
-                                                          {
-                                                              message = repository.GetByKey(assessment.WorkflowKey.Value);
-                                                          }
-                                                          message = message ?? new WorkflowMessage(assessment.PatientKey,
-                                                                                                   assessment.Key,
-                                                                                                   NidaSingleQuestionScreener.AssessmentCodedConcept.Code,
-                                                                                                   assessmentDefinitionKey,
-                                                                                                   DrugAbuseScreeningTest.AssessmentCodedConcept.Code,
-                                                                                                   assessment.Score);
-                                                          if ( assessment.CanSelfAdminister )
-                                                          {
-                                                              message.AllowSelfAdministration ();
-                                                          }
-                                                          assessment.AddToWorkflow(message.Key);
-                                                          messageReporter.AddMessage(message);
-                                                      })
-                                                  .ElseThen((assessment, ctx) =>
-                                                      {
-                                                          WorkflowMessage message = null;
-                                                          if (assessment.WorkflowKey.HasValue)
-                                                          {
-                                                              message = repository.GetByKey(assessment.WorkflowKey.Value);
-                                                          }
-                                                          message = message ?? new WorkflowMessage(assessment.PatientKey,
-                                                                                                   assessment.Key,
-                                                                                                   NidaSingleQuestionScreener.AssessmentCodedConcept.Code,
-                                                                                                   Guid.Empty,
-                                                                                                   null,
-                                                                                                   assessment.Score);
+            NewRule ( () => ShouldRecommendDastRule ).When ( assessment => (int)assessment.Score.Value > 0 )
+                .Then (
+                       ( assessment, ctx ) =>
+                       {
+                           var messageReporter =
+                               ctx.WorkingMemory.GetContextObject<IMessageCollector> ( "MessageCollector" );
+                           var assessmentDefinitionKey =
+                               assessmentDefinitionRepository.GetKeyByCode ( DrugAbuseScreeningTest.AssessmentCodedConcept.Code );
+                           WorkflowMessage message = null;
+                           if ( assessment.WorkflowKey.HasValue )
+                           {
+                               message = repository.GetByKey ( assessment.WorkflowKey.Value );
+                           }
+                           message = message ?? new WorkflowMessage (
+                               assessment.PatientKey,
+                               assessment.Key,
+                               NidaSingleQuestionScreener.AssessmentCodedConcept.Code,
+                               assessmentDefinitionKey,
+                               DrugAbuseScreeningTest.AssessmentCodedConcept.Code,
+                               assessment.Score );
+                           if ( assessment.CanSelfAdminister )
+                           {
+                               message.AllowSelfAdministration ();
+                           }
+                           assessment.AddToWorkflow ( message.Key );
+                           messageReporter.AddMessage ( message );
+                       } )
+                .ElseThen (
+                           ( assessment, ctx ) =>
+                           {
+                               WorkflowMessage message = null;
+                               if ( assessment.WorkflowKey.HasValue )
+                               {
+                                   message = repository.GetByKey ( assessment.WorkflowKey.Value );
+                               }
+                               message = message ?? new WorkflowMessage (
+                                   assessment.PatientKey,
+                                   assessment.Key,
+                                   NidaSingleQuestionScreener.AssessmentCodedConcept.Code,
+                                   Guid.Empty,
+                                   null,
+                                   assessment.Score );
 
-                                                          if (assessment.CanSelfAdminister)
-                                                          {
-                                                              message.AllowSelfAdministration();
-                                                          }
+                               if ( assessment.CanSelfAdminister )
+                               {
+                                   message.AllowSelfAdministration ();
+                               }
 
-                                                          message.Complete(NidaPatientSummaryReportModelBuilder.GetGreenReportModel());
-                                                      });
+                               message.Complete ( NidaPatientSummaryReportModelBuilder.GetGreenReportModel () );
+                           } );
 
-            NewRuleSet(() => NidaSingleQuestionScreenerRuleSet, ShouldRecommendDastRule);
+            NewRuleSet ( () => NidaSingleQuestionScreenerRuleSet, ShouldRecommendDastRule );
 
+            NewRule ( () => ShouldRecommendNidaAssessFurtherRule ).When ( assessment => assessment.WorkflowKey.HasValue )
+                .Then (
+                       ( assessment, ctx ) =>
+                       {
+                           var messageReporter =
+                               ctx.WorkingMemory
+                                   .GetContextObject<IMessageCollector> ( "MessageCollector" );
+                           var assessmentDefinitionKey =
+                               assessmentDefinitionRepository.GetKeyByCode ( NidaAssessFurther.AssessmentCodedConcept.Code );
+                           var message = repository.GetByKey ( assessment.WorkflowKey.Value );
+                           message.Advance (
+                                            assessment.Key,
+                               DrugAbuseScreeningTest.AssessmentCodedConcept.Code,
+                               assessmentDefinitionKey,
+                               NidaAssessFurther.AssessmentCodedConcept.Code,
+                               assessment.Score );
+                           messageReporter.AddMessage ( message );
+                       } );
 
-            NewRule(() => ShouldRecommendNidaAssessFurtherRule).When(assessment => assessment.WorkflowKey.HasValue)
-                                                               .Then((assessment, ctx) =>
-                                                                   {
-                                                                       var messageReporter =
-                                                                           ctx.WorkingMemory
-                                                                              .GetContextObject<IMessageCollector>("MessageCollector");
-                                                                       var assessmentDefinitionKey =
-                                                                           assessmentDefinitionRepository.GetKeyByCode(NidaAssessFurther.AssessmentCodedConcept.Code);
-                                                                       var message = repository.GetByKey(assessment.WorkflowKey.Value);
-                                                                       message.Advance(
-                                                                           assessment.Key,
-                                                                           DrugAbuseScreeningTest.AssessmentCodedConcept.Code,
-                                                                           assessmentDefinitionKey,
-                                                                           NidaAssessFurther.AssessmentCodedConcept.Code,
-                                                                           assessment.Score);
-                                                                       messageReporter.AddMessage(message);
-                                                                   });
+            NewRuleSet ( () => DrugAbuseScreeningTestRuleSet, ShouldRecommendNidaAssessFurtherRule );
 
-            NewRuleSet(() => DrugAbuseScreeningTestRuleSet, ShouldRecommendNidaAssessFurtherRule);
-
-            NewRule(() => ShouldCompleteWorkflowStatusRule).When(assessment => assessment.WorkflowKey.HasValue)
-                                                           .Then((assessment, ctx) =>
-                                                               {
-                                                                   var message = repository.GetByKey(assessment.WorkflowKey.Value);
-                                                                   var dastKey = message.GetAssessmentKeyforCodeInWorkflow(DrugAbuseScreeningTest.AssessmentCodedConcept.Code);
-                                                                   var dastInstance = assessmentInstanceRepository.GetByKey(dastKey.Value);
-                                                                   ReportModel reportModel;
-                                                                   if (((long) dastInstance.Score.Value) <= 2 && !((bool) assessment.Score.Value))
-                                                                   {
-                                                                       reportModel = NidaPatientSummaryReportModelBuilder.GetAmberReportModel(_resourcesManager,
-                                                                                                                                              dastInstance,
-                                                                                                                                              assessment);
-                                                                   }
-                                                                   else
-                                                                   {
-                                                                       reportModel = NidaPatientSummaryReportModelBuilder.GetRedReportModel(_resourcesManager,
-                                                                                                                                            dastInstance,
-                                                                                                                                            assessment);
-                                                                   }
-                                                                   message.Complete(reportModel);
-                                                               });
-            NewRuleSet(() => NidaAssessFurtherRuleSet, ShouldCompleteWorkflowStatusRule);
+            NewRule ( () => ShouldCompleteWorkflowStatusRule ).When ( assessment => assessment.WorkflowKey.HasValue )
+                .Then (
+                       ( assessment, ctx ) =>
+                       {
+                           var message = repository.GetByKey ( assessment.WorkflowKey.Value );
+                           var dastKey = message.GetAssessmentKeyforCodeInWorkflow ( DrugAbuseScreeningTest.AssessmentCodedConcept.Code );
+                           var dastInstance = assessmentInstanceRepository.GetByKey ( dastKey.Value );
+                           ReportModel reportModel;
+                           if ( ( (long)dastInstance.Score.Value ) <= 2 && !( ((NidaAssessFurtherScoring)assessment.Score.Value).TotalScore ) )
+                           {
+                               reportModel = NidaPatientSummaryReportModelBuilder.GetAmberReportModel (
+                                                                                                       _resourcesManager,
+                                   dastInstance,
+                                   assessment );
+                           }
+                           else
+                           {
+                               reportModel = NidaPatientSummaryReportModelBuilder.GetRedReportModel (
+                                                                                                     _resourcesManager,
+                                   dastInstance,
+                                   assessment );
+                           }
+                           message.Complete ( reportModel );
+                       } );
+            NewRuleSet ( () => NidaAssessFurtherRuleSet, ShouldCompleteWorkflowStatusRule );
         }
 
-        public IRuleSet NidaSingleQuestionScreenerRuleSet { get; private set; }
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the drug abuse screening test rule set.
+        /// </summary>
+        /// <value>
+        /// The drug abuse screening test rule set.
+        /// </value>
         public IRuleSet DrugAbuseScreeningTestRuleSet { get; private set; }
+
+        /// <summary>
+        /// Gets the nida assess further rule set.
+        /// </summary>
+        /// <value>
+        /// The nida assess further rule set.
+        /// </value>
         public IRuleSet NidaAssessFurtherRuleSet { get; private set; }
 
-        public IRule ShouldRecommendDastRule { get; set; }
-        public IRule ShouldRecommendNidaAssessFurtherRule { get; set; }
+        /// <summary>
+        /// Gets the nida single question screener rule set.
+        /// </summary>
+        /// <value>
+        /// The nida single question screener rule set.
+        /// </value>
+        public IRuleSet NidaSingleQuestionScreenerRuleSet { get; private set; }
+
+        /// <summary>
+        /// Gets or sets the should complete workflow status rule.
+        /// </summary>
+        /// <value>
+        /// The should complete workflow status rule.
+        /// </value>
         public IRule ShouldCompleteWorkflowStatusRule { get; set; }
+
+        /// <summary>
+        /// Gets or sets the should recommend dast rule.
+        /// </summary>
+        /// <value>
+        /// The should recommend dast rule.
+        /// </value>
+        public IRule ShouldRecommendDastRule { get; set; }
+
+        /// <summary>
+        /// Gets or sets the should recommend nida assess further rule.
+        /// </summary>
+        /// <value>
+        /// The should recommend nida assess further rule.
+        /// </value>
+        public IRule ShouldRecommendNidaAssessFurtherRule { get; set; }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,69 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 #region Using Statements
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http.Dependencies;
-using Pillar.Common.InversionOfControl;
-using IDependencyResolver = System.Web.Mvc.IDependencyResolver;
+
 
 #endregion
 
 namespace ProCenter.Mvc.Infrastructure.Boostrapper
 {
+    #region Using Statements
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http.Dependencies;
+    using Pillar.Common.InversionOfControl;
+    using IDependencyResolver = System.Web.Mvc.IDependencyResolver;
+
+    #endregion
+
+    /// <summary>The custom dependency resolver class.</summary>
     public class CustomDependencyResolver : IDependencyResolver, System.Web.Http.Dependencies.IDependencyResolver
     {
+        #region Fields
+
         private readonly IContainer _container;
 
-        public CustomDependencyResolver(IContainer container)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CustomDependencyResolver"/> class.
+        /// </summary>
+        /// <param name="container">The container.</param>
+        public CustomDependencyResolver ( IContainer container )
         {
             _container = container;
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Starts a resolution scope.
+        /// </summary>
+        /// <returns>
+        ///     The dependency scope.
+        /// </returns>
+        public IDependencyScope BeginScope ()
+        {
+            return this;
+        }
+
+        /// <summary>
+        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
+        /// </summary>
+        /// <filterpriority>2</filterpriority>
+        public void Dispose ()
+        {
         }
 
         /// <summary>
@@ -56,9 +99,9 @@ namespace ProCenter.Mvc.Infrastructure.Boostrapper
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns>An instance for the service.</returns>
-        public object GetService(Type serviceType)
+        public object GetService ( Type serviceType )
         {
-            return _container.TryResolve(serviceType);
+            return _container.TryResolve ( serviceType );
         }
 
         /// <summary>
@@ -70,30 +113,13 @@ namespace ProCenter.Mvc.Infrastructure.Boostrapper
         /// </summary>
         /// <param name="serviceType">Type of the service.</param>
         /// <returns>An IEnumberable of instances.</returns>
-        public IEnumerable<object> GetServices(Type serviceType)
+        public IEnumerable<object> GetServices ( Type serviceType )
         {
-            var list = _container.ResolveAll(serviceType);
-            var listObject = list.Cast<object>().ToList();
+            var list = _container.ResolveAll ( serviceType );
+            var listObject = list.Cast<object> ().ToList ();
             return listObject;
         }
 
-        /// <summary>
-        ///     Starts a resolution scope.
-        /// </summary>
-        /// <returns>
-        ///     The dependency scope.
-        /// </returns>
-        public IDependencyScope BeginScope()
-        {
-            return this;
-        }
-
-        /// <summary>
-        ///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged resources.
-        /// </summary>
-        /// <filterpriority>2</filterpriority>
-        public void Dispose()
-        {
-        }
+        #endregion
     }
 }

@@ -1,14 +1,16 @@
 @using ProCenter.Mvc.Infrastructure.Extension
-@model ProCenter.Service.Message.Organization.OrganizationPhoneDto
+@using ProCenter.Service.Message.Organization
+
+@model OrganizationPhoneDto
 
 @{
-    var lookupCategory = Html.GetLookupCategory("OrganizationPhoneType");
+    var lookupCategory = Html.GetLookupCategory ( "OrganizationPhoneType" );
 }
 
 <div class="@Html.ViewData.ModelMetadata.ModelType.Name sub-question">
-    @Html.EditorFor(m => m.OrganizationPhoneType, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory, Placeholder = Html.DisplayNameFor(m => m.OrganizationPhoneType) })
-    @Html.CheckBoxFor(m => m.IsPrimary)
-    @Html.LabelFor(m => m.IsPrimary)
-    @Html.HiddenFor( m => m.OriginalHash )
+    @Html.EditorFor( m => m.OrganizationPhoneType, new {LookupItems = Html.GetLookupOptionsForCategory ( lookupCategory ), LookupCategory = lookupCategory, Placeholder = Html.DisplayNameFor ( m => m.OrganizationPhoneType )} )
+    @Html.CheckBoxFor( m => m.IsPrimary )
+    @Html.LabelFor( m => m.IsPrimary )
+    @Html.HiddenFor( m=> m.OriginalHash, new {@Value = Model.OriginalHash} )
 </div>
-@Html.EditorFor(m => m.Phone)
+@Html.EditorFor( m => m.Phone )

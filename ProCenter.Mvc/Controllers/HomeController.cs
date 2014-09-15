@@ -1,5 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
+﻿// /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
 //  * Redistribution and use in source and binary forms, with or without
@@ -24,38 +23,100 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
+using ProCenter.Mvc.Views.Shared;
+
 namespace ProCenter.Mvc.Controllers
 {
     #region Using Statements
 
     using System;
+    using System.Configuration;
     using System.Web.Mvc;
+
     using Agatha.Common;
-    using Common;
-    using Models;
+
     using Pillar.Security.AccessControl;
+
+    using ProCenter.Common;
+    using ProCenter.Mvc.Infrastructure.BrowserDetection;
+    using ProCenter.Mvc.Infrastructure.Security;
 
     #endregion
 
+    /// <summary>The home controller class.</summary>
     public class HomeController : BaseController
     {
+        #region Fields
+
         private readonly IAccessControlManager _accessControlManager;
+
+        private readonly ILogoutService _logoutService;
+
+        private readonly ISupportedBrowser _supportedBrowser;
+
+        #endregion
 
         #region Constructors and Destructors
 
-        public HomeController(IRequestDispatcherFactory requestDispatcherFactory, IAccessControlManager accessControlManager)
-            : base(requestDispatcherFactory)
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="HomeController" /> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
+        /// <param name="accessControlManager">The access control manager.</param>
+        /// <param name="supportedBrowser">The supported browser.</param>
+        /// <param name="logoutService">The logout service.</param>
+        public HomeController (
+            IRequestDispatcherFactory requestDispatcherFactory,
+            IAccessControlManager accessControlManager,
+            ISupportedBrowser supportedBrowser,
+            ILogoutService logoutService )
+            : base ( requestDispatcherFactory )
         {
             _accessControlManager = accessControlManager;
+            _supportedBrowser = supportedBrowser;
+            _logoutService = logoutService;
         }
 
         #endregion
 
         #region Public Methods and Operators
 
-        public ActionResult Index()
+        /// <summary>
+        ///     Gets the session manager constants.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult GetSessionManagerConstants ()
         {
+            return new JsonResult
+                       {
+                           JsonRequestBehavior = JsonRequestBehavior.AllowGet,
+                           Data = new
+                                      {
+                                          SessionTimeout = Session.Timeout,
+                                          SessionExpirationPromptTime = Session.Timeout - Convert.ToInt32 ( ConfigurationManager.AppSettings["SessionExpirationPromptTime"] ),
+                                          LogoutPageUrl = _logoutService.GetLogoutPageUrl (),
+                                          SessionTimeoutMessage = Shared.SessionIsGoingToExpire
+                                      }
+                       };
+        }
+
+        /// <summary>
+        ///     Indexes this instance.
+        /// </summary>
+        /// <returns>
+        ///     A <see cref="ActionResult" />.
+        /// </returns>
+        public ActionResult Index ()
+        {
+            if ( _supportedBrowser.SupportStatus != SupportedBrowser.SupportStatusEnum.Supported )
+            {
+                // TODO: Decide if we should warn the user that they will have a bad experience or just don't let them in?
+                return PartialView ( "SupportedBrowser" );
+            }
+
             if ( !UserContext.Current.OrganizationKey.HasValue )
             {
                 return RedirectToAction ( "Index", "SystemAdmin" );
@@ -64,7 +125,7 @@ namespace ProCenter.Mvc.Controllers
             {
                 return RedirectToAction ( "Index", "Portal" );
             }
-            return View();
+            return View ();
         }
 
         #endregion

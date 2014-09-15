@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,25 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
     using System;
     using System.Linq;
-    using EventStore;
+
+    using Pillar.Common.InversionOfControl;
+
     using ProCenter.Domain.SecurityModule;
     using ProCenter.Domain.SecurityModule.Event;
+    using ProCenter.Infrastructure.EventStore;
 
     #endregion
 
+    /// <summary>The system account repository class.</summary>
     public class SystemAccountRepository : RepositoryBase<SystemAccount>, ISystemAccountRepository
     {
         #region Fields
@@ -47,8 +54,11 @@ namespace ProCenter.Infrastructure.Domain.Repositories
 
         #region Constructors and Destructors
 
-        public SystemAccountRepository ( IEventStoreRepository eventStoreRepository, IEventStoreFactory eventStoreFactory )
-            : base ( eventStoreRepository )
+        /// <summary>Initializes a new instance of the <see cref="SystemAccountRepository" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        /// <param name="eventStoreFactory">The event store factory.</param>
+        public SystemAccountRepository ( IUnitOfWorkProvider unitOfWorkProvider, IEventStoreFactory eventStoreFactory )
+            : base ( unitOfWorkProvider )
         {
             _eventStoreFactory = eventStoreFactory;
         }
@@ -57,13 +67,17 @@ namespace ProCenter.Infrastructure.Domain.Repositories
 
         #region Public Methods and Operators
 
+        /// <summary>Gets the by identifier.</summary>
+        /// <param name="identifier">The identifier.</param>
+        /// <returns>A <see cref="SystemAccount" />.</returns>
         public SystemAccount GetByIdentifier ( string identifier )
         {
             var eventStore = _eventStoreFactory.Build<SystemAccount> ();
             var commits = eventStore.Advanced.GetFrom ( DateTime.MinValue );
             var systemAccountCreatedEvent = commits.SelectMany ( c => c.Events )
-                                                   .FirstOrDefault ( e => e.Body is SystemAccountCreatedEvent && ( e.Body as SystemAccountCreatedEvent ).Identifier == identifier );
-            return systemAccountCreatedEvent == null ? null : _eventStoreRepository.GetByKey<SystemAccount> ( ( systemAccountCreatedEvent.Body as SystemAccountCreatedEvent ).Key );
+                .FirstOrDefault ( e => e.Body is SystemAccountCreatedEvent && ( e.Body as SystemAccountCreatedEvent ).Identifier == identifier );
+            return systemAccountCreatedEvent == null ? null : EventStoreRepository.GetByKey<SystemAccount> ( ( systemAccountCreatedEvent.Body as SystemAccountCreatedEvent ).Key );
+
             //TODO: See if there is a way to do this without hitting the event store twice.
         }
 

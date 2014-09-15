@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,56 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using System;
+
     using Agatha.Common;
 
+    #endregion
+
+    /// <summary>The assign account request class.</summary>
     public class AssignAccountRequest : Request
     {
-        public Guid StaffKey { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the organization key.
+        /// </summary>
+        /// <value>
+        /// The organization key.
+        /// </value>
+        public Guid OrganizationKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
         public Guid PatientKey { get; set; }
-        public Guid  OrganizationKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the staff key.
+        /// </summary>
+        /// <value>
+        /// The staff key.
+        /// </value>
+        public Guid StaffKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system account dto.
+        /// </summary>
+        /// <value>
+        /// The system account dto.
+        /// </value>
         public SystemAccountDto SystemAccountDto { get; set; }
-        public string BaseIdentityServerUri { get; set; }
-        public string Token { get; set; }
+
+        #endregion
     }
 }

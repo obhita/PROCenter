@@ -15,7 +15,7 @@
     <AssemblyName>ProCenter.Mvc</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort>44302</IISExpressSSLPort>
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -213,19 +213,27 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="NEventStore">
+      <HintPath>..\packages\NEventStore.4.0.0.15\lib\net40\NEventStore.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Agatha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.Agatha.dll</HintPath>
     </Reference>
-    <Reference Include="Pillar.Common">
+    <Reference Include="Pillar.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Pillar\Pillar.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -330,25 +338,38 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\Api\AllAssessmentsDataTableController.cs" />
+    <Compile Include="Controllers\Api\Api.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Api.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Api\AssessmentController.cs" />
     <Compile Include="Controllers\Api\AssessmentReminderController.cs" />
     <Compile Include="Controllers\Api\BaseApiController.cs" />
     <Compile Include="Controllers\Api\OrganizationController.cs" />
     <Compile Include="Controllers\Api\PatientAssessmentsDataTableController.cs" />
     <Compile Include="Controllers\Api\PatientController.cs" />
+    <Compile Include="Controllers\Api\ReportController.cs" />
     <Compile Include="Controllers\Api\RoleSearchDataTableController.cs" />
     <Compile Include="Controllers\Api\StaffSearchDataTableController.cs" />
+    <Compile Include="Controllers\Api\SystemAccountController.cs" />
     <Compile Include="Controllers\Api\SystemAdminController.cs" />
     <Compile Include="Controllers\Api\TeamController.cs" />
+    <Compile Include="Controllers\AssessmentController.cs" />
     <Compile Include="Controllers\AssessmentReminderController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\AssessmentController.cs" />
+    <Compile Include="Controllers\Controllers.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Controllers.resx</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrganizationController.cs" />
     <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PortalController.cs" />
     <Compile Include="Controllers\ReportController.cs" />
+    <Compile Include="Controllers\ReportsCenterController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\SystemAdminController.cs" />
@@ -357,21 +378,24 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\AssessmentViewModel.cs" />
     <Compile Include="Models\CalendarEventModel.cs" />
     <Compile Include="Models\ChangePasswordViewModel.cs" />
     <Compile Include="Models\DataTableResponse.cs" />
     <Compile Include="Models\FinderResults.cs" />
-    <Compile Include="Models\JwtTokenContext.cs" />
     <Compile Include="Models\KeyResult.cs" />
     <Compile Include="Models\MultipleSelect.cs" />
+    <Compile Include="Models\NonResponseViewModel.cs" />
     <Compile Include="Models\ScoreHeaderViewModel.cs" />
     <Compile Include="PermissionDescriptor\AssessmentPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\BasicAccessPermissionDescriptor.cs" />
+    <Compile Include="PermissionDescriptor\ReportsCenterPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\OrganizationPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\PatientPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\PortalPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\RolePermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\StaffPermissionDescriptor.cs" />
+    <Compile Include="PermissionDescriptor\SystemAccountPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\SystemAdminPermissionDescriptor.cs" />
     <Compile Include="PermissionDescriptor\TeamPermissionDescriptor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -380,18 +404,90 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserControlResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\Assessment\Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\Home.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Home.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organization\Organization.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Organization.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Patient\Patient.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Patient.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Portal\Portal.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Portal.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ReportsCenter\ReportsCenter.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ReportsCenter.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Report\Report.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Report.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shared\Shared.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Shared.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Staff\StaffResource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>StaffResource.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Widgets\Widgets.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Widgets.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\css\application.css" />
     <Content Include="Content\css\font-awesome-ie7.min.css" />
     <Content Include="Content\css\font-awesome.css" />
     <Content Include="Content\css\font-awesome.min.css" />
+    <Content Include="Content\css\jquery.procenter-joyride.css" />
     <Content Include="Content\css\style.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\icomoon.dev.svg" />
     <Content Include="Content\fonts\icomoon.svg" />
     <Content Include="Content\fonts\procenter.dev.svg" />
     <Content Include="Content\fonts\procenter.svg" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\less\jquery.procenter-height.css">
+      <DependentUpon>jquery.procenter-height.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-height.min.css">
+      <DependentUpon>jquery.procenter-height.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-infoButtons.css">
+      <DependentUpon>jquery.procenter-infoButtons.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-infoButtons.min.css">
+      <DependentUpon>jquery.procenter-infoButtons.css</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-simpleTabs.css">
+      <DependentUpon>jquery.procenter-simpleTabs.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-simpleTabs.min.css">
+      <DependentUpon>jquery.procenter-simpleTabs.less</DependentUpon>
+    </Content>
+    <Content Include="Content\less\procenter-style.css">
+      <DependentUpon>procenter-style.less</DependentUpon>
+    </Content>
     <Content Include="Content\modules\calendar\cupertinotheme.css" />
     <Content Include="Content\modules\calendar\fullcalendar.css" />
     <Content Include="Content\modules\calendar\fullcalendar.print.css" />
@@ -457,6 +553,21 @@
     <Content Include="Content\less\breadcrumbs.less" />
     <Content Include="Content\less\bootstrap.less" />
     <Content Include="Content\less\bluemoon.less" />
+    <Content Include="Content\less\jquery.procenter-simpleTabs.less" />
+    <Content Include="Content\less\brushes.css.map">
+      <DependentUpon>brushes.css</DependentUpon>
+    </Content>
+    <Content Include="Content\less\procenter-style.css.map">
+      <DependentUpon>procenter-style.css</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-height.less" />
+    <Content Include="Content\less\jquery.procenter-infoButtons.less" />
+    <Content Include="Content\less\jquery.procenter-infoButtons.css.map">
+      <DependentUpon>jquery.procenter-infoButtons.css</DependentUpon>
+    </Content>
+    <Content Include="Content\less\jquery.procenter-height.css.map">
+      <DependentUpon>jquery.procenter-height.css</DependentUpon>
+    </Content>
     <None Include="Content\less\states.less" />
     <Content Include="Content\less\jquery.procenter-expander.css">
       <DependentUpon>jquery.procenter-expander.less</DependentUpon>
@@ -475,9 +586,6 @@
     </Content>
     <Content Include="Content\less\modules.min.css">
       <DependentUpon>modules.less</DependentUpon>
-    </Content>
-    <Content Include="Content\less\procenter-style.css">
-      <DependentUpon>procenter-style.less</DependentUpon>
     </Content>
     <Content Include="Content\less\procenter-style.min.css">
       <DependentUpon>procenter-style.less</DependentUpon>
@@ -576,6 +684,10 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\modules\DataTables-1.9.4\media\images\Sorting icons.psd" />
+    <Content Include="Images\change_down_16x12px.png" />
+    <Content Include="Images\change_down_dots_16x12px.png" />
+    <Content Include="Images\change_up_16x12px.png" />
+    <Content Include="Images\change_up_dots_16x12px.png" />
     <Content Include="Images\checkmark.png" />
     <Content Include="Images\checkmark.svg" />
     <Content Include="Images\defaultperson.png" />
@@ -586,18 +698,25 @@
     <Content Include="Images\document-tab-icon.svg" />
     <Content Include="Images\d_arrow.png" />
     <Content Include="Images\d_arrow.svg" />
+    <Content Include="Images\Export_16x16.png" />
+    <Content Include="Images\graph_16x12px.png" />
     <Content Include="Images\home-tab-icon.png" />
     <Content Include="Images\home-tab-icon.svg" />
     <Content Include="Images\incomplete-icon.png" />
     <Content Include="Images\incomplete-icon.svg" />
     <Content Include="Images\incomplete-icon2.png" />
     <Content Include="Images\incomplete-icon2.svg" />
+    <Content Include="Images\initial_16x12px.png" />
     <Content Include="Images\interviewer-patient-01-white.png" />
     <Content Include="Images\interviewer-patient-01-white.svg" />
     <Content Include="Images\interviewer-patient-01.png" />
     <Content Include="Images\interviewer-patient-01.svg" />
     <Content Include="Images\interviewer-patient-02.png" />
     <Content Include="Images\interviewer-patient-02.svg" />
+    <Content Include="Images\loading.gif" />
+    <Content Include="Images\no_change_16x12px.png" />
+    <Content Include="Images\no_change_dots_16x12px.png" />
+    <Content Include="Images\open_16x12px.png" />
     <Content Include="Images\patient-tab-icon.png" />
     <Content Include="Images\patient-tab-icon.svg" />
     <Content Include="Images\pattern-tile.png" />
@@ -606,6 +725,7 @@
     <Content Include="Images\procenter.png" />
     <Content Include="Images\redbox.png" />
     <Content Include="Images\redbox.svg" />
+    <Content Include="Images\Save_16x16.png" />
     <Content Include="Images\selected-document-tab-icon.png" />
     <Content Include="Images\selected-document-tab-icon.svg" />
     <Content Include="Images\selected-document-tab-icon2.png" />
@@ -621,7 +741,7 @@
     <Content Include="Images\texture-background-2.png" />
     <Content Include="Images\textured-background.png" />
     <Content Include="NLog.config">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\fonts\fontawesome-webfont.ttf" />
@@ -652,6 +772,7 @@
     <Content Include="Scripts\bootstrap-collapse.js" />
     <Content Include="Scripts\bootstrap-dropdown.js" />
     <Content Include="Scripts\bootstrap-modal.js" />
+    <Content Include="Scripts\bootstrap-multiselect.js" />
     <Content Include="Scripts\bootstrap-popover.js" />
     <Content Include="Scripts\bootstrap-scrollspy.js" />
     <Content Include="Scripts\bootstrap-tab.js" />
@@ -659,18 +780,40 @@
     <Content Include="Scripts\bootstrap-transition.js" />
     <Content Include="Scripts\bootstrap-typeahead.js" />
     <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\ClientBusinessRules-GainShortScreener.js" />
+    <Content Include="Scripts\ClientBusinessRules-PediatricSymptonChecklist.js" />
+    <Content Include="Scripts\ClientBusinessRules-NihHealthBehaviorsAssessment.js" />
+    <Content Include="Scripts\jquery.procenter-height.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-CriminalJusticeSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-DemographicsSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-DischargeSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-DrugAlcoholUseSection.js" />
     <Content Include="Scripts\ClientBusinessRulesEngine.js" />
     <Content Include="Scripts\DataTables-1.9.4\media\js\jquery.dataTables.bootstrap-pagination.js" />
     <Content Include="Scripts\DataTables-1.9.4\media\js\jquery.dataTables.js" />
     <Content Include="Scripts\DataTables-1.9.4\media\js\jquery.dataTables.TableTools.js" />
     <Content Include="Scripts\fullcalendar.js" />
     <Content Include="Scripts\gcal.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-FamilyLivingSituationSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-FollowUpSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-InterviewInformationSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-PlannedServicesSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-ProfessionalInformationSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-SocialConnectednessSection.js" />
+    <Content Include="Scripts\Gpra\ClientBusinessRules-TreatmentRecoverySection.js" />
     <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-typing.js" />
+    <Content Include="Scripts\jquery.formatCurrency-1.4.0.js" />
+    <Content Include="Scripts\jquery.numeric.js" />
+    <Content Include="Scripts\jquery.procenter-infoButtons.js" />
+    <Content Include="Scripts\jquery.procenter-simpleTabs.js" />
+    <Content Include="Scripts\jquery.procenter-tab-manager.js" />
     <Content Include="Scripts\jquery-ui-1.10.2.js" />
     <Content Include="Scripts\jquery.procenter-easy-pie-chart.js" />
     <Content Include="Scripts\jquery.procenter-dashboard.js" />
     <Content Include="Scripts\jquery.procenter-expander.js" />
     <Content Include="Scripts\jquery.procenter-finder.js" />
+    <Content Include="Scripts\jquery.procenter-joyride.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.procenter-ajaxForm.js" />
     <Content Include="Scripts\jquery.procenter-ajaxLink.js" />
@@ -680,11 +823,15 @@
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\knockout-3.1.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\ClientBusinessRules-NidaAssessFurther.js" />
+    <Content Include="Scripts\SessionManager.js" />
+    <Content Include="Views\Portal\patient-portal-alerts.js" />
     <Content Include="Views\Organization\ActivateAssessments.js" />
     <Content Include="Views\Organization\Edit.js" />
     <Content Include="Views\Patient\Edit.js" />
+    <Content Include="Views\ReportsCenter\Index.js" />
     <Content Include="Views\Role\Edit.js" />
     <Content Include="Views\Staff\Edit.js" />
     <Content Include="Views\Team\Edit.js" />
@@ -692,6 +839,7 @@
     <Content Include="Views\Widgets\PatientFeed.js" />
     <Content Include="Views\Widgets\PatientRecentAssessments.js" />
     <Content Include="Views\Widgets\PatientReports.js" />
+    <Content Include="Views\Widgets\ReportBuilder.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -705,7 +853,9 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Web.config" />
+    <Content Include="Views\Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Views\Patient\Index.cshtml" />
     <Content Include="Views\Shared\UserContext.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
@@ -729,7 +879,6 @@
     <Content Include="Views\Shared\EditorTemplates\PhoneDto.cshtml" />
     <Content Include="Views\Organization\AddModal.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Collection.cshtml" />
     <Content Include="Views\Staff\EditorTemplates\SystemAccountDto.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\MultipleSelect.cshtml" />
     <Content Include="Views\Role\Edit.cshtml" />
@@ -756,6 +905,35 @@
     <Content Include="Views\SystemAdmin\Index.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OrganizationAddressDto.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\OrganizationPhoneDto.cshtml" />
+    <Content Include="Views\Widgets\ReportBuilder.cshtml" />
+    <Content Include="Views\Report\ReportBuilderViewerPartial.cshtml" />
+    <Content Include="Views\Report\GetReportBuilder.cshtml" />
+    <Content Include="Views\Report\Parameters.cshtml" />
+    <Content Include="Views\Assessment\Section.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\MoneyDto.cshtml" />
+    <Content Include="Views\Assessment\NonResponse.cshtml" />
+    <Content Include="Views\Home\SupportedBrowser.cshtml" />
+    <Content Include="Views\Staff\Create.cshtml" />
+    <Content Include="Views\Assessment\DisplayTemplates\GainShortScreenerScore.cshtml" />
+    <Content Include="Views\Assessment\DisplayTemplates\Int64.cshtml" />
+    <Content Include="Views\Assessment\DisplayTemplates\NidaAssessFurtherScoring.cshtml" />
+    <Content Include="Views\Assessment\DisplayTemplates\Int32.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Height.cshtml" />
+    <Content Include="Views\ReportsCenter\Index.cshtml" />
+    <Content Include="Views\Report\PatientScoreRangeParameters.cshtml" />
+    <Content Include="Views\Report\AssessmentScoreOverTimeParameters.cshtml" />
+    <Content Include="Views\Report\ReportCommonParametersPartial.cshtml" />
+    <Content Include="Views\Report\ScoreTypeInt.cshtml" />
+    <Content Include="Views\Report\ScoreTypeBoolean.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Int32.cshtml" />
+    <Content Include="Views\Widgets\ReportContainer.cshtml" />
+    <Content Include="Views\Report\NotCompletedAssessmentParameters.cshtml" />
+    <Content Include="Views\Report\PatientsWithSpecificResponseParameters.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\IntRange.cshtml" />
+    <Content Include="Views\Assessment\QuestionForLookup.cshtml" />
+    <Content Include="Views\Report\PatientsWithSpecificResponseAcrossAssessmentsParameters.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\String.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -763,7 +941,7 @@
     <Folder Include="Views\Report\EditorTemplates\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="packages.config">
+    <Content Include="Views\packages.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
@@ -797,9 +975,58 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controllers\Api\Api.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Api.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controllers\Controllers.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Controllers.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\UserControlResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>UserControlResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Assessment\Strings.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Home\Home.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Home.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Organization\Organization.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Organization.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Patient\Patient.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Patient.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Portal\Portal.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Portal.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ReportsCenter\ReportsCenter.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ReportsCenter.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Report\Report.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Report.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Shared\Shared.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Shared.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Staff\StaffResource.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>StaffResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Widgets\Widgets.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Widgets.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
@@ -807,6 +1034,7 @@
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\lib\Shared\Stylecop\StyleCop.Targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
@@ -816,16 +1044,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>53723</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44302/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

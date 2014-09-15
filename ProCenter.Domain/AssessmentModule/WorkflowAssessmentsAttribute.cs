@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
     #region Using Statements
@@ -34,13 +37,32 @@ namespace ProCenter.Domain.AssessmentModule
 
     #endregion
 
+    /// <summary>The workflow assessments attribute class.</summary>
     public class WorkflowAssessmentsAttribute : Attribute
     {
-        public WorkflowAssessmentsAttribute(params string[] assessmentNames)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowAssessmentsAttribute"/> class.
+        /// </summary>
+        /// <param name="assessmentNames">The assessment names.</param>
+        public WorkflowAssessmentsAttribute ( params string[] assessmentNames )
         {
             AssessmentNames = assessmentNames;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the assessment names.
+        /// </summary>
+        /// <value>
+        /// The assessment names.
+        /// </value>
         public IEnumerable<string> AssessmentNames { get; private set; }
+
+        #endregion
     }
 }

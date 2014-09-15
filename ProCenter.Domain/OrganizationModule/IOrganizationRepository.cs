@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,27 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
     #region Using Statements
 
-    using CommonModule;
+    using System.Collections.Generic;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for organization repository
-    /// </summary>
+    /// <summary>Interface for organization repository.</summary>
     public interface IOrganizationRepository : IRepository<Organization>
     {
+        /// <summary>
+        /// Gets the staff by npi.
+        /// </summary>
+        /// <param name="npi">The npi.</param>
+        /// <returns>Returns a list of Staff objects.</returns>
+        List<Staff> GetStaffByNpi ( string npi );
     }
 }

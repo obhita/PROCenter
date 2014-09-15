@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,24 +25,42 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using CommonModule;
-    using CommonModule.Lookups;
+    using System.Reflection;
+
+    using ProCenter.Domain.AssessmentModule.Metadata;
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.CommonModule.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Class for defining an Item definition.
-    /// </summary>
+    /// <summary>Class for defining an Item definition.</summary>
     public class ItemDefinition : IEquatable<ItemDefinition>, IContainItemDefinitions
     {
-        public ItemDefinition (CodedConcept codedConcept, Lookup itemType, Lookup valueType, IEnumerable<Lookup> options = null, IEnumerable<ItemDefinition> itemDefinitions = null  )
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ItemDefinition"/> class.
+        /// </summary>
+        /// <param name="codedConcept">The coded concept.</param>
+        /// <param name="itemType">Type of the item.</param>
+        /// <param name="valueType">Type of the value.</param>
+        /// <param name="options">The options.</param>
+        /// <param name="itemDefinitions">The item definitions.</param>
+        public ItemDefinition (
+            CodedConcept codedConcept,
+            Lookup itemType,
+            Lookup valueType,
+            IEnumerable<Lookup> options = null,
+            IEnumerable<ItemDefinition> itemDefinitions = null )
         {
             CodedConcept = codedConcept;
             ItemType = itemType;
@@ -49,6 +68,8 @@ namespace ProCenter.Domain.AssessmentModule
             Options = options;
             ItemDefinitions = itemDefinitions;
         }
+
+        #endregion
 
         #region Public Properties
 
@@ -67,6 +88,14 @@ namespace ProCenter.Domain.AssessmentModule
         ///     The item definitions.
         /// </value>
         public IEnumerable<ItemDefinition> ItemDefinitions { get; private set; }
+
+        /// <summary>
+        ///     Gets or sets the item metadata.
+        /// </summary>
+        /// <value>
+        ///     The item metadata.
+        /// </value>
+        public ItemMetadata ItemMetadata { get; set; }
 
         /// <summary>
         ///     Gets the type of the item.
@@ -100,35 +129,65 @@ namespace ProCenter.Domain.AssessmentModule
         /// </value>
         public string Version { get; private set; }
 
-        /// <summary>
-        /// Gets or sets the item metadata.
-        /// </summary>
-        /// <value>
-        /// The item metadata.
-        /// </value>
-        public ItemMetadata ItemMetadata { get; set; }
-
         #endregion
 
         #region Public Methods and Operators
 
         /// <summary>
-        ///     ==s the specified left.
+        /// Gets the name of the template.
+        /// </summary>
+        /// <param name="propertyInfo">The property information.</param>
+        /// <returns>Returns the name of the template if found in ItemMetatdata otherwise the default based on propertyInfo.</returns>
+        public string GetTemplateName(PropertyInfo propertyInfo)
+        {
+            string templateName = propertyInfo.PropertyType.Name;
+            if (ItemMetadata != null)
+            {
+                var templateNameMetaData = ItemMetadata.FindMetadataItem<TemplateNameMetadataItem> ();
+                if ( templateNameMetaData != null )
+                {
+                    templateName = templateNameMetaData.TemplateName;
+                }
+                else if (propertyInfo.PropertyType.IsSubclassOf(typeof(Lookup)))
+                {
+                    templateName = "LookupDto";
+                }
+            }
+            else if (propertyInfo.PropertyType.IsSubclassOf(typeof(Lookup)))
+            {
+                templateName = "LookupDto";
+            } 
+            return templateName;
+        }
+
+        /// <summary>Gets whether the item definition is required.</summary>
+        /// <returns><c>True</c> if item definition is required, otherwise <c>False</c>.</returns>
+        public bool GetIsRequired ()
+        {
+            if ( ItemMetadata != null )
+            {
+                return ItemMetadata.FindMetadataItem<RequiredForCompletenessMetadataItem> () != null;
+            }
+            return false;
+        }
+
+        /// <summary>
+        ///     Checks equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal or not.</returns>
         public static bool operator == ( ItemDefinition left, ItemDefinition right )
         {
             return Equals ( left, right );
         }
 
         /// <summary>
-        ///     !=s the specified left.
+        ///     Checks not equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are not equal.</returns>
         public static bool operator != ( ItemDefinition left, ItemDefinition right )
         {
             return !Equals ( left, right );
@@ -138,13 +197,17 @@ namespace ProCenter.Domain.AssessmentModule
         ///     Equalses the specified other.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public bool Equals ( ItemDefinition other )
         {
             if ( ReferenceEquals ( null, other ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, other ) )
+            {
                 return true;
+            }
             return Equals ( CodedConcept, other.CodedConcept ) && string.Equals ( Version, other.Version );
         }
 
@@ -160,12 +223,18 @@ namespace ProCenter.Domain.AssessmentModule
         public override bool Equals ( object obj )
         {
             if ( ReferenceEquals ( null, obj ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, obj ) )
+            {
                 return true;
+            }
             if ( obj.GetType () != this.GetType () )
+            {
                 return false;
-            return Equals ( (ItemDefinition) obj );
+            }
+            return Equals ( (ItemDefinition)obj );
         }
 
         /// <summary>

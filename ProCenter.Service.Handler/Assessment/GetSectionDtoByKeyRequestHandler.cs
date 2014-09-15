@@ -1,5 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
+﻿// /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
 //  * Redistribution and use in source and binary forms, with or without
@@ -24,134 +23,154 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
 namespace ProCenter.Service.Handler.Assessment
 {
     #region Using Statements
 
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
-    using Common;
-    using Domain.AssessmentModule;
-    using Domain.AssessmentModule.Lookups;
-    using Domain.CommonModule;
-    using Domain.CommonModule.Lookups;
-    using Domain.MessageModule;
-    using Infrastructure.Domain;
-    using Infrastructure.Service.Completeness;
-    using Service.Message.Assessment;
-    using Service.Message.Common.Lookups;
-    using Service.Message.Message;
-    using Service.Message.Metadata;
+
     using global::AutoMapper;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.AssessmentModule.Lookups;
+    using ProCenter.Domain.CommonModule.Lookups;
+    using ProCenter.Service.Handler.Common;
+    using ProCenter.Service.Message.Assessment;
+    using ProCenter.Service.Message.Common.Lookups;
 
     #endregion
 
-    /// <summary>
-    /// Gets a section dto.
-    /// </summary>
+    /// <summary>Gets a section dto.</summary>
     public class GetSectionDtoByKeyRequestHandler :
         ServiceRequestHandler<GetSectionDtoByKeyRequest, GetSectionDtoByKeyResponse>
     {
-        private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
-        private readonly IAssessmentInstanceRepository _assessmentInstanceRepository;
-        private readonly IWorkflowMessageRepository _workflowMessageRepository;
-        private readonly IMessageCollector _messageCollector;
+        #region Fields
 
-        public GetSectionDtoByKeyRequestHandler(IAssessmentDefinitionRepository assessmentDefinitionRepository,
-                                                IAssessmentInstanceRepository assessmentInstanceRepository,
-                                                IWorkflowMessageRepository workflowMessageRepository,
-                                                IMessageCollector messageCollector)
+        private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
+
+        private readonly IAssessmentInstanceRepository _assessmentInstanceRepository;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="GetSectionDtoByKeyRequestHandler" /> class.
+        /// </summary>
+        /// <param name="assessmentDefinitionRepository">The assessment definition repository.</param>
+        /// <param name="assessmentInstanceRepository">The assessment instance repository.</param>
+        public GetSectionDtoByKeyRequestHandler (
+            IAssessmentDefinitionRepository assessmentDefinitionRepository,
+            IAssessmentInstanceRepository assessmentInstanceRepository )
         {
             _assessmentDefinitionRepository = assessmentDefinitionRepository;
             _assessmentInstanceRepository = assessmentInstanceRepository;
-            _workflowMessageRepository = workflowMessageRepository;
-            _messageCollector = messageCollector;
         }
 
+        #endregion
+
+        #region Methods
+
         /// <summary>
-        /// Handles the specified request.
+        ///     Handles the specified request.
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="response">The response.</param>
-        protected override void Handle(GetSectionDtoByKeyRequest request, GetSectionDtoByKeyResponse response)
+        protected override void Handle ( GetSectionDtoByKeyRequest request, GetSectionDtoByKeyResponse response )
         {
-            var assessmentInstance = _assessmentInstanceRepository.GetByKey(request.Key);
-            var assessmentDefinition = _assessmentDefinitionRepository.GetByKey(assessmentInstance.AssessmentDefinitionKey);
+            var assessmentInstance = _assessmentInstanceRepository.GetByKey ( request.Key );
+            var assessmentDefinition = _assessmentDefinitionRepository.GetByKey ( assessmentInstance.AssessmentDefinitionKey );
 
             var sectionDto = new SectionDto
-                {
-                    Key = assessmentInstance.Key,
-                    AssessmentKey = assessmentInstance.Key,
-                    PatientKey = assessmentInstance.PatientKey,
-                    AssessmentDefinitionKey = assessmentDefinition.Key,
-                    AssessmentDefinitionCode = assessmentDefinition.CodedConcept.Code,
-                    AssessmentName = assessmentDefinition.CodedConcept.Name,
-                    IsSubmitted = assessmentInstance.IsSubmitted,
-                    IsComplete = Math.Abs(assessmentInstance.PercentComplete - 1.0d) <= double.Epsilon,
-                    Score = assessmentInstance.Score == null ? null : Mapper.Map<Score, ScoreDto>(assessmentInstance.Score),
-                    Items = new List<ItemDto>()
-                };
+                             {
+                                 Key = assessmentInstance.Key,
+                                 AssessmentName = assessmentDefinition.CodedConcept.Name,
+                                 Items = new List<ItemDto> (),
+                             };
+            IContainItemDefinitions itemContainer;
+            if ( request.SectionItemDefinitionCode == null )
+            {
+                itemContainer = (IContainItemDefinitions)assessmentDefinition.ItemDefinitions.FirstOrDefault ( i => i.ItemType == ItemType.Section ) ?? assessmentDefinition;
+            }
+            else
+            {
+                itemContainer = assessmentDefinition.GetItemDefinitionByCode ( request.SectionItemDefinitionCode );
+            }
 
-            MapItems(sectionDto, assessmentDefinition, assessmentInstance);
+            if ( itemContainer == null )
+            {
+                throw new InvalidOperationException ( "Section does not exist." );
+            }
+            sectionDto.ItemDefinitionCode = itemContainer.CodedConcept.Code;
+            MapItems ( sectionDto, itemContainer, assessmentInstance );
 
             response.DataTransferObject = sectionDto;
-            var messages = new List<IMessage>(_messageCollector.Messages);
-            if (assessmentInstance.WorkflowKey.HasValue)
-            {
-                var message = _workflowMessageRepository.GetByKey(assessmentInstance.WorkflowKey.Value);
-                if (message.Status == WorkflowMessageStatus.WaitingForResponse)
-                {
-                    messages.Add(message);
-                }
-            }
-            response.Messages =
-                Mapper.Map<IEnumerable<IMessage>, IEnumerable<IMessageDto>>(messages);
         }
 
-        private static void MapItems(IContainItems itemContainer, IContainItemDefinitions itemDefinitionContainer, AssessmentInstance assessmentInstance)
-        {
-            foreach (var itemDefinition in itemDefinitionContainer.ItemDefinitions)
-            {
-                if (itemDefinition.ItemType == ItemType.Question)
-                {
-                    itemContainer.Items.Add(CreateQuestion(itemDefinition, assessmentInstance));
-                }
-                else if (itemDefinition.ItemType == ItemType.Group)
-                {
-                    var groupItemDto = new ItemDto
-                        {
-                            Metadata = itemDefinition.ItemMetadata,
-                            Key = assessmentInstance.Key,
-                            ItemDefinitionCode = itemDefinition.CodedConcept.Code,
-                            ItemDefinitionName = itemDefinition.CodedConcept.Name,
-                            Items = new List<ItemDto>(),
-                            ItemType = itemDefinition.ItemType.CodedConcept.Code
-                        };
-
-                    MapItems(groupItemDto, itemDefinition, assessmentInstance);
-
-                    itemContainer.Items.Add(groupItemDto);
-                }
-            }
-        }
-
-        private static ItemDto CreateQuestion(ItemDefinition itemDefinition, AssessmentInstance assessmentInstance)
+        private static ItemDto CreateQuestion ( ItemDefinition itemDefinition, AssessmentInstance assessmentInstance )
         {
             var itemInstance =
-                assessmentInstance.ItemInstances.FirstOrDefault(
-                    i => i.ItemDefinitionCode == itemDefinition.CodedConcept.Code);
-            return new ItemDto
-                {
-                    Metadata = itemDefinition.ItemMetadata,
-                    Key = assessmentInstance.Key,
-                    ItemDefinitionCode = itemDefinition.CodedConcept.Code,
-                    ItemDefinitionName = itemDefinition.CodedConcept.Name,
-                    Options = Mapper.Map<IEnumerable<Lookup>, IEnumerable<LookupDto>>(itemDefinition.Options),
-                    Value = itemInstance == null ? null : itemInstance.Value is Lookup ? Mapper.Map<Lookup, LookupDto>(itemInstance.Value as Lookup) : itemInstance.Value,
-                    ItemType = itemDefinition.ItemType.CodedConcept.Code
-                };
+                assessmentInstance.ItemInstances.FirstOrDefault (
+                    i => i.ItemDefinitionCode == itemDefinition.CodedConcept.Code );
+            var item = new ItemDto
+                       {
+                           Metadata = itemDefinition.ItemMetadata,
+                           Key = assessmentInstance.Key,
+                           ItemDefinitionCode = itemDefinition.CodedConcept.Code,
+                           ItemDefinitionName = itemDefinition.CodedConcept.Name,
+                           Options = Mapper.Map<IEnumerable<Lookup>, IEnumerable<LookupDto>> ( itemDefinition.Options ),
+                           ItemType = itemDefinition.ItemType.CodedConcept.Code
+                       };
+            if ( itemInstance == null || itemInstance.Value == null )
+            {
+                item.Value = null;
+            }
+            else if ( itemInstance.Value is Lookup )
+            {
+                item.Value = Mapper.Map<Lookup, LookupDto> ( itemInstance.Value as Lookup );
+            }
+            else if (itemInstance.Value is IEnumerable && !(itemInstance.Value is string))
+            {
+                item.Value = Mapper.Map ( itemInstance.Value, itemInstance.Value.GetType (), typeof(IEnumerable<LookupDto>) );
+            }
+            else
+            {
+                item.Value = itemInstance.Value;
+            }
+            return item;
         }
+
+        private static void MapItems ( IContainItems itemContainer, IContainItemDefinitions itemDefinitionContainer, AssessmentInstance assessmentInstance )
+        {
+            foreach ( var itemDefinition in itemDefinitionContainer.ItemDefinitions )
+            {
+                if ( itemDefinition.ItemType == ItemType.Question )
+                {
+                    itemContainer.Items.Add ( CreateQuestion ( itemDefinition, assessmentInstance ) );
+                }
+                else if ( itemDefinition.ItemType == ItemType.Group || itemDefinition.ItemType == ItemType.Section )
+                {
+                    var groupItemDto = new ItemDto
+                                       {
+                                           Metadata = itemDefinition.ItemMetadata,
+                                           Key = assessmentInstance.Key,
+                                           ItemDefinitionCode = itemDefinition.CodedConcept.Code,
+                                           ItemDefinitionName = itemDefinition.CodedConcept.Name,
+                                           Items = new List<ItemDto> (),
+                                           ItemType = itemDefinition.ItemType.CodedConcept.Code
+                                       };
+
+                    MapItems ( groupItemDto, itemDefinition, assessmentInstance );
+
+                    itemContainer.Items.Add ( groupItemDto );
+                }
+            }
+        }
+
+        #endregion
     }
 }

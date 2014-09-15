@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,48 +25,62 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
     #region Using Statements
 
-    using System.Collections.Generic;
-    using AssessmentModule;
-    using AssessmentModule.Lookups;
-    using CommonModule;
-    using Pillar.Common.Metadata;
-    using Pillar.Common.Metadata.Dtos;
-    using Service.Message.Metadata;
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.AssessmentModule.Attributes;
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    public class NidaSingleQuestionScreener : AssessmentDefinition
+    /// <summary>The nida single question screener class.</summary>
+    [CodeSystem ( CodeSystems.NciCode )]
+    [Code("3254099")]
+    [ScoreType(ScoreTypeEnum.ScoreTypeInt)]
+    public class NidaSingleQuestionScreener : Assessment
     {
-        public NidaSingleQuestionScreener() : base(AssessmentCodedConcept)
-        {
-            var itemDefinition =
-                new ItemDefinition(
-                    new CodedConcept(CodeSystems.Nci, "3254097",
-                                     "SubstanceAbusePrescriptionIllicitSubstancePastYearPersonalMedicalHistory"),
-                    ItemType.Question,
-                    ValueType.Count)
-                    {
-                        ItemMetadata = new ItemMetadata
-                            {
-                                MetadataItems = new List<IMetadataItem>
-                                    {
-                                        new ItemTemplateMetadataItem {TemplateName = "Int32"},
-                                        new RequiredForCompletenessMetadataItem(CompletenessCategory.Report),
-                                    }
-                            }
-                    };
+        #region Constructors and Destructors
 
-            AddItemDefinition(itemDefinition);
+        static NidaSingleQuestionScreener ()
+        {
+            AssessmentCodedConcept = GetCodedConcept<NidaSingleQuestionScreener>();
         }
 
-        public static CodedConcept AssessmentCodedConcept
+        /// <summary>Initializes a new instance of the <see cref="NidaSingleQuestionScreener"/> class.</summary>
+        public NidaSingleQuestionScreener ()
+            : this ( null )
         {
-            get { return new CodedConcept(CodeSystems.Nci, "3254099", "NidaSingleQuestionScreener"); }
         }
+
+        /// <summary>Initializes a new instance of the <see cref="NidaSingleQuestionScreener" /> class.</summary>
+        /// <param name="assessmentInstance">The assessment instance.</param>
+        public NidaSingleQuestionScreener ( AssessmentInstance assessmentInstance )
+            : base ( assessmentInstance )
+        {
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>Gets the assessment coded concept.</summary>
+        /// <value>The assessment coded concept.</value>
+        public static CodedConcept AssessmentCodedConcept { get; private set; }
+
+        /// <summary>Gets the substance abuse prescription illicit substance past year personal medical history.</summary>
+        /// <value>
+        ///     The substance abuse prescription illicit substance past year personal medical history.
+        /// </value>
+        [Code ( "3254097" )]
+        [ValueType ( typeof(NidaValueType), NidaValueType.CountCode )]
+        [DisplayOrder ( 0 )]
+        public int SubstanceAbusePrescriptionIllicitSubstancePastYearPersonalMedicalHistory { get; private set; }
+
+        #endregion
     }
 }

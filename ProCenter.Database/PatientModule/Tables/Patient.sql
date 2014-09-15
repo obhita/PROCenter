@@ -5,6 +5,7 @@
     [FirstName]        NVARCHAR (500)     NOT NULL,
     [LastName]         NVARCHAR (500)     NOT NULL,
     [UniqueIdentifier] NVARCHAR(50) NOT NULL, 
+    [DateOfBirth] DATETIME NOT NULL, 
     PRIMARY KEY CLUSTERED ([PatientKey] ASC),  
 );
 GO

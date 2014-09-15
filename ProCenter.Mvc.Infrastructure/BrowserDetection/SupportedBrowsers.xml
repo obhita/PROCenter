@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<supportedbrowsers>
+  <supported>
+    <IE
+      displayName ="Internet Explorer" MachineType="Windows" MinVersion ="9.0" MaxVersion ="99.00"
+      link="http://windows.microsoft.com/en-us/internet-explorer/download-ie"/>
+    <Firefox
+      displayName ="Mozilla Firefox" MachineType="Windows, Mac" MinVersion ="7.0" MaxVersion ="99.0"
+      link="http://www.mozilla.org/en-US/firefox/new/"/>
+    <Chrome
+      displayName ="Google Chrome" MachineType="Windows, Mac" MinVersion ="10.0" MaxVersion ="99.0"
+      link="https://www.google.com/intl/en/chrome/browser/"/>
+    <Safari
+      displayName ="Safari" MachineType="Mac" MinVersion ="5.0" MaxVersion ="99.0"
+      link="http://support.apple.com/downloads/#safari"
+      />
+  </supported>
+</supportedbrowsers>

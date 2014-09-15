@@ -15,6 +15,9 @@
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,11 +30,8 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -77,27 +77,28 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\packages\Dapper-Async.1.03\lib\net45\Dapper.dll</HintPath>
     </Reference>
-    <Reference Include="EventStore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EventStore.3.2.0.28\lib\net40\EventStore.dll</HintPath>
+    <Reference Include="NEventStore">
+      <HintPath>..\..\packages\NEventStore.4.0.0.15\lib\net40\NEventStore.dll</HintPath>
     </Reference>
-    <Reference Include="EventStore.Persistence.RavenPersistence, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\EventStore.Persistence.RavenPersistence.3.2.0.28\lib\net40\EventStore.Persistence.RavenPersistence.dll</HintPath>
+    <Reference Include="NEventStore.Persistence.RavenPersistence">
+      <HintPath>..\..\packages\NEventStore.Persistence.RavenPersistence.4.1.0.10\lib\net40\NEventStore.Persistence.RavenPersistence.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Newtonsoft.Json.5.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    <Reference Include="NLog">
+      <HintPath>..\..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Pillar.Common">
       <HintPath>..\..\lib\Pillar\Pillar.Common.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Domain">
       <HintPath>..\..\lib\Pillar\Pillar.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.FluentRuleEngine, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\lib\Pillar\Pillar.FluentRuleEngine.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Nhibernate">
       <HintPath>..\..\lib\Pillar\Pillar.Nhibernate.dll</HintPath>
@@ -106,13 +107,11 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\lib\Pillar\Pillar.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Abstractions.dll</HintPath>
+    <Reference Include="Raven.Abstractions">
+      <HintPath>..\..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
@@ -139,9 +138,25 @@
       <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
       <Name>ProCenter.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\ProCenter.Domain.GainShortScreener\ProCenter.Domain.GainShortScreener.csproj">
+      <Project>{c6a13400-f0f0-483d-96db-641722256341}</Project>
+      <Name>ProCenter.Domain.GainShortScreener</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProCenter.Domain.Gpra\ProCenter.Domain.Gpra.csproj">
+      <Project>{3558dd1b-328c-4eb3-a831-ac4986444fc8}</Project>
+      <Name>ProCenter.Domain.Gpra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ProCenter.Domain.Nida\ProCenter.Domain.Nida.csproj">
       <Project>{9a809ba5-55ff-4f25-a555-9aed08910998}</Project>
       <Name>ProCenter.Domain.Nida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProCenter.Domain.Nih\ProCenter.Domain.NihHealthBehaviorsAssessment.csproj">
+      <Project>{86d5bb8b-0817-4e38-9273-3ace619feb88}</Project>
+      <Name>ProCenter.Domain.NihHealthBehaviorsAssessment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ProCenter.Domain.Psc\ProCenter.Domain.Psc.csproj">
+      <Project>{9e38854f-81b2-4b7f-8b29-02ddaeb99a8b}</Project>
+      <Name>ProCenter.Domain.Psc</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ProCenter.Domain\ProCenter.Domain.csproj">
       <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
     #region Using Statements
@@ -32,13 +35,14 @@ namespace ProCenter.Domain.Nida
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using AssessmentModule;
-    using Common.Report;
+
+    using ProCenter.Common.Report;
+    using ProCenter.Domain.AssessmentModule;
 
     #endregion
 
     /// <summary>
-    ///     NIDA Report Data
+    ///     NIDA Report Data.
     /// </summary>
     public class NidaReportData
     {
@@ -222,13 +226,13 @@ namespace ProCenter.Domain.Nida
             {
                 return;
             }
-            if ( reportItem.Text != null && ( items == null || ( reportItem.ReportItems != null && reportItem.ReportItems.Any ( ri => ri.ShouldShow != false) ) ) )
+            if ( reportItem.Text != null && ( items == null || ( reportItem.ReportItems != null && reportItem.ReportItems.Any ( ri => ri.ShouldShow != false ) ) ) )
             {
                 setProperty ( reportItem.Text );
             }
             if ( reportItem.ReportItems != null && reportItem.ReportItems.Any () && items != null )
             {
-                items.AddRange ( reportItem.ReportItems.Where ( ri => ri.ShouldShow != false ).Select ( ri => (ReportString) ri.Text ) );
+                items.AddRange ( reportItem.ReportItems.Where ( ri => ri.ShouldShow != false ).Select ( ri => (ReportString)ri.Text ) );
             }
         }
 

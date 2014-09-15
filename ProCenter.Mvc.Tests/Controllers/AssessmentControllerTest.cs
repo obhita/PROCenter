@@ -43,6 +43,12 @@ namespace ProCenter.Mvc.Tests.Controllers
     using Models;
     using Moq;
     using Mvc.Controllers;
+
+    using Pillar.Agatha.Message;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Service.Message.Common;
+
     using Service.Message.Assessment;
     using Service.Message.Common.Lookups;
     using Service.Message.Message;
@@ -73,7 +79,8 @@ namespace ProCenter.Mvc.Tests.Controllers
                                          .Returns(asyncRequestDispatcherMock.Object);
 
             var controller = new AssessmentController(requestDisplatcherFactoryMock.Object,
-                                                      new Mock<IResourcesManager>().Object);
+                                                      new Mock<IResourcesManager>().Object,
+                                                      new Mock<IDbConnectionFactory>().Object);
 
             ActionResult actionResult = null;
             var wait = new ManualResetEvent(false);
@@ -112,20 +119,26 @@ namespace ProCenter.Mvc.Tests.Controllers
                     RecommendedAssessmentDefinitionKey = Guid.NewGuid()
                 };
             var asyncRequestDispatcherMock = new Mock<IAsyncRequestDispatcher>();
-            asyncRequestDispatcherMock.Setup(rd => rd.GetAsync<GetSectionDtoByKeyResponse>())
+            asyncRequestDispatcherMock.Setup(rd => rd.GetAsync<DtoResponse<AssessmentSectionSummaryDto>>())
                                       .Returns(
-                                          Task.FromResult(new GetSectionDtoByKeyResponse
-                                              {
-                                                  Messages =
-                                                      new List<IMessageDto>
+                                          Task.FromResult(new DtoResponse<AssessmentSectionSummaryDto>
+                                                          {
+                                                  DataTransferObject = new AssessmentSectionSummaryDto
+                                                  {
+                                                      Messages =
+                                                          new List<IMessageDto>
                                                           {
                                                               workflowMessageDto
                                                           },
-                                                  DataTransferObject = new SectionDto
-                                                      {
                                                           AssessmentName = assessmentName
                                                       }
-                                              }));
+                                                          }));
+            asyncRequestDispatcherMock.Setup(rd => rd.GetAsync<GetSectionDtoByKeyResponse>())
+                                      .Returns(
+                                          Task.FromResult(new GetSectionDtoByKeyResponse
+                                          {
+                                              DataTransferObject = new SectionDto ()
+                                          }));
             asyncRequestDispatcherMock.Setup(rd => rd.Get<GetPatientDtoResponse>()).Returns(new GetPatientDtoResponse
                 {
                     DataTransferObject =
@@ -138,7 +151,9 @@ namespace ProCenter.Mvc.Tests.Controllers
             var resourcesManager = new Mock<IResourcesManager>();
             resourcesManager.Setup(rm => rm.GetResourceManagerByName(assessmentName))
                             .Returns(It.IsAny<ResourceManager>);
-            var controller = new AssessmentController(requestDisplatcherFactoryMock.Object, resourcesManager.Object);
+            var controller = new AssessmentController(requestDisplatcherFactoryMock.Object, 
+                                                      resourcesManager.Object,
+                                                      new Mock<IDbConnectionFactory>().Object);
 
             ActionResult acttionResult = null;
             var wait = new ManualResetEvent(false);
@@ -156,9 +171,9 @@ namespace ProCenter.Mvc.Tests.Controllers
 
             // Assert
             var viewResult = acttionResult as ViewResult;
-            var sectionDto = viewResult.Model as SectionDto;
-            Assert.IsNotNull(sectionDto);
-            Assert.AreEqual(assessmentName, sectionDto.AssessmentName);
+            var assessmentViewModel = viewResult.Model as AssessmentViewModel;
+            Assert.IsNotNull(assessmentViewModel);
+            Assert.AreEqual(assessmentName, assessmentViewModel.AssessmentSectionSummaryDto.AssessmentName);
             var viewData = viewResult.ViewData;
             var messageDto = (viewData["Messages"] as List<IMessageDto>)[0] as WorkflowMessageDto;
             Assert.AreEqual(initiatingAssessmentKey, messageDto.InitiatingAssessmentKey);
@@ -184,7 +199,8 @@ namespace ProCenter.Mvc.Tests.Controllers
                                          .Returns(asyncRequestDispatcherMock.Object);
 
             var controller = new AssessmentController(requestDisplatcherFactoryMock.Object,
-                                                      new Mock<IResourcesManager>().Object);
+                                                      new Mock<IResourcesManager>().Object,
+                                                      new Mock<IDbConnectionFactory>().Object);
 
             ActionResult actionResult = null;
             var wait = new ManualResetEvent(false);
@@ -234,14 +250,15 @@ namespace ProCenter.Mvc.Tests.Controllers
                                          .Returns(asyncRequestDispatcherMock.Object);
 
             var controller = new AssessmentController(requestDisplatcherFactoryMock.Object,
-                                                      new Mock<IResourcesManager>().Object);
+                                                      new Mock<IResourcesManager>().Object,
+                                                      new Mock<IDbConnectionFactory>().Object);
 
             ActionResult actionResult = null;
             var wait = new ManualResetEvent(false);
 
 
             // Act
-            var task = controller.Submit(key, patientKey);
+            var task = controller.Submit(key, patientKey, "Name");
             task.ContinueWith(result =>
                 {
                     actionResult = result.Result;

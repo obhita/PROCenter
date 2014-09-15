@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Attribute
 {
     #region Using Statements
@@ -35,50 +38,119 @@ namespace ProCenter.Service.Message.Attribute
 
     #endregion
 
-    [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]
+    /// <summary>The question group attribute class.</summary>
+    [AttributeUsage ( AttributeTargets.Property, AllowMultiple = true )]
     public class QuestionGroupAttribute : Attribute, IMetadataAware, IQuestionGroup
     {
         //this is needed to allow multiple instances of the same attribute???
-        public const string QuestionGroup = "QuestionGroup";
-        private readonly object _typeId = new object();
 
-        public QuestionGroupAttribute(string questionResourceName, string templateName)
-            : this(questionResourceName, 0, templateName)
+        #region Constants
+
+        public const string QuestionGroup = "QuestionGroup";
+
+        #endregion
+
+        #region Fields
+
+        private readonly object _typeId = new object ();
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuestionGroupAttribute"/> class.
+        /// </summary>
+        /// <param name="questionResourceName">Name of the question resource.</param>
+        /// <param name="templateName">Name of the template.</param>
+        public QuestionGroupAttribute ( string questionResourceName, string templateName )
+            : this ( questionResourceName, 0, templateName )
         {
         }
 
-        public QuestionGroupAttribute(string questionResourceName, int applyOrder = 0,
-                                      string templateName = "DefaultQuestionGroup")
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuestionGroupAttribute"/> class.
+        /// </summary>
+        /// <param name="questionResourceName">Name of the question resource.</param>
+        /// <param name="applyOrder">The apply order.</param>
+        /// <param name="templateName">Name of the template.</param>
+        public QuestionGroupAttribute (
+            string questionResourceName,
+            int applyOrder = 0,
+            string templateName = "DefaultQuestionGroup" )
         {
             QuestionResourceName = questionResourceName;
             HeaderTemplateName = templateName;
             ApplyOrder = applyOrder;
-            AdditionalViewData = new Dictionary<string, object>();
+            AdditionalViewData = new Dictionary<string, object> ();
 
-            if (HeaderTemplateName.EndsWith("Columns"))
+            if ( HeaderTemplateName.EndsWith ( "Columns" ) )
             {
-                AdditionalViewData.Add("Columns", HeaderTemplateName.Replace("Columns", "").ToLower());
+                AdditionalViewData.Add ( "Columns", HeaderTemplateName.Replace ( "Columns", string.Empty ).ToLower () );
                 HeaderTemplateName = "Columns";
             }
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the additional view data.
+        /// </summary>
+        /// <value>
+        /// The additional view data.
+        /// </value>
+        public Dictionary<string, object> AdditionalViewData { get; private set; }
+
+        /// <summary>
+        /// Gets the apply order.
+        /// </summary>
+        /// <value>
+        /// The apply order.
+        /// </value>
+        public int ApplyOrder { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the header template.
+        /// </summary>
+        /// <value>
+        /// The name of the header template.
+        /// </value>
+        public string HeaderTemplateName { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the question resource.
+        /// </summary>
+        /// <value>
+        /// The name of the question resource.
+        /// </value>
+        public string QuestionResourceName { get; private set; }
+
+        /// <summary>
+        /// When implemented in a derived class, gets a unique identifier for this <see cref="T:System.Attribute" />.
+        /// </summary>
+        /// <returns>An <see cref="T:System.Object" /> that is a unique identifier for the attribute.</returns>
         public override object TypeId
         {
             get { return _typeId; }
         }
 
-        public void OnMetadataCreated(ModelMetadata metadata)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>When implemented in a class, provides metadata to the model metadata creation process.</summary>
+        /// <param name="metadata">The model metadata.</param>
+        public void OnMetadataCreated ( ModelMetadata metadata )
         {
-            if (!metadata.AdditionalValues.ContainsKey(QuestionGroup))
+            if ( !metadata.AdditionalValues.ContainsKey ( QuestionGroup ) )
             {
-                metadata.AdditionalValues[QuestionGroup] = new List<IQuestionGroup>();
+                metadata.AdditionalValues[QuestionGroup] = new List<IQuestionGroup> ();
             }
-            (metadata.AdditionalValues[QuestionGroup] as IList<IQuestionGroup>).Add(this);
+            ( metadata.AdditionalValues[QuestionGroup] as IList<IQuestionGroup> ).Add ( this );
         }
 
-        public string QuestionResourceName { get; private set; }
-        public string HeaderTemplateName { get; private set; }
-        public int ApplyOrder { get; private set; }
-        public Dictionary<string, object> AdditionalViewData { get; private set; }
+        #endregion
     }
 }

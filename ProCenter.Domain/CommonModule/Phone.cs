@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Common.Utility;
 
     #endregion
 
-    /// <summary>
-    ///     Phone value object.
-    /// </summary>
+    /// <summary>Phone value object.</summary>
     public class Phone : IValueObject, IEquatable<Phone>
     {
         #region Constructors and Destructors
@@ -79,22 +81,22 @@ namespace ProCenter.Domain.CommonModule
         #region Public Methods and Operators
 
         /// <summary>
-        ///     ==s the specified left.
+        ///     Checks equal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public static bool operator == ( Phone left, Phone right )
         {
             return Equals ( left, right );
         }
 
         /// <summary>
-        ///     !=s the specified left.
+        ///     Checks not equal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are not equal.</returns>
         public static bool operator != ( Phone left, Phone right )
         {
             return !Equals ( left, right );
@@ -104,13 +106,17 @@ namespace ProCenter.Domain.CommonModule
         ///     Equalses the specified other.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public bool Equals ( Phone other )
         {
             if ( ReferenceEquals ( null, other ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, other ) )
+            {
                 return true;
+            }
             return string.Equals ( Number, other.Number ) && string.Equals ( Extension, other.Extension );
         }
 
@@ -126,12 +132,18 @@ namespace ProCenter.Domain.CommonModule
         public override bool Equals ( object obj )
         {
             if ( ReferenceEquals ( null, obj ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, obj ) )
+            {
                 return true;
+            }
             if ( obj.GetType () != this.GetType () )
+            {
                 return false;
-            return Equals ( (Phone) obj );
+            }
+            return Equals ( (Phone)obj );
         }
 
         /// <summary>

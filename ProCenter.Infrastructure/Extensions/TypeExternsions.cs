@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Extensions
 {
     #region Using Statements
@@ -33,15 +36,23 @@ namespace ProCenter.Infrastructure.Extensions
 
     #endregion
 
+    /// <summary>The type extensions class.</summary>
     public static class TypeExtensions
     {
-        public static bool IsNullable(this Type type)
+        #region Public Methods and Operators
+
+        /// <summary>Determines whether the specified type is nullable.</summary>
+        /// <param name="type">The type.</param>
+        /// <returns><c>True</c> if nullable, otherwise <c>False</c>.</returns>
+        public static bool IsNullable ( this Type type )
         {
-            if (!type.IsValueType)
+            if ( !type.IsValueType )
             {
                 return true; // ref-type
             }
-            return Nullable.GetUnderlyingType(type) != null;
+            return Nullable.GetUnderlyingType ( type ) != null;
         }
+
+        #endregion
     }
 }

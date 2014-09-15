@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,29 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
-    #region
+    #region Using Statements
 
     using System;
 
     #endregion
 
+    /// <summary>Interface for role factory.</summary>
     public interface IRoleFactory
     {
-        Role Create(string name, RoleType roleType = RoleType.UserDefined);
+        #region Public Methods and Operators
+
+        /// <summary>Creates the specified name.</summary>
+        /// <param name="name">The name.</param>
+        /// <param name="organizationKey">The organization key.</param>
+        /// <param name="roleType">Type of the role.</param>
+        /// <returns>A <see cref="Role"/>.</returns>
+        Role Create ( string name, Guid? organizationKey, RoleType roleType = RoleType.UserDefined );
+
+        #endregion
     }
 }

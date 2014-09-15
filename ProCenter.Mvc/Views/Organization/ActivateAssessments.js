@@ -22,7 +22,8 @@
                 "bSortable": false,
                 "fnRender": function(oObj) {
                     if (canAccessOrganizationEdit) {
-                        return '<a href="' + organizationBaseUri + '/DeactivateAssessment/' + oObj.aData.Key + '" class="btn btn-mini btn-info" data-icon="&#xe0fa;">Remove</a>';
+                        var description = "Remove assessment " + oObj.aData.AssessmentName + " from active assessments";
+                        return '<a href="' + organizationBaseUri + '/DeactivateAssessment/' + oObj.aData.Key + '" aria-label="' + description + '" class="btn btn-mini btn-info" data-icon="&#xe0fa;">Remove</a>';
                     } else {
                         return '';
                     }

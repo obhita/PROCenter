@@ -1,0 +1,336 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AlcoholLabel" xml:space="preserve">
+    <value>• Alcohol:</value>
+  </data>
+  <data name="AlcoholRecommendationFourOrMoreTimes" xml:space="preserve">
+    <value>Your answers suggest you are a heavy drinker and this is bad for your health.</value>
+  </data>
+  <data name="AlcoholRecommendationOneToThreeTimes" xml:space="preserve">
+    <value>Your answers suggest you drink more than is healthy for you. This is a concern.</value>
+  </data>
+  <data name="AlcoholReported" xml:space="preserve">
+    <value>You reported that you have had more than 4 drinks a day {0}</value>
+  </data>
+  <data name="AndFallAsleepDuringDay" xml:space="preserve">
+    <value>and that you {0} fall asleep during the daytime</value>
+  </data>
+  <data name="AndLittleInterestInDoingThings" xml:space="preserve">
+    <value>and you had little interest or pleasure in doing things for</value>
+  </data>
+  <data name="AndNeverFallAsleepDuringDay" xml:space="preserve">
+    <value>and that you never fall asleep during the daytime</value>
+  </data>
+  <data name="AndYouHaveUseedSmokelessTobacco" xml:space="preserve">
+    <value>and that you have used smokeless tobacco</value>
+  </data>
+  <data name="AnxietyLabel" xml:space="preserve">
+    <value>• Anxiety:</value>
+  </data>
+  <data name="AnxietyRecommendation" xml:space="preserve">
+    <value>Your answers suggest that you are experiencing significant anxiety.</value>
+  </data>
+  <data name="CheckForAccuracy" xml:space="preserve">
+    <value>(please check for accuracy):</value>
+  </data>
+  <data name="Dear" xml:space="preserve">
+    <value>Dear </value>
+  </data>
+  <data name="DepressedOrDown" xml:space="preserve">
+    <value>You reported that you felt down, depressed or hopeless for</value>
+  </data>
+  <data name="DepressionLabel" xml:space="preserve">
+    <value>• Depression:</value>
+  </data>
+  <data name="DepressionRecommendation" xml:space="preserve">
+    <value>Your answers suggest that you may be depressed.</value>
+  </data>
+  <data name="DietFastFoodRecommendationFourOrMoreTimes" xml:space="preserve">
+    <value>Your diet includes more fast food than is healthy for you. This is a concern.</value>
+  </data>
+  <data name="DietFastFoodRecommendationLessThanOneTime" xml:space="preserve">
+    <value>You eat very little fast food. This is great and very good for your health!</value>
+  </data>
+  <data name="DietFruitsVegetablesRecommendationFiveOrMoreTimes" xml:space="preserve">
+    <value>You eat lots of fruits and vegetables. This is great and very good for your health!</value>
+  </data>
+  <data name="DietFruitsVegetablesRecommendationTwoOrLessTimes" xml:space="preserve">
+    <value>You don't eat very many fruits and vegetables.  This is a concern.</value>
+  </data>
+  <data name="DietLabel" xml:space="preserve">
+    <value>• Diet:</value>
+  </data>
+  <data name="DietRecommendationSummary" xml:space="preserve">
+    <value>You diet may be putting you at risk for a number of health problems.</value>
+  </data>
+  <data name="DietReported" xml:space="preserve">
+    <value>You reported that you had {0} fast food meal(s) or snack(s) last week, {1} fruits/vegetables per day, and {2} soda/sugar sweetended drink(s) per day.</value>
+  </data>
+  <data name="DietSodaSugarRecommendationLessThanOne" xml:space="preserve">
+    <value>You don't drink very many sodas or sugary drinks.  This is great and very good for your health!</value>
+  </data>
+  <data name="DietSodaSugarRecommendationThreeOrMore" xml:space="preserve">
+    <value>You drink more sodas and sugary drinks than is good for your health.  This is a concern.</value>
+  </data>
+  <data name="DrugUseLabel" xml:space="preserve">
+    <value>• Drug Use:</value>
+  </data>
+  <data name="DrugUseRecommendationFourOrMoreTimes" xml:space="preserve">
+    <value>You seem to be having problems with drug misuse.  This is a concern.</value>
+  </data>
+  <data name="DrugUseRecommendationOneToThreeTimes" xml:space="preserve">
+    <value>Your answers suggest you may be having problems with drug misuse.</value>
+  </data>
+  <data name="DrugUseReportedNever" xml:space="preserve">
+    <value>You reported that you did not use illegal drugs or prescription medication for non-medical reasons in the past year.</value>
+  </data>
+  <data name="DrugUseReportedOther" xml:space="preserve">
+    <value>You reported that you did use illegal drugs or prescription medication for non-medical reasons in the past year.</value>
+  </data>
+  <data name="Exercise150" xml:space="preserve">
+    <value>It would be helpful to increase your physical activity. Our goal for you is at least 150 total minutes of exercise per week.</value>
+  </data>
+  <data name="Exercise200" xml:space="preserve">
+    <value>That is a good amount.  200 total minutes of exercise per week is considered standard.</value>
+  </data>
+  <data name="ExerciseLabel" xml:space="preserve">
+    <value>• Exercise:</value>
+  </data>
+  <data name="ExerciseSummary" xml:space="preserve">
+    <value>You report getting about {0} minutes of exercise {1} time(s) per week.</value>
+  </data>
+  <data name="FollowUpWithDoctor" xml:space="preserve">
+    <value>Please follow up with your doctor.</value>
+  </data>
+  <data name="GeneralHealthLabel" xml:space="preserve">
+    <value>• General Health:</value>
+  </data>
+  <data name="GeneralHealthReported" xml:space="preserve">
+    <value>You said that in general your health was {0}</value>
+  </data>
+  <data name="Header_RecommendationsForTopics" xml:space="preserve">
+    <value>Recommendations for Topics to Discuss with Your Health Care Provider: </value>
+  </data>
+  <data name="InThePast30Days" xml:space="preserve">
+    <value>in the past 30 days</value>
+  </data>
+  <data name="InThePastWeek" xml:space="preserve">
+    <value>in the past week</value>
+  </data>
+  <data name="Label_HealthCareProviderRecommendations" xml:space="preserve">
+    <value>Your health care provider would like to work with you on improving your health. Please consider the following topics as you have a discusssion about your health issues on your next visit:</value>
+  </data>
+  <data name="NervousOrAnxious" xml:space="preserve">
+    <value>You reported feeling nervous, anxious or on edge for</value>
+  </data>
+  <data name="NoExercise" xml:space="preserve">
+    <value>You report getting no excersise each week</value>
+  </data>
+  <data name="NoStressOrAnxious" xml:space="preserve">
+    <value>You reported that you did not feel nervous, anxious or on edge</value>
+  </data>
+  <data name="NotAbleToStopOrControlWorry" xml:space="preserve">
+    <value>and not being able to stop or control worrying for</value>
+  </data>
+  <data name="NotDepressedOrDown" xml:space="preserve">
+    <value>You reported that you did not feel down, depressed or hopeless.</value>
+  </data>
+  <data name="ObesityWarning" xml:space="preserve">
+    <value>Obesity can lead to a number of health problems such as diabetes, heart disease and high blood pressure.</value>
+  </data>
+  <data name="OrLittleInterestInDoingThings" xml:space="preserve">
+    <value>or had little interest or pleasure in doing things</value>
+  </data>
+  <data name="Past2Weeks" xml:space="preserve">
+    <value>over the past 2 weeks.</value>
+  </data>
+  <data name="PoorHealthFactors" xml:space="preserve">
+    <value>You answered that the most important thing leading to your poor health status is</value>
+  </data>
+  <data name="SleepLabel" xml:space="preserve">
+    <value>• Sleep:</value>
+  </data>
+  <data name="StopOrControlWorry" xml:space="preserve">
+    <value>and where able to stop or control worrying</value>
+  </data>
+  <data name="StressHigh" xml:space="preserve">
+    <value>high</value>
+  </data>
+  <data name="StressLabel" xml:space="preserve">
+    <value>• Stress:</value>
+  </data>
+  <data name="StressLow" xml:space="preserve">
+    <value>low</value>
+  </data>
+  <data name="StressReported" xml:space="preserve">
+    <value>You reported having a {0} amount of stress - a score of {1} on a scale from 0 to 10</value>
+  </data>
+  <data name="StrressModerate" xml:space="preserve">
+    <value>moderate</value>
+  </data>
+  <data name="Summary" xml:space="preserve">
+    <value>Summary</value>
+  </data>
+  <data name="SummaryHeader" xml:space="preserve">
+    <value>Thank you for filling out the questionnaire. Here is a summary of your results and some suggestions for topics to cover with your health care provider.</value>
+  </data>
+  <data name="SummaryResultsFor" xml:space="preserve">
+    <value>Summary Results for </value>
+  </data>
+  <data name="ThisIsAConcern" xml:space="preserve">
+    <value>This is a concern.</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="Times" xml:space="preserve">
+    <value>times</value>
+  </data>
+  <data name="TobaccoLabel" xml:space="preserve">
+    <value>• Tobacco:</value>
+  </data>
+  <data name="WeightHeight" xml:space="preserve">
+    <value>You reported a weight of {0} lbs and a height of {1}</value>
+  </data>
+  <data name="WeightLabel" xml:space="preserve">
+    <value>• Weight:</value>
+  </data>
+  <data name="WeightRecommendationNormal" xml:space="preserve">
+    <value>Congratulations!</value>
+  </data>
+  <data name="WeightRecommendationOverweight" xml:space="preserve">
+    <value>Excess weight can lead to a number of health problems such as diabetes, heart disease and high blood pressure.</value>
+  </data>
+  <data name="YouDoNotSnore" xml:space="preserve">
+    <value>You mentioned that you do not snore</value>
+  </data>
+  <data name="YouDoNotUseTobacco" xml:space="preserve">
+    <value>You reported that you do not use tobacco. Congratulations. That is one of the best things you can do for your health</value>
+  </data>
+  <data name="YouDoSnore" xml:space="preserve">
+    <value>You mentioned that you do snore</value>
+  </data>
+  <data name="YouHaveSmoked" xml:space="preserve">
+    <value>You reported that you have smoked</value>
+  </data>
+  <data name="YouHaveUsedSmokelessTobacco" xml:space="preserve">
+    <value>You reported that you have used smokeless tobacco</value>
+  </data>
+</root>

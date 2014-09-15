@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,41 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
+    using System.Collections.Generic;
+
     using Agatha.Common;
+
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
-    /// <summary>
-    /// Response to <see cref="SaveAssessmentItemRequest"/>.
-    /// </summary>
+    /// <summary>Response to <see cref="SaveAssessmentItemRequest" />.</summary>
     public class SaveAssessmentItemResponse : Response
     {
         #region Public Properties
 
         /// <summary>
-        /// Gets or sets a value indicating whether this instance can submit.
+        ///     Gets or sets a value indicating whether this instance can submit.
         /// </summary>
         /// <value>
-        /// <c>true</c> if this instance can submit; otherwise, <c>false</c>.
+        ///     <c>true</c> if this instance can submit; otherwise, <c>false</c>.
         /// </value>
         public bool CanSubmit { get; set; }
+
+        /// <summary>Gets or sets the percent complete.</summary>
+        /// <value>The percent complete.</value>
+        public double PercentComplete { get; set; }
+
+        /// <summary>Gets or sets the data error information collection.</summary>
+        /// <value>The data error information collection.</value>
+        public IEnumerable<DataErrorInfo> DataErrorInfoCollection { get; set; }
 
         #endregion
     }

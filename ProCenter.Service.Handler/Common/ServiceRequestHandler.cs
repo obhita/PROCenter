@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,31 +25,49 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using Agatha.Common;
-using Agatha.ServiceLayer;
-using NLog;
 
 namespace ProCenter.Service.Handler.Common
 {
+    #region Using Statements
+
+    using System;
+    using Agatha.Common;
+    using Agatha.ServiceLayer;
+    using NLog;
+
+    #endregion
+
+    /// <summary>The service request handler class.</summary>
+    /// <typeparam name="TRequest">The type of the request.</typeparam>
+    /// <typeparam name="TResponse">The type of the response.</typeparam>
     public abstract class ServiceRequestHandler<TRequest, TResponse> : RequestHandler<TRequest, TResponse>
         where TRequest : Request
-        where TResponse : Response, new()
+        where TResponse : Response, new ()
     {
-        private readonly Logger logger = LogManager.GetCurrentClassLogger();
+        #region Fields
 
-        public override Response Handle(TRequest request)
+        private readonly Logger _logger = LogManager.GetCurrentClassLogger ();
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Handles the specified request.</summary>
+        /// <param name="request">The request.</param>
+        /// <returns>A <see cref="Response"/>.</returns>
+        public override Response Handle ( TRequest request )
         {
-            var response = CreateTypedResponse();
+            var response = CreateTypedResponse ();
 
             try
             {
-                Handle(request, response);
+                Handle ( request, response );
             }
-            catch (Exception ex)
+            catch ( Exception ex )
             {
-                logger.Error("\r\n" + ex, GetType().FullName);
+                _logger.Error ( "\r\n" + ex, GetType ().FullName );
 
                 // NOT throw the exception out here which means agatha exception mechanism is ignored
                 // so that the ExceptionInfo in agatha response is always null
@@ -58,6 +77,17 @@ namespace ProCenter.Service.Handler.Common
             return response;
         }
 
-        protected abstract void Handle(TRequest request, TResponse response);
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected abstract void Handle ( TRequest request, TResponse response );
+
+        #endregion
     }
 }

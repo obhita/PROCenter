@@ -1,0 +1,47 @@
+﻿@using ProCenter.Mvc.Infrastructure.BrowserDetection
+@{
+    var sb = new SupportedBrowser();
+    var windows = sb.GetList("Windows");
+    var mac = sb.GetList("Mac");
+    var message = sb.GetMessage ();
+        
+    @Styles.Render( "~/Content/themes/base/css" )
+    @Styles.Render( "~/Content/procenter" )
+}
+
+<style>
+    h2 {color:#fffff0;}
+    h3 {padding: 10px;}
+    h4 { color:white;padding: 10px;}
+    li {color:white;padding-bottom: 10px;}
+    .bodyExtra {padding:15px;overflow-y:auto;}
+</style>
+
+<body class="bodyExtra">
+    <div> 
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <h2>
+                @{
+                    @Html.Raw(message)
+                }
+            </h2>
+            <h3 class="sub-nav">Supported Browsers</h3>
+            <h4>Windows</h4>
+            <ul>
+                @foreach (var li in windows)
+                {
+                    <li>@Html.Raw(li)</li>
+                }
+            </ul>
+            <h4>Mac</h4>
+            <ul>
+                @foreach (var li in mac)
+                {
+                    <li>@Html.Raw(li)</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+</body>

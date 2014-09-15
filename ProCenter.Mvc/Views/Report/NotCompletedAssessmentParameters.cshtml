@@ -1,0 +1,56 @@
+﻿@using System.Collections.Generic
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Report
+@using ProCenter.Service.Message.Assessment
+@using Newtonsoft.Json
+
+@model object
+@{
+    var model = Model as NotCompletedAssessmentParametersDto;
+    var assessmentAttributes = new Dictionary<string, object>
+        {
+            {"placeholder", "Search Assessments"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content ( "~/api/Organization/FinderSearchActive" )},
+            {"data-finder-display", "AssessmentName"},
+            {"id", "assessmentdefinitioncode-finder"}
+        };
+
+    if (!string.IsNullOrEmpty(model.AssessmentDefinitionCode))
+    {
+        assessmentAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new AssessmentDefinitionDto
+        {
+            AssessmentName = model.AssessmentName,
+            AssessmentCode = model.AssessmentDefinitionCode
+        }));
+}
+}
+<div class="parameter-spacing">
+    <input type="hidden" value="@ViewData["ReportName"]" id="ReportName" />
+    <input type="hidden" value="@ViewData["ReportDisplayName"]" id="ReportDisplayName" />
+    <div>
+        @Html.LabelFor(m => model.AssessmentDefinitionCode)
+        @Html.TextBoxFor(m => model.AssessmentDefinitionCode, assessmentAttributes)
+        @Html.HiddenFor(m => model.AssessmentName)
+    </div>
+    @Html.Hidden("ReportTemplateKey", ViewData.ContainsKey("ReportTemplateKey"))
+
+    <div>
+        <label>@ProCenter.Mvc.Views.Report.Report.AgeRange</label>
+        <input class="number" data-val="true" aria-label="@ProCenter.Mvc.Views.Report.Report.LowAgeRange" data-val-number="The field AgeRangeLow must be a number." name="Parameters.AgeRangeLow" id="Parameters.AgeRangeLow" pattern="[-0-9]*" type="text" value="">
+        <span class="parameterSpan">@ProCenter.Mvc.Views.Report.Report.To</span>
+        <input class="number" data-val="true" aria-label="@ProCenter.Mvc.Views.Report.Report.HighAgeRange" data-val-number="The field AgeRangeHigh must be a number." name="Parameters.AgeRangeHigh" id="Parameters.AgeRangeHigh" pattern="[-0-9]*" type="text" value="">
+    </div>
+
+    <div>
+        <label for="Gender">@ProCenter.Mvc.Views.Report.Report.Gender</label>
+        @{
+            var lookupCategory = Html.GetLookupCategory("Gender");
+        }
+        @Html.EditorFor(m => model.Gender, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory })
+    </div>
+
+    @Html.Partial("ReportCommonParametersPartial", model)
+</div>
+

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,30 +25,31 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Event when an item definition is added.
-    /// </summary>
+    /// <summary>Event when an item definition is added.</summary>
     public class ItemDefinitionAddedEvent : CommitEventBase
     {
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ItemDefinitionAddedEvent" /> class.
+        ///     Initializes a new instance of the <see cref="ItemDefinitionAddedEvent" /> class.
         /// </summary>
         /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
         /// <param name="version">The version.</param>
         /// <param name="itemDefinition">The item definition.</param>
-        public ItemDefinitionAddedEvent(Guid assessmentDefinitionKey, int version, ItemDefinition itemDefinition)
+        public ItemDefinitionAddedEvent ( Guid assessmentDefinitionKey, int version, ItemDefinition itemDefinition )
             : base ( assessmentDefinitionKey, version )
         {
             ItemDefinition = itemDefinition;

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,23 +25,56 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
     #region Using Statements
 
-    using Common;
-    using Common.Lookups;
+    using System.ComponentModel.DataAnnotations;
+
+    using ProCenter.Service.Message.Common;
+    using ProCenter.Service.Message.Common.Lookups;
 
     #endregion
 
+    /// <summary>The organization address dto class.</summary>
     public class OrganizationAddressDto : KeyedDataTransferObject
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the address.
+        /// </summary>
+        /// <value>
+        /// The address.
+        /// </value>
         public AddressDto Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is primary].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is primary]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsPrimary { get; set; }
+
+        /// <summary>
+        /// Gets or sets the type of the organization address.
+        /// </summary>
+        /// <value>
+        /// The type of the organization address.
+        /// </value>
+        [Required(ErrorMessage = "Address Type field is required.")]
         public LookupDto OrganizationAddressType { get; set; }
+
+        /// <summary>
+        /// Gets or sets the original hash.
+        /// </summary>
+        /// <value>
+        /// The original hash.
+        /// </value>
         public int OriginalHash { get; set; }
 
         #endregion

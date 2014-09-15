@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,52 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
-    #region
+    #region Using Statements
 
     using System;
 
     #endregion
 
+    /// <summary>The assessment reminder created event class.</summary>
     public class AssessmentReminderCreatedEvent : MessageEventBase
     {
-        public AssessmentReminderCreatedEvent(Guid key,
-                                                     MessageType messageType,
-                                                     Guid organizationKey,
-                                                     Guid patientKey,
-                                                     Guid createdByStaffKey,
-                                                     Guid assessmentDefinitionKey,
-                                                     string title,
-                                                     DateTime start,
-                                                     string description,
-                                                     AssessmentReminderStatus status
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentReminderCreatedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="organizationKey">The organization key.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="createdByStaffKey">The created by staff key.</param>
+        /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
+        /// <param name="title">The title.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <param name="description">The description.</param>
+        /// <param name="status">The status.</param>
+        /// <param name="recurrence">The recurrence.</param>
+        public AssessmentReminderCreatedEvent (
+            Guid key,
+            MessageType messageType,
+            Guid organizationKey,
+            Guid patientKey,
+            Guid createdByStaffKey,
+            Guid assessmentDefinitionKey,
+            string title,
+            DateTime start,
+            DateTime? end,
+            string description,
+            AssessmentReminderStatus status,
+            AssessmentReminderRecurrence recurrence
             )
-            : base(key, messageType)
+            : base ( key, messageType )
         {
             OrganizationKey = organizationKey;
             PatientKey = patientKey;
@@ -54,17 +78,96 @@ namespace ProCenter.Domain.MessageModule.Event
             AssessmentDefinitionKey = assessmentDefinitionKey;
             Title = title;
             Start = start;
+            End = end;
             Description = description;
             Status = status;
+            Recurrence = recurrence;
         }
 
-        public Guid OrganizationKey { get; set; }
-        public Guid PatientKey { get; set; }
-        public Guid CreatedByStaffKey { get; set; }
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The assessment definition key.
+        /// </value>
         public Guid AssessmentDefinitionKey { get; set; }
-        public string Title { get; set; }
-        public DateTime Start { get; set; }
+
+        /// <summary>
+        /// Gets or sets the created by staff key.
+        /// </summary>
+        /// <value>
+        /// The created by staff key.
+        /// </value>
+        public Guid CreatedByStaffKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the description.
+        /// </summary>
+        /// <value>
+        /// The description.
+        /// </value>
         public string Description { get; set; }
+
+        /// <summary>
+        /// Gets or sets the end.
+        /// </summary>
+        /// <value>
+        /// The end.
+        /// </value>
+        public DateTime? End { get; set; }
+
+        /// <summary>
+        /// Gets or sets the organization key.
+        /// </summary>
+        /// <value>
+        /// The organization key.
+        /// </value>
+        public new Guid OrganizationKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
+        public Guid PatientKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the recurrence.
+        /// </summary>
+        /// <value>
+        /// The recurrence.
+        /// </value>
+        public AssessmentReminderRecurrence Recurrence { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start.
+        /// </summary>
+        /// <value>
+        /// The start.
+        /// </value>
+        public DateTime Start { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status.
+        /// </summary>
+        /// <value>
+        /// The status.
+        /// </value>
         public AssessmentReminderStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        public string Title { get; set; }
+
+        #endregion
     }
 }

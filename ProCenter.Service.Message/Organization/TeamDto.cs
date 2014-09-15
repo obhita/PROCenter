@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Organization
 {
     #region Using Statements
 
     using System.Collections.Generic;
-    using Common;
+    using System.ComponentModel.DataAnnotations;
+
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
-    /// <summary>
-    ///     Data transfer object for team.
-    /// </summary>
+    /// <summary>Data transfer object for team.</summary>
     public class TeamDto : KeyedDataTransferObject
     {
         #region Public Properties
@@ -47,6 +50,7 @@ namespace ProCenter.Service.Message.Organization
         /// <value>
         ///     The name.
         /// </value>
+        [Required(ErrorMessage = "The Name field is required.")]
         public string Name { get; set; }
 
         /// <summary>

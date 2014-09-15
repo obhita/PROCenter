@@ -117,6 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="PatientHelpInformation" xml:space="preserve">
+    <value>The NIDA Single Question Screening Tool is implemented to identify the patents with recent substance use. If the answer is Yes (with input number 1 or above), the client is recommended to take Drug Abuse Screening Test. 
+ &lt;br/&gt; &lt;br/&gt;
+For more information please see NIDA Quick Screen, 
+ &lt;br/&gt; &lt;br/&gt;
+http://www.drugabuse.gov/nidamed-medical-health-professionals/tool-resources-your-practice/additional-screening-resources</value>
+  </data>
+  <data name="ReportName" xml:space="preserve">
+    <value>NIDA Single Question Screener</value>
+  </data>
   <data name="_3254097" xml:space="preserve">
     <value>How many times in the past year have you used an illegal drug or used a prescription medication for non-medical reasons?</value>
   </data>

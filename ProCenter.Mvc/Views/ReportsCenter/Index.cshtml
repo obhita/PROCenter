@@ -1,0 +1,208 @@
+﻿@using System
+@using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Portal
+@using ProCenter.Mvc.Views.ReportsCenter
+@using ProCenter.Mvc.Views.Widgets
+
+@{
+    ViewBag.Title = ReportsCenter.ReportCenterTitle;
+}
+
+@section subnav{
+    <div class="sub-nav">
+        <a href="#" id="back-to-reportscenter" style="display: none">
+            <span class="fs1 pull-left btn btn-info" style="margin-top:7px; margin-left: 10px;" aria-hidden="true" data-icon="&#xe126;"></span>
+        </a>
+        <label class="sr-only" for="reports-center-report-filter">Filter</label>
+         <select id="reports-center-report-filter">
+            <option value="MyReports">@ReportsCenter.ShowMyReports</option>    
+            <option value="AllReports">@ReportsCenter.ShowAllReports</option>    
+        </select> 
+
+        <div class="btn-group" data-toggle="buttons" style="float: left; margin-left: 10px;" id="btn-group-savedreportstemplates">
+            <button type="button" class="btn btn-primary" data-toggle="button" id="report-parameters">@Widgets.Parameters</button>
+            <button type="button" class="btn btn-primary" data-toggle="button" id="report-saved">@Widgets.SavedReports</button>
+            <button type="button" class="btn btn-primary" data-toggle="button" id="report-templates">@Widgets.Templates</button>
+        </div>
+        <a href="#" title="" id="report-builder-link" class="btn btn-success">@ReportsCenter.ReportBuilderButtonTitle</a>
+        <label class="sr-only" for="dashboard-filter">Search All</label>
+        <input id="dashboard-filter" type="search" placeholder="@ReportsCenter.Search" aria-label="@ReportsCenter.SearchDescription" class="input-search" />
+    </div>
+}
+<div class="dashboard-wrapper">
+    <div class="reports-center-dashboard">
+        <div class="row-fluid">
+            
+            <div class="widget" id="missedAppointments-widget">
+                <div class="widget-header">
+                    <div class="title">
+                        <span class="fs1" aria-hidden="true" data-icon="&#xe0b0;"></span>
+                        @ReportsCenter.MissedReminder
+                    </div>
+                </div>
+                <div class="widget-body" data-layout-height="*">
+                    <div class="dataTable_wrapper">
+                        <table id="missedAppointmentDataTable">
+                            <thead>
+                                <tr>
+                                    <th style="width: 40%">@ReportsCenter.Patient</th>
+                                    <th style="width: 40%">@ReportsCenter.Assessment</th>
+                                    <th style="width: 10%">@ReportsCenter.Description</th>
+                                    <th style="width: 18%">@ReportsCenter.Date</th>
+                                    <th style="width: 15%"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+
+            <div class="widget" id="recentReports-widget">
+                <div class="widget-header">
+                    <div class="title">
+                        <span class="fs1" aria-hidden="true" data-icon="&#xe048;"></span>
+                        @ReportsCenter.RecentReports
+                    </div>
+                </div>
+                <div class="widget-body">
+                    <div class="dataTable_wrapper">
+                        <table id="recentReportsDataTable">
+                            <thead>
+                                <tr>
+                                    <th class="width-10;">@ReportsCenter.ReportName</th>
+                                    <th class="width-10;">@ReportsCenter.Assessment</th>
+                                    <th class="width-20;">@ReportsCenter.LastRunDate</th>
+                                    <th class="width-10;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget" id="savedReports-widget">
+                <div class="widget-header">
+                    <div class="title">
+                        <span class="fs1" aria-hidden="true" data-icon="&#xe060;"></span>
+                        @ReportsCenter.SavedReports
+                    </div>
+                </div>
+                <div class="widget-body" data-layout-height="*">
+                    <div class="dataTable_wrapper row-fluid column-headers" >
+                        <table id="savedReportsDataTable">
+                            <thead>
+                                <tr>
+                                    <th class="width-10;">@ReportsCenter.SavedReportNameColumn</th>
+                                    <th class="width-10;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widget" id="reportTemplates-widget">
+                <div class="widget-header">
+                    <div class="title">
+                        <span class="fs1" aria-hidden="true" data-icon="&#xe025;"></span>
+                        @ReportsCenter.ReportTemplates
+                    </div>
+                </div>
+                <div class="widget-body" data-layout-height="*">
+                    <div class="dataTable_wrapper">
+                        <table id="reportTemplatesDataTable">
+                            <thead>
+                                <tr>
+                                    <th class="width-10;">@ReportsCenter.ReportTemplateNameColumn</th>
+                                    <th class="width-10;"></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            @if ( Html.CanAccess ( "AssessmentReminder", "Get" ) )
+            {
+                @Html.Partial( "../Widgets/AssessmentReminderPartial" )
+            }
+        </div>
+    </div>
+    <div id="report-builder" data-layout-height="*">
+        @Html.Partial( "../Widgets/ReportBuilder" )
+        <div id="messageModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+            <form id="messageForm">
+                <div class="modal-header">
+                    <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h3>@ReportsCenter.Warning</h3>
+                </div>
+                <div class="modal-body">
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="ajax-loader" style="display: none"></div>
+</div>
+
+@section scripts
+{
+    @Scripts.Render( "~/bundles/assessmentReminder" )
+    @Scripts.Render( "~/bundles/reportsCenter" )
+    <script>
+        $(document).ready(function() {
+            var canViewReminders = '@Html.CanAccess("AssessmentReminder", "Get").ToString().ToLower()';
+            if (canViewReminders) {
+                var canEditReminders = '@Html.CanAccess("AssessmentReminder", "Edit", "POST").ToString().ToLower()';
+                window.procenter.InitializeReminders('@Url.Content( "~/AssessmentReminder" )', '@Url.Content( "~/api/AssessmentReminder" )', canEditReminders, null, null, '@DateTime.Today' );
+            }
+            var reportTemplateUrl = '@Url.Content( "~/api/Report/GetReportTemplatesForDataTable/")';
+            var recentReportsUrl = '@Url.Content( "~/api/Report/GetRecentReportsForDataTable/")';
+            var missedRemindersUrl = '@Url.Content( "~/api/Report/GetMissedRemindersForDataTable/")';
+            var reminderBaseUrl = '@Url.Content( "~/AssessmentReminder" )';
+            var systemAccountKey = '@UserContext.Current.SystemAccountKey';
+            var organizationKey = '@UserContext.Current.OrganizationKey';
+            procenter.reportsCenter.initializeReportCenter('@Url.Content( "~/Report/" )', reportTemplateUrl, recentReportsUrl, missedRemindersUrl, reminderBaseUrl, systemAccountKey, organizationKey, '@ReportsCenter.NoAssessmentWarning', new Array('@ReportsCenter.HeightUnit1', '@ReportsCenter.HeightUnit2'));
+
+            $('.btn').button();
+            $("#content-templates").hide();
+            $("#content-saved-reports").hide();
+            $("#content-parameters").show();
+            $("#report-parameters").addClass("disabled");
+
+            $("#report-parameters").on("click", function () {
+                showReportArea($(this), $("#content-parameters"));
+            });
+            $("#report-saved").on("click", function () {
+                showReportArea($(this), $("#content-saved-reports"));
+            });
+            $("#report-templates").on("click", function () {
+                showReportArea($(this), $("#content-templates"));
+            });
+        });
+       
+        function showReportArea(button, area) {
+            $("#content-parameters").hide();
+            $("#report-parameters-div").hide();
+            $("#content-templates").hide();
+            $("#content-saved-reports").hide();
+            if (button.hasClass("disabled")) {
+                $(button).removeClass("disabled");
+            } else {
+                $("#report-parameters, #report-saved, #report-templates").removeClass("disabled");
+                area.show();
+                $(button).addClass("disabled");
+            }
+        }
+    </script>
+     <noscript>@ReportsCenter.NoScript</noscript>
+}

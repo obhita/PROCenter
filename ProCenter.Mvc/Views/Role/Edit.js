@@ -35,10 +35,32 @@
                 "mData": "Name",
                 "sClass": "FirstColumn",
             },
-            { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
+            {
+                "mData": "Key",
+                "sClass": "LastColumn",
+                "bSortable": false,
+                "bSearchable": false,
+                "fnRender": function(oObj) {
+                    var icon = '&#xe005;';
+                    var text = "Edit";
+                    var description = text + " role " + oObj.aData.Name;
+                    return "<div>" +
+                        "<button type='button' aria-label='" + description + "' class='btn btn-mini btn-info edit-role' id='" + oObj.aData.Key +
+                        "' data-id='" + oObj.aData.Key + "' data-role-name='" + oObj.aData.Name  + 
+                        "' data-icon='" + icon + "'>" +
+                        text + "</button>" +
+                        "</div>";
+                }
+            }
         ],
         "fnDrawCallback": function() {
             updateTableSizes();
+            if (canAccessRoleEdit) {
+                $("button.edit-role").click(function () {
+                    var key = $(this).attr("data-id");
+                    $.get(roleBaseUri + '/Edit/' + key, showRoleEditor);
+                });
+            }
         }
     });
 
@@ -48,6 +70,7 @@
 
         $roleEditor.ajaxForm({
             url: roleBaseUri + '/Edit/' + roleKey,
+            validate: true,
             success: function() {
             }
         });
@@ -135,15 +158,14 @@
         var $widget = $('#role-widget');
         $widget.find('#role-editor').html(innerHtml);
         initializeRoleEditor();
-        $('.dashboard-wrapper').dashboard('expand', $widget[0], showRoleGrid);
+        $('.dashboard-wrapper').dashboard('expand', $widget[0], showRoleGrid, true);
+
+        var $form = $('#role-editor-form');
+        $form.data("validator", null);
+        $form.data("unobtrusiveValidation", null);
+        $.validator.unobtrusive.parse('#role-editor-form');
+
         $widget.find('#role-editor').show();
         $widget.find('.dataTable_wrapper').hide();
     };
-
-    if (canAccessRoleEdit) {
-        $("#roleSearchDataTable tbody").click(function(event) {
-            var key = roleSearchTable.fnGetData(event.target.parentNode).Key;
-            $.get(roleBaseUri + '/Edit/' + key, showRoleEditor);
-        });
-    }
 }

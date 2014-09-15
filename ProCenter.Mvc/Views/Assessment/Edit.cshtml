@@ -1,44 +1,123 @@
-﻿@using ProCenter.Mvc.Infrastructure
+﻿@using System.Linq
+@using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure
 @using ProCenter.Mvc.Infrastructure.Extension
 @using ProCenter.Mvc.Models
+@using ProCenter.Mvc.Views.ReportsCenter
 @using ProCenter.Service.Message.Message
-@model ProCenter.Service.Message.Assessment.SectionDto
+
+@model AssessmentViewModel
 
 @{
-    ViewBag.Title = Html.GetResource(Model);
+    ViewBag.Title = Html.GetResource(SharedStringNames.ResourceKeyPrefix + Model.AssessmentSectionSummaryDto.AssessmentDefinitionCode);
     var messages = (ViewData["Messages"] as IEnumerable<IMessageDto>) ?? Enumerable.Empty<IMessageDto>();
-    var disable = Html.CanAccess("Assessment","Edit","POST") && !Model.IsSubmitted  ? "false" : "true"; 
-
-    var style = !Model.IsSubmitted && Model.IsComplete ? null : "display:none;";
+    var disable = Html.CanAccess("Assessment", "Edit", "POST") && !Model.AssessmentSectionSummaryDto.IsSubmitted ? "false" : "true";
+    var isSubmitDisabled = Model.AssessmentSectionSummaryDto.IsSubmitted || !Model.AssessmentSectionSummaryDto.IsComplete;
+    var patientHelpInformation = Html.GetResource ( "PatientHelpInformation" );
+    bool isPatientPortal = Request.Url.ToString().Contains("Portal") || Request.UrlReferrer.ToString().Contains("Portal");
+    
+    var goBackUrl = "/Patient/Index/" + Model.AssessmentSectionSummaryDto.PatientKey;
+    if (isPatientPortal)
+    {
+        goBackUrl = "/Portal";
+    }
 }
-
 @section subnav{
+    <div id="patientHelpModal" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>@Html.GetResource(SharedStringNames.ResourceKeyPrefix + Model.AssessmentSectionSummaryDto.AssessmentDefinitionCode)</h3>
+        </div>
+        <div class="modal-body">
+            @Html.ConvertHyperlinks(patientHelpInformation)
+        </div>
+    </div>
     <div class="sub-nav">
+        <a href="@goBackUrl">
+            <span class="fs1 pull-left btn btn-info" style="margin-top:10px; margin-left: 10px;" aria-hidden="true" data-icon="&#xe126;"></span>
+        </a>
         <div class="assessment-header row-fluid">
-            <h3 class="title">@Html.GetResource(Model)</h3>
-            @Html.ActionLink( "Submit", "Submit", new {key = Model.AssessmentKey, patientKey = Model.PatientKey}, new { id = "assessmentSubmit",@class = "btn btn-success", style, data_loadElementId = "submit-loader"} )
-            <div class="clear"></div>
+            <h3 class="title">@Html.GetResource(SharedStringNames.ResourceKeyPrefix + Model.AssessmentSectionSummaryDto.AssessmentDefinitionCode)</h3>
+            <div class="percentage-complete" id="headerPercentComplete">@string.Format("{0:N0}%", Model.AssessmentSectionSummaryDto.PercentComplete)<span>&nbsp;Complete</span></div>
+            @if (UserContext.Current.PatientKey != null && !string.IsNullOrWhiteSpace(patientHelpInformation))
+            {
+                <a href="#patientHelpModal" class="patient-help-btn" data-toggle="modal"><i class="info-icon"></i></a>
+            }
+            @Html.ActionLink("Submit",
+                "Submit",
+                new { key = Model.AssessmentSectionSummaryDto.Key, patientKey = Model.AssessmentSectionSummaryDto.PatientKey, assessmentName = Model.AssessmentSectionSummaryDto.AssessmentName },
+                new { id = "assessmentSubmit", @class = "btn btn-success", data_loadElementId = "submit-loader" })
+            <div class="clearfix"></div>
         </div>
     </div>
 }
 
-<div class="assessment-wrapper dashboard-wrapper @Model.AssessmentName container-fluid" data-disabled="@disable">
-    <div class="score-header row-fluid">
-        @Html.Partial( "ScoreHeader", new ScoreHeaderViewModel { Score = Model.Score, Messages = messages} )
-    </div>
-    <div id="contentDiv" class="content row-fluid" data-layout-height="*">
-        <div>
-            <h4 class="instructions">@Html.GetResource(Model, SharedStringNames.Instructions)</h4>
-            <div>
-                @Html.Hidden("AssessmentKey", Model.AssessmentKey)
-                @Html.Hidden("AssessmentName", Model.AssessmentName)
-                @Html.Hidden("PatientKey", Model.PatientKey)
-            </div>
-            @foreach (var item in Html.GetItemsToRender(Model))
+@if (Model.AssessmentSectionSummaryDto.Sections.Any())
+{
+    <div id="assessmentNavigationExpander" class="pull-left">
+        <div class="accordion" id="assessmentNavigation">
+            @{ var sectionClass = "in"; }
+            @foreach ( var sectionDto in Model.AssessmentSectionSummaryDto.Sections )
             {
-                @Html.Partial(item.ItemType, item)
+                var sectionName = Html.GetResource ( sectionDto );
+                var percentComplete = Math.Round ( sectionDto.PercentComplete * 100 );
+                <div class="accordion-group left-menu_@sectionDto.ItemDefinitionCode">
+                    <div class="accordion-heading">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#assessmentNavigation" href="#@sectionDto.ItemDefinitionCode">@sectionName</a>
+                    </div>
+                    <div id="@sectionDto.ItemDefinitionCode" class="accordion-body @sectionClass collapse">
+                        <div class="accordion-inner">
+                            <ul class="list-group">
+                                <li>
+                                    @Html.ActionLink( sectionName, "EditSection", new { key = Model.AssessmentSectionSummaryDto.Key, sectionCode = sectionDto.ItemDefinitionCode }, new { @class = "section-link accordion-toggle " + sectionDto.ItemDefinitionCode, data_loadElementId = "section-loader" } )
+                                    <span class="percent-complete accordion-percentage-indicator">@percentComplete%</span>
+                                </li>
+                                @foreach ( var subSection in sectionDto.SubSections )
+                                {
+                                    var subSectionName = Html.GetResource ( subSection );
+                                    var subPercentComplete = Math.Round ( subSection.PercentComplete * 100 );
+                                    <li>
+                                        @if ( Model.AssessmentSectionSummaryDto.Sections.Count == 1 && sectionDto.ItemDefinitionCode == Model.AssessmentSectionSummaryDto.Sections.First ().ItemDefinitionCode )
+                                        {
+                                            <a class="accordion-toggle" href="#@subSection.ItemDefinitionCode">@subSectionName</a>
+                                        }
+                                        else
+                                        {
+                                            @Html.ActionLink( @subSectionName, "EditSection", new { key = Model.AssessmentSectionSummaryDto.Key, sectionCode = sectionDto.ItemDefinitionCode }, new { @class = "section-link accordion-toggle " + subSection.ItemDefinitionCode, data_loadElementId = "section-loader" } )
+                                        }
+                                        <span class="percent-complete accordion-percentage-indicator">@subPercentComplete%</span>
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                sectionClass = string.Empty;
             }
         </div>
+    </div>
+}
+<div class="assessment-wrapper dashboard-wrapper @Model.AssessmentSectionSummaryDto.AssessmentName container-fluid" data-disabled="@disable">
+    <div class="score-header">
+        @Html.Partial("ScoreHeader", new ScoreHeaderViewModel { Score = Model.AssessmentSectionSummaryDto.Score, Messages = messages })
+    </div>
+    <div id="contentDiv" class="content row-fluid">
+        <form>
+            <div>
+                <div>
+                    @Html.Hidden("AssessmentInstanceKey", Model.AssessmentSectionSummaryDto.Key)
+                    @Html.Hidden("AssessmentName", Model.AssessmentSectionSummaryDto.AssessmentName)
+                    @Html.Hidden("PatientKey", Model.AssessmentSectionSummaryDto.PatientKey)
+                </div>
+                <div id="section-wrapper">
+                    @Html.Partial("Section", Model.CurrentSectionDto)
+                </div>
+                <div id="section-loader">
+                    <span>Loading...</span>
+                </div>
+            </div>
+        </form>
     </div>
     <div id="submit-loader">
         <span>Submitting...</span>
@@ -48,35 +127,85 @@
 @section scripts
 {
     @{
-        var bundle = "~/ClientBusinessRules/" + Model.AssessmentName;
-        if (BundleTable.Bundles.Any(b => b.Path == bundle))
+        var bundle = "~/ClientBusinessRules/" + Model.AssessmentSectionSummaryDto.AssessmentName;
+        if ( BundleTable.Bundles.Any ( b => b.Path == bundle ) )
         {
-            @Scripts.Render("~/ClientBusinessRulesEngine")
-            @Scripts.Render(bundle)
+            @Scripts.Render( "~/ClientBusinessRulesEngine" )
+            @Scripts.Render( bundle )
         }
     }
-   
+
     <script type="text/javascript">
-        $(document).ready(function() {
-            var checkDisabled = function() {
-                $('[data-disabled="true"]').find(":input").prop('disabled', true);
-                $('[data-disabled="false"]').find(":input").prop('disabled', false);
+        $(document).ready(function () {
+            var checkDisabled = function () {
+                $('[data-disabled="true"]').find("select option").attr("disabled", "disabled")
+                $('[data-disabled="true"]').find(":input").prop('readonly', 'readonly');
+                $('[data-disabled="true"]').find(":input").css("cursor", "not-allowed").css("background-color", "#eeeeee;");
+
+                $('[data-disabled="true"]').find('a.btn.nonResponse').css("pointer-events", "none");
+                $('[data-disabled="false"]').find('a.btn.nonResponse').css("pointer-events", "auto");
+                var disabled = $("[data-disabled='true']").length > 0;
+                if (disabled) {
+                    $(".multiselect-container").addClass("disabled");
+                    $(".multiselect-container").removeClass("dropdown-menu");
+                }
             };
+
+            $('#assessmentNavigationExpander').expander({
+                direction: 'right'
+            });
+
+            $('.patient-help-btn').popover({
+                container: 'body',
+                html: true,
+                placement: 'bottom'
+            });
 
             checkDisabled();
             var $assessment = $('.assessment-wrapper');
+
+            $assessment.find('div.yesno-radiobuttons span').on("keypress", function () {
+                if ($(this).prev().attr("readonly") != "undefined" && $(this).prev().attr("readonly") != null && $(this).prev().attr("readonly").length > 0) {
+                    return false;
+                }
+                $(this).prev().trigger("click");
+            });
+            $assessment.find('div.yesno-radiobuttons span').on("click", function (e) {
+                if ($(this).prev().attr("readonly") == "undefined" || $(this).prev().attr("readonly") == null) {
+                    return true;
+                }
+                if ($(this).prev().attr("readonly").length > 0) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+                return true;
+            });
+
+            $assessment.find('div.btn-group input[type="checkbox"]').on("click", function (e) {
+                if ($(this).parent().parent().parent().parent().hasClass("disabled")) {
+                    e.stopImmediatePropagation();
+                    e.preventDefault();
+                    e.stopPropagation();
+                    return false;
+                }
+                return true;
+            });
+
             $assessment.ajaxForm({
-                url: '@Url.Action("Edit", new {key = Model.Key, patientKey = Model.PatientKey})',
+                url: '@Url.Action( "Edit", new { key = Model.AssessmentSectionSummaryDto.Key, patientKey = Model.AssessmentSectionSummaryDto.PatientKey } )',
                 forceValueName: true,
-                success: function(data) {
-                    if (data !== undefined && data.CanSubmit === true) {
-                        $("#assessmentSubmit").fadeIn();
-                    } else {
-                        $("#assessmentSubmit").fadeOut();
+                success: function (data) {
+                    setSubmitButton(!(data !== undefined && data.CanSubmit === true));
+                    var percent = Math.round((100 * data.PercentComplete) * Math.pow(10, 0)) / Math.pow(10, 0);
+                    $("#headerPercentComplete").text(percent + '% Complete');
+                    var sectionItemDefinitionCode = $assessment.find('.section-root').data('itemdefinitioncode');
+                    if (sectionItemDefinitionCode) {
+                        $('#assessmentNavigation .' + sectionItemDefinitionCode + ' + .percent-complete').text(Math.round(data.PercentComplete * 100) + '%');
                     }
                 }
             });
-
             $('#assessmentSubmit').ajaxLink({
                 success: function(data) {
                     $assessment.find('.score-header').html(data);
@@ -84,18 +213,55 @@
                     $(".assessment-wrapper").attr("data-disabled", true);
                     checkDisabled();
                     $assessment.find('.score-header').expander();
+                    $("#mainContent").scrollTop(0);
                 }
             });
-
+            $('#assessmentNavigation .section-link').ajaxLink({
+                success: function(data) {
+                    $assessment.find('#section-wrapper').html(data);
+                    $.rules.Initialize($('#contentDiv'));
+                    checkDisabled();
+                    $('#assessmentNavigationExpander').expander("collapse", true);
+                }
+            });
+            var getTarget = function(e) {
+                e = e || window.event;
+                var target = e.target || e.srcElement;
+                return target;
+            }
+            $('#assessmentNavigation').on('show.bs.collapse', function(e) {
+                var $accordionBody = $(getTarget(e));
+                var sections = $accordionBody.find('.list-group .section-link');
+                if (sections.length === 1) {
+                    $(sections[0]).trigger("click");
+                }
+            });
             $assessment.find('.score-header').expander();
+            $('.heightTotalInches').renderHeight(new Array('@ReportsCenter.HeightUnit1', '@ReportsCenter.HeightUnit2'));
+
+            setSubmitButton('@isSubmitDisabled');
         });
 
         var $inputBox = $('input[name="3254097_Value"]');
-        $inputBox.on("change", function (event) {
+        $inputBox.on("change", function(event) {
             if ($inputBox.val() < 0) {
                 $inputBox.val(null);
             }
         });
+
+        function setSubmitButton(disabled) {
+            if ('@disable' == 'true') {
+                $('#assessmentSubmit').css("display", "none");
+            } else {
+                if (disabled.toString().toLowerCase() == 'false') {
+                    $('#assessmentSubmit').removeAttr('disabled');
+                    $('#assessmentSubmit').css("pointer-events", "");
+                } else {
+                    $('#assessmentSubmit').attr('disabled', 'disabled');
+                    $('#assessmentSubmit').css("pointer-events", "none");
+                }
+            }
+        }
 
     </script>
     <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Report
 {
-    #region
+    #region Using Statements
 
     using Common;
     using Domain.AssessmentModule;
@@ -36,13 +39,23 @@ namespace ProCenter.Service.Handler.Report
 
     #endregion
 
-    public class GetReportByAssessmentKeyRequestHandler : ServiceRequestHandler<GetReportRequest, GetReportResonse>
+    /// <summary>The get report by assessment key request handler class.</summary>
+    public class GetReportByAssessmentKeyRequestHandler : ServiceRequestHandler<GetReportRequest, GetReportResponse>
     {
-        protected override void Handle(GetReportRequest request, GetReportResonse response)
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( GetReportRequest request, GetReportResponse response )
         {
-            var reportEngine = IoC.CurrentContainer.Resolve<IReportEngine>(request.ReportName);
-            var report = reportEngine.Generate(request.SourceKey, request.ReportName);
+            var reportEngine = IoC.CurrentContainer.Resolve<IReportEngine> ( request.ReportName );
+            var report = reportEngine.Generate ( request.SourceKey, request.ReportName );
             response.Report = report;
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,18 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
     using Pillar.Domain.Primitives;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
@@ -50,8 +55,8 @@ namespace ProCenter.Domain.SecurityModule.Event
         /// <param name="organizationKey">The organization key.</param>
         /// <param name="identifier">The identifier.</param>
         /// <param name="email">The email.</param>
-        public SystemAccountCreatedEvent(Guid key, int version, Guid organizationKey, string identifier, Email email)
-            : base(key, version)
+        public SystemAccountCreatedEvent ( Guid key, int version, Guid organizationKey, string identifier, Email email )
+            : base ( key, version )
         {
             OrganizationKey = organizationKey;
             Identifier = identifier;
@@ -84,7 +89,7 @@ namespace ProCenter.Domain.SecurityModule.Event
         /// <value>
         ///     The organization key.
         /// </value>
-        public Guid OrganizationKey { get; private set; }
+        public new Guid OrganizationKey { get; private set; }
 
         #endregion
     }

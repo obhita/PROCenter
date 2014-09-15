@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,25 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
+    #region Using Statements
+
     using System;
+
     using Pillar.Domain.Primitives;
+
+    #endregion
 
     internal interface ISystemAccountFactory
     {
-        SystemAccount Create(Guid organizationKey, string identifier, Email email);
+        #region Public Methods and Operators
+
+        SystemAccount Create ( Guid organizationKey, string identifier, Email email );
+
+        #endregion
     }
 }

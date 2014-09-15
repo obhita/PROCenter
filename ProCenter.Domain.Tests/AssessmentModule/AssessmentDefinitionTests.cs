@@ -62,7 +62,7 @@ namespace ProCenter.Domain.Tests.AssessmentModule
 
                 // Exercise
                 const string testCode = "testCode";
-                var source = new AssessmentDefinition ( new CodedConcept ( CodeSystems.Nci, testCode, "Test" ) );
+                var source = new AssessmentDefinition(new CodedConcept(CodeSystems.Nci, testCode, "Test"), ScoreTypeEnum.ScoreTypeInt);
 
                 // Verify
                 Assert.AreEqual ( 1, events.Count );
@@ -87,7 +87,7 @@ namespace ProCenter.Domain.Tests.AssessmentModule
 
                 // Exercise
                 const string testCode = "testCode";
-                var source = new AssessmentDefinition ( new CodedConcept ( CodeSystems.Nci, testCode, "Test" ) );
+                var source = new AssessmentDefinition(new CodedConcept(CodeSystems.Nci, testCode, "Test"), ScoreTypeEnum.ScoreTypeInt);
                 source.AddItemDefinition ( new ItemDefinition ( new CodedConcept ( CodeSystems.Nci, testCode, "Test" ), ItemType.Question, new Lookup (new CodedConcept ( CodeSystems.Nci, testCode, "Test")) ) );
 
                 // Verify

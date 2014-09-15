@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,44 +25,56 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using Common;
-    using Pillar.Common.Metadata;
-    using Pillar.Common.Metadata.Dtos;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
+    /// <summary>The section dto class.</summary>
     public class SectionDto : KeyedDataTransferObject, IAssessmentDto, IContainItems
     {
-        public IList<ItemDto> Items { get; set; }
+        #region Constructors and Destructors
 
+        /// <summary>Initializes a new instance of the <see cref="SectionDto" /> class.</summary>
+        public SectionDto ()
+        {
+            Items = new List<ItemDto> ();
+        }
+
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>Gets or sets the name of the assessment.</summary>
+        /// <value>The name of the assessment.</value>
         public string AssessmentName { get; set; }
 
-        public Guid AssessmentKey { get; set; }
+        /// <summary>
+        ///     Gets or sets the items.
+        /// </summary>
+        /// <value>
+        ///     The items.
+        /// </value>
+        public IList<ItemDto> Items { get; set; }
 
-        public Guid AssessmentDefinitionKey { get; set; }
+        /// <summary>Gets or sets the metadata.</summary>
+        /// <value>The metadata.</value>
+        public ItemMetadata Metadata { get; set; }
 
-        public string AssessmentDefinitionCode { get; set; }
+        /// <summary>Gets or sets the item definition code.</summary>
+        /// <value>The item definition code.</value>
+        public string ItemDefinitionCode { get; set; }
 
-        public Guid PatientKey { get; set; }
-
-        public ScoreDto Score { get; set; }
-
-        public bool IsSubmitted { get; set; }
-
-        public bool IsComplete { get; set; }
-
-        public double PercentComplete { get; set; }
-    }
-
-    public interface IAssessmentDto
-    {
+        #endregion
     }
 }

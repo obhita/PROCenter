@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule.Event
 {
-    using System;
-    using CommonModule;
+    #region Using Statements
 
+    using System;
+
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The organizaion primary phone changed event class.</summary>
     public class OrganizaionPrimaryPhoneChangedEvent : CommitEventBase
     {
         #region Constructors and Destructors
 
-        public OrganizaionPrimaryPhoneChangedEvent(Guid key, int version, int phoneHashCode)
-            : base(key, version)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OrganizaionPrimaryPhoneChangedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="version">The version.</param>
+        /// <param name="phoneHashCode">The phone hash code.</param>
+        public OrganizaionPrimaryPhoneChangedEvent ( Guid key, int version, int phoneHashCode )
+            : base ( key, version )
         {
             PhoneHashCode = phoneHashCode;
         }
@@ -44,6 +59,12 @@ namespace ProCenter.Domain.OrganizationModule.Event
 
         #region Public Properties
 
+        /// <summary>
+        /// Gets the phone hash code.
+        /// </summary>
+        /// <value>
+        /// The phone hash code.
+        /// </value>
         public int PhoneHashCode { get; private set; }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,40 +25,74 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Mvc.Infrastructure.Security
 {
+    #region Using Statements
+
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using System.Linq;
     using Pillar.Security.AccessControl;
     using ProCenter.Infrastructure.Security;
 
+    #endregion
+
+    /// <summary>The pro center access control manager class.</summary>
     public class ProCenterAccessControlManager : AccessControlManager, IProvidePermissions, IAccessControlManager
     {
-        private readonly List<Permission> _permissions = new List<Permission> (); 
+        #region Fields
 
+        private readonly List<Permission> _permissions = new List<Permission> ();
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ProCenterAccessControlManager"/> class.
+        /// </summary>
+        /// <param name="currentUserPermissionService">The current user permission service.</param>
         public ProCenterAccessControlManager ( ICurrentUserPermissionService currentUserPermissionService )
             : base ( currentUserPermissionService )
         {
         }
 
-        public IReadOnlyCollection<Permission> Permissions { get { return new ReadOnlyCollection<Permission> (_permissions);} }
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
+        public IReadOnlyCollection<Permission> Permissions
+        {
+            get { return new ReadOnlyCollection<Permission> ( _permissions ); }
+        }
+
+        #endregion
+
+        #region Explicit Interface Methods
 
         void IAccessControlManager.RegisterPermissionDescriptor ( params IPermissionDescriptor[] permissionDescriptors )
         {
             var publicPermissionDescritpors = permissionDescriptors.OfType<IInternalPermissionDescriptor> ().Where ( pd => !pd.IsInternal );
-            _permissions.AddRange(publicPermissionDescritpors.SelectMany(pd => pd.Resources.Select(r => r.Permission)).Distinct());
-            foreach (var resource in publicPermissionDescritpors.SelectMany(permissionDescriptor => (List<Resource>)permissionDescriptor.Resources))
+            _permissions.AddRange ( publicPermissionDescritpors.SelectMany ( pd => pd.Resources.Select ( r => r.Permission ) ).Distinct () );
+            foreach ( var resource in publicPermissionDescritpors.SelectMany ( permissionDescriptor => (List<Resource>) permissionDescriptor.Resources ) )
             {
                 GetAllPermissionHelper ( resource );
             }
-            base.RegisterPermissionDescriptor ( permissionDescriptors );
+            RegisterPermissionDescriptor ( permissionDescriptors );
         }
+
+        #endregion
+
+        #region Methods
 
         private void GetAllPermissionHelper ( Resource resource )
         {
@@ -73,5 +108,7 @@ namespace ProCenter.Mvc.Infrastructure.Security
                 }
             }
         }
+
+        #endregion
     }
 }

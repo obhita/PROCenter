@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,44 +25,74 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service.Completeness
 {
-    #region
+    #region Using Statements
 
     using System.Collections.Generic;
+
     using Pillar.Common.InversionOfControl;
     using Pillar.FluentRuleEngine;
+
     using ProCenter.Domain.AssessmentModule;
 
     #endregion
 
+    /// <summary>The completeness rule collection factory class.</summary>
     public class CompletenessRuleCollectionFactory : ICompletenessRuleCollectionFactory
     {
-        private readonly IRuleCollectionFactory _ruleCollectionFactory;
+        #region Fields
+
         private readonly IContainer _container;
 
-        public CompletenessRuleCollectionFactory(IRuleCollectionFactory ruleCollectionFactory, IContainer container)
+        private readonly IRuleCollectionFactory _ruleCollectionFactory;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CompletenessRuleCollectionFactory"/> class.
+        /// </summary>
+        /// <param name="ruleCollectionFactory">The rule collection factory.</param>
+        /// <param name="container">The container.</param>
+        public CompletenessRuleCollectionFactory ( IRuleCollectionFactory ruleCollectionFactory, IContainer container )
         {
             _ruleCollectionFactory = ruleCollectionFactory;
             _container = container;
         }
 
-        public ICompletenessRuleCollection<TEntity> GetCompletenessRuleCollection<TEntity>(string completenessCategory)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Gets the completeness rule collection.</summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="completenessCategory">The completeness category.</param>
+        /// <returns>A <see cref="ICompletenessRuleCollection{TEntity}"/>.</returns>
+        public ICompletenessRuleCollection<TEntity> GetCompletenessRuleCollection<TEntity> ( string completenessCategory )
         {
-            var completenessRuleCollection = (ICompletenessRuleCollection<TEntity>) _container.TryResolve(typeof (ICompletenessRuleCollection<TEntity>), completenessCategory);
-            _ruleCollectionFactory.CustomizeRuleCollection(completenessRuleCollection);
+            var completenessRuleCollection = (ICompletenessRuleCollection<TEntity>)_container.TryResolve ( typeof(ICompletenessRuleCollection<TEntity>), completenessCategory );
+            _ruleCollectionFactory.CustomizeRuleCollection ( completenessRuleCollection );
             return completenessRuleCollection;
         }
 
-        public IEnumerable<ICompletenessRuleCollection<TEntity>> GetCompletenessRuleCollections<TEntity>()
+        /// <summary>Gets the completeness rule collections.</summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <returns>A collection of <see cref="ICompletenessRuleCollection{TEntity}"/>.</returns>
+        public IEnumerable<ICompletenessRuleCollection<TEntity>> GetCompletenessRuleCollections<TEntity> ()
         {
-            var completenessRuleCollections = _container.ResolveAll<ICompletenessRuleCollection<TEntity>>();
-            foreach (var completenessRuleCollection in completenessRuleCollections)
+            var completenessRuleCollections = _container.ResolveAll<ICompletenessRuleCollection<TEntity>> ();
+            foreach ( var completenessRuleCollection in completenessRuleCollections )
             {
-                _ruleCollectionFactory.CustomizeRuleCollection(completenessRuleCollection);
+                _ruleCollectionFactory.CustomizeRuleCollection ( completenessRuleCollection );
                 yield return completenessRuleCollection;
             }
         }
+
+        #endregion
     }
 }

@@ -1,3 +1,17 @@
-﻿@model ProCenter.Mvc.Models.MultipleSelect
-@Html.ListBoxFor(m=>m.SelectedKeys, Model.Items)
-       
+﻿@using System.Collections.Generic
+@using System.Linq
+@using ProCenter.Service.Message.Common.Lookups
+
+@model IEnumerable<LookupDto>
+@{
+    var className = "multiselect";
+    var selectedItems = Model == null ? null : Model.Select ( c => c.Code );
+    if (Html.ViewData.ModelMetadata.IsRequired)
+    {
+        className += " required";
+    }
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+
+@Html.ListBoxFor(m => m, new MultiSelectList(ViewData["LookupItems"] as IEnumerable<LookupDto>, "Code", "Name", selectedItems), new { @class = className, multiple = "multiple", id = ViewData.ModelMetadata.PropertyName, data_is_lookup = true, data_role = "multiselect", aria_label=@ariaLabel })
+@Html.ValidationMessageFor( m => selectedItems )

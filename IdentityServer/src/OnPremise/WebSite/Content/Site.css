@@ -1,4 +1,4 @@
-﻿body {
+body {
   font-family: Calibri, Verdana, Tahoma, Arial, "Helvetica Neue", Helvetica, Sans-Serif;
   color: #232323;
   background-color: #fff;
@@ -181,4 +181,9 @@ ul.hrd li button {
 }
 .scopes label {
   cursor: pointer;
+}
+.forgot-password a {
+  width: 375px;
+  text-align: right;
+  display: inline-block;
 }

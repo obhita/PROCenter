@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
-    using Common;
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
-    /// <summary>
-    /// Request to get the section dto.
-    /// </summary>
+    /// <summary>Request to get the section dto.</summary>
     public class GetSectionDtoByKeyRequest : GetDtoByKeyRequest<SectionDto>
     {
+        /// <summary>Gets or sets the section item definition code.</summary>
+        /// <value>The section item definition code.</value>
+        public string SectionItemDefinitionCode { get; set; }
     }
 }

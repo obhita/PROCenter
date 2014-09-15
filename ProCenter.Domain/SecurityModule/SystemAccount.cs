@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using CommonModule;
-    using Event;
-    using Pillar.Common.InversionOfControl;
+
     using Pillar.Common.Utility;
     using Pillar.Domain.Primitives;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.SecurityModule.Event;
 
     #endregion
 
@@ -44,7 +48,11 @@ namespace ProCenter.Domain.SecurityModule
     /// </summary>
     public class SystemAccount : AggregateRootBase
     {
-        private readonly List<Guid> _roleKeys = new List<Guid>();
+        #region Fields
+
+        private readonly List<Guid> _roleKeys = new List<Guid> ();
+
+        #endregion
 
         #region Constructors and Destructors
 
@@ -54,37 +62,24 @@ namespace ProCenter.Domain.SecurityModule
         /// <param name="organizationKey">The organization key.</param>
         /// <param name="identifier">The identifier.</param>
         /// <param name="email">The email.</param>
-        public SystemAccount(Guid organizationKey, string identifier, Email email)
+        public SystemAccount ( Guid organizationKey, string identifier, Email email )
         {
-            Check.IsNotNullOrWhitespace(identifier, () => Identifier);
+            Check.IsNotNullOrWhitespace ( identifier, () => Identifier );
 
-            Key = CombGuid.NewCombGuid();
-            RaiseEvent(new SystemAccountCreatedEvent(Key, Version, organizationKey, identifier, email));
+            Key = CombGuid.NewCombGuid ();
+            RaiseEvent ( new SystemAccountCreatedEvent ( Key, Version, organizationKey, identifier, email ) );
         }
 
-        public SystemAccount()
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemAccount"/> class.
+        /// </summary>
+        public SystemAccount ()
         {
         }
 
         #endregion
 
         #region Public Properties
-
-        /// <summary>
-        ///     Gets the identifier.
-        /// </summary>
-        /// <value>
-        ///     The identifier.
-        /// </value>
-        public string Identifier { get; private set; }
-
-        /// <summary>
-        ///     Gets the organization key.
-        /// </summary>
-        /// <value>
-        ///     The organization key.
-        /// </value>
-        public Guid OrganizationKey { get; private set; }
 
         /// <summary>
         ///     Gets the email.
@@ -95,12 +90,44 @@ namespace ProCenter.Domain.SecurityModule
         public Email Email { get; private set; }
 
         /// <summary>
-        ///     Gets the staff key.
+        ///     Gets the identifier.
         /// </summary>
         /// <value>
-        ///     The staff key.
+        ///     The identifier.
         /// </value>
-        public Guid? StaffKey { get; private set; }
+        public string Identifier { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether this instance is locked.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is locked; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsLocked { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether this instance is temp locked.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if this instance is temp locked; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsTempLocked { get; private set; }
+
+        /// <summary>
+        ///     Gets the last login time.
+        /// </summary>
+        /// <value>
+        ///     The last login time.
+        /// </value>
+        public DateTime? LastLoginTime { get; private set; }
+
+        /// <summary>
+        ///     Gets the organization key.
+        /// </summary>
+        /// <value>
+        ///     The organization key.
+        /// </value>
+        public Guid OrganizationKey { get; private set; }
 
         /// <summary>
         ///     Gets the patient key.
@@ -122,88 +149,43 @@ namespace ProCenter.Domain.SecurityModule
         }
 
         /// <summary>
-        /// Gets the last login time.
+        ///     Gets the staff key.
         /// </summary>
         /// <value>
-        /// The last login time.
+        ///     The staff key.
         /// </value>
-        public DateTime? LastLoginTime { get; private set; }
+        public Guid? StaffKey { get; private set; }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="SystemAccount" /> is validated.
+        ///     Gets the temp locked time.
         /// </summary>
         /// <value>
-        ///   <c>true</c> if validated; otherwise, <c>false</c>.
+        ///     The temp locked time.
+        /// </value>
+        public DateTime? TempLockedTime { get; private set; }
+
+        /// <summary>
+        ///     Gets a value indicating whether this <see cref="SystemAccount" /> is validated.
+        /// </summary>
+        /// <value>
+        ///     <c>true</c> if validated; otherwise, <c>false</c>.
         /// </value>
         public bool Validated { get; private set; }
 
-        /// <summary>
-        /// Gets a value indicating whether this instance is locked.
-        /// </summary>
-        /// <value>
-        ///   <c>true</c> if this instance is locked; otherwise, <c>false</c>.
-        /// </value>
-        public bool IsLocked { get; private set; }
-
-        /// <summary>
-        /// Gets the locked time.
-        /// </summary>
-        /// <value>
-        /// The locked time.
-        /// </value>
-        public DateTime? LockedTime { get; private set; }
-
         #endregion
 
-        public void LogIn ()
+        #region Public Methods and Operators
+
+        /// <summary>Adds the role.</summary>
+        /// <param name="roleKey">The role key.</param>
+        public void AddRole ( Guid roleKey )
         {
-            RaiseEvent ( new SystemAccountLoggedInEvent ( Key, Version, DateTime.Now ) );
+            RaiseEvent ( new SystemAccountRoleAddedEvent ( Key, Version, roleKey ) );
         }
 
-        public void Validate ()
-        {
-            RaiseEvent( new SystemAccountValidatedEvent(Key, Version, true));
-        }
-
-        public void Lock ()
-        {
-            if ( !IsLocked )
-            {
-                RaiseEvent ( new SystemAccountLockedEvent ( Key, Version, DateTime.Now ) );
-            }
-        }
-
-        public void UnLock ()
-        {
-            if ( IsLocked )
-            {
-                RaiseEvent ( new SystemAccountUnLockedEvent ( Key, Version ) );
-            }
-        }
-
-        public void AddRole(Guid roleKey)
-        {
-            RaiseEvent(new SystemAccountRoleAddedEvent(Key, Version, roleKey));
-        }
-
-        public void RemoveRole(Guid roleKey)
-        {
-            RaiseEvent(new SystemAccountRoleRemovedEvent(Key, Version, roleKey));
-        }
-
-        public void AssignToStaff(Guid staffKey)
-        {
-            if ( PatientKey == null )
-            {
-                RaiseEvent ( new AssignedStaffToSystemAccountEvent ( Key, Version, staffKey ) );
-            }
-            else
-            {
-                //todo: raise domain error event
-            }
-        }
-
-        public void AssignToPatient(Guid patientKey)
+        /// <summary>Assigns to patient.</summary>
+        /// <param name="patientKey">The patient key.</param>
+        public void AssignToPatient ( Guid patientKey )
         {
             if ( StaffKey == null )
             {
@@ -215,18 +197,103 @@ namespace ProCenter.Domain.SecurityModule
             }
         }
 
+        /// <summary>Assigns to staff.</summary>
+        /// <param name="staffKey">The staff key.</param>
+        public void AssignToStaff ( Guid staffKey )
+        {
+            if ( PatientKey == null )
+            {
+                RaiseEvent ( new AssignedStaffToSystemAccountEvent ( Key, Version, staffKey ) );
+            }
+            else
+            {
+                //todo: raise domain error event
+            }
+        }
+
+        /// <summary>Locks this instance.</summary>
+        public void Lock ()
+        {
+            if ( !IsLocked )
+            {
+                RaiseEvent ( new SystemAccountLockedEvent ( Key, Version, DateTime.Now ) );
+            }
+        }
+
+        /// <summary>Logs the in.</summary>
+        public void LogIn ()
+        {
+            RaiseEvent ( new SystemAccountLoggedInEvent ( Key, Version, DateTime.Now ) );
+        }
+
+        /// <summary>Removes the role.</summary>
+        /// <param name="roleKey">The role key.</param>
+        public void RemoveRole ( Guid roleKey )
+        {
+            RaiseEvent ( new SystemAccountRoleRemovedEvent ( Key, Version, roleKey ) );
+        }
+
+        /// <summary>Temporaries the lock.</summary>
+        public void TemporaryLock ()
+        {
+            if ( !IsTempLocked && !IsLocked )
+            {
+                RaiseEvent ( new SystemAccountLockedEvent ( Key, Version, DateTime.Now, true ) );
+            }
+        }
+
+        /// <summary>Temporaries the un lock.</summary>
+        public void TemporaryUnLock ()
+        {
+            if ( IsTempLocked )
+            {
+                RaiseEvent ( new SystemAccountUnLockedEvent ( Key, Version, true ) );
+            }
+        }
+
+        /// <summary>Uns the lock.</summary>
+        public void UnLock ()
+        {
+            if ( IsLocked )
+            {
+                RaiseEvent ( new SystemAccountUnLockedEvent ( Key, Version ) );
+            }
+        }
+
+        /// <summary>Validates this instance.</summary>
+        public void Validate ()
+        {
+            RaiseEvent ( new SystemAccountValidatedEvent ( Key, Version, true ) );
+        }
+
+        #endregion
+
         #region Methods
 
         private void Apply ( SystemAccountLockedEvent systemAccountLockedEvent )
         {
-            IsLocked = true;
-            LockedTime = systemAccountLockedEvent.Time;
+            if ( systemAccountLockedEvent.IsTemporary )
+            {
+                IsTempLocked = true;
+                TempLockedTime = systemAccountLockedEvent.Time;
+            }
+            else
+            {
+                IsLocked = true;
+            }
         }
 
-        private void Apply(SystemAccountUnLockedEvent systemAccountUnLockedEvent)
+        private void Apply ( SystemAccountUnLockedEvent systemAccountUnLockedEvent )
         {
-            IsLocked = false;
-            LockedTime = null;
+            if ( systemAccountUnLockedEvent.IsTemporary )
+            {
+                IsTempLocked = false;
+                TempLockedTime = null;
+            }
+            else
+            {
+                IsLocked = false;
+            }
         }
 
         private void Apply ( SystemAccountValidatedEvent systemAccountValidatedEvent )
@@ -239,27 +306,27 @@ namespace ProCenter.Domain.SecurityModule
             LastLoginTime = systemAccountLoggedInEvent.Time;
         }
 
-        private void Apply(AssignedStaffToSystemAccountEvent assignedStaffToSystemAccountEvent)
+        private void Apply ( AssignedStaffToSystemAccountEvent assignedStaffToSystemAccountEvent )
         {
             StaffKey = assignedStaffToSystemAccountEvent.StaffKey;
         }
 
-        private void Apply(AssignedPatientToSystemAccountEvent assignedPatientToSystemAccountEvent)
+        private void Apply ( AssignedPatientToSystemAccountEvent assignedPatientToSystemAccountEvent )
         {
             PatientKey = assignedPatientToSystemAccountEvent.PatientKey;
         }
 
-        private void Apply(SystemAccountRoleAddedEvent systemAccountRoleAddedEvent)
+        private void Apply ( SystemAccountRoleAddedEvent systemAccountRoleAddedEvent )
         {
-            _roleKeys.Add(systemAccountRoleAddedEvent.RoleKey);
+            _roleKeys.Add ( systemAccountRoleAddedEvent.RoleKey );
         }
 
-        private void Apply(SystemAccountRoleRemovedEvent systemAccountRoleRemovedEvent)
+        private void Apply ( SystemAccountRoleRemovedEvent systemAccountRoleRemovedEvent )
         {
-            _roleKeys.Remove(systemAccountRoleRemovedEvent.RoleKey);
+            _roleKeys.Remove ( systemAccountRoleRemovedEvent.RoleKey );
         }
 
-        private void Apply(SystemAccountCreatedEvent systemAccountCreatedEvent)
+        private void Apply ( SystemAccountCreatedEvent systemAccountCreatedEvent )
         {
             OrganizationKey = systemAccountCreatedEvent.OrganizationKey;
             Identifier = systemAccountCreatedEvent.Identifier;

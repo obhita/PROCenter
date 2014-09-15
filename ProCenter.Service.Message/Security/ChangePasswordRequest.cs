@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using System;
+
     using Agatha.Common;
 
-    public class ChangePasswordRequest: Request
+    #endregion
+
+    /// <summary>The change password request class.</summary>
+    public class ChangePasswordRequest : Request
     {
-        public Guid SystemAccountKey { get; set; }
+        #region Public Properties
 
-        public string OldPassword { get; set; }
-
+        /// <summary>
+        /// Gets or sets the new password.
+        /// </summary>
+        /// <value>
+        /// The new password.
+        /// </value>
         public string NewPassword { get; set; }
 
-        public string BaseBaseIdentityServerUri { get; set; }
+        /// <summary>
+        /// Gets or sets the old password.
+        /// </summary>
+        /// <value>
+        /// The old password.
+        /// </value>
+        public string OldPassword { get; set; }
 
-        public string Token { get; set; }
+        /// <summary>
+        /// Gets or sets the system account key.
+        /// </summary>
+        /// <value>
+        /// The system account key.
+        /// </value>
+        public Guid SystemAccountKey { get; set; }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,31 +25,78 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Models
 {
-    #region
+    #region Using Statements
 
+    using System;
     using System.Runtime.Serialization;
 
     #endregion
 
+    /// <summary>The calendar event model class.</summary>
     [DataContract]
     public class CalendarEventModel
     {
-        [DataMember(Name = "id")]
-        public string Key { get; set; }
+        #region Public Properties
 
-        [DataMember(Name = "title")]
-        public string Title { get; set; }
-
-        [DataMember(Name = "allDay")]
+        /// <summary>
+        /// Gets or sets a value indicating whether [all day].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [all day]; otherwise, <c>false</c>.
+        /// </value>
+        [DataMember ( Name = "allDay" )]
         public bool AllDay { get; set; }
 
-        [DataMember(Name = "start")]
+        /// <summary>
+        /// Gets or sets the end.
+        /// </summary>
+        /// <value>
+        /// The end.
+        /// </value>
+        [DataMember ( Name = "end" )]
+        public double End { get; set; }
+
+        /// <summary>
+        /// Gets or sets the key.
+        /// </summary>
+        /// <value>
+        /// The key.
+        /// </value>
+        [DataMember ( Name = "id" )]
+        public string Key { get; set; }
+
+        /// <summary>
+        /// Gets or sets the start.
+        /// </summary>
+        /// <value>
+        /// The start.
+        /// </value>
+        [DataMember ( Name = "start" )]
         public double Start { get; set; }
 
-        [DataMember(Name = "end")]
-        public double End { get; set; }
+        /// <summary>
+        /// Gets or sets the title.
+        /// </summary>
+        /// <value>
+        /// The title.
+        /// </value>
+        [DataMember ( Name = "title" )]
+        public string Title { get; set; }
+
+        /// <summary>
+        /// Gets or sets the recurrence key.
+        /// </summary>
+        /// <value>
+        /// The recurrence key.
+        /// </value>
+        [DataMember(Name = "recurrenceKey")]
+        public string RecurrenceKey { get; set; }
+
+        #endregion
     }
 }

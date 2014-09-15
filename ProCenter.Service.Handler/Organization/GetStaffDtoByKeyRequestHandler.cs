@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,63 +25,95 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
+    #region Using Statements
+
     using System;
     using System.Linq;
     using Common;
     using Dapper;
     using Domain.OrganizationModule;
     using Domain.SecurityModule;
-    using Infrastructure.Service.ReadSideService;
+    using global::AutoMapper;
+    using ProCenter.Common;
     using Service.Message.Organization;
     using Service.Message.Security;
-    using global::AutoMapper;
 
-    public class GetStaffDtoByKeyRequestHandler:ServiceRequestHandler<GetStaffDtoByKeyRequest,GetStaffDtoResponse>
+    #endregion
+
+    /// <summary>The get staff dto by key request handler class.</summary>
+    public class GetStaffDtoByKeyRequestHandler : ServiceRequestHandler<GetStaffDtoByKeyRequest, GetStaffDtoResponse>
     {
+        #region Fields
+
+        private readonly IDbConnectionFactory _dbConnectionFactory;
         private readonly IStaffRepository _staffRepository;
         private readonly ISystemAccountRepository _systemAccountRepository;
-        private readonly IDbConnectionFactory _dbConnectionFactory;
 
-        public GetStaffDtoByKeyRequestHandler(IStaffRepository staffRepository, ISystemAccountRepository systemAccountRepository, IDbConnectionFactory dbConnectionFactory)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetStaffDtoByKeyRequestHandler"/> class.
+        /// </summary>
+        /// <param name="staffRepository">The staff repository.</param>
+        /// <param name="systemAccountRepository">The system account repository.</param>
+        /// <param name="dbConnectionFactory">The database connection factory.</param>
+        public GetStaffDtoByKeyRequestHandler ( IStaffRepository staffRepository, ISystemAccountRepository systemAccountRepository, IDbConnectionFactory dbConnectionFactory )
         {
             _staffRepository = staffRepository;
             _systemAccountRepository = systemAccountRepository;
             _dbConnectionFactory = dbConnectionFactory;
         }
 
-        protected override void Handle(GetStaffDtoByKeyRequest request, GetStaffDtoResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( GetStaffDtoByKeyRequest request, GetStaffDtoResponse response )
         {
-            var staff = _staffRepository.GetByKey(request.Key);
-            var staffDto = Mapper.Map<Staff, StaffDto>(staff);
+            var staff = _staffRepository.GetByKey ( request.Key );
+            var staffDto = Mapper.Map<Staff, StaffDto> ( staff );
 
             //get system account associated with staff
             Guid? systemAccountKey;
-            using (var connection = _dbConnectionFactory.CreateConnection())
+            using ( var connection = _dbConnectionFactory.CreateConnection () )
             {
-                systemAccountKey = connection.Query<Guid?>("SELECT SystemAccountKey FROM SecurityModule.SystemAccount WHERE StaffKey=@StaffKey", new { StaffKey = request.Key }).FirstOrDefault();
+                systemAccountKey =
+                    connection.Query<Guid?> ( "SELECT SystemAccountKey FROM SecurityModule.SystemAccount WHERE StaffKey=@StaffKey", new {StaffKey = request.Key} )
+                    .FirstOrDefault ();
             }
-            if (systemAccountKey.HasValue)
+            if ( systemAccountKey.HasValue )
             {
-                var systemAccount = _systemAccountRepository.GetByKey(systemAccountKey.Value);
-                var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto>(systemAccount);
-                if (systemAccount.RoleKeys.Any())
+                var systemAccount = _systemAccountRepository.GetByKey ( systemAccountKey.Value );
+                var systemAccountDto = Mapper.Map<SystemAccount, SystemAccountDto> ( systemAccount );
+                if ( systemAccount.RoleKeys.Any () )
                 {
-                    var roleKeys = string.Join(", ", systemAccount.RoleKeys);
-                    roleKeys = "'" + roleKeys.Replace(", ", "', '") + "'";
-                    var query = string.Format("SELECT RoleKey as 'Key', Name FROM SecurityModule.Role WHERE RoleKey IN ({0})", roleKeys);
-                    using (var connection = _dbConnectionFactory.CreateConnection())
+                    var roleKeys = string.Join ( ", ", systemAccount.RoleKeys );
+                    roleKeys = "'" + roleKeys.Replace ( ", ", "', '" ) + "'";
+                    var query = string.Format ( "SELECT RoleKey as 'Key', Name FROM SecurityModule.Role WHERE RoleKey IN ({0})", roleKeys );
+                    using ( var connection = _dbConnectionFactory.CreateConnection () )
                     {
-                        var roleDtos = connection.Query<RoleDto>(query).OrderBy(r=>r.Name);
+                        var roleDtos = connection.Query<RoleDto> ( query ).OrderBy ( r => r.Name );
                         systemAccountDto.Roles = roleDtos;
                     }
                 }
-                
+
                 staffDto.SystemAccount = systemAccountDto;
             }
             response.DataTransferObject = staffDto;
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,35 +25,36 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Assessment Submitted event.
-    /// </summary>
+    /// <summary>Assessment Submitted event.</summary>
     public class AssessmentSubmittedEvent : CommitEventBase
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AssessmentSubmittedEvent" /> class.
+        /// Initializes a new instance of the <see cref="AssessmentSubmittedEvent" /> class.
         /// </summary>
         /// <param name="assessmentInstanceKey">The assessment instance key.</param>
         /// <param name="version">The version.</param>
-        /// <param name="submit">
-        ///     if set to <c>true</c> [submit].
-        /// </param>
-        public AssessmentSubmittedEvent ( Guid assessmentInstanceKey, int version, bool submit )
+        /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
+        /// <param name="submit">If set to <c>true</c> [submit].</param>
+        public AssessmentSubmittedEvent ( Guid assessmentInstanceKey, int version, Guid assessmentDefinitionKey, bool submit)
             : base ( assessmentInstanceKey, version )
         {
             Submit = submit;
+            AssessmentDefinitionKey = assessmentDefinitionKey;
         }
 
         #endregion
@@ -66,6 +68,14 @@ namespace ProCenter.Domain.AssessmentModule.Event
         ///     <c>true</c> if submit; otherwise, <c>false</c>.
         /// </value>
         public bool Submit { get; set; }
+
+        /// <summary>
+        /// Gets or sets the assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The assessment definition key.
+        /// </value>
+        public Guid AssessmentDefinitionKey { get; set; }
 
         #endregion
     }

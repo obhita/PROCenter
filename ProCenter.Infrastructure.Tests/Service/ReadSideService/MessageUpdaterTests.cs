@@ -31,14 +31,16 @@ namespace ProCenter.Infrastructure.Tests.Service.ReadSideService
 
     using System;
     using System.Collections.Generic;
-    using Infrastructure.Service.ReadSideService;
+    using ProCenter.ReadSideService;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
+
+    using NEventStore;
+
     using Pillar.Common.InversionOfControl;
     using Primitive;
     using ProCenter.Domain.PatientModule;
     using ProCenter.Domain.PatientModule.Event;
-    using global::EventStore;
 
     #endregion
 

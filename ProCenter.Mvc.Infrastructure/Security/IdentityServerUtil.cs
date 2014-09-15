@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,36 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
-    #region
+    #region Using Statements
 
-    using System;
     using System.IdentityModel.Services;
-    using System.Net.Http;
 
     #endregion
 
+    /// <summary>The identity server utility class.</summary>
     public static class IdentityServerUtil
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the base address.
+        /// </summary>
+        /// <value>
+        /// The base address.
+        /// </value>
         public static string BaseAddress
         {
-            get { return ((FederatedAuthentication.WSFederationAuthenticationModule ?? new WSFederationAuthenticationModule()).Issuer.Replace("issue/wsfed", "")); }
+            get
+            {
+                return ( ( FederatedAuthentication.WSFederationAuthenticationModule ?? new WSFederationAuthenticationModule () ).Issuer.Replace ( "issue/wsfed", string.Empty ) );
+            }
         }
+
+        #endregion
     }
 }

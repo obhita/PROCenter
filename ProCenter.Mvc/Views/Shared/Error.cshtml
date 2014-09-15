@@ -6,43 +6,43 @@
 <!DOCTYPE html>
 
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Error</title>
-</head>
-<body>
-    <div>
-        <h2>Sorry, an error occurred while processing your request.
-        </h2>
-        @{
-            if (Request.IsLocal)
-            {
-                if (@Model != null && @Model.Exception != null)
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Error</title>
+    </head>
+    <body>
+        <div>
+            <h2>Sorry, an error occurred while processing your request.
+            </h2>
+            @{
+                if ( Request.IsLocal )
                 {
-                    <p>
-                        <b>Controller</b>: @ViewData.Model.ControllerName
-                    </p>
-                    <p>
-                        <b>Action</b>: @ViewData.Model.ActionName
-                    </p>
-                    <p>
-                        <b>Message</b>: @ViewData.Model.Exception.Message
-                    </p>
-                    <p>
-                        <b>Stack Track</b>: @ViewData.Model.Exception.StackTrace
-                    </p>
+                    if ( @Model != null && @Model.Exception != null )
+                    {
+                        <p>
+                            <b>Controller</b>: @ViewData.Model.ControllerName
+                        </p>
+                        <p>
+                            <b>Action</b>: @ViewData.Model.ActionName
+                        </p>
+                        <p>
+                            <b>Message</b>: @ViewData.Model.Exception.Message
+                        </p>
+                        <p>
+                            <b>Stack Track</b>: @ViewData.Model.Exception.StackTrace
+                        </p>
+                    }
+                    else
+                    {
+                        <p>Exception is null</p>
+                    }
                 }
                 else
                 {
-                    <p>Exception is null</p>
+                    <p>The error has been reported to the Administrator.</p>
                 }
             }
-            else
-            {
-                <p>The error has been reported to the Administrator.</p>
-            }
-        }
 
-    </div>
-</body>
+        </div>
+    </body>
 </html>

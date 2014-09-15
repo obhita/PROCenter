@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Attribute
 {
     #region Using Statements
@@ -34,30 +37,49 @@ namespace ProCenter.Service.Message.Attribute
 
     #endregion
 
+    /// <summary>The lookup category attribute class.</summary>
     public class LookupCategoryAttribute : Attribute, IMetadataAware
     {
+        #region Constants
+
         public const string LookupCategory = "LookupCategory";
 
-        public LookupCategoryAttribute(string category)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupCategoryAttribute"/> class.
+        /// </summary>
+        /// <param name="category">The category.</param>
+        public LookupCategoryAttribute ( string category )
         {
             Category = category;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the category.
+        /// </summary>
+        /// <value>
+        /// The category.
+        /// </value>
         public string Category { get; private set; }
 
-        public void OnMetadataCreated(ModelMetadata metadata)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>When implemented in a class, provides metadata to the model metadata creation process.</summary>
+        /// <param name="metadata">The model metadata.</param>
+        public void OnMetadataCreated ( ModelMetadata metadata )
         {
             metadata.AdditionalValues[LookupCategory] = Category;
         }
-    }
 
-    public class CheckAllAttribute : Attribute, IMetadataAware
-    {
-        public const string CheckAll = "CheckAll";
-
-        public void OnMetadataCreated(ModelMetadata metadata)
-        {
-            metadata.AdditionalValues[CheckAll] = true;
-        }
+        #endregion
     }
 }

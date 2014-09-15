@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,53 +25,70 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service.Completeness
 {
-    #region
+    #region Using Statements
 
+    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web.Mvc;
     using Domain.AssessmentModule.Lookups;
-    using Pillar.Common.Metadata;
-    using ProCenter.Infrastructure.Service.Completeness;
+
+    using ProCenter.Domain.AssessmentModule.Metadata;
     using ProCenter.Service.Message.Assessment;
     using ProCenter.Service.Message.Common.Lookups;
     using ProCenter.Service.Message.Metadata;
 
     #endregion
 
+    /// <summary>The completeness model validtor provider class.</summary>
     public class CompletenessModelValidtorProvider : ModelValidatorProvider
     {
-        public override IEnumerable<ModelValidator> GetValidators(ModelMetadata metadata, ControllerContext context)
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Gets a list of validators.
+        /// </summary>
+        /// <param name="metadata">The metadata.</param>
+        /// <param name="context">The context.</param>
+        /// <returns>
+        /// A list of validators.
+        /// </returns>
+        public override IEnumerable<ModelValidator> GetValidators ( ModelMetadata metadata, ControllerContext context )
         {
-            if (metadata.PropertyName != null && context is ViewContext && context.Controller.ViewData.Model is IAssessmentDto)
+            if ( metadata.PropertyName != null && 
+                context is ViewContext && 
+                (context.Controller.ViewData.Model is IValidateCompleteness || context.Controller.ViewData.Model is SectionDto ))
             {
                 var viewContext = context as ViewContext;
-                if (viewContext.ViewData != null)
+                if ( viewContext.ViewData != null )
                 {
-                    if ((metadata.ContainerType == typeof (ItemDto) && metadata.PropertyName == "Value") ||
-                        (metadata.ContainerType == typeof (LookupDto) && metadata.PropertyName == "Code")) // only care about value
+                    if ( ( metadata.ContainerType == typeof(ItemDto) && metadata.PropertyName == "Value" ) ||
+                         ( metadata.ContainerType == typeof(LookupDto) && metadata.PropertyName == "Code" ) ) 
                     {
-                        var sectionDto = context.Controller.ViewData.Model as SectionDto;
-                        if (sectionDto != null)
+                        // only care about value
+                        var sectionDto = context.Controller.ViewData.Model is IValidateCompleteness ? (context.Controller.ViewData.Model as IValidateCompleteness).CurrentSectionDto
+                            : context.Controller.ViewData.Model as SectionDto;
+                        if ( sectionDto != null )
                         {
-                            var propertyParts = viewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(metadata.PropertyName).Split('.');
-                            //System.Diagnostics.Debug.WriteLine(viewContext.ViewData.TemplateInfo.GetFullHtmlFieldName(metadata.PropertyName), "PropertyParts");
-                            if (propertyParts.Length == 2)
+                            var propertyParts = viewContext.ViewData.TemplateInfo.GetFullHtmlFieldName ( metadata.PropertyName ).Split ( '.' );
+                            if ( propertyParts.Length == 2 )
                             {
-                                var index = propertyParts[0].IndexOf("_Value", System.StringComparison.Ordinal);
-                                if (index != -1)
+                                var index = propertyParts[0].IndexOf ( "_Value", StringComparison.Ordinal );
+                                if ( index != -1 )
                                 {
-                                    var code = propertyParts[0].Substring(0, index);
-                                    var itemDto = GetItemDtoByCode(sectionDto, code);
-                                    if (itemDto != null)
+                                    var code = propertyParts[0].Substring ( 0, index );
+                                    var itemDto = GetItemDtoByCode ( sectionDto, code );
+                                    if ( itemDto != null )
                                     {
-                                        var metadataItemDto = itemDto.Metadata.FindMetadataItem<RequiredForCompletenessMetadataItem>();
-                                        if (metadataItemDto != null)
+                                        var metadataItemDto = itemDto.Metadata.FindMetadataItem<RequiredForCompletenessMetadataItem> ();
+                                        if ( metadataItemDto != null )
                                         {
-                                            yield return new CompletenessModelValidator(metadata, context, metadataItemDto.CompletenessCategory);
+                                            yield return new CompletenessModelValidator ( metadata, context, metadataItemDto.CompletenessCategory );
                                         }
                                     }
                                 }
@@ -81,26 +99,39 @@ namespace ProCenter.Mvc.Infrastructure.Service.Completeness
             }
         }
 
+        #endregion
 
-        private static ItemDto GetItemDtoByCode(IContainItems sectionDto, string code)
+        #region Methods
+
+        private static ItemDto GetItemDtoByCode ( IContainItems sectionDto, string code )
         {
-            foreach (var itemDto in sectionDto.Items)
+            foreach ( var itemDto in sectionDto.Items )
             {
-                if (itemDto.ItemDefinitionCode == code && itemDto.ItemType == ItemType.Question.CodedConcept.Code)
+                if ( itemDto.ItemDefinitionCode == code && itemDto.ItemType == ItemType.Question.CodedConcept.Code )
                 {
                     return itemDto;
                 }
-                if (itemDto.Items != null)
+                if ( itemDto.Items != null )
                 {
                     foreach (
                         var childItemDto in
-                            itemDto.Items.Where(childItemDto => childItemDto.ItemDefinitionCode == code && childItemDto.ItemType == ItemType.Question.CodedConcept.Code))
+                            itemDto.Items.Where ( childItemDto => childItemDto.ItemDefinitionCode == code && childItemDto.ItemType == ItemType.Question.CodedConcept.Code ) )
                     {
                         return childItemDto;
+                    }
+                    foreach (var containerDto in itemDto.Items.Where(i => i.ItemType != ItemType.Question.CodedConcept.Code).OfType<IContainItems> ())
+                    {
+                        var childItem = GetItemDtoByCode ( containerDto, code );
+                        if ( childItem != null )
+                        {
+                            return childItem;
+                        }
                     }
                 }
             }
             return null;
         }
+
+        #endregion
     }
 }

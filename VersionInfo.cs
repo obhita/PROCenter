@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,28 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 #region Using Statements
 
 using System.Reflection;
 
 #endregion
 
-[assembly: AssemblyCompany("FEI Inc.")]
-[assembly: AssemblyProduct("Pro Center")]
-[assembly: AssemblyCopyright("Copyright © Fei Inc 2010")]
+[assembly: AssemblyCompany ( "FEI Inc." )]
+[assembly: AssemblyProduct ( "Pro Center" )]
+[assembly: AssemblyCopyright ( "Copyright © Fei Inc 2010" )]
 
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Build and Revision Numbers 
-// by using the '*' as shown below:
-
-[assembly: AssemblyDescription("Release 1 - Sprint 2")]
-[assembly: AssemblyVersion("0.1.0.0")]
-[assembly: AssemblyFileVersion("0.1.0.0")]
-[assembly: AssemblyInformationalVersion("Beta v0.1")]
+[assembly: AssemblyDescription ( "Release 1 - Sprint 12" )]
+[assembly: AssemblyVersion ( "0.1.0.0" )]
+[assembly: AssemblyFileVersion ( "0.1.0.0" )]
+[assembly: AssemblyInformationalVersion ( "Beta v0.1" )]

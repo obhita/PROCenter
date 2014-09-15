@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,21 +25,23 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
+
     using Pillar.Domain.Event;
+
     using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Interface for repository
-    /// </summary>
+    /// <summary>Interface for repository.</summary>
     public interface IEventStoreRepository
     {
         #region Public Methods and Operators
@@ -48,7 +51,7 @@ namespace ProCenter.Infrastructure.EventStore
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="key">The key.</param>
-        /// <returns></returns>
+        /// <returns>The aggregate.</returns>
         TAggregate GetByKey<TAggregate> ( Guid key ) where TAggregate : class, IAggregateRoot;
 
         /// <summary>
@@ -57,18 +60,18 @@ namespace ProCenter.Infrastructure.EventStore
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="version">The version.</param>
-        /// <returns></returns>
+        /// <returns>The aggregate.</returns>
         TAggregate GetByKey<TAggregate> ( Guid key, int version ) where TAggregate : class, IAggregateRoot;
 
         /// <summary>
-        /// Gets the last modified date.
+        ///     Gets the last modified date.
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="key">The aggregate key.</param>
         /// <returns>
-        /// Last modified date.
+        ///     Last modified date.
         /// </returns>
-        DateTime? GetLastModifiedDate<TAggregate>(Guid key);
+        DateTime? GetLastModifiedDate<TAggregate> ( Guid key );
 
         /// <summary>
         ///     Saves the specified aggregate.

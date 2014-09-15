@@ -1,4 +1,25 @@
 ﻿(function ($) {
+    
+    window.procenter.stringFormat = function() {
+        var s = arguments[0];
+        for (var i = 0; i < arguments.length - 1; i++) {
+            var reg = new RegExp("\\{" + i + "\\}", "gm");
+            s = s.replace(reg, arguments[i + 1]);
+        }
+        return s;
+    };
+
+    window.procenter.stringFlip = function() {
+        var s = arguments[0];
+        var parts = s.split(" ");
+        var returnString = "";
+        var delim = "";
+        for (var i = parts.length - 1; i >= 0; i--) {
+            returnString += delim + parts[i];
+            delim = " ";
+        }
+        return returnString;
+    }
 
     $.fn.placeholder = function () {
         if (typeof document.createElement("input").placeholder == 'undefined') {
@@ -19,6 +40,7 @@
             });
         }
     };
+    
 
     $.fn.valInt = function() {
         return parseInt(this.val(), 10);
@@ -315,8 +337,8 @@
         
         form.find('div.multiselect-wrapper.checkall').handleCheckAll();
         
-        form.find('.UInt32>input[type="number"]').prop('min', '0').addClass("positive-integer");
-        form.find('.primitive>input[type="number"], .primitive>input[type="text"]').prop('min', '0').addClass("positive-integer");
+        form.find('.UInt32>input[type="number"],.UInt32>input.number').prop('min', '0').addClass("positive-integer");
+        form.find('.primitive>input[type="number"],.primitive>input.number, .primitive>input[type="text"]').prop('min', '0').addClass("positive-integer");
         form.find('.MoneyDto>input[id$="_Amount"]').formatCurrency().toNumber().addClass("positive").blur(function () {
             $(this).formatCurrency().toNumber();
         });
@@ -381,7 +403,7 @@
                 form.submit();
             }
         });
-
+        
         $(window).bind('beforeunload', function () {
             if (window.assessmentFormDirty) {
                 return "You will lose all pending changes...";
@@ -504,5 +526,9 @@
             });
         }
     };
+    
+    $('.currencyFormat').on('focusout', function () {
+        $(this).formatCurrency().toNumber();
+    });
 
 })(jQuery);

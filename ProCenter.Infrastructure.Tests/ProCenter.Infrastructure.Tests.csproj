@@ -49,17 +49,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Agatha-Common-StructureMap.1.3.1\lib\net40\Agatha.StructureMap.dll</HintPath>
     </Reference>
-    <Reference Include="EventStore, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EventStore.3.2.0.28\lib\net40\EventStore.dll</HintPath>
-    </Reference>
-    <Reference Include="EventStore.Persistence.RavenPersistence, Version=3.2.0.0, Culture=neutral, PublicKeyToken=7735eb81c0bd9948, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EventStore.Persistence.RavenPersistence.3.2.0.28\lib\net40\EventStore.Persistence.RavenPersistence.dll</HintPath>
-    </Reference>
     <Reference Include="Moq, Version=4.0.10827.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="NEventStore">
+      <HintPath>..\packages\NEventStore.4.0.0.15\lib\net40\NEventStore.dll</HintPath>
+    </Reference>
+    <Reference Include="NEventStore.Persistence.RavenPersistence">
+      <HintPath>..\packages\NEventStore.Persistence.RavenPersistence.4.1.0.10\lib\net40\NEventStore.Persistence.RavenPersistence.dll</HintPath>
+    </Reference>
+    <Reference Include="NSubstitute">
+      <HintPath>..\packages\NSubstitute.1.7.2.0\lib\NET45\NSubstitute.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -81,13 +82,14 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.IoC.StructureMap.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+    <Reference Include="Raven.Abstractions, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+    <Reference Include="Raven.Client.Lightweight, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Client.Lightweight.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -146,6 +148,10 @@
     <ProjectReference Include="..\ProCenter.Primitive\ProCenter.Primitive.csproj">
       <Project>{ae01f318-1337-4387-a14a-76ed315277c8}</Project>
       <Name>ProCenter.Primitive</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.ReadSideService\ProCenter.ReadSideService.csproj">
+      <Project>{056F69C8-8448-4532-B8F4-A7C3AB957013}</Project>
+      <Name>ProCenter.ReadSideService</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

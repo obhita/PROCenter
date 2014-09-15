@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.App_Start
 {
-    #region
+    #region Using Statements
 
     using System;
     using System.Collections.Generic;
@@ -37,16 +40,33 @@ namespace ProCenter.Mvc.App_Start
 
     #endregion
 
+    /// <summary>The unique identifier constraint class.</summary>
     public class GuidConstraint : IHttpRouteConstraint
     {
         // http://stackoverflow.com/questions/15681330/webapi-controller-with-two-get-actions
         // https://github.com/stevenbey/elfar/blob/master/Elfar.WebApi/RouteConstraints/GuidConstraint.cs
-        public bool Match(HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection)
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Determines whether this instance equals a specified route.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="route">The route to compare.</param>
+        /// <param name="parameterName">The name of the parameter.</param>
+        /// <param name="values">A list of parameter values.</param>
+        /// <param name="routeDirection">The route direction.</param>
+        /// <returns>
+        /// True if this instance equals a specified route; otherwise, false.
+        /// </returns>
+        public bool Match ( HttpRequestMessage request, IHttpRoute route, string parameterName, IDictionary<string, object> values, HttpRouteDirection routeDirection )
         {
             var value = values[parameterName];
             Guid guid;
-            var result = value is RouteParameter || value is Guid || (value is string && Guid.TryParse((string)value, out guid));
+            var result = value is RouteParameter || value is Guid || ( value is string && Guid.TryParse ( (string) value, out guid ) );
             return result;
         }
+
+        #endregion
     }
 }

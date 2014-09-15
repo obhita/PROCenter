@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Message
 {
-    #region
+    #region Using Statements
 
     using System;
+
     using Agatha.Common;
 
     #endregion
 
+    /// <summary>The get assessment reminder by key request class.</summary>
     public class GetAssessmentReminderByKeyRequest : Request
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the assessment reminder key.
+        /// </summary>
+        /// <value>
+        /// The assessment reminder key.
+        /// </value>
         public Guid AssessmentReminderKey { get; set; }
+
+        #endregion
     }
 }

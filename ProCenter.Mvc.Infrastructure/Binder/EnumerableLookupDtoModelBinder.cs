@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Binder
 {
     #region Using Statements
@@ -36,8 +39,11 @@ namespace ProCenter.Mvc.Infrastructure.Binder
 
     #endregion
 
+    /// <summary>The enumerable lookup dto model binder class.</summary>
     public class EnumerableLookupDtoModelBinder : IModelBinder
     {
+        #region Public Methods and Operators
+
         /// <summary>
         ///     Binds the model to a value by using the specified controller context and binding context.
         /// </summary>
@@ -46,12 +52,14 @@ namespace ProCenter.Mvc.Infrastructure.Binder
         /// </returns>
         /// <param name="controllerContext">The controller context.</param>
         /// <param name="bindingContext">The binding context.</param>
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        public object BindModel ( ControllerContext controllerContext, ModelBindingContext bindingContext )
         {
-            var codes = bindingContext.ValueProvider.GetValue(bindingContext.ModelName).RawValue as IEnumerable<string>;
+            var codes = bindingContext.ValueProvider.GetValue ( bindingContext.ModelName ).RawValue as IEnumerable<string>;
             return codes == null
-                       ? null
-                       : codes.Where(c => !string.IsNullOrEmpty(c)).Select(c => new LookupDto {Code = c});
+                ? null
+                : codes.Where ( c => !string.IsNullOrEmpty ( c ) ).Select ( c => new LookupDto {Code = c} );
         }
+
+        #endregion
     }
 }

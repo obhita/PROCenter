@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Attribute
 {
     #region Using Statements
@@ -33,11 +36,43 @@ namespace ProCenter.Service.Message.Attribute
 
     #endregion
 
+    /// <summary>Interface for question group.</summary>
     public interface IQuestionGroup
     {
-        string QuestionResourceName { get; }
-        string HeaderTemplateName { get; }
-        int ApplyOrder { get; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the additional view data.
+        /// </summary>
+        /// <value>
+        /// The additional view data.
+        /// </value>
         Dictionary<string, object> AdditionalViewData { get; }
+
+        /// <summary>
+        /// Gets the apply order.
+        /// </summary>
+        /// <value>
+        /// The apply order.
+        /// </value>
+        int ApplyOrder { get; }
+
+        /// <summary>
+        /// Gets the name of the header template.
+        /// </summary>
+        /// <value>
+        /// The name of the header template.
+        /// </value>
+        string HeaderTemplateName { get; }
+
+        /// <summary>
+        /// Gets the name of the question resource.
+        /// </summary>
+        /// <value>
+        /// The name of the question resource.
+        /// </value>
+        string QuestionResourceName { get; }
+
+        #endregion
     }
 }

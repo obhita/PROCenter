@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,39 +25,61 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Service.Handler.Message
 {
+    #region Using Statements
+
     using Common;
     using Domain.MessageModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Message;
-    using global::AutoMapper;
 
-    public class AcknowledgeAssessmentReminderRequestHandler: ServiceRequestHandler<AcknowledgeAssessmentReminderRequest, DtoResponse<AssessmentReminderDto>>
+    #endregion
+
+    /// <summary>The acknowledge assessment reminder request handler class.</summary>
+    public class AcknowledgeAssessmentReminderRequestHandler : ServiceRequestHandler<AcknowledgeAssessmentReminderRequest, DtoResponse<AssessmentReminderDto>>
     {
+        #region Fields
+
         private readonly IAssessmentReminderRepository _assessmentReminderRepository;
 
-        public AcknowledgeAssessmentReminderRequestHandler(IAssessmentReminderRepository assessmentReminderRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AcknowledgeAssessmentReminderRequestHandler"/> class.
+        /// </summary>
+        /// <param name="assessmentReminderRepository">The assessment reminder repository.</param>
+        public AcknowledgeAssessmentReminderRequestHandler ( IAssessmentReminderRepository assessmentReminderRepository )
         {
             _assessmentReminderRepository = assessmentReminderRepository;
         }
 
-        protected override void Handle(AcknowledgeAssessmentReminderRequest request, DtoResponse<AssessmentReminderDto> response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( AcknowledgeAssessmentReminderRequest request, DtoResponse<AssessmentReminderDto> response )
         {
-             var assessmentReminder = _assessmentReminderRepository.GetByKey(request.Key);
-            if (assessmentReminder != null)
+            var assessmentReminder = _assessmentReminderRepository.GetByKey ( request.RecurrenceKey );
+            if ( assessmentReminder != null )
             {
-                assessmentReminder.Acknowledge();
-                var dto2 = Mapper.Map<AssessmentReminder, AssessmentReminderDto>(assessmentReminder);
+                assessmentReminder.Acknowledge ( request.Key );
+                var dto2 = Mapper.Map<AssessmentReminder, AssessmentReminderDto> ( assessmentReminder );
                 response.DataTransferObject = dto2;
             }
         }
+
+        #endregion
     }
 }

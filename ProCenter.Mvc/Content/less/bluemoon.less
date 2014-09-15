@@ -1,4 +1,13 @@
-﻿/*  Header starts  */
+﻿//colors
+
+
+
+body {
+background-color: @dark-blue;
+}
+
+
+/*  Header starts  */  
 header
 {
     /*border-top: 4px solid @tab-color;
@@ -33,9 +42,10 @@ header
             float: left;
             position: relative;
             height: 100%;
-            border-right: 1px solid #333333;
+            border-right: 1px solid #0daed3;
             display: block;
             cursor: pointer;
+
 
             a
             {
@@ -49,8 +59,10 @@ header
 
             .fs1
             {
+                font-size: large;
                 padding-top: 10px;
                 line-height: 38px;
+                color: white;
             }
 
             .info-label
@@ -73,15 +85,15 @@ header
 
             li:hover
             {
-                .shadow-gradient(black,black,#333333);
-                -webkit-box-shadow: 0 0 10px black inset;
-                -moz-box-shadow: 0 0 10px black inset;
-                box-shadow: 0 0 10px black inset;
+                .shadow-gradient(#0daed3,#0daed3,#0daed3);
+                -webkit-box-shadow: 0 0 10px #0daed3 inset;
+                -moz-box-shadow: 0 0 10px #0daed3 inset;
+                box-shadow: 0 0 10px #0daed3 inset;
             }
 
             li:first-child
             {
-                border-left: 1px solid #333333;
+            border-left: 1px solid #0daed3;
             }
     }
 
@@ -184,10 +196,11 @@ header
 /* Sub Navigation starts  */
 .sub-nav
 {
-    .shadow-gradient(@tab-color,#1f5a80);
+    .shadow-gradient(@tab-color,#0D749C);
     -webkit-border-radius: 0 4px 0 0;
     -moz-border-radius: 0 4px 0 0;
     border-radius: 0 4px 0 0;
+    border-bottom: white solid 1px; 
     height: 48px;
     line-height: 48px;
 
@@ -286,45 +299,43 @@ header
 
 /*  DASHBOARD CSS Starts here  */
 
-.dashboard-wrapper
-{
+.dashboard-wrapper {
     position: relative;
-    background: #f7f7f7;
+    background: #95a4ac;
     -webkit-border-radius: 0 0 4px 4px;
     -moz-border-radius: 0 0 4px 4px;
     border-radius: 0 0 4px 4px;
     margin: 0;
     padding: 0;
     min-height: 100%;
-    
-    .widget
-    {
+
+    .widget {
         background: #fafafa;
-        border: 1px solid #cfcfcf;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
-        border-radius: 3px;
+        border: 1px solid #e8f0f5;
+        color: @title-color;
+        -webkit-border-radius: 7px;
+        -moz-border-radius: 7px;
+        border-radius: 7px;
         margin: 10px 1%;
         float: left;
         width: 47%;
         min-width: 300px;
         height: 350px;
 
-        .widget-header
-        {
+        .widget-header {
             background-color: #e8e8e8;
             /* Fallback Color */
-            background-image: -webkit-gradient(linear, left top, left bottom, from(#fcfcfc), to(#e8e8e8));
+            background-image: -webkit-gradient(linear, left top, left bottom, from(#ccdbe2), to(#ccdbe2));
             /* Saf4+, Chrome */
-            background-image: -webkit-linear-gradient(top, #fcfcfc, #e8e8e8);
+            background-image: -webkit-linear-gradient(top, #ccdbe2, #ccdbe2);
             /* Chrome 10+, Saf5.1+, iOS 5+ */
-            background-image: -moz-linear-gradient(top, #fcfcfc, #e8e8e8);
+            background-image: -moz-linear-gradient(top, #ccdbe2, #ccdbe2);
             /* FF3.6 */
-            background-image: -ms-linear-gradient(top, #fcfcfc, #e8e8e8);
+            background-image: -ms-linear-gradient(top, #ccdbe2, #ccdbe2);
             /* IE10 */
-            background-image: -o-linear-gradient(top, #fcfcfc, #e8e8e8);
+            background-image: -o-linear-gradient(top, #ccdbe2, #ccdbe2);
             /* Opera 11.10+ */
-            background-image: linear-gradient(top, #fcfcfc, #e8e8e8);
+            background-image: linear-gradient(top, #ccdbe2, #ccdbe2);
             -webkit-border-radius: 2px 2px 0 0;
             -moz-border-radius: 2px 2px 0 0;
             border-radius: 2px 2px 0 0;
@@ -333,15 +344,13 @@ header
             line-height: 24px;
             padding: 10px;
 
-            .title
-            {
-                color: #333333;
+            .title {
+                color: @title-color;
                 float: left;
                 font-weight: bold;
                 font-size: 16px;
 
-                .mini-title
-                {
+                .mini-title {
                     font-size: 11px;
                     padding-left: 4px;
                     color: #b3b3b3;
@@ -349,37 +358,32 @@ header
                 }
             }
 
-            span.tools
-            {
+            span.tools {
                 padding: 0 2px 0 0;
                 float: right;
                 margin: -3px 0 0 0;
 
-                > a
-                {
+                > a {
                     display: inline-block;
                     margin-right: 5px;
-                    color: #666666;
+                    color: @title-color;
                     margin-top: 3px;
                     vertical-align: top;
                 }
 
-                    > a:hover
-                    {
+                    > a:hover {
                         text-decoration: none;
                         opacity: .6;
                     }
 
-                    > a.btn
-                    {
+                    > a.btn {
                         color: white;
                         margin-top: 0;
                     }
             }
         }
 
-        .widget-body
-        {
+        .widget-body {
             padding: 0 10px;
             overflow-y: auto;
             border-bottom: 1px solid #b3b3b3;
@@ -387,16 +391,13 @@ header
             -moz-border-radius: 0 0 2px 2px;
             border-radius: 0 0 2px 2px;
 
-            .dataTable_wrapper
-            {
+            .dataTable_wrapper {
                 height: 100%;
 
-                .dataTables_wrapper
-                {
+                .dataTables_wrapper {
                     height: 100%;
 
-                    .dataTables_scroll
-                    {
+                    .dataTables_scroll {
                         overflow-y: hidden;
                     }
                 }

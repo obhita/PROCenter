@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,21 +25,28 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service.Completeness
 {
-    #region
+    #region Using Statements
 
     using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>Interface for assessment completeness manager.</summary>
     public interface IAssessmentCompletenessManager
     {
         #region Public Methods and Operators
 
-        CompletenessResults CalculateCompleteness<TAssessment>(string completenessCategory, TAssessment assessment, IContainItemDefinitions itemDefinitionContainer)
-            where TAssessment : AssessmentInstance;
+        /// <summary>Calculates the completeness.</summary>
+        /// <param name="assessment">The assessment.</param>
+        /// <param name="sectionDefinition">The section definition.</param>
+        /// <returns>A <see cref="CompletenessResults" />.</returns>
+        CompletenessResults CalculateCompleteness ( AssessmentInstance assessment, ItemDefinition sectionDefinition = null );
 
         #endregion
     }

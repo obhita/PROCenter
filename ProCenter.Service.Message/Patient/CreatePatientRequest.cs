@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Patient
 {
     #region Using Statements
@@ -33,8 +36,19 @@ namespace ProCenter.Service.Message.Patient
 
     #endregion
 
+    /// <summary>The create patient request class.</summary>
     public class CreatePatientRequest : Request
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the patient dto.
+        /// </summary>
+        /// <value>
+        /// The patient dto.
+        /// </value>
         public PatientDto PatientDto { get; set; }
+
+        #endregion
     }
 }

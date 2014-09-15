@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,65 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule
 {
+    /// <summary>Assessment Reminder Status.</summary>
     public enum AssessmentReminderStatus
     {
+        /// <summary>
+        /// The default.
+        /// </summary>
         Default,
+
+        /// <summary>
+        /// The acknowledge.
+        /// </summary>
         Acknowledge,
+
+        /// <summary>
+        /// The cancelled.
+        /// </summary>
         Cancelled,
     }
 
+    /// <summary>Assessment Reminder Unit.</summary>
     public enum AssessmentReminderUnit
     {
+        /// <summary>
+        /// The days.
+        /// </summary>
         Days,
+
+        /// <summary>
+        /// The weeks.
+        /// </summary>
         Weeks
+    }
+
+    /// <summary>Assessment Reminder Recurrence.</summary>
+    public enum AssessmentReminderRecurrence
+    {
+        /// <summary>
+        /// The one time.
+        /// </summary>
+        OneTime,
+
+        /// <summary>
+        /// The daily.
+        /// </summary>
+        Daily,
+
+        /// <summary>
+        /// The weekly.
+        /// </summary>
+        Weekly,
+
+        /// <summary>
+        /// The monthly.
+        /// </summary>
+        Monthly
     }
 }

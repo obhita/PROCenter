@@ -1,0 +1,71 @@
+﻿@using ProCenter.Domain.AssessmentModule
+@using ProCenter.Domain.AssessmentModule.Metadata
+@using ProCenter.Domain.CommonModule.Lookups
+@using ProCenter.Mvc.Infrastructure
+@using ProCenter.Mvc.Infrastructure.Extension
+
+@model ProCenter.Service.Message.Assessment.ItemDto
+@using ProCenter.Mvc.Models
+@using ProCenter.Mvc.Views.Assessment
+
+@{
+    var itemTemplateMetadata = Html.ViewData.Model.Metadata == null ? null : Html.ViewData.Model.Metadata.FindMetadataItem<ItemTemplateMetadataItem>();
+    var nonResponseType = ((Html.ViewData.Model.Metadata == null ? null : Html.ViewData.Model.Metadata.FindMetadataItem<NonResponseTypeMetadataItem>()));
+    var selectedNonResponse = Model.Value != null ? Model.Value.ToString() : string.Empty;
+    var groupName = Model.ParentName ?? string.Empty;
+    if (itemTemplateMetadata != null)
+    {
+        if (Model.Value != null && NonResponseLookups.NonResponse.Select(nr => nr.CodedConcept.Name).Contains(Model.Value.ToString()))
+        {
+            Model.Value = "";
+        }
+
+        if (itemTemplateMetadata.TemplateName == typeof (bool).Name)
+            {
+            if (Model.Value != null && (string)Model.Value != "")
+            {
+                Model.Value = Boolean.Parse(Model.Value.ToString());
+            }
+        }
+        else if (itemTemplateMetadata.TemplateName == "LookupDto" || itemTemplateMetadata.TemplateName == "MultipleSelect")
+        {
+            ViewData["LookupItems"] = Model.Options.Select(l =>
+                {
+                    l.Name = Html.GetResource(l);
+                    return l;
+                });
+        }
+    }
+    var itemKey = Model.ItemDefinitionCode + SharedStringNames.ItemDefinitionSuffix;
+}
+
+<div class="question-root @Model.ItemDefinitionName" data-ajax-container="true">
+    <div class="question-label-wrapper span7">
+        <div>
+            @Html.Label(groupName, new { @class= "question-group"})
+        </div>
+        <div>
+            @Html.LabelFor(m => m.Value, Html.GetResource(Model), itemKey)
+        </div>
+    </div>
+    <div class="question-answer-wrapper span5">
+        @Html.HiddenFor(m => m.ItemDefinitionCode)
+        @Html.HiddenFor(m => m.AssessmentDefinitionKey)
+        @Html.HiddenFor(m => m.AssessmentCode)
+        @HtmlHelpers.EditorFor(Html, m => m.Value, itemTemplateMetadata == null ? null : itemTemplateMetadata.TemplateName, itemKey)
+        @if (nonResponseType != null)
+        {
+            Html.RenderPartial("NonResponse", new NonResponseViewModel
+                                              {
+                                                  ValuesToExclude = nonResponseType.AnswersToExclude,
+                                                  ItemKey = itemKey,
+                                                  SelectedValue = selectedNonResponse
+                                              });
+        }
+        <a href="#" class="btn-remove-assessment-question" data-icon="&#xe0fa;" data-remove-question="true" title="@Strings.Remove"></a>
+        @Html.ValidationMessageFor(m => m.Value)
+        <div class="ajax-loading-indicator"><span>Saving...</span></div>
+    </div>
+    <div class="clearfix"></div>
+</div>
+

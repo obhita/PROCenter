@@ -1,0 +1,63 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Patient
+@using Newtonsoft.Json
+@model object
+
+@{
+    var model = Model as ProCenter.Service.Message.Report.AssessmentScoreOverTimeParametersDto;
+    var patientAttributes = new Dictionary<string, object>
+        {
+            {"class", Html.PropertyNameFor ( m => model.PatientKey )},
+            {"placeholder", "Search Patient"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content ( "~/api/Patient/FinderSearch" )},
+            {"data-finder-display", "Name.FullName"},
+            {"id", "patientkey-finder"}
+        };
+
+    if (model.PatientKey.HasValue && model.PatientKey != Guid.Empty)
+    {
+        patientAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new PatientDto
+           {
+               Key = model.PatientKey.Value,
+               Name = model.PatientName
+           }));
+    }
+}
+<div class="parameter-spacing">
+    <input type="hidden" value="@ViewData["ReportName"]" id="ReportName" />
+    <input type="hidden" value="@ViewData["ReportDisplayName"]" id="ReportDisplayName" />
+    <div>
+        @Html.LabelFor(m => model.AssessmentDefinitionCode)
+        @if (string.IsNullOrEmpty(model.AssessmentDefinitionCode))
+        {
+            <input id="assessmentdefinitioncode-finder" name="@Html.NameFor(m => model.AssessmentDefinitionCode)" type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Organization/FinderSearchActive" data-finder-display="AssessmentName" />
+            @Html.HiddenFor(m => model.AssessmentName)
+        }
+        else
+        {
+            @Html.HiddenFor(m => model.AssessmentDefinitionCode)
+            @Html.EditorFor(m => model.AssessmentName)
+        }
+    </div>
+    <div id="patientkey-container">
+        @if (model.PatientKey.HasValue && model.PatientKey.Value != Guid.Empty)
+        {
+            @Html.LabelFor(m => model.PatientKey)
+            @Html.TextBoxFor(m => model.PatientKey, patientAttributes)
+        }
+        else
+        {
+            model.PatientKey = null;
+            @Html.LabelFor(m => model.PatientKey)
+            @Html.TextBoxFor(m => model.PatientKey, patientAttributes)
+        }
+
+    </div>
+
+    @Html.Hidden("ReportTemplateKey", ViewData.ContainsKey("ReportTemplateKey"))
+
+    @Html.Partial("ReportCommonParametersPartial", model)
+
+</div>

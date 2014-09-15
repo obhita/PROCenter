@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,29 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule
 {
     #region Using Statements
 
-    using CommonModule;
+    using System;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>Interface for role repository.</summary>
     public interface IRoleRepository : IRepository<Role>
     {
+        #region Public Methods and Operators
+
+        /// <summary>Gets the name of the internal role key by.</summary>
+        /// <param name="name">The name.</param>
+        /// <returns>A Nullable{guid}.</returns>
+        Guid? GetInternalRoleKeyByName ( string name );
+
+        #endregion
     }
 }

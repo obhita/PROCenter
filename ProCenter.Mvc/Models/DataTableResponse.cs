@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Models
 {
     #region Using Statements
@@ -34,19 +37,49 @@ namespace ProCenter.Mvc.Models
 
     #endregion
 
+    /// <summary>The data table response class.</summary>
+    /// <typeparam name="TModel">The type of the model.</typeparam>
     [DataContract]
     public class DataTableResponse<TModel>
     {
-        [DataMember(Name = "sEcho")]
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the data.
+        /// </summary>
+        /// <value>
+        /// The data.
+        /// </value>
+        [DataMember ( Name = "aaData" )]
+        public IEnumerable<TModel> Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets the echo.
+        /// </summary>
+        /// <value>
+        /// The echo.
+        /// </value>
+        [DataMember ( Name = "sEcho" )]
         public string Echo { get; set; }
 
-        [DataMember(Name = "iTotalRecords")]
-        public int TotalRecords { get; set; }
-
-        [DataMember(Name = "iTotalDisplayRecords")]
+        /// <summary>
+        /// Gets or sets the total display records.
+        /// </summary>
+        /// <value>
+        /// The total display records.
+        /// </value>
+        [DataMember ( Name = "iTotalDisplayRecords" )]
         public int TotalDisplayRecords { get; set; }
 
-        [DataMember(Name = "aaData")]
-        public IEnumerable<TModel> Data { get; set; }
+        /// <summary>
+        /// Gets or sets the total records.
+        /// </summary>
+        /// <value>
+        /// The total records.
+        /// </value>
+        [DataMember ( Name = "iTotalRecords" )]
+        public int TotalRecords { get; set; }
+
+        #endregion
     }
 }

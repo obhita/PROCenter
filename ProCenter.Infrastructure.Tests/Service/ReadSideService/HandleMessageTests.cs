@@ -29,26 +29,22 @@ namespace ProCenter.Infrastructure.Tests.Service.ReadSideService
 {
     #region
 
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Data;
     using System.Data.SqlClient;
     using System.Linq;
+    using Common;
     using Infrastructure.Domain.Repositories;
     using Infrastructure.EventStore;
-    using Infrastructure.Service.ReadSideService;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Moq;
+
+    using NEventStore.Dispatcher;
+
     using Pillar.Common.InversionOfControl;
     using Pillar.Common.Tests;
-    using ProCenter.Domain.AssessmentModule.Event;
+
     using ProCenter.Domain.OrganizationModule;
-    using ProCenter.Domain.OrganizationModule.Event;
     using ProCenter.Domain.PatientModule;
-    using ProCenter.Domain.PatientModule.Event;
-    using ProCenter.Domain.SecurityModule.Event;
-    using global::EventStore.Dispatcher;
+    using ProCenter.ReadSideService;
 
     #endregion
 

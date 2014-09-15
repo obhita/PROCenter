@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,33 +25,57 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
+    #region Using Statements
+
     using System;
+    using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
-    using System.Threading.Tasks;
     using Agatha.Common;
     using Common;
     using Infrastructure.Security;
-    using Models;
     using Service.Message.Patient;
     using Service.Message.Security;
 
+    #endregion
+
+    /// <summary>The portal controller class.</summary>
     public class PortalController : BaseController
     {
-        private readonly ILogoutService _logoutService;
-        //
-        // GET: /Portal/
+        #region Fields
 
+        private readonly ILogoutService _logoutService;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PortalController"/> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
+        /// <param name="logoutService">The logout service.</param>
         public PortalController ( IRequestDispatcherFactory requestDispatcherFactory, ILogoutService logoutService )
             : base ( requestDispatcherFactory )
         {
             _logoutService = logoutService;
         }
 
-        public async Task<ActionResult> Index()
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Indexes this instance.
+        /// </summary>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        /// <exception cref="System.Web.HttpException">404;Patient record not found.</exception>
+        public async Task<ActionResult> Index ()
         {
             if ( UserContext.Current.PatientKey.HasValue )
             {
@@ -67,21 +92,34 @@ namespace ProCenter.Mvc.Controllers
 
                     return View ( response.DataTransferObject );
                 }
-                return ValidateLogin();
+                return ValidateLogin ();
             }
             return RedirectToAction ( "Index", "Home" );
         }
 
+        /// <summary>Validates the login.</summary>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         public ActionResult ValidateLogin ()
         {
-            return View ("ValidateLogin");
+            return View ( "ValidateLogin" );
         }
 
+        /// <summary>
+        /// Validates the login.
+        /// </summary>
+        /// <param name="patientId">The patient identifier.</param>
+        /// <param name="dateOfBirth">The date of birth.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
-        public async Task<ActionResult> ValidateLogin (string patientId, DateTime dateOfBirth)
+        public async Task<ActionResult> ValidateLogin ( string patientId, DateTime dateOfBirth )
         {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add ( new ValidatePatientAccountRequest { SystemAccountKey = UserContext.Current.SystemAccountKey.Value, PatientIdentifier = patientId, DateOfBirth = dateOfBirth } );
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add ( new ValidatePatientAccountRequest
+            {
+                SystemAccountKey = UserContext.Current.SystemAccountKey.Value,
+                PatientIdentifier = patientId,
+                DateOfBirth = dateOfBirth
+            } );
             var response = await requestDispatcher.GetAsync<ValidatePatientAccountResponse> ();
             if ( response.IsLocked )
             {
@@ -93,7 +131,9 @@ namespace ProCenter.Mvc.Controllers
                 return RedirectToAction ( "Index" );
             }
             ModelState.AddModelError ( "validation-error", "Invalid information." );
-            return View();
+            return View ();
         }
+
+        #endregion
     }
 }

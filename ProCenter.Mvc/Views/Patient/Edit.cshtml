@@ -1,22 +1,24 @@
-﻿@using ProCenter.Mvc.Infrastructure.Extension
-@using ProCenter.Service.Message.Patient
-@using ProCenter.Service.Message.Security
+﻿@using System.Globalization
 @using Pillar.Common.Utility
-@model PatientDto
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Patient
+@using ProCenter.Service.Message.Security
+
+@model ProCenter.Service.Message.Patient.PatientDto
 
 @{
-    var disable = !Html.CanAccess("Patient", "Edit", "POST") ? "true" : "false";
+    var disable = !Html.CanAccess ( "Patient", "Edit", "POST" ) ? "true" : "false";
 
-    ViewBag.Title = "Edit Patient";
+    ViewBag.Title = @Patient.PatientEditTitle;
 }
 
 <div class="patient-editor dashboard-wrapper" data-disabled="@disable">
     <div class="editor-content container-fluid" data-layout-height="*">
-        <form>
-            <div class="questions">
+        <div class="questions">
+            <form>
                 <fieldset class="patient-information" data-ajax-container="true">
-                    <legend>Patient Information</legend>
-                    @Html.ValidationSummary(true, "Update failed. Please correct the following errors.")
+                    <legend>@Patient.PatientInformation</legend>
+                    @Html.ValidationSummary(true, @Patient.UpdateFailedMessage)
                     @foreach (var property in @Html.GetPropertiesToRender())
                     {
                         <div class="question-root @property.PropertyName">
@@ -31,7 +33,7 @@
                                 }
                                 else if (property.PropertyName == "UniqueIdentifier")
                                 {
-                                     @Html.Display(property.PropertyName)
+                                    @Html.Display(property.PropertyName)
                                 }
                                 else
                                 {
@@ -39,79 +41,89 @@
                                     @Html.Editor(propertyName)
                                     @Html.ValidationMessage(propertyName)
                                 }
-                                <div class="ajax-loading-indicator"><span>Saving...</span></div>
-                                <div class="clear"></div>
+                                <div class="ajax-loading-indicator"><span>@Patient.Saving</span></div>
+                                <div class="clearfix"></div>
                             </div>
 
                         </div>
                     }
-                    <div class="clear">
+                    <div class="clearfix">
                     </div>
                 </fieldset>
-                <fieldset>
-                    <legend>Assign to a Team</legend>
-                    <div class="teams">
-                        <input type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Team/FinderSearch" data-finder-display="Name" />
-                        <a class="add-btn btn btn-success" data-icon="&#xe102;" disabled="disabled"></a>
-                        <div>
-                            <ul class="current-teams"></ul>
-                        </div>
+            </form>
+            <fieldset>
+                <legend>@Patient.AssignToTeam</legend>
+                <div class="teams">
+                    <input type="text" placeholder="@Patient.Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Team/FinderSearch" data-finder-display="Name" />
+                    <a class="add-btn btn btn-success" data-icon="&#xe102;" disabled="disabled"></a>
+                    <div>
+                        <ul class="current-teams"></ul>
                     </div>
-                </fieldset>
-                <fieldset>
-                    <legend>Login Account</legend>
-                    <div class="@PropertyUtil.ExtractPropertyName(() => Model.SystemAccount)">
-                        <div id="system-account-content">
-                            @if (Model.HasAccount)
-                            {
-                                @Html.EditorFor(m => m.SystemAccount)
-                            }
-                            else
-                            {
-                                <div id="createAccountModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
-                                    <form id="createAccountForm">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                            <h3 id="createAccountModalLabel">Create Login Account</h3>
-                                        </div>
-                                        <div class="field-validation-error hidden modal-error">
-                                        </div>
-                                        <div class="modal-body">
-                                            @{
-                                var systemAccount = new SystemAccountDto { Username = Model.Name.FirstName.Trim() + "." + Model.Name.LastName.Trim(), Email = Model.Email, CreateNew = true };
-                                            }
-                                            @Html.EditorFor(m => systemAccount)
-                                        </div>
-                                        <div class="modal-footer">
-                                            <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">Cancel</a>
-                                            <a id="create-account-btn" class="btn btn-primary" data-loadelementid="create-account-model-loading" aria-hidden="true">Create</a>
-                                        </div>
-                                        <div id="create-account-model-loading" class="modal-loading-indicator" style="display: none"></div>
-                                    </form>
-                                </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <legend>@Patient.LoginAccount</legend>
+                <div class="@PropertyUtil.ExtractPropertyName( () => Model.SystemAccount )">
+                    <div id="system-account-content">
+                        @if (Model.HasAccount)
+                        {
+                            @Html.EditorFor(m => m.SystemAccount)
+                        }
+                        else
+                        {
+                            <div id="createAccountModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="createAccountModalLabel" aria-hidden="true">
+                                <form id="createAccountForm">
+                                    <div class="modal-header">
+                                        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                        <h3 id="createAccountModalLabel">@Patient.CreateLoginAccount</h3>
+                                    </div>
+                                    <div class="field-validation-error hidden modal-error">
+                                    </div>
+                                    <div class="modal-body">
+                                        @{
+                                            var systemAccount = new SystemAccountDto { Email = Model.Email, CreateNew = true };
+                                        }
+                                        @Html.EditorFor(m => systemAccount)
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="#" class="btn" data-dismiss="modal" aria-hidden="true">@Patient.Cancel</a>
+                                        <a id="create-account-btn" class="btn btn-primary" data-loadelementid="create-account-model-loading" aria-hidden="true">@Patient.Create</a>
+                                    </div>
+                                    <div id="create-account-model-loading" class="modal-loading-indicator" style="display: none"></div>
+                                </form>
+                            </div>
 
-                                if (Html.CanAccess("Patient", "CreateAccount", "POST"))
-                                {
-                                <a href="#createAccountModal" class="btn btn-success" data-toggle="modal" data-icon="&#xe102;">Create New Account</a>
-                                }
+                            if (Html.CanAccess("Patient", "CreateAccount", "POST"))
+                            {
+                                <a href="#createAccountModal" class="btn btn-success" data-toggle="modal" data-icon="&#xe102;">@Patient.CreateNewAccount</a>
                             }
+                        }
+                        <div id="messageModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="messageModalLabel" aria-hidden="true">
+                            <form id="messageForm">
+                                <div class="modal-header">
+                                    <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+                                    <h3>@Patient.ResetPassword</h3>
+                                </div>
+                                <div class="modal-body">
+                                </div>
+                            </form>
                         </div>
                     </div>
-                </fieldset>
-            </div>
-        </form>
+                </div>
+            </fieldset>
+        </div>
     </div>
 </div>
 
 
 @section scripts 
 {
-    @Scripts.Render("~/bundles/patient")
-    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+    @Scripts.Render( "~/bundles/patient" )
+    <noscript>@Patient.JavascriptNotEnabled</noscript>
     <script>
         $(document).ready(function () {
-            window.procenter.InitializePatient('@Url.Content("~/Patient")', '@Url.Content("~/Team")', '@Url.Content("~/api/Team")');
+            window.procenter.InitializePatient('@Url.Content( "~/Patient" )', '@Url.Content( "~/Team" )', '@Url.Content( "~/api/Team" )');
         });
     </script>
-    <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+    <noscript>@Patient.JavascriptNotEnabled</noscript>
 }

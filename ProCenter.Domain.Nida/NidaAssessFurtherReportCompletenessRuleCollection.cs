@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,64 +25,115 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
+    #region Using Statements
+
     using System.Linq;
-    using AssessmentModule;
+
     using Pillar.FluentRuleEngine;
 
+    using ProCenter.Domain.AssessmentModule;
+
+    #endregion
+
+    /// <summary>The nida assess further report completeness rule collection class.</summary>
     public class NidaAssessFurtherReportCompletenessRuleCollection : AbstractRuleCollection<AssessmentInstance>, ICompletenessRuleCollection<AssessmentInstance>
     {
-        public NidaAssessFurtherReportCompletenessRuleCollection()
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NidaAssessFurtherReportCompletenessRuleCollection"/> class.
+        /// </summary>
+        public NidaAssessFurtherReportCompletenessRuleCollection ()
         {
             AutoValidatePropertyRules = true;
+
             //NewRule(() => Rule3269984).When(a => string.IsNullOrWhiteSpace(a.ItemInstances.FirstOrDefault(ins => ins.ItemDefinitionCode == "3269985").Value.ToString()))
             //                          .Then((a, ctx) =>
             //                              {
             //                                  var completenessManager = ctx.WorkingMemory.GetContextObject<IAssessmentCompletenessManager>();
             //                                  completenessManager.DecreasTotalCount();
             //                              });
-            
-            NewRule(() => OtherDrugUseFrequencyRule3269984)
-                .When((a, ctx) =>
-                    {
-                        var item = GetItemByCode(a, "3269985");
-                        if (item == null || item.Value == null)
-                        {
-                            return true;
-                        }
-                        return string.IsNullOrWhiteSpace((string) (item.Value));
-                    }).ThenReportRuleViolation((a, ctx) => "");
-          
-            NewRule(() => LastTimeInjectedRule3269986)
-                .When((a, ctx) =>
-                    {
-                        var item = GetItemByCode(a, "3269978");
-                        if (item == null || item.Value == null)
-                        {
-                            return true;
-                        }
-                        return !bool.Parse(item.Value.ToString());
-                    }).ThenReportRuleViolation((a, ctx) => "");
 
-            NewRuleSet(() => CompletenessRuleSet, new[] {OtherDrugUseFrequencyRule3269984, LastTimeInjectedRule3269986});
+            NewRule ( () => OtherDrugUseFrequencyRule3269984 )
+                .When (
+                       ( a, ctx ) =>
+                       {
+                           var item = GetItemByCode ( a, "3269985" );
+                           if ( item == null || item.Value == null )
+                           {
+                               return true;
+                           }
+                           return string.IsNullOrWhiteSpace ( (string)( item.Value ) );
+                       } ).ThenReportRuleViolation ( ( a, ctx ) => string.Empty );
+
+            NewRule ( () => LastTimeInjectedRule3269986 )
+                .When (
+                       ( a, ctx ) =>
+                       {
+                           var item = GetItemByCode ( a, "3269978" );
+                           if ( item == null || item.Value == null )
+                           {
+                               return true;
+                           }
+                           return !bool.Parse ( item.Value.ToString () );
+                       } ).ThenReportRuleViolation ( ( a, ctx ) => string.Empty );
+
+            NewRuleSet ( () => CompletenessRuleSet, new[] { OtherDrugUseFrequencyRule3269984, LastTimeInjectedRule3269986 } );
         }
 
+        #endregion
 
-        public IRule OtherDrugUseFrequencyRule3269984 { get; private set; }
-        public IRule LastTimeInjectedRule3269986 { get; private set; }
+        #region Public Properties
 
-        public IRuleSet CompletenessRuleSet { get; private set; }
-
+        /// <summary>
+        /// Gets the completeness category.
+        /// </summary>
+        /// <value>
+        /// The completeness category.
+        /// </value>
         public string CompletenessCategory
         {
             get { return AssessmentModule.CompletenessCategory.Report; }
         }
 
-        private static ItemInstance GetItemByCode(AssessmentInstance assessment, string itemDefinitionCode )
+        /// <summary>
+        /// Gets the completeness rule set.
+        /// </summary>
+        /// <value>
+        /// The completeness rule set.
+        /// </value>
+        public IRuleSet CompletenessRuleSet { get; private set; }
+
+        /// <summary>
+        /// Gets the last time injected rule3269986.
+        /// </summary>
+        /// <value>
+        /// The last time injected rule3269986.
+        /// </value>
+        public IRule LastTimeInjectedRule3269986 { get; private set; }
+
+        /// <summary>
+        /// Gets the other drug use frequency rule3269984.
+        /// </summary>
+        /// <value>
+        /// The other drug use frequency rule3269984.
+        /// </value>
+        public IRule OtherDrugUseFrequencyRule3269984 { get; private set; }
+
+        #endregion
+
+        #region Methods
+
+        private static ItemInstance GetItemByCode ( AssessmentInstance assessment, string itemDefinitionCode )
         {
-            return assessment.ItemInstances.FirstOrDefault(i => i.ItemDefinitionCode == itemDefinitionCode);
+            return assessment.ItemInstances.FirstOrDefault ( i => i.ItemDefinitionCode == itemDefinitionCode );
         }
+
+        #endregion
     }
 }

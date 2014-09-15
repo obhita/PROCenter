@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,28 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
-    using EventStore;
+    using Pillar.Common.InversionOfControl;
+
     using ProCenter.Domain.MessageModule;
 
     #endregion
 
+    /// <summary>The workflow message repository class.</summary>
     public class WorkflowMessageRepository : RepositoryBase<WorkflowMessage>, IWorkflowMessageRepository
     {
         #region Constructors and Destructors
 
-        public WorkflowMessageRepository ( IEventStoreRepository eventStoreRepository )
-            : base ( eventStoreRepository )
+        /// <summary>Initializes a new instance of the <see cref="WorkflowMessageRepository" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        public WorkflowMessageRepository ( IUnitOfWorkProvider unitOfWorkProvider )
+            : base ( unitOfWorkProvider )
         {
         }
 

@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,15 +25,40 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Report
 {
+    #region Using Statements
+
     using System;
+
     using Agatha.Common;
 
+    #endregion
+
+    /// <summary>The get report customization model request class.</summary>
     public class GetReportCustomizationModelRequest : Request
     {
-        public Guid SourceKey { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the name of the report.
+        /// </summary>
+        /// <value>
+        /// The name of the report.
+        /// </value>
         public string ReportName { get; set; }
+
+        /// <summary>
+        /// Gets or sets the source key.
+        /// </summary>
+        /// <value>
+        /// The source key.
+        /// </value>
+        public Guid SourceKey { get; set; }
+
+        #endregion
     }
 }

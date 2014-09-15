@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
     #region Using Statements
 
     using System;
-    using AssessmentModule;
 
     #endregion
 
+    /// <summary>The workflow message report item updated event class.</summary>
     public class WorkflowMessageReportItemUpdatedEvent : MessageEventBase
     {
-
         #region Constructors and Destructors
 
-        public WorkflowMessageReportItemUpdatedEvent(Guid key, MessageType messageType, string reportName, string name, bool? shouldShow, string text)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="WorkflowMessageReportItemUpdatedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="messageType">Type of the message.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="shouldShow">The should show.</param>
+        /// <param name="text">The text.</param>
+        public WorkflowMessageReportItemUpdatedEvent ( Guid key, MessageType messageType, string reportName, string name, bool? shouldShow, string text )
             : base ( key, messageType )
         {
             ReportName = reportName;
@@ -52,9 +63,36 @@ namespace ProCenter.Domain.MessageModule.Event
 
         #region Public Properties
 
-        public string ReportName { get; private set; }
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>
+        /// The name.
+        /// </value>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets the name of the report.
+        /// </summary>
+        /// <value>
+        /// The name of the report.
+        /// </value>
+        public string ReportName { get; private set; }
+
+        /// <summary>
+        /// Gets the should show.
+        /// </summary>
+        /// <value>
+        /// The should show.
+        /// </value>
         public bool? ShouldShow { get; private set; }
+
+        /// <summary>
+        /// Gets the text.
+        /// </summary>
+        /// <value>
+        /// The text.
+        /// </value>
         public string Text { get; private set; }
 
         #endregion

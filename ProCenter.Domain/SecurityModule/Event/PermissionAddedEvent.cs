@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,23 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
     using Pillar.Security.AccessControl;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
     /// <summary>
-    ///     Permission AddedEvent
+    ///     Permission AddedEvent.
     /// </summary>
     public class PermissionAddedEvent : CommitEventBase
     {
@@ -48,8 +53,8 @@ namespace ProCenter.Domain.SecurityModule.Event
         /// <param name="key">The key.</param>
         /// <param name="version">The version.</param>
         /// <param name="permission">The permission.</param>
-        public PermissionAddedEvent(Guid key, int version, Permission permission)
-            : base(key, version)
+        public PermissionAddedEvent ( Guid key, int version, Permission permission )
+            : base ( key, version )
         {
             Permission = permission;
         }

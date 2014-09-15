@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Common.InversionOfControl;
     using Pillar.Domain.Event;
 
     #endregion
 
-    /// <summary>
-    ///     Class for raising commit events.
-    /// </summary>
+    /// <summary>Class for raising commit events.</summary>
     public static class CommitEvent
     {
         #region Public Methods and Operators
@@ -51,19 +53,23 @@ namespace ProCenter.Domain.CommonModule
         public static void RaiseCommitEvent<TEvent> ( IAggregateRoot aggregateRoot, TEvent @event ) where TEvent : ICommitEvent
         {
             if ( IoC.CurrentContainer == null )
+            {
                 return;
+            }
             IoC.CurrentContainer.Resolve<ICommitDomainEventService> ().RaiseCommit<TEvent> ( aggregateRoot, @event );
         }
 
         /// <summary>
-        /// Registers for all events.
+        ///     Registers for all events.
         /// </summary>
         /// <param name="callback">The callback.</param>
-        public static void RegisterAll(Action<IDomainEvent> callback)
+        public static void RegisterAll ( Action<IDomainEvent> callback )
         {
-            if (IoC.CurrentContainer == null)
+            if ( IoC.CurrentContainer == null )
+            {
                 return;
-            IoC.CurrentContainer.Resolve<ICommitDomainEventService>().RegisterAll(callback);
+            }
+            IoC.CurrentContainer.Resolve<ICommitDomainEventService> ().RegisterAll ( callback );
         }
 
         #endregion

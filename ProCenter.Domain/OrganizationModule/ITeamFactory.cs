@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,28 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Domain.OrganizationModule
 {
+    #region Using Statements
+
+    using System;
+
+    #endregion
+
+    /// <summary>Interface for team factory.</summary>
     public interface ITeamFactory
     {
+        #region Public Methods and Operators
+
+        /// <summary>Creates the specified organization key.</summary>
+        /// <param name="organizationKey">The organization key.</param>
+        /// <param name="name">The name.</param>
+        /// <returns>A <see cref="Team"/>.</returns>
         Team Create ( Guid organizationKey, string name );
+
+        #endregion
     }
 }

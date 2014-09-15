@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,50 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Extensions
 {
+    #region Using Statements
+
+    using System;
+
+    #endregion
+
+    /// <summary>The string extensions class.</summary>
     public static class StringExtensions
     {
-        public static string ToFirstLetterUpper(this string s)
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Determines whether [contains] [the specified source] with a StringComparison for case sensitivity.
+        /// </summary>
+        /// <param name="source">The source.</param>
+        /// <param name="toCheck">To check.</param>
+        /// <param name="comp">The comp.</param>
+        /// <returns>Returns true if string is contained or false.</returns>
+        public static bool Contains ( this string source, string toCheck, StringComparison comp )
         {
-            if (string.IsNullOrWhiteSpace(s))
+            return source.IndexOf ( toCheck, comp ) >= 0;
+        }
+
+        /// <summary>To the first letter upper.</summary>
+        /// <param name="s">The s.</param>
+        /// <returns>A <see cref="string" />.</returns>
+        public static string ToFirstLetterUpper ( this string s )
+        {
+            if ( string.IsNullOrWhiteSpace ( s ) )
             {
                 return s;
             }
-            if (s.Length == 1)
+            if ( s.Length == 1 )
             {
-                return s.ToUpper();
+                return s.ToUpper ();
             }
-            return char.ToUpper(s[0]) + s.Substring(1);
+            return char.ToUpper ( s[0] ) + s.Substring ( 1 );
         }
+
+        #endregion
     }
 }

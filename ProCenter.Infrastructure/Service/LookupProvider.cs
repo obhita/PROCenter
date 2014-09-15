@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service
 {
     #region Using Statements
@@ -33,32 +36,20 @@ namespace ProCenter.Infrastructure.Service
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using Common;
-    using Pillar.Common.InversionOfControl;
+
     using ProCenter.Domain.CommonModule;
     using ProCenter.Domain.CommonModule.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Lookup provider.
-    /// </summary>
-    public class LookupProvider : ILookupProvider, IOrderedBootstrapperTask
+    /// <summary>Lookup provider.</summary>
+    public class LookupProvider : ILookupProvider
     {
-        private readonly IContainer _container;
-
         #region Fields
 
         private readonly Dictionary<string, IEnumerable<Lookup>> _lookupsByCategory = new Dictionary<string, IEnumerable<Lookup>> ();
 
         #endregion
-
-        public int Order { get; private set; }
-
-        public LookupProvider (IContainer container)
-        {
-            _container = container;
-        }
 
         #region Public Methods and Operators
 
@@ -161,9 +152,9 @@ namespace ProCenter.Infrastructure.Service
                 actualType.GetFields ( BindingFlags.Static | BindingFlags.Public ).Where ( f => f.FieldType == actualType );
 
             var lookups = from f in fields
-                          let looupItem = (Lookup) f.GetValue ( null )
-                          orderby looupItem.SortOrder
-                          select looupItem;
+                let looupItem = (Lookup)f.GetValue ( null )
+                orderby looupItem.SortOrder
+                select looupItem;
 
             if ( _lookupsByCategory.ContainsKey ( registerType.Name ) )
             {
@@ -181,21 +172,10 @@ namespace ProCenter.Infrastructure.Service
 
         private static Type GetRegistrationType ( Type lookupType )
         {
-            var lookupAttribute = lookupType.GetCustomAttribute<LookupRegistration> ();
+            var lookupAttribute = lookupType.GetCustomAttribute<LookupRegistrationAttribute> ();
             return lookupAttribute != null ? lookupAttribute.LookupType : lookupType;
         }
 
         #endregion
-
-        public void Execute ()
-        {
-            var lookups = _container.ResolveAll<Lookup> ();
-            foreach ( var lookupType in lookups.Select ( l => l.GetType () ) )
-            {
-                Register ( lookupType );
-            }
-
-            _container.RegisterInstance ( typeof(ILookupProvider), this );
-        }
     }
 }

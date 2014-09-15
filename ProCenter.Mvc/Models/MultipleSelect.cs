@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,39 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Models
 {
+    #region Using Statements
+
     using System.Collections.Generic;
     using System.Web.Mvc;
 
+    #endregion
+
+    /// <summary>The multiple select class.</summary>
     public class MultipleSelect
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the items.
+        /// </summary>
+        /// <value>
+        /// The items.
+        /// </value>
+        public IEnumerable<SelectListItem> Items { get; set; }
+
+        /// <summary>
+        /// Gets or sets the selected keys.
+        /// </summary>
+        /// <value>
+        /// The selected keys.
+        /// </value>
         public string[] SelectedKeys { get; set; }
 
-        public IEnumerable<SelectListItem> Items { get; set; }
+        #endregion
     }
 }

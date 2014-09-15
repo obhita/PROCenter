@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>BrockAllen.CookieTempData.dll</id>
+    <version>1.2.0</version>
+    <authors>BrockAllen</authors>
+    <owners>BrockAllen</owners>
+    <licenseUrl>https://github.com/brockallen/CookieTempData/blob/master/45/license.txt</licenseUrl>
+    <projectUrl>https://github.com/brockallen/CookieTempData</projectUrl>
+    <iconUrl>http://0.gravatar.com/avatar/f17c1816a6f9bff29a515c75b950460a?s=128&amp;d=mm&amp;r=G</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Cookie-based TempData provider for ASP.NET MVC</description>
+    <releaseNotes>Changed controller factory initialization to run after Application_Start to accommodate IoC containers.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>MVC TempData</tags>
+  </metadata>
+</package>

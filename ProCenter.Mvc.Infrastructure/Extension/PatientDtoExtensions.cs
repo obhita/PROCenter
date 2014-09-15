@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Extension
 {
     #region Using Statements
@@ -33,11 +36,19 @@ namespace ProCenter.Mvc.Infrastructure.Extension
 
     #endregion
 
+    /// <summary>The patient dto extensions class.</summary>
     public static class PatientDtoExtensions
     {
-        public static string FullName(this PatientDto patientDto)
+        #region Public Methods and Operators
+
+        /// <summary>Gets the full name.</summary>
+        /// <param name="patientDto">The patient dto.</param>
+        /// <returns>A <see cref="string" />.</returns>
+        public static string FullName ( this PatientDto patientDto )
         {
-            return string.Format("{1}, {0}", patientDto.Name.FirstName, patientDto.Name.LastName);
+            return string.Format ( "{1}, {0}", patientDto.Name.FirstName, patientDto.Name.LastName );
         }
+
+        #endregion
     }
 }

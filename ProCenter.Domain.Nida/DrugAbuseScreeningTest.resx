@@ -117,6 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="PatientHelpInformation" xml:space="preserve">
+    <value>DAST-10 (Drug Abuse Screening Test with 10 Items) is a condensed instrument to assess problems with drug use. The DAST-10 was designed for supporting clinical screening and treatment evaluation, and can be used with adults and older youth. It should take less than 8 minutes to complete.
+ &lt;br/&gt; &lt;br/&gt;
+For more information about the DAST-10 please see SAMHSA web site, 
+ &lt;br/&gt; &lt;br/&gt;
+http://www.integration.samhsa.gov/clinical-practice/screening-tools</value>
+  </data>
   <data name="_3254039" xml:space="preserve">
     <value>Have you used drugs other than those required for medical reasons?</value>
   </data>

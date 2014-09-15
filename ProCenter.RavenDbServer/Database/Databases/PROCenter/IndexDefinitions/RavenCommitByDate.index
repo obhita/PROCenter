@@ -1,14 +1,14 @@
 {
   "Name": "RavenCommitByDate",
-  "Map": "docs.RavenCommits.Select(c => new {\r\n    CommitStamp = c.CommitStamp,\r\n    Partition = c.Partition ?? null\r\n})",
+  "LockMode": "Unlock",
+  "Map": "docs.RavenCommits.Select(c => new {\r\n    CommitStamp = c.CommitStamp,\r\n    Partition = ((string)(c.Partition ?? null))\r\n})",
   "Maps": [
-    "docs.RavenCommits.Select(c => new {\r\n    CommitStamp = c.CommitStamp,\r\n    Partition = c.Partition ?? null\r\n})"
+    "docs.RavenCommits.Select(c => new {\r\n    CommitStamp = c.CommitStamp,\r\n    Partition = ((string)(c.Partition ?? null))\r\n})"
   ],
   "Reduce": null,
   "TransformResults": null,
   "IsMapReduce": false,
   "IsCompiled": false,
-  "IsTemp": false,
   "Stores": {},
   "Indexes": {},
   "SortOptions": {},
@@ -16,5 +16,8 @@
   "Fields": [],
   "Suggestions": {},
   "TermVectors": {},
-  "Type": "Map"
+  "SpatialIndexes": {},
+  "InternalFieldsMapping": null,
+  "Type": "Map",
+  "DisableInMemoryIndexing": false
 }

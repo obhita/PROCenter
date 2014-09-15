@@ -55,10 +55,7 @@ namespace ProCenter.Infrastructure.Tests.EventStore
             var patientKey = Guid.NewGuid();
             var patient = _eventStoreRepository.GetByKey<Patient>(patientKey);
 
-            Assert.AreEqual(patient.Key, patientKey);
-            Assert.IsNull(patient.Name);
-            Assert.IsNull(patient.DateOfBirth);
-            Assert.IsNull(patient.Gender);
+            Assert.AreEqual ( patient, null );
         }
 
         [TestMethod]

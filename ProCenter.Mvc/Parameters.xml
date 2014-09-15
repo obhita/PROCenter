@@ -1,20 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <parameters >
   <parameter name="ApplicationRealm" description="Provides the realm and audience URI for the application." defaultValue="http://localhost:52899/" tags="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/audienceUris/add/*[1]/@value" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/audienceUris/add[1]/@value" />
     <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel.services/federationConfiguration/wsFederation/@realm" />
   </parameter>
   
   <parameter name="ApplicationAPIRealm" description="Provides the realm and audience URI for the applications web api." defaultValue="http://localhost:52899/api" tags="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/audienceUris/add/*[2]/@value" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/audienceUris/add[2]/@value" />
   </parameter>
 
   <parameter name="Issuer" description="Provides issuer(Identity Provider) URI." defaultValue="https://localhost:44303/" tags="">
     <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel.services/federationConfiguration/wsFederation/@issuer" />
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/issuerNameRegistry/trustedIssuers/add/*[1]/@name" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/issuerNameRegistry/trustedIssuers/add[1]/@name" />
   </parameter>
 
   <parameter name="IssuerThumbprint" description="Provides issuer's(Identity Provider) signing certificate thumbprint." defaultValue="40A1D2622BFBDAC80A38858AD8001E094547369B" tags="">
-    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/issuerNameRegistry/trustedIssuers/add/*[1]/@thumbprint" />
+    <parameterEntry kind="XmlFile" scope="\\web.config$" match="//configuration/system.identityModel/identityConfiguration/issuerNameRegistry/trustedIssuers/add[1]/@thumbprint" />
   </parameter>
 </parameters>

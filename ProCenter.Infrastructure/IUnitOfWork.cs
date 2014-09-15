@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,33 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure
 {
     #region Using Statements
 
     using System;
+
     using Pillar.Domain.Event;
+
     using ProCenter.Domain.CommonModule;
+    using ProCenter.Infrastructure.EventStore;
 
     #endregion
 
-    /// <summary>
-    ///     Interface that defines a unit of work.
-    /// </summary>
+    /// <summary>Interface that defines a unit of work.</summary>
     public interface IUnitOfWork
     {
+        #region Public Properties
+
+        /// <summary>Gets the event store repository.</summary>
+        /// <value>The event store repository.</value>
+        IEventStoreRepository EventStoreRepository { get; }
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -64,7 +76,7 @@ namespace ProCenter.Infrastructure
         /// </summary>
         /// <param name="aggregateRoot">The aggregate root.</param>
         /// <param name="events">The events.</param>
-        void Register(IAggregateRoot aggregateRoot, params IDomainEvent[] events);
+        void Register ( IAggregateRoot aggregateRoot, params IDomainEvent[] events );
 
         #endregion
     }

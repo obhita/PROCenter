@@ -9,6 +9,8 @@
 	[LastModifiedTime] DATETIME NOT NULL,
 	[IsSubmitted]	BIT NULL,
 	[CanSelfAdminister] bit NULL,
+    [EmailSentDate] DATETIME NULL, 
+    [EmailFailedDate] DATETIME NULL, 
     PRIMARY KEY CLUSTERED ([AssessmentInstanceKey] ASC),  
 	CONSTRAINT [AssessmentIntance_Patient_FK] FOREIGN KEY ([PatientKey]) REFERENCES [PatientModule].[Patient] ([PatientKey])
 );

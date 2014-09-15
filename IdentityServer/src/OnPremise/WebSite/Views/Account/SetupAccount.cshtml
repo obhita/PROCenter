@@ -1,0 +1,48 @@
+﻿@using Thinktecture.IdentityServer.Web.App_LocalResources.Account
+@model Thinktecture.IdentityServer.Web.ViewModels.SetupAccountModel
+
+@{
+    ViewBag.Title = "Setup Account";
+    ViewBag.HideMenu = true;
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary()
+    <fieldset class="editor small signin">
+        <legend>@SetupAccount_cshtml.ChangePassword</legend>
+        @Html.HiddenFor(m => m.UserName)
+        @Html.HiddenFor(m => m.ReturnUrl)
+        @Html.HiddenFor(m => m.EnableSSO)
+        <div>
+            @Html.LabelFor(m => m.Password)
+            @Html.PasswordFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+        <div>
+            @Html.LabelFor(m => m.NewPassword)
+            @Html.PasswordFor(m => m.NewPassword)
+            @Html.ValidationMessageFor(m => m.NewPassword)
+        </div>
+
+        <div>
+            @Html.LabelFor(m => m.ConfirmPassword)
+            @Html.PasswordFor(m => m.ConfirmPassword)
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        </div>
+    </fieldset>
+    <fieldset class="editor small signin">
+        <legend>@SetupAccount_cshtml.SetupSecurityQuestion</legend>
+        <div>
+            @Html.DropDownListFor(m => m.SecurityQuestion, ViewData["SecurityQuestions"] as IEnumerable<SelectListItem>, SetupAccount_cshtml.ChooseSecurityQuestion)
+        </div>
+        <div>
+            @Html.TextBoxFor(m => m.SecurityAnswer)
+            @Html.ValidationMessageFor(m => m.SecurityAnswer)
+        </div>
+    </fieldset>
+    <div class="buttons">
+        <input type="submit" value="Submit" />
+    </div>
+}

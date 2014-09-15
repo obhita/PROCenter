@@ -1,0 +1,6 @@
+﻿@{
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+
+@Html.TextBoxFor(m => m, new { @class= "heightTotalInches", style="display: none;", id = ViewData["id"], aria_label = @ariaLabel})
+@Html.ValidationMessageFor(m => m)

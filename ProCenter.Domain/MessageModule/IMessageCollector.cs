@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule
 {
     #region Using Statements
@@ -33,9 +36,27 @@ namespace ProCenter.Domain.MessageModule
 
     #endregion
 
+    /// <summary>Interface for message collector.</summary>
     public interface IMessageCollector
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the messages.
+        /// </summary>
+        /// <value>
+        /// The messages.
+        /// </value>
         IEnumerable<IMessage> Messages { get; }
-        void AddMessage(IMessage message);
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Adds the message.</summary>
+        /// <param name="message">The message.</param>
+        void AddMessage ( IMessage message );
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using System;
+
     using Agatha.Common;
 
+    #endregion
+
+    /// <summary>The validate patient account request class.</summary>
     public class ValidatePatientAccountRequest : Request
     {
-        public Guid SystemAccountKey { get; set; }
-        public string PatientIdentifier { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the date of birth.
+        /// </summary>
+        /// <value>
+        /// The date of birth.
+        /// </value>
         public DateTime DateOfBirth { get; set; }
+
+        /// <summary>
+        /// Gets or sets the patient identifier.
+        /// </summary>
+        /// <value>
+        /// The patient identifier.
+        /// </value>
+        public string PatientIdentifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the system account key.
+        /// </summary>
+        /// <value>
+        /// The system account key.
+        /// </value>
+        public Guid SystemAccountKey { get; set; }
+
+        #endregion
     }
 }

@@ -1,25 +1,26 @@
 @using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Widgets
 @using ProCenter.Service.Message.Message
 
-<div id="createEventModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="createEventLabel" aria-hidden="true">
+<div id="createEventModal" class="modal hide fade" style="margin-top: -30px;" tabindex="-1" role="dialog" aria-labelledby="createEventLabel" aria-hidden="true">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="createModalLabel">Assessment Reminder</h3>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="createModalLabel">@Widgets.AssessmentReminder</h3>
     </div>
     <form>
         <div id="createEventMessage" class="field-validation-error hidden modal-error">
         </div>
         <div class="modal-body">
             @{
-                var assessmentReminderDto = new AssessmentReminderDto();
+                var assessmentReminderDto = new AssessmentReminderDto ();
             }
-            @Html.EditorFor(m => assessmentReminderDto)
+            @Html.EditorFor( m => assessmentReminderDto )
         </div>
         <div class="modal-footer">
             @if ( Html.CanAccess ( "AssessmentReminder", "Create", "POST" ) )
             {
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <a id="create-event-btn" href='@Url.Action( "Create", "AssessmentReminder" )' role="button" class="btn btn-primary" aria-hidden="true" data-loadelementid="create-event-loading-indicator">Create</a>
+                <button class="btn" data-dismiss="modal">@Widgets.Cancel</button>
+                <a id="create-event-btn" href='@Url.Action( "Create", "AssessmentReminder" )' role="button" class="btn btn-primary" data-loadelementid="create-event-loading-indicator">@Widgets.Create</a>
             }
         </div>
         <div id="create-event-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
@@ -28,19 +29,19 @@
 
 <div id="editEventModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="editEventLabel" aria-hidden="true">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="editModalLabel">Assessment Reminder</h3>
+        <button type="button" class="close pull-right" data-dismiss="modal">×</button>
+        <h3 id="editModalLabel">@Widgets.AssessmentReminder</h3>
     </div>
     <div id="change-password-message" class="field-validation-error hidden modal-error">
     </div>
     <div class="modal-body">
     </div>
     <div class="modal-footer">
-            @if ( Html.CanAccess ( "AssessmentReminder", "Edit", "POST" ) )
-            {
-                <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-                <a id="edit-event-btn" href='@Url.Action( "Edit", "AssessmentReminder" )' role="button" class="btn btn-primary" aria-hidden="true" data-loadelementid="event-loading-indicator">Save</a>
-            }
+        @if ( Html.CanAccess ( "AssessmentReminder", "Edit", "POST" ) )
+        {
+            <button class="btn" data-dismiss="modal">@Widgets.Cancel</button>
+            <a id="edit-event-btn" href='@Url.Action( "Edit", "AssessmentReminder" )' role="button" class="btn btn-primary" data-loadelementid="event-loading-indicator">@Widgets.Save</a>
+        }
     </div>
     <div id="event-loading-indicator" class="modal-loading-indicator" style="display: none"></div>
 </div>
@@ -48,12 +49,13 @@
 <div id="calendar-widget" class="widget">
     <div class="widget-header">
         <div class="title">
-            Reminder Calendar
+            <span class="fs1" aria-hidden="true" data-icon="&#xe053;"></span>
+            @Widgets.ReminderCalendar
         </div>
         <span class="tools">
             @if ( Html.CanAccess ( "AssessmentReminder", "Create" ) )
             {
-                <a class="fs1" aria-hidden="true" href="#createEventModal" data-toggle="modal" data-icon="&#xe102;" title="Add reminder"></a>
+                <a class="fs1" href="#createEventModal" data-toggle="modal" data-icon="&#xe102;" aria-haspopup="true" title="@Widgets.AddReminder" id="add-reminder"></a>
             }
         </span>
     </div>

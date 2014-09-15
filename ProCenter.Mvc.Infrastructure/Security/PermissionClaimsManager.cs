@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
     #region Using Statements
@@ -37,31 +40,57 @@ namespace ProCenter.Mvc.Infrastructure.Security
     using Domain.PatientModule;
     using Domain.SecurityModule;
 
+    using Raven.Client.Connection.Async;
+
     #endregion
 
+    /// <summary>The permission claims manager class.</summary>
     public class PermissionClaimsManager : IPermissionClaimsManager
     {
         #region Fields
 
-        private readonly IRoleRepository _roleRepository;
         private readonly IPatientRepository _patientRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IStaffRepository _staffRepository;
+        private readonly IOrganizationRepository _organizationRepository;
 
         #endregion
 
         #region Constructors and Destructors
 
-        public PermissionClaimsManager ( IStaffRepository staffRepository, IRoleRepository roleRepository, IPatientRepository patientRepository )
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PermissionClaimsManager" /> class.
+        /// </summary>
+        /// <param name="staffRepository">The staff repository.</param>
+        /// <param name="roleRepository">The role repository.</param>
+        /// <param name="patientRepository">The patient repository.</param>
+        /// <param name="organizationRepository">The organization repository.</param>
+        public PermissionClaimsManager ( 
+            IStaffRepository staffRepository, 
+            IRoleRepository roleRepository, 
+            IPatientRepository patientRepository,
+            IOrganizationRepository organizationRepository)
         {
             _staffRepository = staffRepository;
             _roleRepository = roleRepository;
             _patientRepository = patientRepository;
+            _organizationRepository = organizationRepository;
         }
 
         #endregion
 
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Issues the account staff claims.
+        /// </summary>
+        /// <param name="claimsPrincipal">The claims principal.</param>
+        /// <param name="systemAccount">The system account.</param>
+        /// <exception cref="System.InvalidOperationException">
+        /// Staff does not exist for key  + systemAccount.StaffKey
+        /// or
+        /// Patient does not exist for key  + systemAccount.PatientKey.
+        /// </exception>
         public void IssueAccountClaims ( ClaimsPrincipal claimsPrincipal, SystemAccount systemAccount )
         {
             var identity = claimsPrincipal.Identity as ClaimsIdentity;
@@ -71,6 +100,7 @@ namespace ProCenter.Mvc.Infrastructure.Security
                 if ( systemAccount.OrganizationKey != Guid.Empty )
                 {
                     identity.AddClaim ( new Claim ( ProCenterClaimType.OrganizationKeyClaimType, systemAccount.OrganizationKey.ToString () ) );
+                    identity.AddClaim(new Claim(ProCenterClaimType.OrganizationNameClaimType, GetOrganizationName(systemAccount.OrganizationKey)));
                 }
                 var emailClaim = identity.Claims.FirstOrDefault ( c => c.Type == ClaimTypes.Email );
                 if ( emailClaim != null )
@@ -91,16 +121,22 @@ namespace ProCenter.Mvc.Infrastructure.Security
                     identity.AddClaim ( new Claim ( ProCenterClaimType.UserLastNameClaimType, staff.Name.LastName ) );
                     systemAccount.Validate ();
                 }
-                if ( systemAccount.PatientKey != null )
+                else if ( systemAccount.PatientKey != null )
                 {
-                    var patient = _patientRepository.GetByKey(systemAccount.PatientKey.Value);
-                    if (patient == null)
+                    var patient = _patientRepository.GetByKey ( systemAccount.PatientKey.Value );
+                    if ( patient == null )
                     {
-                        throw new InvalidOperationException("Patient does not exist for key " + systemAccount.PatientKey);
+                        throw new InvalidOperationException ( "Patient does not exist for key " + systemAccount.PatientKey );
                     }
-                    identity.AddClaim(new Claim(ProCenterClaimType.PatientKeyClaimType, systemAccount.PatientKey.ToString()));
-                    identity.AddClaim(new Claim(ProCenterClaimType.UserFirstNameClaimType, patient.Name.FirstName));
-                    identity.AddClaim(new Claim(ProCenterClaimType.UserLastNameClaimType, patient.Name.LastName));
+                    identity.AddClaim ( new Claim ( ProCenterClaimType.PatientKeyClaimType, systemAccount.PatientKey.ToString () ) );
+                    identity.AddClaim ( new Claim ( ProCenterClaimType.UserFirstNameClaimType, patient.Name.FirstName ) );
+                    identity.AddClaim ( new Claim ( ProCenterClaimType.UserLastNameClaimType, patient.Name.LastName ) );
+                }
+                else
+                {
+                    identity.AddClaim ( 
+                        new Claim ( ProCenterClaimType.UserFirstNameClaimType, 
+                            systemAccount.Identifier.Substring ( 0, systemAccount.Identifier.IndexOf ( '@' ) ) ) );
                 }
 
                 if ( systemAccount.Validated )
@@ -111,6 +147,24 @@ namespace ProCenter.Mvc.Infrastructure.Security
             }
         }
 
+        /// <summary>
+        /// Issues the system account validation claim.
+        /// </summary>
+        /// <param name="claimsPrincipal">The claims principal.</param>
+        public void IssueSystemAccountValidationClaim ( ClaimsPrincipal claimsPrincipal )
+        {
+            var identity = claimsPrincipal.Identity as ClaimsIdentity;
+            if ( identity != null )
+            {
+                identity.AddClaim ( new Claim ( ProCenterClaimType.ValidatedClaimType, true.ToString () ) );
+            }
+        }
+
+        /// <summary>
+        /// Issues the system permission claims.
+        /// </summary>
+        /// <param name="claimsPrincipal">The claims principal.</param>
+        /// <param name="systemAccount">The system account.</param>
         public void IssueSystemPermissionClaims ( ClaimsPrincipal claimsPrincipal, SystemAccount systemAccount )
         {
             var identity = claimsPrincipal.Identity as ClaimsIdentity;
@@ -127,15 +181,16 @@ namespace ProCenter.Mvc.Infrastructure.Security
             }
         }
 
-        public void IssueSystemAccountValidationClaim ( ClaimsPrincipal claimsPrincipal )
-        {
-            var identity = claimsPrincipal.Identity as ClaimsIdentity;
-            if ( identity != null )
-            {
-                identity.AddClaim ( new Claim ( ProCenterClaimType.ValidatedClaimType, true.ToString() ) );
-            }
-        }
-
         #endregion
+
+        private string GetOrganizationName ( Guid organizationKey )
+        {
+            var organization = _organizationRepository.GetByKey ( organizationKey );
+            if ( organization != null )
+            {
+                return organization.Name;
+            }
+            return string.Empty;
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,34 +25,55 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers.Api
 {
-    #region
+    #region Using Statements
 
     using System.Linq;
     using Common;
     using Dapper;
     using Models;
-    using ProCenter.Infrastructure.Service.ReadSideService;
-    using Service.Message.Organization;
     using Service.Message.Security;
 
     #endregion
 
+    /// <summary>The role search data table controller class.</summary>
     public class RoleSearchDataTableController : BaseApiController
     {
+        #region Fields
+
         private readonly IDbConnectionFactory _connectionFactory;
 
-        public RoleSearchDataTableController(IDbConnectionFactory connectionFactory)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="RoleSearchDataTableController"/> class.
+        /// </summary>
+        /// <param name="connectionFactory">The connection factory.</param>
+        public RoleSearchDataTableController ( IDbConnectionFactory connectionFactory )
         {
             _connectionFactory = connectionFactory;
         }
 
-        public DataTableResponse<RoleDto> Get(string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Gets the specified s echo.</summary>
+        /// <param name="sEcho">The s echo.</param>
+        /// <param name="iDisplayStart">The i display start.</param>
+        /// <param name="iDisplayLength">Display length of the i.</param>
+        /// <param name="sSearch">The s search.</param>
+        /// <returns>A <see cref="DataTableResponse{RoleDto}"/>.</returns>
+        public DataTableResponse<RoleDto> Get ( string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null )
         {
-            const string whereConstraint = " AND (Name LIKE @Search+'%')";
-            const string query = @"
+            const string WhereConstraint = " AND (Name LIKE @Search+'%')";
+            const string Query = @"
                             SELECT COUNT(*) as TotalCount FROM SecurityModule.Role
                                 WHERE OrganizationKey='{0}'{1}
                             SELECT [t].Name,
@@ -69,23 +91,25 @@ namespace ProCenter.Mvc.Controllers.Api
 
             var start = iDisplayStart;
             var end = start + iDisplayLength;
-            var replaceString = string.IsNullOrWhiteSpace(sSearch) ? "" : whereConstraint;
-            var completeQuery = string.Format(query, UserContext.Current.OrganizationKey, replaceString);
-            using (var connection = _connectionFactory.CreateConnection())
-            using (var multiQuery = connection.QueryMultiple(completeQuery, new {start, end, search = sSearch}))
+            var replaceString = string.IsNullOrWhiteSpace ( sSearch ) ? string.Empty : WhereConstraint;
+            var completeQuery = string.Format ( Query, UserContext.Current.OrganizationKey, replaceString );
+            using ( var connection = _connectionFactory.CreateConnection () )
+            using ( var multiQuery = connection.QueryMultiple ( completeQuery, new {start, end, search = sSearch} ) )
             {
-                var totalCount = multiQuery.Read<int>().Single();
-                var roleDtos = multiQuery.Read<RoleDto>();
+                var totalCount = multiQuery.Read<int> ().Single ();
+                var roleDtos = multiQuery.Read<RoleDto> ();
                 var dataTableResponse = new DataTableResponse<RoleDto>
-                    {
-                        Data = roleDtos.ToList(),
-                        Echo = sEcho,
-                        TotalDisplayRecords = totalCount,
-                        TotalRecords = totalCount,
-                    };
+                {
+                    Data = roleDtos.ToList (),
+                    Echo = sEcho,
+                    TotalDisplayRecords = totalCount,
+                    TotalRecords = totalCount,
+                };
 
                 return dataTableResponse;
             }
         }
+
+        #endregion
     }
 }

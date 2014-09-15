@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers.Api
 {
     #region Using Statements
@@ -32,32 +35,57 @@ namespace ProCenter.Mvc.Controllers.Api
     using System;
     using System.Linq;
     using System.Web.Http;
-    using Common;
+
     using Dapper;
-    using Infrastructure;
-    using Models;
-    using ProCenter.Infrastructure.Service.ReadSideService;
-    using Service.Message.Assessment;
+
+    using ProCenter.Common;
+    using ProCenter.Mvc.Infrastructure;
+    using ProCenter.Mvc.Models;
+    using ProCenter.Service.Message.Assessment;
 
     #endregion
 
+    /// <summary>The patient assessments data table controller class.</summary>
     public class PatientAssessmentsDataTableController : BaseApiController
     {
+        #region Fields
+
         private readonly IDbConnectionFactory _connectionFactory;
+
         private readonly IResourcesManager _resourcesManager;
 
-        public PatientAssessmentsDataTableController(IDbConnectionFactory connectionFactory, IResourcesManager resourcesManager)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PatientAssessmentsDataTableController"/> class.
+        /// </summary>
+        /// <param name="connectionFactory">The connection factory.</param>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public PatientAssessmentsDataTableController ( IDbConnectionFactory connectionFactory, IResourcesManager resourcesManager )
         {
             _connectionFactory = connectionFactory;
             _resourcesManager = resourcesManager;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Gets the specified key.</summary>
+        /// <param name="key">The key.</param>
+        /// <param name="sEcho">The s echo.</param>
+        /// <param name="iDisplayStart">The i display start.</param>
+        /// <param name="iDisplayLength">Display length of the i.</param>
+        /// <param name="sSearch">The s search.</param>
+        /// <returns>A <see cref="DataTableResponse{AssessmentSummaryDto}"/>.</returns>
         [HttpGet]
-        public DataTableResponse<AssessmentSummaryDto> Get(Guid key, string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null)
+        public DataTableResponse<AssessmentSummaryDto> Get ( Guid key, string sEcho, int iDisplayStart, int iDisplayLength, string sSearch = null )
         {
-            const string whereSearchConstraint = " AND (AssessmentName LIKE @search+'%')";
+            const string WhereSearchConstraint = " AND (AssessmentName LIKE @search+'%')";
             var selfAdminConstraint = "AND CanSelfAdminister=1";
-            const string query = @"
+            const string Query = @"
                              SELECT COUNT(*) as TotalCount FROM AssessmentModule.AssessmentInstance
                                  WHERE OrganizationKey=@OrganizationKey AND PatientKey=@PatientKey {0} {1}
                              SELECT [t].*                                    
@@ -77,18 +105,18 @@ namespace ProCenter.Mvc.Controllers.Api
                              WHERE [t].[ROW_NUMBER] BETWEEN @start + 1 AND @end 
                              ORDER BY [t].[ROW_NUMBER] ";
 
-            if (UserContext.Current.PatientKey != null && key != UserContext.Current.PatientKey)
+            if ( UserContext.Current.PatientKey != null && key != UserContext.Current.PatientKey )
             {
                 return new DataTableResponse<AssessmentSummaryDto>
-                {
-                    Data = Enumerable.Empty<AssessmentSummaryDto>(),
-                    Echo = sEcho,
-                    TotalDisplayRecords = 0,
-                    TotalRecords = 0,
-                };
+                       {
+                           Data = Enumerable.Empty<AssessmentSummaryDto> (),
+                           Echo = sEcho,
+                           TotalDisplayRecords = 0,
+                           TotalRecords = 0,
+                       };
             }
 
-            if (UserContext.Current.PatientKey == null)
+            if ( UserContext.Current.PatientKey == null )
             {
                 selfAdminConstraint = string.Empty;
             }
@@ -96,27 +124,33 @@ namespace ProCenter.Mvc.Controllers.Api
             var start = iDisplayStart;
             var end = start + iDisplayLength;
 
-            using(var connection = _connectionFactory.CreateConnection())
-            using (var multiQuery = connection.QueryMultiple(string.Format ( query, sSearch == null ? "" : whereSearchConstraint, selfAdminConstraint ), new { start, end, PatientKey = key, search = sSearch, UserContext.Current.OrganizationKey }))
+            using ( var connection = _connectionFactory.CreateConnection () )
+            using (
+                var multiQuery = connection.QueryMultiple (
+                                                           string.Format ( Query, sSearch == null ? string.Empty : WhereSearchConstraint, selfAdminConstraint ),
+                    new { start, end, PatientKey = key, search = sSearch, UserContext.Current.OrganizationKey } ) )
             {
-                var totalCount = multiQuery.Read<int>().Single();
-                var assessmentSummaryDto = multiQuery.Read<AssessmentSummaryDto>().ToList();
+                var totalCount = multiQuery.Read<int> ().Single ();
+                var assessmentSummaryDto = multiQuery.Read<AssessmentSummaryDto> ().ToList ();
 
                 var dataTableResponse = new DataTableResponse<AssessmentSummaryDto>
-                    {
-                        Data = assessmentSummaryDto, 
-                        Echo = sEcho,
-                        TotalDisplayRecords = totalCount,
-                        TotalRecords = totalCount,
-                    };
+                                        {
+                                            Data = assessmentSummaryDto,
+                                            Echo = sEcho,
+                                            TotalDisplayRecords = totalCount,
+                                            TotalRecords = totalCount,
+                                        };
 
-                foreach (var data in dataTableResponse.Data)
+                foreach ( var data in dataTableResponse.Data )
                 {
-                    data.AssessmentName = _resourcesManager.GetResourceManagerByName ( data.AssessmentName ).GetString ( SharedStringNames.ResourceKeyPrefix + data.AssessmentCode );
+                    data.AssessmentName = _resourcesManager.GetResourceManagerByName ( data.AssessmentName )
+                        .GetString ( SharedStringNames.ResourceKeyPrefix + data.AssessmentCode );
                 }
 
                 return dataTableResponse;
             }
         }
+
+        #endregion
     }
 }

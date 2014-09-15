@@ -916,28 +916,40 @@
             <param name="secondValue">The second value.</param>
             <returns><b>true</b> when two objects are equal, <b>false</b> otherwise.</returns>
         </member>
-        <member name="M:NLog.Conditions.ConditionMethods.Contains(System.String,System.String)">
+        <member name="M:NLog.Conditions.ConditionMethods.Equals2(System.String,System.String,System.Boolean)">
+            <summary>
+            Compares two strings for equality.
+            </summary>
+            <param name="firstValue">The first string.</param>
+            <param name="secondValue">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c>, case is ignored; if <c>false</c> (default), case is significant.</param>
+            <returns><b>true</b> when two strings are equal, <b>false</b> otherwise.</returns>
+        </member>
+        <member name="M:NLog.Conditions.ConditionMethods.Contains(System.String,System.String,System.Boolean)">
             <summary>
             Gets or sets a value indicating whether the second string is a substring of the first one.
             </summary>
             <param name="haystack">The first string.</param>
             <param name="needle">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c> (default), case is ignored; if <c>false</c>, case is significant.</param>
             <returns><b>true</b> when the second string is a substring of the first string, <b>false</b> otherwise.</returns>
         </member>
-        <member name="M:NLog.Conditions.ConditionMethods.StartsWith(System.String,System.String)">
+        <member name="M:NLog.Conditions.ConditionMethods.StartsWith(System.String,System.String,System.Boolean)">
             <summary>
             Gets or sets a value indicating whether the second string is a prefix of the first one.
             </summary>
             <param name="haystack">The first string.</param>
             <param name="needle">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c> (default), case is ignored; if <c>false</c>, case is significant.</param>
             <returns><b>true</b> when the second string is a prefix of the first string, <b>false</b> otherwise.</returns>
         </member>
-        <member name="M:NLog.Conditions.ConditionMethods.EndsWith(System.String,System.String)">
+        <member name="M:NLog.Conditions.ConditionMethods.EndsWith(System.String,System.String,System.Boolean)">
             <summary>
             Gets or sets a value indicating whether the second string is a suffix of the first one.
             </summary>
             <param name="haystack">The first string.</param>
             <param name="needle">The second string.</param>
+            <param name="ignoreCase">Optional. If <c>true</c> (default), case is ignored; if <c>false</c>, case is significant.</param>
             <returns><b>true</b> when the second string is a prefix of the first string, <b>false</b> otherwise.</returns>
         </member>
         <member name="M:NLog.Conditions.ConditionMethods.Length(System.String)">
@@ -1450,6 +1462,12 @@
             </summary>
             <value>The ambient property factory.</value>
         </member>
+        <member name="P:NLog.Config.ConfigurationItemFactory.TimeSources">
+            <summary>
+            Gets the time source factory.
+            </summary>
+            <value>The time source factory.</value>
+        </member>
         <member name="P:NLog.Config.ConfigurationItemFactory.ConditionMethods">
             <summary>
             Gets the condition method factory.
@@ -1786,6 +1804,11 @@
         <member name="P:NLog.Config.LoggingConfiguration.LoggingRules">
             <summary>
             Gets the collection of logging rules.
+            </summary>
+        </member>
+        <member name="P:NLog.Config.LoggingConfiguration.DefaultCultureInfo">
+            <summary>
+            Gets or sets the default culture info use.
             </summary>
         </member>
         <member name="P:NLog.Config.LoggingConfiguration.AllTargets">
@@ -2577,16 +2600,27 @@
             Various helper methods for accessing state of ASP application.
             </summary>
         </member>
-        <member name="T:NLog.Internal.CurrentTimeGetter">
+        <member name="T:NLog.Internal.ConfigurationManager">
             <summary>
-            Optimized methods to get current time.
+            Internal configuration manager used to read .NET configuration files.
+            Just a wrapper around the BCL ConfigurationManager, but used to enable
+            unit testing.
             </summary>
         </member>
-        <member name="P:NLog.Internal.CurrentTimeGetter.Now">
+        <member name="T:NLog.Internal.IConfigurationManager">
             <summary>
-            Gets the current time in an optimized fashion.
+            Interface for the wrapper around System.Configuration.ConfigurationManager.
             </summary>
-            <value>Current time.</value>
+        </member>
+        <member name="P:NLog.Internal.IConfigurationManager.AppSettings">
+            <summary>
+            Gets the wrapper around ConfigurationManager.AppSettings.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.ConfigurationManager.AppSettings">
+            <summary>
+            Gets the wrapper around ConfigurationManager.AppSettings.
+            </summary>
         </member>
         <member name="T:NLog.Internal.DictionaryAdapter`2">
             <summary>
@@ -2848,6 +2882,87 @@
         <member name="T:NLog.Internal.FactoryHelper">
             <summary>
             Object construction helper.
+            </summary>
+        </member>
+        <member name="T:NLog.Internal.Fakeables.AppDomainWrapper">
+            <summary>
+            Adapter for <see cref="T:System.AppDomain"/> to <see cref="T:NLog.Internal.Fakeables.IAppDomain"/>
+            </summary>
+        </member>
+        <member name="T:NLog.Internal.Fakeables.IAppDomain">
+            <summary>
+            Interface for fakeable the current <see cref="T:System.AppDomain"/>. Not fully implemented, please methods/properties as necessary.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.IAppDomain.BaseDirectory">
+            <summary>
+            Gets or sets the base directory that the assembly resolver uses to probe for assemblies.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.IAppDomain.ConfigurationFile">
+            <summary>
+            Gets or sets the name of the configuration file for an application domain.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.IAppDomain.PrivateBinPath">
+            <summary>
+            Gets or sets the list of directories under the application base directory that are probed for private assemblies.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.IAppDomain.FriendlyName">
+            <summary>
+            Gets or set the friendly name.
+            </summary>
+        </member>
+        <member name="E:NLog.Internal.Fakeables.IAppDomain.ProcessExit">
+            <summary>
+            Process exit event.
+            </summary>
+        </member>
+        <member name="E:NLog.Internal.Fakeables.IAppDomain.DomainUnload">
+            <summary>
+            Domain unloaded event.
+            </summary>
+        </member>
+        <member name="M:NLog.Internal.Fakeables.AppDomainWrapper.#ctor(System.AppDomain)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Internal.Fakeables.AppDomainWrapper"/> class.
+            </summary>
+            <param name="appDomain">The <see cref="T:System.AppDomain"/> to wrap.</param>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppDomainWrapper.CurrentDomain">
+            <summary>
+            Gets a the current <see cref="T:System.AppDomain"/> wrappered in a <see cref="T:NLog.Internal.Fakeables.AppDomainWrapper"/>.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppDomainWrapper.BaseDirectory">
+            <summary>
+            Gets or sets the base directory that the assembly resolver uses to probe for assemblies.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppDomainWrapper.ConfigurationFile">
+            <summary>
+            Gets or sets the name of the configuration file for an application domain.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppDomainWrapper.PrivateBinPath">
+            <summary>
+            Gets or sets the list of directories under the application base directory that are probed for private assemblies.
+            </summary>
+        </member>
+        <member name="P:NLog.Internal.Fakeables.AppDomainWrapper.FriendlyName">
+            <summary>
+            Gets or set the friendly name.
+            </summary>
+        </member>
+        <member name="E:NLog.Internal.Fakeables.AppDomainWrapper.ProcessExit">
+            <summary>
+            Process exit event.
+            </summary>
+        </member>
+        <member name="E:NLog.Internal.Fakeables.AppDomainWrapper.DomainUnload">
+            <summary>
+            Domain unloaded event.
             </summary>
         </member>
         <member name="T:NLog.Internal.FileAppenders.BaseFileAppender">
@@ -3474,12 +3589,15 @@
             Creates instances of <see cref="T:NLog.Internal.NetworkSenders.NetworkSender"/> objects for given URLs.
             </summary>
         </member>
-        <member name="M:NLog.Internal.NetworkSenders.INetworkSenderFactory.Create(System.String)">
+        <member name="M:NLog.Internal.NetworkSenders.INetworkSenderFactory.Create(System.String,System.Int32)">
             <summary>
             Creates a new instance of the network sender based on a network URL.
             </summary>
             <param name="url">
             URL that determines the network sender to be created.
+            </param>
+            <param name="maxQueueSize">
+            The maximum queue size.
             </param>
             <returns>
             A newly created network sender.
@@ -3495,14 +3613,17 @@
             Default implementation of <see cref="T:NLog.Internal.NetworkSenders.INetworkSenderFactory"/>.
             </summary>
         </member>
-        <member name="M:NLog.Internal.NetworkSenders.NetworkSenderFactory.Create(System.String)">
+        <member name="M:NLog.Internal.NetworkSenders.NetworkSenderFactory.Create(System.String,System.Int32)">
             <summary>
             Creates a new instance of the network sender based on a network URL:.
             </summary>
             <param name="url">
             URL that determines the network sender to be created.
             </param>
-            <returns>
+            <param name="maxQueueSize">
+            The maximum queue size.
+            </param>
+            /// <returns>
             A newly created network sender.
             </returns>
         </member>
@@ -4213,12 +4334,29 @@
             </summary>
             <docgen category='Rendering Options' order='10' />
         </member>
+        <member name="T:NLog.LayoutRenderers.AssemblyVersionLayoutRenderer">
+            <summary>
+            Assembly version.
+            </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.AssemblyVersionLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders assembly version and appends it to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
         <member name="T:NLog.LayoutRenderers.BaseDirLayoutRenderer">
             <summary>
             The current application domain's base directory.
             </summary>
         </member>
         <member name="M:NLog.LayoutRenderers.BaseDirLayoutRenderer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.BaseDirLayoutRenderer"/> class.
+            </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.BaseDirLayoutRenderer.#ctor(NLog.Internal.Fakeables.IAppDomain)">
             <summary>
             Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.BaseDirLayoutRenderer"/> class.
             </summary>
@@ -4270,6 +4408,17 @@
             Gets or sets a value indicating whether to render the method name.
             </summary>
             <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.LayoutRenderers.CallSiteLayoutRenderer.CleanNamesOfAnonymousDelegates">
+            <summary>
+            Gets or sets a value indicating whether the method name will be cleaned up if it is detected as an anonymous delegate.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="P:NLog.LayoutRenderers.CallSiteLayoutRenderer.SkipFrames">
+            <summary>
+            Gets or sets the number of frames to skip.
+            </summary>
         </member>
         <member name="P:NLog.LayoutRenderers.CallSiteLayoutRenderer.FileName">
             <summary>
@@ -4389,6 +4538,24 @@
             <param name="logEvent">Logging event.</param>
         </member>
         <member name="P:NLog.LayoutRenderers.EventContextLayoutRenderer.Item">
+            <summary>
+            Gets or sets the name of the item.
+            </summary>
+            <docgen category='Rendering Options' order='10' />
+        </member>
+        <member name="T:NLog.LayoutRenderers.EventPropertiesLayoutRenderer">
+            <summary>
+            Log event context data.
+            </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.EventPropertiesLayoutRenderer.Append(System.Text.StringBuilder,NLog.LogEventInfo)">
+            <summary>
+            Renders the specified log event context item and appends it to the specified <see cref="T:System.Text.StringBuilder"/>.
+            </summary>
+            <param name="builder">The <see cref="T:System.Text.StringBuilder"/> to append the rendered data to.</param>
+            <param name="logEvent">Logging event.</param>
+        </member>
+        <member name="P:NLog.LayoutRenderers.EventPropertiesLayoutRenderer.Item">
             <summary>
             Gets or sets the name of the item.
             </summary>
@@ -4699,6 +4866,11 @@
             </summary>
         </member>
         <member name="M:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer"/> class.
+            </summary>
+        </member>
+        <member name="M:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer.#ctor(NLog.Internal.Fakeables.IAppDomain)">
             <summary>
             Initializes a new instance of the <see cref="T:NLog.LayoutRenderers.Log4JXmlEventLayoutRenderer"/> class.
             </summary>
@@ -6801,6 +6973,11 @@
         <member name="E:NLog.LogFactory.ConfigurationReloaded">
             <summary>
             Occurs when logging <see cref="P:NLog.LogFactory.Configuration"/> gets reloaded.
+            </summary>
+        </member>
+        <member name="P:NLog.LogFactory.CurrentAppDomain">
+            <summary>
+            Gets the current <see cref="T:NLog.Internal.Fakeables.IAppDomain"/>.
             </summary>
         </member>
         <member name="P:NLog.LogFactory.ThrowExceptions">
@@ -9439,6 +9616,13 @@
             Off log level.
             </summary>
         </member>
+        <member name="M:NLog.LogLevel.#ctor(System.String,System.Int32)">
+            <summary>
+            Initializes a new instance of <see cref="T:NLog.LogLevel"/>.
+            </summary>
+            <param name="name">The log level name.</param>
+            <param name="ordinal">The log level ordinal number.</param>
+        </member>
         <member name="M:NLog.LogLevel.op_Equality(NLog.LogLevel,NLog.LogLevel)">
             <summary>
             Compares two <see cref="T:NLog.LogLevel"/> objects 
@@ -9504,7 +9688,7 @@
             Gets the <see cref="T:NLog.LogLevel"/> that corresponds to the specified ordinal.
             </summary>
             <param name="ordinal">The ordinal.</param>
-            <returns>The <see cref="T:NLog.LogLevel"/> instance. For 0 it returns <see cref="F:NLog.LogLevel.Debug"/>, 1 gives <see cref="F:NLog.LogLevel.Info"/> and so on.</returns>
+            <returns>The <see cref="T:NLog.LogLevel"/> instance. For 0 it returns <see cref="F:NLog.LogLevel.Trace"/>, 1 gives <see cref="F:NLog.LogLevel.Debug"/> and so on.</returns>
         </member>
         <member name="M:NLog.LogLevel.FromString(System.String)">
             <summary>
@@ -9682,6 +9866,11 @@
             <remarks>Logging is enabled if the number of <see cref="M:NLog.LogManager.EnableLogging"/> calls is greater 
             than or equal to <see cref="M:NLog.LogManager.DisableLogging"/> calls.</remarks>
         </member>
+        <member name="M:NLog.LogManager.Shutdown">
+            <summary>
+            Dispose all targets, and shutdown logging.
+            </summary>
+        </member>
         <member name="E:NLog.LogManager.ConfigurationChanged">
             <summary>
             Occurs when logging <see cref="P:NLog.LogManager.Configuration"/> changes.
@@ -9707,6 +9896,17 @@
             <summary>
             Gets or sets the global log threshold. Log events below this threshold are not logged.
             </summary>
+        </member>
+        <member name="P:NLog.LogManager.DefaultCultureInfo">
+            <summary>
+            Gets or sets the default culture to use.
+            </summary>
+        </member>
+        <member name="T:NLog.LogManager.GetCultureInfo">
+            <summary>
+            Delegate used to the the culture to use.
+            </summary>
+            <returns></returns>
         </member>
         <member name="T:NLog.LogMessageGenerator">
             <summary>
@@ -10400,6 +10600,11 @@
             Rolling style numbering (the most recent is always #0 then #1, ..., #N.
             </summary>
         </member>
+        <member name="F:NLog.Targets.ArchiveNumberingMode.Date">
+            <summary>
+            Date style numbering.  Archives will be stamped with the prior period (Year, Month, Day, Hour, Minute) datetime.
+            </summary>
+        </member>
         <member name="T:NLog.Targets.AspResponseTarget">
             <summary>
             Outputs log messages through the ASP Response object.
@@ -10741,6 +10946,11 @@
             Gets or sets the size of the connection cache (number of connections which are kept alive).
             </summary>
             <docgen category="Connection Options" order="10"/>
+        </member>
+        <member name="P:NLog.Targets.NetworkTarget.MaxQueueSize">
+            <summary>
+            Gets or sets the maximum queue size.
+            </summary>
         </member>
         <member name="P:NLog.Targets.NetworkTarget.OnOverflow">
             <summary>
@@ -11623,6 +11833,11 @@
             Initializes a new instance of the <see cref="T:NLog.Targets.EventLogTarget"/> class.
             </summary>
         </member>
+        <member name="M:NLog.Targets.EventLogTarget.#ctor(NLog.Internal.Fakeables.IAppDomain)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Targets.EventLogTarget"/> class.
+            </summary>
+        </member>
         <member name="M:NLog.Targets.EventLogTarget.Install(NLog.Config.InstallationContext)">
             <summary>
             Performs installation which requires administrative permissions.
@@ -11875,6 +12090,15 @@
             </summary>
             <docgen category='Output Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.FileTarget.ArchiveDateFormat">
+            <summary>
+            Gets or sets a value specifying the date format to use when archving files.
+            </summary>
+            <remarks>
+            This option works only when the "ArchiveNumbering" parameter is set to Date.
+            </remarks>
+            <docgen category='Output Options' order='10' />
+        </member>
         <member name="P:NLog.Targets.FileTarget.FileAttributes">
             <summary>
             Gets or sets the file attributes (Windows only).
@@ -12020,6 +12244,11 @@
             </summary>
             <docgen category='Archival Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.FileTarget.ForceManaged">
+            <summary>
+            Gets ors set a value indicating whether a managed file stream is forced, instead of used the native implementation.
+            </summary>
+        </member>
         <member name="P:NLog.Targets.FileTarget.ArchiveNumbering">
             <summary>
             Gets or sets the way file archives are numbered. 
@@ -12084,6 +12313,11 @@
             </summary>
             <docgen category='Form Options' order='10' />
         </member>
+        <member name="P:NLog.Targets.FormControlTarget.ReverseOrder">
+            <summary>
+            Gets or sets whether new log entry are added to the start or the end of the control
+            </summary>
+        </member>
         <member name="T:NLog.Targets.LineEndingMode">
             <summary>
             Line ending mode.
@@ -12147,6 +12381,15 @@
             optimize batch writes.
             </summary>
             <param name="logEvents">Logging events to be written out.</param>
+        </member>
+        <member name="M:NLog.Targets.LogReceiverWebServiceTarget.CreateWcfLogReceiverClient">
+            <summary>
+            Creating a new instance of WcfLogReceiverClient
+            
+            Inheritors can override this method and provide their own 
+            service configuration - binding and endpoint address
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:NLog.Targets.LogReceiverWebServiceTarget.EndpointAddress">
             <summary>
@@ -12333,6 +12576,23 @@
             Gets or sets the port number that SMTP Server is listening on.
             </summary>
             <docgen category='SMTP Options' order='15' />
+        </member>
+        <member name="P:NLog.Targets.MailTarget.UseSystemNetMailSettings">
+            <summary>
+            Gets or sets a value indicating whether the default Settings from System.Net.MailSettings should be used.
+            </summary>
+            <docgen category='SMTP Options' order='16' />
+        </member>
+        <member name="P:NLog.Targets.MailTarget.Priority">
+            <summary>
+            Gets or sets the priority used for sending mails.
+            </summary>
+        </member>
+        <member name="P:NLog.Targets.MailTarget.ReplaceNewlineWithBrTagInHtml">
+            <summary>
+            Gets or sets a value indicating whether NewLine characters in the body should be replaced with <br/> tags.
+            </summary>
+            <remarks>Only happens when <see cref="P:NLog.Targets.MailTarget.Html"/> is set to true.</remarks>
         </member>
         <member name="T:NLog.Targets.MemoryTarget">
             <summary>
@@ -14348,6 +14608,98 @@
             optimize batch writes.
             </summary>
             <param name="logEvents">Logging events to be written out.</param>
+        </member>
+        <member name="T:NLog.Time.AccurateLocalTimeSource">
+            <summary>
+            Current local time retrieved directly from DateTime.Now.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.TimeSource">
+            <summary>
+            Defines source of current time.
+            </summary>
+        </member>
+        <member name="M:NLog.Time.TimeSource.ToString">
+            <summary>
+            Returns a <see cref="T:System.String"/> that represents this instance.
+            </summary>
+            <returns>
+            A <see cref="T:System.String"/> that represents this instance.
+            </returns>
+        </member>
+        <member name="P:NLog.Time.TimeSource.Time">
+            <summary>
+            Gets current time.
+            </summary>
+        </member>
+        <member name="P:NLog.Time.TimeSource.Current">
+            <summary>
+            Gets or sets current global time source used in all log events.
+            </summary>
+            <remarks>
+            Default time source is <see cref="T:NLog.Time.FastLocalTimeSource"/>.
+            </remarks>
+        </member>
+        <member name="P:NLog.Time.AccurateLocalTimeSource.Time">
+            <summary>
+            Gets current local time directly from DateTime.Now.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.AccurateUtcTimeSource">
+            <summary>
+            Current UTC time retrieved directly from DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="P:NLog.Time.AccurateUtcTimeSource.Time">
+            <summary>
+            Gets current UTC time directly from DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.CachedTimeSource">
+            <summary>
+            Fast time source that updates current time only once per tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="P:NLog.Time.CachedTimeSource.FreshTime">
+            <summary>
+            Gets raw uncached time from derived time source.
+            </summary>
+        </member>
+        <member name="P:NLog.Time.CachedTimeSource.Time">
+            <summary>
+            Gets current time cached for one system tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="T:NLog.Time.FastLocalTimeSource">
+            <summary>
+            Fast local time source that is updated once per tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="P:NLog.Time.FastLocalTimeSource.FreshTime">
+            <summary>
+            Gets uncached local time directly from DateTime.Now.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.FastUtcTimeSource">
+            <summary>
+            Fast UTC time source that is updated once per tick (15.6 milliseconds).
+            </summary>
+        </member>
+        <member name="P:NLog.Time.FastUtcTimeSource.FreshTime">
+            <summary>
+            Gets uncached UTC time directly from DateTime.UtcNow.
+            </summary>
+        </member>
+        <member name="T:NLog.Time.TimeSourceAttribute">
+            <summary>
+            Marks class as a time source and assigns a name to it.
+            </summary>
+        </member>
+        <member name="M:NLog.Time.TimeSourceAttribute.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:NLog.Time.TimeSourceAttribute"/> class.
+            </summary>
+            <param name="name">Name of the time source.</param>
         </member>
     </members>
 </doc>

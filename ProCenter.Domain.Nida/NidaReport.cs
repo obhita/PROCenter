@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,47 +25,66 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
-    #region
+    #region Using Statements
 
+    using System.Drawing.Printing;
     using System.Linq;
-    using CommonModule;
+
     using DevExpress.XtraReports.UI;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>
+    /// Nida Report.
+    /// </summary>
     public partial class NidaReport : XtraReport, IReport
     {
-        public NidaReport()
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NidaReport"/> class.
+        /// </summary>
+        public NidaReport ()
         {
-            InitializeComponent();
+            InitializeComponent ();
         }
 
-        private void NidaReport_BeforePrint(object sender, System.Drawing.Printing.PrintEventArgs e)
+        #endregion
+
+        #region Methods
+
+        private void NidaReport_BeforePrint ( object sender, PrintEventArgs e )
         {
-            var data = ((this.DataSource as NidaReportDataCollection)[0] as NidaReportData);
-            if (data.FollowUpItems == null || !data.FollowUpItems.Any())
+            var data = ( ( this.DataSource as NidaReportDataCollection )[0] as NidaReportData );
+            if ( data.FollowUpItems == null || !data.FollowUpItems.Any () )
             {
                 xrLabel17.Text = null;
                 xrLabel17.Visible = false;
             }
-            if (data.UseTreatmentHistoryItems == null || !data.UseTreatmentHistoryItems.Any())
+            if ( data.UseTreatmentHistoryItems == null || !data.UseTreatmentHistoryItems.Any () )
             {
                 xrLabel18.Text = null;
                 xrLabel18.Visible = false;
             }
-            if (data.PatientResourceItems == null || !data.PatientResourceItems.Any())
+            if ( data.PatientResourceItems == null || !data.PatientResourceItems.Any () )
             {
                 xrLabel19.Text = null;
                 xrLabel19.Visible = false;
             }
-            if (data.SummaryItems == null || !data.SummaryItems.Any())
+            if ( data.SummaryItems == null || !data.SummaryItems.Any () )
             {
                 xrLabel16.Text = null;
                 xrLabel16.Visible = false;
             }
         }
+
+        #endregion
     }
 }

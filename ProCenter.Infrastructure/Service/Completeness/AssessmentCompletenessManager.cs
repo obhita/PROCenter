@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,94 +25,41 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service.Completeness
 {
+    #region Using Statements
+
     using System.Linq;
-    using Pillar.FluentRuleEngine;
+
     using ProCenter.Domain.AssessmentModule;
     using ProCenter.Domain.AssessmentModule.Lookups;
-    using ProCenter.Service.Message.Metadata;
+    using ProCenter.Domain.CommonModule;
 
+    #endregion
+
+    /// <summary>The assessment completeness manager class.</summary>
     public class AssessmentCompletenessManager : IAssessmentCompletenessManager
     {
-        #region Fields
-
-        private readonly ICompletenessRuleCollectionFactory _completenessRuleCollectionFactory;
-        private readonly IRuleEngineFactory _ruleEngineFactory;
-
-        #endregion
-
-        #region Constructors and Destructors
-
-        /// <summary>
-        ///     Initializes a new instance of the <see cref="AssessmentCompletenessManager" /> class.
-        /// </summary>
-        /// <param name="completenessRuleCollectionFactory">The completeness rule collection factory.</param>
-        /// <param name="ruleEngineFactory">The rule engine factory.</param>
-        public AssessmentCompletenessManager(ICompletenessRuleCollectionFactory completenessRuleCollectionFactory, IRuleEngineFactory ruleEngineFactory)
-        {
-            _completenessRuleCollectionFactory = completenessRuleCollectionFactory;
-            _ruleEngineFactory = ruleEngineFactory;
-        }
-
-        #endregion
-
         #region Public Methods and Operators
-        
-        public CompletenessResults CalculateCompleteness<TAssessment>(string completenessCategory, TAssessment assessment, IContainItemDefinitions itemDefinitionContainer ) where TAssessment : AssessmentInstance
+
+        /// <summary>Calculates the completeness.</summary>
+        /// <param name="assessment">The assessment.</param>
+        /// <param name="sectionDefinition">The section definition.</param>
+        /// <returns>A <see cref="CompletenessResults" />.</returns>
+        public CompletenessResults CalculateCompleteness ( AssessmentInstance assessment, ItemDefinition sectionDefinition = null )
         {
-            var completenessResults =  CalculateCompleteness(assessment, itemDefinitionContainer, completenessCategory);
-            //todo: to better use completenessCategory
-            var ruleCollection = _completenessRuleCollectionFactory.GetCompletenessRuleCollection<TAssessment>(assessment.AssessmentName);
-            var ruleEngine = _ruleEngineFactory.CreateRuleEngine(assessment, ruleCollection);
-            var skippedQuestionResults = ruleEngine.ExecuteRuleSet(assessment, "CompletenessRuleSet");
-
-            completenessResults.UpdateTotal(completenessResults.Total - skippedQuestionResults.RuleViolations.Count());
-
-            return completenessResults;
-        }
-
-        #endregion
-
-        #region Methods
-
-        private static CompletenessResults CalculateCompleteness(AssessmentInstance assessmentInstance, IContainItemDefinitions itemDefinitionContainer, string completenessCategory)
-        {
-            var total = 0;
-            var numbercomplete = 0;
-            foreach (var itemDefinition in itemDefinitionContainer.ItemDefinitions)
+            if ( sectionDefinition != null )
             {
-                total = CalculatePercentComplete(assessmentInstance, itemDefinition, completenessCategory, total, ref numbercomplete);
-
-                 if (itemDefinition.ItemType == ItemType.Group)
-                 {
-                     total = itemDefinition.ItemDefinitions.Aggregate(total,
-                                                                      (current, childItemDefinition) =>
-                                                                      CalculatePercentComplete(assessmentInstance, childItemDefinition, completenessCategory, current,
-                                                                                                        ref numbercomplete));
-                 }
+                var requiredQuestions = AssessmentDefinition.GetAllItemDefinitionsOfTypeInContainer ( sectionDefinition, ItemType.Question ).Where ( i => i.GetIsRequired () );
+                var totalRequired = requiredQuestions.Count ( );
+                var skippedTotal = requiredQuestions.Select(i => i.CodedConcept.Code).Intersect(assessment.SkippedItemDefinitions.Select(i => i.CodedConcept.Code)).Count();
+                var answeredTotal = requiredQuestions.Select ( i => i.CodedConcept.Code ).Intersect ( assessment.ItemInstances.Select ( i => i.ItemDefinitionCode ) ).Count ();
+                return new CompletenessResults ( "Report", totalRequired - skippedTotal, answeredTotal );
             }
-            
-            return new CompletenessResults(completenessCategory, total, numbercomplete);
-        }
-
-        private static int CalculatePercentComplete(AssessmentInstance assessmentInstance, ItemDefinition itemDefinition, string completenessCategory, int total,
-                                                    ref int numberComplete)
-        {
-            if (itemDefinition.ItemType == ItemType.Question)
-            {
-                if (itemDefinition.ItemMetadata.MetadataItemExists<RequiredForCompletenessMetadataItem>(m => m.CompletenessCategory == completenessCategory))
-                {
-                    total++;
-                    var itemInstance = assessmentInstance.ItemInstances.FirstOrDefault(i => i.ItemDefinitionCode == itemDefinition.CodedConcept.Code);
-                    if (itemInstance != null && itemInstance.Value != null)
-                    {
-                        numberComplete++;
-                    }
-                }
-            }
-            return total;
+            return assessment.CalculateCompleteness ();
         }
 
         #endregion

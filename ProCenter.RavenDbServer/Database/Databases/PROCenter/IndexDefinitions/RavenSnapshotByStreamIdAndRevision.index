@@ -1,14 +1,14 @@
 {
   "Name": "RavenSnapshotByStreamIdAndRevision",
-  "Map": "docs.RavenSnapshots.Select(s => new {\r\n    StreamId = s.StreamId,\r\n    StreamRevision = s.StreamRevision,\r\n    Partition = s.Partition ?? null\r\n})",
+  "LockMode": "Unlock",
+  "Map": "docs.RavenSnapshots.Select(s => new {\r\n    StreamId = s.StreamId,\r\n    StreamRevision = s.StreamRevision,\r\n    Partition = ((string)(s.Partition ?? null))\r\n})",
   "Maps": [
-    "docs.RavenSnapshots.Select(s => new {\r\n    StreamId = s.StreamId,\r\n    StreamRevision = s.StreamRevision,\r\n    Partition = s.Partition ?? null\r\n})"
+    "docs.RavenSnapshots.Select(s => new {\r\n    StreamId = s.StreamId,\r\n    StreamRevision = s.StreamRevision,\r\n    Partition = ((string)(s.Partition ?? null))\r\n})"
   ],
   "Reduce": null,
   "TransformResults": null,
   "IsMapReduce": false,
   "IsCompiled": false,
-  "IsTemp": false,
   "Stores": {},
   "Indexes": {},
   "SortOptions": {},
@@ -16,5 +16,8 @@
   "Fields": [],
   "Suggestions": {},
   "TermVectors": {},
-  "Type": "Map"
+  "SpatialIndexes": {},
+  "InternalFieldsMapping": null,
+  "Type": "Map",
+  "DisableInMemoryIndexing": false
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,37 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service.Completeness
 {
-    #region
+    #region Using Statements
 
     using System.Collections.Generic;
+
     using ProCenter.Domain.AssessmentModule;
 
     #endregion
 
+    /// <summary>Interface for completeness rule collection factory.</summary>
     public interface ICompletenessRuleCollectionFactory
     {
-        ICompletenessRuleCollection<TEntity> GetCompletenessRuleCollection<TEntity>(string completenessCategory);
+        #region Public Methods and Operators
 
-        IEnumerable<ICompletenessRuleCollection<TEntity>> GetCompletenessRuleCollections<TEntity>();
+        /// <summary>Gets the completeness rule collection.</summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <param name="completenessCategory">The completeness category.</param>
+        /// <returns>A <see cref="ICompletenessRuleCollection{TEntity}"/>.</returns>
+        ICompletenessRuleCollection<TEntity> GetCompletenessRuleCollection<TEntity> ( string completenessCategory );
+
+        /// <summary>
+        /// Gets the completeness rule collections.
+        /// </summary>
+        /// <typeparam name="TEntity">The type of the entity.</typeparam>
+        /// <returns>A colleciton of <see cref="ICompletenessRuleCollection{TEntity}"/>.</returns>
+        IEnumerable<ICompletenessRuleCollection<TEntity>> GetCompletenessRuleCollections<TEntity> ();
+
+        #endregion
     }
 }

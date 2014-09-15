@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,21 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Service
 {
     #region Using Statements
 
     using System.Reflection;
+
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
     #endregion
 
-    /// <summary>
-    ///     Allows serialization of private settable properties.
-    /// </summary>
+    /// <summary>Allows serialization of private settable properties.</summary>
     public class AllowPrivateSetterContractResolver : DefaultContractResolver
     {
         // more @ http://daniel.wertheim.se/2010/11/06/json-net-private-setters/

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,48 +25,67 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Domain
 {
+    #region Using Statements
+
+    using System;
+    using System.Collections.Generic;
     using System.Linq.Expressions;
+
     using Pillar.Common.Utility;
     using Pillar.FluentRuleEngine;
     using Pillar.FluentRuleEngine.Constraints;
     using Pillar.FluentRuleEngine.Resources;
     using Pillar.FluentRuleEngine.Rules;
 
+    #endregion
+
+    /// <summary>The context object provider rule builder extensions class.</summary>
     public static class ContextObjectProviderRuleBuilderExtensions
     {
+        #region Public Methods and Operators
+
+        /// <summary>Uses the subject for rule violation.</summary>
+        /// <typeparam name="TContext">The type of the context.</typeparam>
+        /// <typeparam name="TSubject">The type of the subject.</typeparam>
+        /// <typeparam name="TContextObject">The type of the context object.</typeparam>
+        /// <param name="ruleBuilder">The rule builder.</param>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <returns>A Context Object Provider Rule Builder.</returns>
         public static IContextObjectProviderRuleBuilder<TContext, TSubject, TContextObject> UseSubjectForRuleViolation<TContext, TSubject, TContextObject> (
-            this IContextObjectProviderRuleBuilder<TContext, TSubject, TContextObject> ruleBuilder, Expression<Func<TSubject, object>> propertyExpression)
+            this IContextObjectProviderRuleBuilder<TContext, TSubject, TContextObject> ruleBuilder,
+            Expression<Func<TSubject, object>> propertyExpression )
             where TContext : RuleEngineContext<TSubject>
         {
-            ruleBuilder.ElseThen(
-                        (s, ctx) =>
-                        {
-                            var failedConstraints = ctx.WorkingMemory.GetContextObject<List<IConstraint>>(ruleBuilder.Rule.Name);
-                            foreach (var constraint in failedConstraints)
-                            {
-                                if (!(constraint is IHandleAddingRuleViolations))
-                                {
-                                    var propertyName = ctx.NameProvider.GetName(s, propertyExpression);
+            ruleBuilder.ElseThen (
+                                  ( s, ctx ) =>
+                                  {
+                                      var failedConstraints = ctx.WorkingMemory.GetContextObject<List<IConstraint>> ( ruleBuilder.Rule.Name );
+                                      foreach ( var constraint in failedConstraints )
+                                      {
+                                          if ( !( constraint is IHandleAddingRuleViolations ) )
+                                          {
+                                              var propertyName = ctx.NameProvider.GetName ( s, propertyExpression );
 
-                                    var formatedMessage = constraint.Message.FormatRuleEngineMessage(propertyName);
+                                              var formatedMessage = constraint.Message.FormatRuleEngineMessage ( propertyName );
 
-                                    var ruleViolation = new RuleViolation(
-                                            ruleBuilder.Rule, s, formatedMessage, PropertyUtil.ExtractPropertyName ( propertyExpression ));
-                                    ctx.RuleViolationReporter.Report(ruleViolation);
-                                }
-                            }
-                            failedConstraints.Clear ();
-                        });
+                                              var ruleViolation = new RuleViolation (
+                                                  ruleBuilder.Rule,
+                                                  s,
+                                                  formatedMessage,
+                                                  PropertyUtil.ExtractPropertyName ( propertyExpression ) );
+                                              ctx.RuleViolationReporter.Report ( ruleViolation );
+                                          }
+                                      }
+                                      failedConstraints.Clear ();
+                                  } );
             return ruleBuilder;
         }
+
+        #endregion
     }
 }

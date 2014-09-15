@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,54 +25,66 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Common
 {
+    /// <summary>The pro center claim type class.</summary>
     public class ProCenterClaimType
     {
+        #region Static Fields
+
         /// <summary>
-        ///   Gets the claim type for account key.
+        ///     Gets the claim type for account key.
         /// </summary>
         public static readonly string AccountKeyClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/accountkey";
 
         /// <summary>
-        ///   Gets the claim type for permission.
+        ///     Gets the claim type for staff key.
         /// </summary>
-        public static readonly string PermissionClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/permission";
+        public static readonly string OrganizationKeyClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/organizationkey";
 
         /// <summary>
-        ///   Gets the claim type for staff key.
+        /// The organization name claim type.
         /// </summary>
-        public static readonly string StaffKeyClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/staffkey";
+        public static readonly string OrganizationNameClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/organizationName";
 
         /// <summary>
-        ///   Gets the claim type for patient key.
+        ///     Gets the claim type for patient key.
         /// </summary>
         public static readonly string PatientKeyClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/patientkey";
 
         /// <summary>
-        ///   Gets the claim type for patient validated.
+        ///     Gets the claim type for permission.
         /// </summary>
-        public static readonly string ValidatedClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/validated";
+        public static readonly string PermissionClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/permission";
 
         /// <summary>
-        ///   Gets the claim type for patient validation attempts.
+        ///     Gets the claim type for staff key.
         /// </summary>
-        public static readonly string ValidationAttemptsClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/validationattempts";
+        public static readonly string StaffKeyClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/staffkey";
 
         /// <summary>
-        ///   Gets the claim type for staff FirstName.
+        ///     Gets the claim type for staff FirstName.
         /// </summary>
         public static readonly string UserFirstNameClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/userfirstname";
 
         /// <summary>
-        ///   Gets the claim type for staff LastName.
+        ///     Gets the claim type for staff LastName.
         /// </summary>
         public static readonly string UserLastNameClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/userlastname";
 
         /// <summary>
-        ///   Gets the claim type for staff key.
+        ///     Gets the claim type for patient validated.
         /// </summary>
-        public static readonly string OrganizationKeyClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/organizationkey";
+        public static readonly string ValidatedClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/validated";
+
+        /// <summary>
+        ///     Gets the claim type for patient validation attempts.
+        /// </summary>
+        public static readonly string ValidationAttemptsClaimType = "http://schemas.obhita.org/ws/2008/06/identity/claims/validationattempts";
+
+        #endregion
     }
 }

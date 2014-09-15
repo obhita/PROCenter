@@ -2,32 +2,42 @@
 @model ProCenter.Service.Message.Patient.PatientDto
 
 
-<div>
-    <div class="span">
-        @Html.LabelFor( m => m.Name.FirstName )
-        @Html.TextBoxFor( m => m.Name.FirstName )
+<div class="container-fluid">
+    <div class="row-fluid">
+        <div class="span5">
+            @Html.LabelFor( m => m.Name.FirstName )
+            @Html.TextBoxFor( m => m.Name.FirstName )
+            @Html.ValidationMessageFor( m => m.Name.FirstName )
+        </div>
+        <div class="span5">
+            @Html.LabelFor( m => m.Name.LastName )
+            @Html.TextBoxFor( m => m.Name.LastName )
+            @Html.ValidationMessageFor( m => m.Name.LastName )
+        </div>
     </div>
-    <div class="span">
-        @Html.LabelFor( m => m.Name.LastName )
-        @Html.TextBoxFor( m => m.Name.LastName )
+ 
+    <div class="row-fluid">
+        <div>
+            @Html.LabelFor( m => m.DateOfBirth )
+            @Html.EditorFor( m => m.DateOfBirth )
+        </div>
+        <div>
+            @Html.ValidationMessageFor( m => m.DateOfBirth )
+        </div>
     </div>
-    <div>
-        @Html.ValidationMessageFor( m => m.Name.FirstName )
-        @Html.ValidationMessageFor( m => m.Name.LastName )
+    
+    <div class="row-fluid">
+        <div>
+            @{
+                var lookupCategory = Html.GetLookupCategory ( "Gender" );
+            }
+            @Html.LabelFor( m => m.Gender )
+            @Html.EditorFor( m => m.Gender, new {LookupItems = Html.GetLookupOptionsForCategory ( lookupCategory ), LookupCategory = lookupCategory} )
+        </div>
     </div>
-    <div class="span">
-        @Html.LabelFor( m => m.DateOfBirth )
-        @Html.EditorFor(m => m.DateOfBirth)
-        @Html.ValidationMessageFor( m => m.DateOfBirth )
-    </div>
-    <div class="span">
-        @{
-            var lookupCategory = Html.GetLookupCategory("Gender");
-        }
-        @Html.LabelFor( m => m.Gender )
-        @Html.EditorFor(m => m.Gender, new { LookupItems = Html.GetLookupOptionsForCategory(lookupCategory), LookupCategory = lookupCategory })
-        @Html.ValidationMessageFor( m => m.Gender )
+    <div class="row-fluid">
+        <div>
+            @Html.ValidationMessageFor( m => m.Gender )
+        </div>
     </div>
 </div>
-
-

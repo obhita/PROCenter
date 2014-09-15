@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,31 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
-    #region
+    #region Using Statements
 
-    using EventStore;
+    using Pillar.Common.InversionOfControl;
+
     using ProCenter.Domain.MessageModule;
 
     #endregion
 
+    /// <summary>The assessment reminder repository class.</summary>
     public class AssessmentReminderRepository : RepositoryBase<AssessmentReminder>, IAssessmentReminderRepository
     {
-        public AssessmentReminderRepository(IEventStoreRepository eventStoreRepository) : base(eventStoreRepository)
+        #region Constructors and Destructors
+
+        /// <summary>Initializes a new instance of the <see cref="AssessmentReminderRepository" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        public AssessmentReminderRepository ( IUnitOfWorkProvider unitOfWorkProvider )
+            : base ( unitOfWorkProvider )
         {
         }
+
+        #endregion
     }
 }

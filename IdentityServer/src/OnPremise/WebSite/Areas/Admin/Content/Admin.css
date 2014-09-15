@@ -1,4 +1,4 @@
-﻿.config-menu {
+.config-menu {
   vertical-align: top;
   display: inline-block;
   width: 300px;
@@ -26,4 +26,10 @@
 }
 .validation-summary-errors {
   max-width: 800px;
+}
+.nestedForm form {
+  display: inline;
+}
+.nestedForm label {
+  width: 100px;
 }

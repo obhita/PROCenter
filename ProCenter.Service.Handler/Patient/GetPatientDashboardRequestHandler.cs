@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,10 +25,12 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Patient
 {
-    #region
+    #region Using Statements
 
     using System;
     using System.Collections.Generic;
@@ -35,7 +38,6 @@ namespace ProCenter.Service.Handler.Patient
     using Common;
     using Dapper;
     using Domain.MessageModule;
-    using Infrastructure.Service.ReadSideService;
     using ProCenter.Common;
     using Service.Message.Assessment;
     using Service.Message.Message;
@@ -43,73 +45,101 @@ namespace ProCenter.Service.Handler.Patient
 
     #endregion
 
+    /// <summary>The get patient dashboard request handler class.</summary>
     public class GetPatientDashboardRequestHandler : ServiceRequestHandler<GetPatientDashboardRequest, GetPatientDashboardResponse>
     {
+        #region Fields
+
         private readonly IDbConnectionFactory _connectionFactory;
 
-        public GetPatientDashboardRequestHandler(IDbConnectionFactory connectionFactory)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetPatientDashboardRequestHandler" /> class.
+        /// </summary>
+        /// <param name="connectionFactory">The connection factory.</param>
+        public GetPatientDashboardRequestHandler ( IDbConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }
 
-        protected override void Handle(GetPatientDashboardRequest request, GetPatientDashboardResponse response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( GetPatientDashboardRequest request, GetPatientDashboardResponse response )
         {
             var forSelfAdministrationClause = "AND ForSelfAdministration = 1";
             var canBeSelfAdministeredClause = "AND CanSelfAdminister = 1";
 
-            const string query = @"SELECT TOP 1 AssessmentInstanceKey AS 'Key', AssessmentName, AssessmentCode, PercentComplete, CreatedTime, LastModifiedTime, IsSubmitted, PatientKey
-                        FROM AssessmentModule.AssessmentInstance
-                        WHERE PatientKey = @PatientKey AND DATEADD(day, 7, CreatedTime) > GetDate() {2} ORDER BY CreatedTime DESC
+            const string Query =
+                @"SELECT AssessmentInstanceKey AS 'Key', AssessmentName, AssessmentCode, PercentComplete, CreatedTime, LastModifiedTime, IsSubmitted, PatientKey, 
+                    EmailSentDate, CanSelfAdminister, EmailFailedDate
+                FROM AssessmentModule.AssessmentInstance
+                WHERE PercentComplete < 1 AND PatientKey = @PatientKey AND DATEADD(day, 7, CreatedTime) > GetDate() {2} ORDER BY CreatedTime DESC
 
-                        SELECT WorkflowMessageKey AS 'Key', w.PatientKey, InitiatingAssessmentDefinitionKey AS 'InitiatingAssessmentKey', InitiatingAssessmentDefinitionCode AS 
-                            'InitiatingAssessmentCode', RecommendedAssessmentDefinitionKey, RecommendedAssessmentDefinitionCode, RecommendedAssessmentDefinitionName, p.FirstName AS 
-                            'PatientFirstName', p.LastName AS 'PatientLastName', w.InitiatingAssessmentScore AS 'ScoreValue'
-                        FROM MessageModule.WorkflowMessage w JOIN PatientModule.Patient p ON w.PatientKey = p.PatientKey
-                        WHERE w.PatientKey = @PatientKey AND WorkflowMessageStatus = '{0}' AND DATEADD(day, 7, CreatedDate) > GetDate() {3} ORDER BY CreatedDate DESC 
+                SELECT WorkflowMessageKey AS 'Key', w.PatientKey, InitiatingAssessmentDefinitionKey AS 'InitiatingAssessmentKey', InitiatingAssessmentDefinitionCode AS 
+                    'InitiatingAssessmentCode', RecommendedAssessmentDefinitionKey, RecommendedAssessmentDefinitionCode, RecommendedAssessmentDefinitionName, p.FirstName AS 
+                    'PatientFirstName', p.LastName AS 'PatientLastName', w.InitiatingAssessmentScore AS 'ScoreValue'
+                FROM MessageModule.WorkflowMessage w JOIN PatientModule.Patient p ON w.PatientKey = p.PatientKey
+                WHERE w.PatientKey = @PatientKey AND WorkflowMessageStatus = '{0}' AND DATEADD(day, 7, CreatedDate) > GetDate() {3} ORDER BY CreatedDate DESC 
 
-                        SELECT AssessmentReminderKey AS 'Key', PatientKey, AssessmentDefinitionKey, AssessmentName, AssessmentCode, Title, Start                
-                                 FROM MessageModule.AssessmentReminder 
-                                 WHERE PatientKey = @PatientKey AND Status = '{1}' AND GetDate() >= DATEADD(day, -ReminderDays,Start) {3}
+                SELECT  AssessmentReminderKey AS 'Key', PatientKey, AssessmentDefinitionKey, AssessmentName, AssessmentCode, Title, Start, RecurrenceKey                
+                FROM    MessageModule.AssessmentReminder 
+                WHERE   PatientKey = @PatientKey AND Status = '{1}' AND GetDate() >= DATEADD(day, -ReminderDays,Start) AND AssessmentInstanceKey IS NULL {3}
 
-                        SELECT COUNT(*) as Total FROM AssessmentModule.AssessmentInstance WHERE PatientKey = @PatientKey {2}
+                SELECT COUNT(*) as Total FROM AssessmentModule.AssessmentInstance WHERE PatientKey = @PatientKey {2}
 
-                        SELECT Min(CreatedTime) FROM AssessmentModule.AssessmentInstance WHERE PatientKey = @PatientKey {2}";
+                SELECT Min(CreatedTime) FROM AssessmentModule.AssessmentInstance WHERE PatientKey = @PatientKey {2}";
             if ( UserContext.Current.PatientKey == null )
             {
                 forSelfAdministrationClause = canBeSelfAdministeredClause = string.Empty;
             }
-            var completeQuery = string.Format(query, WorkflowMessageStatus.WaitingForResponse, AssessmentReminderStatus.Default, canBeSelfAdministeredClause, forSelfAdministrationClause);
+            var completeQuery = string.Format ( Query,
+                WorkflowMessageStatus.WaitingForResponse,
+                AssessmentReminderStatus.Default,
+                canBeSelfAdministeredClause,
+                forSelfAdministrationClause );
 
-            using (var connection = _connectionFactory.CreateConnection())
+            using ( var connection = _connectionFactory.CreateConnection () )
             {
-                using (var multiQuery = connection.QueryMultiple(completeQuery, new {request.PatientKey}))
+                using ( var multiQuery = connection.QueryMultiple ( completeQuery, new {request.PatientKey} ) )
                 {
-                    var assessmentSummaryDtos = multiQuery.Read<AssessmentSummaryDto>().ToList();
+                    var assessmentSummaryDtos = multiQuery.Read<AssessmentSummaryDto> ().ToList ();
 
-                    var workflowMessageDtos = multiQuery.Read<WorkflowMessageDto, string, WorkflowMessageDto>((workflowMessageDto, scoreValue) =>
-                        {
-                            workflowMessageDto.InitiatingAssessmentScore = new ScoreDto {Value = scoreValue};
-                            return workflowMessageDto;
-                        }, "scoreValue").ToList();
+                    var workflowMessageDtos = multiQuery.Read<WorkflowMessageDto, string, WorkflowMessageDto> ( ( workflowMessageDto, scoreValue ) =>
+                    {
+                        workflowMessageDto.InitiatingAssessmentScore = new ScoreDto {Value = scoreValue};
+                        return workflowMessageDto;
+                    },
+                        "scoreValue" ).ToList ();
 
                     var assessmentReminderDtos = multiQuery.Read<AssessmentReminderDto> ().ToList ();
-
-                    var totalCount = multiQuery.Read<int>().Single();
+                    var totalCount = multiQuery.Read<int> ().Single ();
                     DateTime? startingDate = null;
-                    if (totalCount != 0)
+                    if ( totalCount != 0 )
                     {
-                        startingDate = multiQuery.Read<DateTime>().Single();
+                        startingDate = multiQuery.Read<DateTime> ().Single ();
                     }
 
-                    var dashboardItems = new List<object>();
+                    var dashboardItems = new List<object> ();
+                    dashboardItems.AddRange(assessmentReminderDtos);
                     dashboardItems.AddRange(assessmentSummaryDtos);
-                    dashboardItems.AddRange(workflowMessageDtos);
-                    dashboardItems.AddRange ( assessmentReminderDtos );
-                    dashboardItems.Add(new TotalAssessmentsDto {Total = totalCount, StartingDate = startingDate});
+                    dashboardItems.AddRange ( workflowMessageDtos );
+                    dashboardItems.Insert(0, ( new TotalAssessmentsDto {Total = totalCount, StartingDate = startingDate} ));
 
                     response.DashboardItems = dashboardItems;
                 }
             }
         }
+
+        #endregion
     }
 }

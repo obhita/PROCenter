@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,31 +25,63 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Attribute
 {
     #region Using Statements
 
     using System;
     using System.Web.Mvc;
-    using Common;
+
+    using ProCenter.Service.Message.Common;
 
     #endregion
 
+    /// <summary>The question attribute class.</summary>
     public class QuestionAttribute : Attribute, IMetadataAware
     {
+        #region Constants
+
         public const string Question = "Question";
 
-        public QuestionAttribute(QuestionType type)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="QuestionAttribute"/> class.
+        /// </summary>
+        /// <param name="type">The type.</param>
+        public QuestionAttribute ( QuestionType type )
         {
             Type = type;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>
+        /// The type.
+        /// </value>
         public QuestionType Type { get; private set; }
 
-        public void OnMetadataCreated(ModelMetadata metadata)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>When implemented in a class, provides metadata to the model metadata creation process.</summary>
+        /// <param name="metadata">The model metadata.</param>
+        public void OnMetadataCreated ( ModelMetadata metadata )
         {
             metadata.AdditionalValues[Question] = Type;
         }
+
+        #endregion
     }
 }

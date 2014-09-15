@@ -1,18 +1,18 @@
-@procenter Copyright 2013 FEI. All rights reserved.
-@procenter For information about IIS Web Deploy technology,
-@procenter please visit http://go.microsoft.com/?linkid=9278654
-@procenter ---------------------------------------------------------------------------------
+@rem Copyright 2013 FEI. All rights reserved.
+@rem For information about IIS Web Deploy technology,
+@rem please visit http://go.microsoft.com/?linkid=9278654
+@rem ---------------------------------------------------------------------------------
 @if %_echo%!==! echo off
 setlocal
-@procenter ---------------------------------------------------------------------------------
-@procenter Please Make sure you have Web Deploy install in your machine. 
-@procenter Alternatively, you can explicit set the MsDeployPath to the location it is on your machine
-@procenter set MSDeployPath="C:\Program Files (x86)\IIS\Microsoft Web Deploy\"
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem Please Make sure you have Web Deploy install in your machine. 
+@rem Alternatively, you can explicit set the MsDeployPath to the location it is on your machine
+@rem set MSDeployPath="C:\Program Files (x86)\IIS\Microsoft Web Deploy\"
+@rem ---------------------------------------------------------------------------------
                       
-@procenter ---------------------------------------------------------------------------------
-@procenter if user does not set MsDeployPath environment variable, we will try to retrieve it from registry.
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem if user does not set MsDeployPath environment variable, we will try to retrieve it from registry.
+@rem ---------------------------------------------------------------------------------
 if "%MSDeployPath%" == "" (
 for /F "usebackq tokens=1,2,*" %%h  in (`reg query "HKLM\SOFTWARE\Microsoft\IIS Extensions\MSDeploy" /s  ^| findstr -i "InstallPath"`) do (
 if /I "%%h" == "InstallPath" ( 
@@ -42,9 +42,9 @@ set _ArgLocalIIS=
 set _ArgLocalIISVersion=
                       
                       
-@procenter ---------------------------------------------------------------------------------
-@procenter Simple Parse the arguments
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem Simple Parse the arguments
+@rem ---------------------------------------------------------------------------------
 :NextArgument
 set _ArgCurrentOriginal=%1
 set _ArgCurrent=%~1
@@ -65,7 +65,7 @@ if /I "%_ArgFlag%" == "/A:" set _ArgAuthType=%_ArgValue%&goto :ArgumentOK
 if /I "%_ArgFlag%" == "/G:" set _ArgtempAgent=%_ArgValue%&goto :ArgumentOK
 if /I "%_ArgFlag%" == "/D:" set _ArgDestinationType=%_ArgValue%&goto :ArgumentOK
 
-@procenter Any addition flags, pass through to the msdeploy
+@rem Any addition flags, pass through to the msdeploy
 set _ArgMsDeployAdditionalFlags=%_ArgMsDeployAdditionalFlags% %_ArgCurrentOriginal%
 
 :ArgumentOK
@@ -85,31 +85,31 @@ if not "%_ArgEncryptPassword%" == "" set _Destination=%_Destination%,encryptPass
 if not "%_ArgIncludeAcls%" == "" set _Destination=%_Destination%,includeAcls='%_ArgIncludeAcls%'
 if not "%_ArgtempAgent%" == "" set _Destination=%_Destination%,tempAgent='%_ArgtempAgent%'
 
-@procenter ---------------------------------------------------------------------------------
-@procenter add -whatif when -T is specified                      
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem add -whatif when -T is specified                      
+@rem ---------------------------------------------------------------------------------
 if /I "%_ArgTestDeploy%" NEQ "false" (
 set _MsDeployAdditionalFlags=%_MsDeployAdditionalFlags% -whatif
 )
 
-@procenter ---------------------------------------------------------------------------------
-@procenter pass through the addition msdeploy.exe Flags
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem pass through the addition msdeploy.exe Flags
+@rem ---------------------------------------------------------------------------------
 set _MsDeployAdditionalFlags=%_MsDeployAdditionalFlags% %_ArgMsDeployAdditionalFlags%
 
-@procenter ---------------------------------------------------------------------------------
-@procenter Execute msdeploy.exe command line
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem Execute msdeploy.exe command line
+@rem ---------------------------------------------------------------------------------
 echo. Start executing msdeploy.exe
 echo -------------------------------------------------------
 
-echo. "%MSDeployPath%\msdeploy.exe" -preSync:runCommand='net stop "PROCenter Job Scheduler"',waitAttempts=60 -source:dirPath='%RootPath%' -dest:dirPath='%_Destination%' -verb:sync %_MsDeployAdditionalFlags% -postSync:runCommand="%_ArgDestinationType%\InstallAndStartProCenterJobScheduler.bat",waitAttempts=60
-"%MSDeployPath%\msdeploy.exe" -preSync:runCommand="%_ArgDestinationType%\UninstallProCenterJobScheduler.bat",waitAttempts=60 -source:dirPath='%RootPath%' -dest:dirPath=%_Destination% -verb:sync %_MsDeployAdditionalFlags% -postSync:runCommand="%_ArgDestinationType%\InstallAndStartProCenterJobScheduler.bat",waitAttempts=60
+echo. "%MSDeployPath%\msdeploy.exe" -preSync:runCommand="%_ArgDestinationType%\UninstallProCenterJobScheduler.bat",waitAttempts=90 -source:dirPath='%RootPath%' -dest:dirPath=%_Destination% -verb:sync %_MsDeployAdditionalFlags% -postSync:runCommand="%_ArgDestinationType%\InstallAndStartProCenterJobScheduler.bat",waitAttempts=90
+"%MSDeployPath%\msdeploy.exe" -preSync:runCommand="%_ArgDestinationType%\UninstallProCenterJobScheduler.bat",waitAttempts=90 -source:dirPath='%RootPath%' -dest:dirPath=%_Destination% -verb:sync %_MsDeployAdditionalFlags% -postSync:runCommand="%_ArgDestinationType%\InstallAndStartProCenterJobScheduler.bat",waitAttempts=90
 goto :eof
 
-@procenter ---------------------------------------------------------------------------------
-@procenter Usage
-@procenter ---------------------------------------------------------------------------------
+@rem ---------------------------------------------------------------------------------
+@rem Usage
+@rem ---------------------------------------------------------------------------------
 :usage
 echo =========================================================
 if not exist "%RootPath%ProCenter.Mvc.deploy-readme.txt" (

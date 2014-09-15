@@ -968,7 +968,7 @@ input[type="number"] {
   bottom: 0;
   left: 0;
   right: 0;
-  background: rgba(144, 144, 144, 0.5) url(../img/loading.gif) center center no-repeat;
+  background: rgba(144, 144, 144, 0.5) url(../Content/images/loading.gif) center center no-repeat;
 }
 .question-answer-wrapper {
   position: relative;

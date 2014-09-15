@@ -1,0 +1,30 @@
+﻿@using System.Collections.Generic
+@using ProCenter.Mvc.Infrastructure
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Service.Message.Metadata
+
+@model ProCenter.Service.Message.Assessment.SectionDto
+
+@{
+    var sectionClass = Model.Metadata == null ? null :
+        Model.Metadata.MetadataItemExists<ClassMetadataItem>() ? Model.Metadata.FindMetadataItem<ClassMetadataItem>().Class : null;
+    ViewBag.Level = 0;
+    ViewBag.LevelMap = new List<string> { "section", "div" };
+    ViewBag.TabIndex = 1;
+}
+
+<fieldset data-itemDefinitionCode="@Model.ItemDefinitionCode" class="@sectionClass section-root">
+    @{
+        var instruction = @Html.GetResource ( Model, SharedStringNames.Instructions );
+        ViewData["section"] = @Html.GetResource(Model);
+    }
+    @if (!string.IsNullOrWhiteSpace(instruction))
+    {
+        <span class="instructions">@instruction</span>
+    }
+    @foreach ( var item in Html.GetItemsToRender ( Model ) )
+    {
+        @Html.Partial( item.ItemType, item )
+    }
+</fieldset>
+<div class="clearfix"></div>

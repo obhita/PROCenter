@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,38 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.App_Start
 {
-    #region
+    #region Using Statements
 
     using System.Web.Mvc;
     using System.Web.Routing;
 
     #endregion
 
+    /// <summary>The route configuration class.</summary>
     public class RouteConfig
     {
-        public static void RegisterRoutes(RouteCollection routes)
-        {
-            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+        #region Public Methods and Operators
 
-            routes.MapRoute(
-                name: "Default",
+        /// <summary>
+        /// Registers the routes.
+        /// </summary>
+        /// <param name="routes">The routes.</param>
+        public static void RegisterRoutes ( RouteCollection routes )
+        {
+            routes.IgnoreRoute ( "{resource}.axd/{*pathInfo}" );
+
+            routes.MapRoute (
+                             name: "Default",
                 url: "{controller}/{action}/{key}",
                 defaults: new {controller = "Home", action = "Index", key = UrlParameter.Optional}
                 );
         }
+
+        #endregion
     }
 }

@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="_81250003" xml:space="preserve">
+    <value>1. Complain of aches or pains</value>
+  </data>
+  <data name="_81250004" xml:space="preserve">
+    <value>2. Spend more time alone</value>
+  </data>
+  <data name="_81250005" xml:space="preserve">
+    <value>3. Tire easily, little energy</value>
+  </data>
+  <data name="_81250006" xml:space="preserve">
+    <value>4. Fidgety, unable to sit still</value>
+  </data>
+  <data name="_81250007" xml:space="preserve">
+    <value>5. Have trouble with teacher</value>
+  </data>
+  <data name="_81250008" xml:space="preserve">
+    <value>6. Less interested in school</value>
+  </data>
+  <data name="_81250009" xml:space="preserve">
+    <value>7. Act as if driven by motor</value>
+  </data>
+  <data name="_81250010" xml:space="preserve">
+    <value>8. Daydream too much</value>
+  </data>
+  <data name="_81250011" xml:space="preserve">
+    <value>9. Distract easily</value>
+  </data>
+  <data name="_81250012" xml:space="preserve">
+    <value>10. Are afraid of new situations</value>
+  </data>
+  <data name="_81250013" xml:space="preserve">
+    <value>11. Feel sad, unhappy</value>
+  </data>
+  <data name="_81250014" xml:space="preserve">
+    <value>12. Are irritable, angry</value>
+  </data>
+  <data name="_81250015" xml:space="preserve">
+    <value>13. Feel hopeless</value>
+  </data>
+  <data name="_81250016" xml:space="preserve">
+    <value>14. Have trouble concentrating</value>
+  </data>
+  <data name="_81250017" xml:space="preserve">
+    <value>15. Less interested in friends</value>
+  </data>
+  <data name="_81250018" xml:space="preserve">
+    <value>16. Fight with other children</value>
+  </data>
+  <data name="_81250019" xml:space="preserve">
+    <value>17. Absent from school</value>
+  </data>
+  <data name="_81250020" xml:space="preserve">
+    <value>18. School grades dropping</value>
+  </data>
+  <data name="_81250021" xml:space="preserve">
+    <value>19. Down on yourself</value>
+  </data>
+  <data name="_81250022" xml:space="preserve">
+    <value>20. Visit doctor with doctor finding nothing wrong</value>
+  </data>
+  <data name="_81250023" xml:space="preserve">
+    <value>21. Have trouble sleeping</value>
+  </data>
+  <data name="_81250024" xml:space="preserve">
+    <value>22. Worry a lot</value>
+  </data>
+  <data name="_81250025" xml:space="preserve">
+    <value>23. Want to be with parent more than before</value>
+  </data>
+  <data name="_81250026" xml:space="preserve">
+    <value>24. Feel that you are bad</value>
+  </data>
+  <data name="_81250027" xml:space="preserve">
+    <value>25. Take unnecessary risks</value>
+  </data>
+  <data name="_81250028" xml:space="preserve">
+    <value>26. Get hurt frequently</value>
+  </data>
+  <data name="_81250029" xml:space="preserve">
+    <value>27. Seem to be having less fun</value>
+  </data>
+  <data name="_81250030" xml:space="preserve">
+    <value>28. Act younger than children your age</value>
+  </data>
+  <data name="_81250031" xml:space="preserve">
+    <value>29. Do not listen to rules</value>
+  </data>
+  <data name="_81250032" xml:space="preserve">
+    <value>30. Do not show feelings</value>
+  </data>
+  <data name="_81250033" xml:space="preserve">
+    <value>31. Do not understand other people’s feelings</value>
+  </data>
+  <data name="_81250034" xml:space="preserve">
+    <value>32. Teases others</value>
+  </data>
+  <data name="_81250035" xml:space="preserve">
+    <value>33. Blames others for your troubles</value>
+  </data>
+  <data name="_81250036" xml:space="preserve">
+    <value>34. Takes things that do not belong to you</value>
+  </data>
+  <data name="_81250037" xml:space="preserve">
+    <value>35. Refuse to share</value>
+  </data>
+  <data name="_8000000" xml:space="preserve">
+    <value>Pediatric Symptom Checklist -Youth Report (Y-PSC)</value>
+  </data>
+  <data name="_81250002" xml:space="preserve">
+    <value>Please mark under the heading that best fits you:</value>
+  </data>
+  <data name="_A60001_0" xml:space="preserve">
+    <value>Never</value>
+  </data>
+  <data name="_A60001_1" xml:space="preserve">
+    <value>Sometimes</value>
+  </data>
+  <data name="_A60001_2" xml:space="preserve">
+    <value>Often</value>
+  </data>
+</root>

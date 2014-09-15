@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,35 +25,62 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.PermissionDescriptor
 {
+    #region Using Statements
+
     using System.Web.Mvc;
+    using Common.Permission;
     using Controllers;
-    using Infrastructure.Permission;
     using Pillar.Security.AccessControl;
     using ProCenter.Infrastructure.Security;
 
+    #endregion
+
+    /// <summary>The staff permission descriptor class.</summary>
     public class StaffPermissionDescriptor : IInternalPermissionDescriptor
     {
+        #region Fields
+
         private readonly ResourceList _resourceList =
-            new ResourceListBuilder().AddResource<StaffController>(StaffPermission.StaffViewPermission,
-                                                                   rlb =>
-                                                                   rlb.AddResource("Edit", StaffPermission.StaffViewPermission,
-                                                                                   innerRlb =>
-                                                                                   innerRlb.AddResource(HttpVerbs.Post.ToString().ToUpper(), StaffPermission.StaffEditPermission))
-                                                                      .AddResource("Create", StaffPermission.StaffEditPermission)
-                                                                      .AddResource("CreateAccount", StaffPermission.StaffCreateAccountPermission)
-                                                                      .AddResource("LinkAccount", StaffPermission.StaffLinkAccountPermission)
-                                                                      .AddResource("AddRoles", StaffPermission.StaffAddRolePermission)
-                                                                      .AddResource("RemoveRoles", StaffPermission.StaffRemoveRolePermission));
+            new ResourceListBuilder ().AddResource<StaffController> ( StaffPermission.StaffViewPermission,
+                rlb =>
+                    rlb.AddResource ( "Edit",
+                        StaffPermission.StaffViewPermission,
+                        innerRlb =>
+                            innerRlb.AddResource ( HttpVerbs.Post.ToString ().ToUpper (), StaffPermission.StaffEditPermission ) )
+                        .AddResource ( "Create", StaffPermission.StaffEditPermission )
+                        .AddResource ( "CreateAccount", StaffPermission.StaffCreateAccountPermission )
+                        .AddResource ( "LinkAccount", StaffPermission.StaffLinkAccountPermission )
+                        .AddResource ( "AddRoles", StaffPermission.StaffAddRolePermission )
+                        .AddResource ( "RemoveRoles", StaffPermission.StaffRemoveRolePermission ) );
 
+        #endregion
 
+        #region Public Properties
+
+        /// <summary>
+        /// Gets a value indicating whether [is internal].
+        /// </summary>
+        /// <value>
+        ///   <c>True</c> if [is internal]; otherwise, <c>false</c>.
+        /// </value>
+        public bool IsInternal
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// Gets the resources.
+        /// </summary>
         public ResourceList Resources
         {
             get { return _resourceList; }
         }
 
-        public bool IsInternal { get { return false; } }
+        #endregion
     }
 }

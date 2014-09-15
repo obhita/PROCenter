@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,31 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
+    #region Using Statements
+
     using System.Collections.Generic;
     using Pillar.Security.AccessControl;
 
+    #endregion
+
+    /// <summary>Interface for provide permissions.</summary>
     public interface IProvidePermissions
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
         IReadOnlyCollection<Permission> Permissions { get; }
+
+        #endregion
     }
 }

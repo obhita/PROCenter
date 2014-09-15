@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
     #region Using Statements
 
     using Common;
     using Domain.OrganizationModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Organization;
-    using global::AutoMapper;
 
     #endregion
 
-    /// <summary>
-    ///     Handler for removing staff from team.
-    /// </summary>
+    /// <summary>Handler for removing staff from team.</summary>
     public class RemoveStaffFromTeamRequestHandler : ServiceRequestHandler<RemoveStaffFromTeamRequest, DtoResponse<TeamSummaryDto>>
     {
         #region Fields

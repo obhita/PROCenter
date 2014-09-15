@@ -13,6 +13,7 @@
 .fc table {
 	border-collapse: collapse;
 	border-spacing: 0;
+    margin-top: 10px;
 	}
 	
 html .fc,
@@ -345,6 +346,7 @@ a.fc-event,
 
 table.fc-border-separate {
 	border-collapse: separate;
+    margin-top: 0px;
 	}
 	
 .fc-border-separate th,

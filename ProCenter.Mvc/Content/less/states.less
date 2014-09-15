@@ -88,6 +88,14 @@ Media Query - defines how things should be styles under defined criteria
         .hidden
     }
 
+    #reports-center-report-filter{
+        .hidden
+    }
+
+    #dashboard-filter {
+        width: 75px;
+    }
+
     body header
     {
         min-height: 0;
@@ -160,7 +168,7 @@ Media Query - defines how things should be styles under defined criteria
         }
 
         .question-answer-wrapper{
-            text-align: right;
+            text-align: left;
             padding-right: 15px;
         }
     }
@@ -189,10 +197,35 @@ Media Query - defines how things should be styles under defined criteria
     .dashboard-wrapper .team-editor .dataTables_wrapper .dataTables_filter{
         display: none;
     }
+    label {
+        font-size: 10pt;
+    }
+    body {
+        font-size: 10pt;
+    }
+    .dataTable_length {
+        display: none;
+    }
+    .dataTables_wrapper {
+        .dataTables_paginate, .invisible-column-max648 {
+            display: none;
+        }
+    } 
+    .assessment-definition {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 880px)
 {
+    .dataTables_wrapper {
+        .dataTables_paginate {
+            display: none;
+        }
+    } 
+    .assessment-definition {
+        display: none;
+    }
     .team-editor {
         .dataTable-wrapper {
             width: 100%;
@@ -210,6 +243,19 @@ Media Query - defines how things should be styles under defined criteria
         .remove {
             float: right;
         }
+    }
+    label {
+        font-size: 10pt;
+    }
+    body {
+        font-size: 10pt;
+    }
+}
+
+// TODO: this feels wrong. We should probably change the width of the dropdown
+@media screen and (max-width: 1125px) {
+     .assessment-definition {
+        display: none;
     }
 }
 
@@ -266,12 +312,13 @@ color: @layout-color-1;
 {
     width: 25px;
     height: 15px;
+    display: inline-block;
+    position: absolute;
 }
 
 [data-ajax-status='loading'] .ajax-loading-indicator:before
     {
         content: ' ';
-        display: block;
         width: 5px;
         height: 5px;
         background: gray;
@@ -279,10 +326,7 @@ color: @layout-color-1;
         -o-border-radius: 5px;
         -webkit-border-radius: 5px;
         border-radius: 5px;
-        margin-left: -5px;
-        position: absolute;
         left: 5px;
-        top: 0;
         -moz-animation: loading 1s infinite;
         -o-animation: loading 1s infinite;
         -webkit-animation: loading 1s infinite;
@@ -292,7 +336,7 @@ color: @layout-color-1;
 [data-ajax-status='loading'] .ajax-loading-indicator:after
     {
         content: ' ';
-        display: block;
+        display: inline-block;
         width: 5px;
         height: 5px;
         background: lightgrey;
@@ -327,7 +371,6 @@ color: @layout-color-1;
 {
     display: inline-block;
     margin-left: 15px;
-    position: absolute;
     top: 30%;
 }
 
@@ -1417,6 +1460,7 @@ div[data-placeholder-wrapper]:before{
     margin-top: 2px; 
 }
 
+select.multiselect[data-val-completeness-report] + div + span:before,
 select[data-val-completeness-report] + span:before{
     content: "R";
     color: white;
@@ -1431,6 +1475,7 @@ select[data-val-completeness-report] + span:before{
     font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
 }
 
+[data-val-completeness-report] + div + span:before,
 [data-val-completeness-report] + span:before {
     content: 'R';
     color: white;
@@ -1438,7 +1483,7 @@ select[data-val-completeness-report] + span:before{
     position: absolute;
     top: 0;
     left: -13px;
-    padding: 1px 5px 1px 3px;
+    padding: 0px 3px 0px 3px;
     z-index: 1;
     border-radius: 3px;
     font-size: .9em;
@@ -1447,9 +1492,12 @@ select[data-val-completeness-report] + span:before{
 
 .patient-feed-content {
     border-bottom: solid 1px lightgray;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 15px;
     padding-bottom: 10px;
+
+    &:last-child {
+    border-bottom: solid 0px lightgray;
+    }
 }
 .feed-left{
     float:left;
@@ -1457,29 +1505,32 @@ select[data-val-completeness-report] + span:before{
     padding-right: 20px;
 }
 
-/* Submit Logo */
+/* Loaders */
+#section-loader,
 #submit-loader {
-  display: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  z-index: 1000;
-  text-align: center;
-  background: lightgrey;
-  background: rgba(155, 155, 155, 0.4);
-}
-#submit-loader span {
-  position: relative;
-  top: 50%;
-  font-size: 16pt;
-  color: white;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1000;
+    text-align: center;
+    background: lightgrey;
+    background: rgba(155, 155, 155, 0.4);
+
+    span {
+        position: relative;
+        top: 50%;
+        font-size: 16pt;
+        color: white;
+    }
 }
 .modal-error{
     padding: 5px 10px 5px 10px;
 }
 
+.patient-reports,
 #patientReportsDataTable_wrapper{
     .status_1{
         background-color: rgba(15, 185, 15, 0.74);
@@ -1494,4 +1545,8 @@ select[data-val-completeness-report] + span:before{
         color: rgb(255, 237, 237);
     }
 }
+
+.row-fluid [class*="span"].hidden {
+               display: none;
+           }
 

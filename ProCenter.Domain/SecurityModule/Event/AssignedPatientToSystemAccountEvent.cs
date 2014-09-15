@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.SecurityModule.Event
 {
-    using System;
-    using CommonModule;
+    #region Using Statements
 
+    using System;
+
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The assigned patient to system account event class.</summary>
     public class AssignedPatientToSystemAccountEvent : CommitEventBase
     {
-        public AssignedPatientToSystemAccountEvent(Guid key, int version, Guid patientKey)
-            : base(key, version)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssignedPatientToSystemAccountEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="version">The version.</param>
+        /// <param name="patientKey">The patient key.</param>
+        public AssignedPatientToSystemAccountEvent ( Guid key, int version, Guid patientKey )
+            : base ( key, version )
         {
             PatientKey = patientKey;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
         public Guid PatientKey { get; private set; }
+
+        #endregion
     }
 }

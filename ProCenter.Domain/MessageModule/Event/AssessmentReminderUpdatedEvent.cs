@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,33 +25,69 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.MessageModule.Event
 {
-    #region
+    #region Using Statements
 
     using System;
     using System.Linq.Expressions;
-    using CommonModule;
+
     using Pillar.Common.Utility;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
+    /// <summary>The assessment reminder updated event class.</summary>
     public class AssessmentReminderUpdatedEvent : CommitEventBase
     {
-        public AssessmentReminderUpdatedEvent()
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentReminderUpdatedEvent"/> class.
+        /// </summary>
+        public AssessmentReminderUpdatedEvent ()
             : base ( Guid.Empty, -1 )
         {
         }
 
-        public AssessmentReminderUpdatedEvent(Guid key, int version, Expression<Func<AssessmentReminder, object>> propertyExpression, object value)
-            : base(key, version)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentReminderUpdatedEvent"/> class.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="version">The version.</param>
+        /// <param name="propertyExpression">The property expression.</param>
+        /// <param name="value">The value.</param>
+        public AssessmentReminderUpdatedEvent ( Guid key, int version, Expression<Func<AssessmentReminder, object>> propertyExpression, object value )
+            : base ( key, version )
         {
-            Property = PropertyUtil.ExtractPropertyName(propertyExpression);
+            Property = PropertyUtil.ExtractPropertyName ( propertyExpression );
             Value = value;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the property.
+        /// </summary>
+        /// <value>
+        /// The property.
+        /// </value>
         public string Property { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public object Value { get; set; }
+
+        #endregion
     }
 }

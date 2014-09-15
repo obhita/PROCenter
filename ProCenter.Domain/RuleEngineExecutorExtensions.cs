@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain
 {
     #region Using Statements
 
     using System.Runtime.CompilerServices;
+
     using Pillar.FluentRuleEngine;
 
     #endregion
 
+    /// <summary>The rule engine executor extensions class.</summary>
     public static class RuleEngineExecutorExtensions
     {
         #region Public Methods and Operators
@@ -41,11 +46,15 @@ namespace ProCenter.Domain
         /// <summary>
         ///     Fors the calling method rule set.
         /// </summary>
+        /// <typeparam name="T">Type of rule engine subject.</typeparam>
         /// <param name="ruleEngineExecutor">The rule engine executor.</param>
         /// <param name="caller">The caller.</param>
-        /// <returns>A rule engine executor.</returns>
-        public static RuleEngineExecutor<T> ForCallingMethodRuleSet<T>(this RuleEngineExecutor<T> ruleEngineExecutor,
-                                                                                       [CallerMemberName] string caller = null )
+        /// <returns>
+        ///     A rule engine executor.
+        /// </returns>
+        public static RuleEngineExecutor<T> ForCallingMethodRuleSet<T> (
+            this RuleEngineExecutor<T> ruleEngineExecutor,
+            [CallerMemberName] string caller = null )
         {
             return ruleEngineExecutor.ForRuleSet ( caller + "RuleSet" );
         }

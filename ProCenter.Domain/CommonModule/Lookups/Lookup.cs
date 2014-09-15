@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,52 +25,55 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.CommonModule.Lookups
 {
     #region Using Statements
 
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
     using System.Resources;
 
     #endregion
 
-    /// <summary>
-    ///     Base Class for lookups.
-    /// </summary>
-    public class Lookup : IEquatable<Lookup>
+    /// <summary>Base Class for lookups.</summary>
+    public class Lookup : IEquatable<Lookup>, IComparable
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Lookup" /> class.
-        /// </summary>
-        public Lookup() {}
+        #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Lookup" /> class.
+        ///     Initializes a new instance of the <see cref="Lookup" /> class.
         /// </summary>
-        /// <param name="codedConcept">The coded concept.</param>
-        public Lookup (CodedConcept codedConcept) : this(codedConcept, 0.0)
+        public Lookup ()
         {
-            
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Lookup" /> class.
+        ///     Initializes a new instance of the <see cref="Lookup" /> class.
+        /// </summary>
+        /// <param name="codedConcept">The coded concept.</param>
+        public Lookup ( CodedConcept codedConcept )
+            : this ( codedConcept, 0.0 )
+        {
+        }
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="Lookup" /> class.
         /// </summary>
         /// <param name="codedConcept">The coded concept.</param>
         /// <param name="value">The value.</param>
         /// <param name="sortOrder">The sort order.</param>
-        /// <param name="isDefault">if set to <c>true</c> [is default].</param>
-        public Lookup(CodedConcept codedConcept, double value, int sortOrder = 0, bool isDefault = false)
+        /// <param name="isDefault">If set to <c>true</c> [is default].</param>
+        public Lookup ( CodedConcept codedConcept, double value, int sortOrder = 0, bool isDefault = false )
         {
             CodedConcept = codedConcept;
             IsDefault = isDefault;
             SortOrder = sortOrder;
             Value = value;
         }
+
+        #endregion
 
         #region Public Properties
 
@@ -82,7 +86,7 @@ namespace ProCenter.Domain.CommonModule.Lookups
         public CodedConcept CodedConcept { get; protected set; }
 
         /// <summary>
-        ///     Gets or sets the display name.
+        ///     Gets the display name.
         /// </summary>
         /// <value>
         ///     The display name.
@@ -91,13 +95,19 @@ namespace ProCenter.Domain.CommonModule.Lookups
         {
             get
             {
+                const string Pre = "_";
                 var type = GetType ();
-                if ( type == typeof(Lookup) || CodedConcept == null || CodedConcept.Code == null)
+                if ( type == typeof(Lookup) || CodedConcept == null || CodedConcept.Code == null )
                 {
                     return string.Empty;
                 }
-                var resourceManger = new ResourceManager(type);
-                return resourceManger.GetString(CodedConcept.Code) ?? string.Empty;
+                var resourceManger = new ResourceManager ( type );
+                var returnString = resourceManger.GetString(CodedConcept.Code) ?? string.Empty;
+                if ( string.IsNullOrWhiteSpace ( returnString ) )
+                {
+                    returnString = resourceManger.GetString(Pre + CodedConcept.Code) ?? string.Empty;
+                }
+                return returnString;
             }
         }
 
@@ -129,24 +139,23 @@ namespace ProCenter.Domain.CommonModule.Lookups
 
         #region Public Methods and Operators
 
-
         /// <summary>
-        ///     ==s the specified left.
+        ///     Checks equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public static bool operator == ( Lookup left, Lookup right )
         {
             return Equals ( left, right );
         }
 
         /// <summary>
-        ///     !=s the specified left.
+        ///     Checks not equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are not equal.</returns>
         public static bool operator != ( Lookup left, Lookup right )
         {
             return !Equals ( left, right );
@@ -156,12 +165,18 @@ namespace ProCenter.Domain.CommonModule.Lookups
         ///     Equalses the specified other.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public bool Equals ( Lookup other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(CodedConcept, other.CodedConcept) && Value.Equals(other.Value);
+            if ( ReferenceEquals ( null, other ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, other ) )
+            {
+                return true;
+            }
+            return Equals ( CodedConcept, other.CodedConcept ) && Value.Equals ( other.Value );
         }
 
         /// <summary>
@@ -175,10 +190,19 @@ namespace ProCenter.Domain.CommonModule.Lookups
         /// </returns>
         public override bool Equals ( object obj )
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != this.GetType()) return false;
-            return Equals((Lookup) obj);
+            if ( ReferenceEquals ( null, obj ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, obj ) )
+            {
+                return true;
+            }
+            if ( obj.GetType () != GetType () )
+            {
+                return false;
+            }
+            return Equals ( (Lookup)obj );
         }
 
         /// <summary>
@@ -191,12 +215,43 @@ namespace ProCenter.Domain.CommonModule.Lookups
         {
             unchecked
             {
-                return ((CodedConcept != null ? CodedConcept.GetHashCode() : 0)*397) ^ Value.GetHashCode();
+                return ( ( CodedConcept != null ? CodedConcept.GetHashCode () : 0 ) * 397 ) ^ Value.GetHashCode ();
             }
         }
 
+        /// <summary>
+        /// Compares the current instance with another object of the same type and returns an integer that indicates 
+        /// whether the current instance precedes, follows, or occurs in the same position in the sort order as the other object.
+        /// </summary>
+        /// <returns>
+        /// A value that indicates the relative order of the objects being compared. The return value has these meanings: 
+        /// Value Meaning Less than zero This instance precedes <paramref name="obj"/> in the sort order. 
+        /// Zero This instance occurs in the same position in the sort order as 
+        /// <paramref name="obj"/>. Greater than zero This instance follows <paramref name="obj"/> in the sort order. 
+        /// </returns>
+        /// <param name="obj">An object to compare with this instance. </param><exception cref="T:System.ArgumentException"><paramref name="obj"/> 
+        /// is not the same type as this instance. </exception>
+        public int CompareTo ( object obj )
+        {
+            if ( Equals ( (Lookup)obj ) )
+            {
+                return 0;
+            }
+            return -1;
+        }
+
+        /// <summary>Implicitly convert lookup to string.</summary>
+        /// <param name="lookup">The lookup.</param>
+        /// <returns>The coded concept code of the lookup.</returns>
+        public static implicit operator string ( Lookup lookup )
+        {
+            if ( lookup == null )
+            {
+                return null;
+            }
+            return lookup.CodedConcept == null ? null : lookup.CodedConcept.Code;
+        }
+
         #endregion
-
-
     }
 }

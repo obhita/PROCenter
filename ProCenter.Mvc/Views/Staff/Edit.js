@@ -68,6 +68,7 @@
 
         $staffEditor.ajaxForm({
             url: staffBaseUri + '/Edit/' + staffKey,
+            validate: true,
             success: function () {
             }
         });
@@ -109,14 +110,6 @@
 
         $('#createAccountModal').on('show', function () {
             $('#createAccountModal #systemAccount_Email').val($('#Email').val());
-            function isValidUsername(value) {
-                var dtRegex = new RegExp(/^[a-zA-Z0-9._@]+$/);
-                return dtRegex.test(value);
-            }
-            $.validator.addMethod("validUsername", function (value) {
-                return isValidUsername(value);
-            }, "The username can only contain letters, numbers, dot(.), at sign(@) and underscore(_).");
-            $('#systemAccount_Username').rules('add', { validUsername: true });
         });
 
         $('#link-account-btn').on('click', function () {
@@ -179,10 +172,13 @@
             var listItems = '';
             for (var i = 0; i < teams.length; i++) {
                 var team = teams[i];
-                listItems += '<li id=' + team.Key + '><span>' + team.Name + '</span><a data-icon="&#xe0a7;" class="remove-btn"></a><div class="modal-loading-indicator hidden"></div></li>';
-
+                if ($list.html().indexOf(team.Key) == -1) {
+                    listItems += '<li id=' + team.Key + '><span>' + team.Name + '</span><a data-icon="&#xe0a7;" class="remove-btn"></a><div class="modal-loading-indicator hidden"></div></li>';
+                }
             }
-            $list.html($list.html() + listItems);
+            if (listItems.length > 0) {
+                $list.html($list.html() + listItems);
+            }
         };
 
         $.getJSON(teamApiBaseUri + '/GetByStaffKey?staffKey=' + staffKey, function (results) {
@@ -288,12 +284,33 @@
             },
             {
                 "mData": "NPI",
-                "sClass": "LastColumn",
             },
-            { "mData": "Key", "bSortable": false, "bSearchable": true, "sClass": "hidden" }
+            {
+                "mData": "Key",
+                "sClass": "LastColumn",
+                "bSortable": false,
+                "bSearchable": false,
+                "fnRender": function(oObj) {
+                    var icon = '&#xe005;';
+                    var text = "Edit";
+                    var description = text + " staff " + oObj.aData.Name.FirstName + " " + oObj.aData.Name.LastName;
+                    return "<div>" +
+                        "<button type='button' aria-label='" + description + "' class='btn btn-mini btn-info edit-staff' id='" + oObj.aData.Key +
+                        "' data-id='" + oObj.aData.Key + "' data-fullname='" + oObj.aData.Name.LastName + " " + oObj.aData.Name.FirstName + 
+                        "' data-icon='" + icon + "'>" + text +
+                        "</button>" +
+                        "</div>";
+                }
+            }
         ],
         "fnDrawCallback": function () {
             updateTableSizes();
+            if (canAccessStaffEdit) {
+                $("button.edit-staff").click(function () {
+                    var key = $(this).attr("data-id");
+                    $.get(staffBaseUri + '/Edit/' + key, showStaffEditor);
+                });
+            }
         }
     });
 
@@ -313,14 +330,42 @@
         $('.dashboard-wrapper').dashboard('expand', $widget[0], showStaffGrid);
         $widget.find('#staff-editor').show();
         $widget.find('.dataTable_wrapper').hide();
-        checkDisabled();
-    };
 
-    if (canAccessStaffEdit) {
-        $("#staffSearchDataTable tbody").click(function (event) {
-            var key = staffSearchTable.fnGetData(event.target.parentNode).Key;
-            $.get(staffBaseUri + '/Edit/' + key, showStaffEditor);
+        $(".system-account-lock").ajaxLink({
+            success: function (data, $link) {
+                $link.text(data.text);
+                $link.attr('href', data.location);
+            }
         });
 
-    }
+        $(".system-account-reset-password").ajaxLink({
+            type: 'POST',
+            success: function (data) {
+                if (data) {
+                    if (data.Data.text != "" || data.Data.error != "") {
+                        var msg = data.Data.text + data.Data.error;
+                        $('#messageModal .modal-body').text(msg);
+                        $("#messageModal").modal("show");
+                    }
+                }
+            },
+            error: function () {
+            }
+        });
+
+        checkDisabled();
+
+        $('#NPI').attr('maxLength', '10').on('keypress', function (e) {
+            var charCode = e.which || e.keyCode;
+            if (charCode > 31 && (charCode <= 47 || charCode > 57))
+                return false;
+            if (e.shiftKey) return false;
+            return true;
+        });
+
+        $("#NPI").rules("add", {
+            required: false,
+            minlength: 10
+        });
+    };
 }

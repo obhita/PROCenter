@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.App_Start
 {
     #region Using Statements
@@ -32,12 +35,13 @@ namespace ProCenter.Mvc.App_Start
     using System.Web.Http;
     using System.Web.Mvc;
     using Infrastructure.Boostrapper;
+    using Infrastructure.Service;
     using Pillar.Common.InversionOfControl;
 
     #endregion
 
     /// <summary>
-    ///     Config startup class for Pro Center
+    ///     Config startup class for Pro Center.
     /// </summary>
     public class ProCenterConfig
     {
@@ -53,6 +57,7 @@ namespace ProCenter.Mvc.App_Start
 
             var dependencyResolver = new CustomDependencyResolver ( IoC.CurrentContainer );
             DependencyResolver.SetResolver ( dependencyResolver );
+            ControllerBuilder.Current.SetControllerFactory ( typeof(ExposedTypeCacheControllerFactory) );
             GlobalConfiguration.Configuration.DependencyResolver = dependencyResolver;
         }
 

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,13 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
+    #region Using Statements
+
     using System.IdentityModel.Services;
 
+    #endregion
+
+    /// <summary>Interface for logout service.</summary>
     public interface ILogoutService
     {
-        SignOutRequestMessage Logout();
+        #region Public Methods and Operators
+
+        /// <summary>Logouts this instance.</summary>
+        /// <returns>A <see cref="SignOutRequestMessage"/>.</returns>
+        SignOutRequestMessage Logout ();
+
+        /// <summary>
+        /// Gets the logout page URL.
+        /// </summary>
+        /// <returns>The logout page's URL.</returns>
+        string GetLogoutPageUrl ();
+
+        #endregion
     }
 }

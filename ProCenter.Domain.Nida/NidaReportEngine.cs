@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,54 +25,85 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.Nida
 {
-    #region
+    #region Using Statements
 
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using AssessmentModule;
-    using Common.Report;
-    using CommonModule;
-    using MessageModule;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.MessageModule;
 
     #endregion
 
-    [WorkflowReports(ReportNames.NidaPatientSummaryReport)]
+    /// <summary>The nida report engine class.</summary>
+    [ReportEngine ( ReportNames.NidaPatientSummaryReport )]
     public class NidaReportEngine : IReportEngine
     {
+        #region Fields
+
         private readonly IWorkflowMessageRepository _workflowMessageRepository;
 
-        public NidaReportEngine (IWorkflowMessageRepository workflowMessageRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NidaReportEngine"/> class.
+        /// </summary>
+        /// <param name="workflowMessageRepository">The workflow message repository.</param>
+        public NidaReportEngine ( IWorkflowMessageRepository workflowMessageRepository )
         {
             _workflowMessageRepository = workflowMessageRepository;
         }
 
-        public IReport Generate(Guid workflowKey, string reportName)
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Generates the specified workflow key.</summary>
+        /// <param name="workflowKey">The workflow key.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="parameters">The parameters.</param>
+        /// <returns>A <see cref="IReport"/>.</returns>
+        public IReport Generate ( Guid workflowKey, string reportName, object parameters = null )
         {
             var workflow = _workflowMessageRepository.GetByKey ( workflowKey );
-            var reportModel = workflow.WorkflowReports.FirstOrDefault(r => r.Name == reportName);
-            if (reportModel != null)
+            var reportModel = workflow.WorkflowReports.FirstOrDefault ( r => r.Name == reportName );
+            if ( reportModel != null )
             {
-                NidaPatientSummaryReportModelBuilder.FillDefaults(reportModel);
+                NidaPatientSummaryReportModelBuilder.FillDefaults ( reportModel );
             }
+
             //todo: get report data from event store
             var nidaReportDataCollection = new NidaReportDataCollection
-                {
-                    reportModel == null ? new NidaReportData() : new NidaReportData (reportModel)
-                };
+                                           {
+                                               reportModel == null ? new NidaReportData () : new NidaReportData ( reportModel )
+                                           };
             var report = new NidaReport
-                {
-                    DataSource = nidaReportDataCollection,
-                };
+                         {
+                             DataSource = nidaReportDataCollection,
+                         };
             return report;
         }
 
-        public ReportModel GetCustomizationModel(Guid workflowKey, string reportName)
+        /// <summary>
+        /// Gets the customization model.
+        /// </summary>
+        /// <param name="workflowKey">The workflow key.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <returns>
+        /// A <see cref="IReportModel" />.
+        /// </returns>
+        public IReportModel GetCustomizationModel(Guid workflowKey, string reportName, Guid? patientKey = null)
         {
-            var reportModel = _workflowMessageRepository.GetByKey ( workflowKey ).WorkflowReports.FirstOrDefault( r => r.Name == reportName);
+            var reportModel = _workflowMessageRepository.GetByKey ( workflowKey ).WorkflowReports.FirstOrDefault ( r => r.Name == reportName );
             if ( reportModel != null )
             {
                 NidaPatientSummaryReportModelBuilder.FillDefaults ( reportModel );
@@ -79,19 +111,30 @@ namespace ProCenter.Domain.Nida
             return reportModel;
         }
 
-        public void UpdateCustomizationModel(Guid workflowKey, string reportName, string name, bool? shouldShow, string text)
+        /// <summary>
+        /// Updates the customization model.
+        /// </summary>
+        /// <param name="workflowKey">The workflow key.</param>
+        /// <param name="reportName">Name of the report.</param>
+        /// <param name="name">The name.</param>
+        /// <param name="shouldShow">The should show.</param>
+        /// <param name="text">The text.</param>
+        public void UpdateCustomizationModel ( Guid workflowKey, string reportName, string name, bool? shouldShow, string text )
         {
             var workflowMessage = _workflowMessageRepository.GetByKey ( workflowKey );
             var reportItem = workflowMessage.WorkflowReports.First ( r => r.Name == reportName ).FindReportItem ( name );
-            var defaultText = (reportItem.FormatParameters.Any ()
-                                  ? string.Format ( NidaWorkflowPatientSummaryReport.ResourceManager.GetString ( reportItem.Name ) ?? string.Empty,
-                                                    reportItem.FormatParameters.ToArray () )
-                                  : NidaWorkflowPatientSummaryReport.ResourceManager.GetString ( reportItem.Name )) ?? string.Empty;
+            var defaultText = ( reportItem.FormatParameters.Any ()
+                ? string.Format (
+                                 NidaWorkflowPatientSummaryReport.ResourceManager.GetString ( reportItem.Name ) ?? string.Empty,
+                    reportItem.FormatParameters.ToArray () )
+                : NidaWorkflowPatientSummaryReport.ResourceManager.GetString ( reportItem.Name ) ) ?? string.Empty;
             if ( defaultText.Equals ( text ) )
             {
                 text = null;
             }
             workflowMessage.UpdateReportItem ( reportName, name, shouldShow, text );
         }
+        
+        #endregion
     }
 }

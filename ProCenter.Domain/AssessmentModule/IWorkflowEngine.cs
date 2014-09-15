@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,11 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
+    /// <summary>Interface for workflow engine.</summary>
     public interface IWorkflowEngine
     {
-        void Run(AssessmentInstance assessmentInstance);
+        #region Public Methods and Operators
+
+        /// <summary>Runs the specified assessment instance.</summary>
+        /// <param name="assessmentInstance">The assessment instance.</param>
+        void Run ( AssessmentInstance assessmentInstance );
+
+        #endregion
     }
 }

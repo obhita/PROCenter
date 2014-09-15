@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,98 +25,209 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
-#region Using Statements
 
-using System;
-using System.ComponentModel.DataAnnotations;
-using Pillar.Common.Utility;
-using Pillar.Domain.Attributes;
+#endregion
+
+#region Using Statements
 
 #endregion
 
 namespace ProCenter.Primitive
 {
+    #region Using Statements
+
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using Pillar.Common.Utility;
+    using Pillar.Domain.Attributes;
+
+    #endregion
+
+    /// <summary>Person name primitive.</summary>
     [Component]
     public class PersonName : IPrimitive, IEquatable<PersonName>
     {
+        #region Constructors and Destructors
+
         /// <summary>
-        ///     Constructor needed for RavenDB
+        /// Initializes a new instance of the <see cref="PersonName"/> class.
         /// </summary>
-        public PersonName()
+        public PersonName ()
         {
         }
 
-        public PersonName(string firstName, string lastName)
-            : this(null, firstName, null, lastName, null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonName"/> class.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="lastName">The last name.</param>
+        public PersonName ( string firstName, string lastName )
+            : this ( null, firstName, null, lastName, null )
         {
         }
 
-        public PersonName(string firstName, string middleName, string lastName)
-            : this(null, firstName, middleName, lastName, null)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonName"/> class.
+        /// </summary>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="middleName">Name of the middle.</param>
+        /// <param name="lastName">The last name.</param>
+        public PersonName ( string firstName, string middleName, string lastName )
+            : this ( null, firstName, middleName, lastName, null )
         {
         }
 
-        public PersonName(string prefix, string firstName, string middleName, string lastName, string suffix)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PersonName"/> class.
+        /// </summary>
+        /// <param name="prefix">The prefix.</param>
+        /// <param name="firstName">The first name.</param>
+        /// <param name="middleName">Name of the middle.</param>
+        /// <param name="lastName">The last name.</param>
+        /// <param name="suffix">The suffix.</param>
+        public PersonName ( string prefix, string firstName, string middleName, string lastName, string suffix )
         {
-            Check.IsNotNullOrWhitespace(firstName, () => FirstName);
-            Check.IsNotNullOrWhitespace(lastName, () => LastName);
+            Check.IsNotNullOrWhitespace ( firstName, () => FirstName );
+            Check.IsNotNullOrWhitespace ( lastName, () => LastName );
 
             Prefix = prefix;
-            FirstName = firstName;
-            MiddleName = middleName;
-            LastName = lastName;
+            FirstName = firstName == null ? null : firstName.Trim();
+            MiddleName = middleName == null ? null : middleName.Trim();
+            LastName = lastName == null ? null : lastName.Trim();
             Suffix = suffix;
         }
 
-        public virtual string Prefix { get; private set; }
+        #endregion
 
-        [Required(ErrorMessage = "The First Name is required.")]
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the first name.
+        /// </summary>
+        /// <value>
+        /// The first name.
+        /// </value>
+        [Required ( ErrorMessage = "The First Name field is required." )]
         [NotNull]
         public virtual string FirstName { get; private set; }
 
-        public virtual string MiddleName { get; private set; }
+        /// <summary>
+        /// Gets the full name.
+        /// </summary>
+        /// <value>
+        /// The full name.
+        /// </value>
+        public virtual string FullName
+        {
+            get { return FirstName + " " + LastName; }
+        }
 
-        [Required(ErrorMessage = "The Last Name is required.")]
+        /// <summary>
+        /// Gets the last name.
+        /// </summary>
+        /// <value>
+        /// The last name.
+        /// </value>
+        [Required ( ErrorMessage = "The Last Name field is required." )]
         [NotNull]
         public virtual string LastName { get; private set; }
 
+        /// <summary>
+        /// Gets the name of the middle.
+        /// </summary>
+        /// <value>
+        /// The name of the middle.
+        /// </value>
+        public virtual string MiddleName { get; private set; }
+
+        /// <summary>
+        /// Gets the prefix.
+        /// </summary>
+        /// <value>
+        /// The prefix.
+        /// </value>
+        public virtual string Prefix { get; private set; }
+
+        /// <summary>
+        /// Gets the suffix.
+        /// </summary>
+        /// <value>
+        /// The suffix.
+        /// </value>
         public virtual string Suffix { get; private set; }
 
-        public virtual string FullName { get { return FirstName + " " + LastName; } }
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Checks if equal.</summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>Whether they are equal.</returns>
+        public static bool operator == ( PersonName left, PersonName right )
+        {
+            return Equals ( left, right );
+        }
+
+        /// <summary>Checks if not equal.</summary>
+        /// <param name="left">The left.</param>
+        /// <param name="right">The right.</param>
+        /// <returns>Whether they are not equal.</returns>
+        public static bool operator != ( PersonName left, PersonName right )
+        {
+            return !Equals ( left, right );
+        }
 
         /// <summary>
         ///     Indicates whether the current object is equal to another object of the same type.
         /// </summary>
         /// <returns>
-        ///     true if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
+        ///     True if the current object is equal to the <paramref name="other" /> parameter; otherwise, false.
         /// </returns>
         /// <param name="other">An object to compare with this object.</param>
-        public bool Equals(PersonName other)
+        public bool Equals ( PersonName other )
         {
-            if (ReferenceEquals(null, other)) return false;
-            if (ReferenceEquals(this, other)) return true;
-            return Equals(other.Suffix, Suffix) && Equals(other.LastName, LastName) &&
-                   Equals(other.MiddleName, MiddleName) && Equals(other.FirstName, FirstName) &&
-                   Equals(other.Prefix, Prefix);
+            if ( ReferenceEquals ( null, other ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, other ) )
+            {
+                return true;
+            }
+            return Equals ( other.Suffix, Suffix ) && Equals ( other.LastName, LastName ) &&
+                   Equals ( other.MiddleName, MiddleName ) && Equals ( other.FirstName, FirstName ) &&
+                   Equals ( other.Prefix, Prefix );
         }
 
         /// <summary>
-        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />.
+        ///     Determines whether the specified <see cref="T:System.Object" /> is equal to the current
+        ///     <see cref="T:System.Object" />.
         /// </summary>
         /// <returns>
-        ///     true if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />; otherwise, false.
+        ///     True if the specified <see cref="T:System.Object" /> is equal to the current <see cref="T:System.Object" />;
+        ///     otherwise, false.
         /// </returns>
         /// <param name="obj">
         ///     The <see cref="T:System.Object" /> to compare with the current <see cref="T:System.Object" />.
         /// </param>
         /// <filterpriority>2</filterpriority>
-        public override bool Equals(object obj)
+        public override bool Equals ( object obj )
         {
-            if (ReferenceEquals(null, obj)) return false;
-            if (ReferenceEquals(this, obj)) return true;
-            if (obj.GetType() != typeof (PersonName)) return false;
-            return Equals((PersonName) obj);
+            if ( ReferenceEquals ( null, obj ) )
+            {
+                return false;
+            }
+            if ( ReferenceEquals ( this, obj ) )
+            {
+                return true;
+            }
+            if ( obj.GetType () != typeof(PersonName) )
+            {
+                return false;
+            }
+            return Equals ( (PersonName)obj );
         }
 
         /// <summary>
@@ -125,27 +237,19 @@ namespace ProCenter.Primitive
         ///     A hash code for the current <see cref="T:System.Object" />.
         /// </returns>
         /// <filterpriority>2</filterpriority>
-        public override int GetHashCode()
+        public override int GetHashCode ()
         {
             unchecked
             {
-                int result = (Suffix != null ? Suffix.GetHashCode() : 0);
-                result = (result*397) ^ (LastName != null ? LastName.GetHashCode() : 0);
-                result = (result*397) ^ (MiddleName != null ? MiddleName.GetHashCode() : 0);
-                result = (result*397) ^ (FirstName != null ? FirstName.GetHashCode() : 0);
-                result = (result*397) ^ (Prefix != null ? Prefix.GetHashCode() : 0);
+                var result = ( Suffix != null ? Suffix.GetHashCode () : 0 );
+                result = ( result * 397 ) ^ ( LastName != null ? LastName.GetHashCode () : 0 );
+                result = ( result * 397 ) ^ ( MiddleName != null ? MiddleName.GetHashCode () : 0 );
+                result = ( result * 397 ) ^ ( FirstName != null ? FirstName.GetHashCode () : 0 );
+                result = ( result * 397 ) ^ ( Prefix != null ? Prefix.GetHashCode () : 0 );
                 return result;
             }
         }
 
-        public static bool operator ==(PersonName left, PersonName right)
-        {
-            return Equals(left, right);
-        }
-
-        public static bool operator !=(PersonName left, PersonName right)
-        {
-            return !Equals(left, right);
-        }
+        #endregion
     }
 }

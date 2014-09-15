@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,26 +25,53 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
+    #region Using Statements
+
     using System.Security.Claims;
     using System.Threading;
     using Domain.SecurityModule.Event;
     using Pillar.Domain.Event;
 
+    #endregion
+
+    /// <summary>The system account validated event handler class.</summary>
     public class SystemAccountValidatedEventHandler : IDomainEventHandler<SystemAccountValidatedEvent>
     {
+        #region Fields
+
         private readonly IPermissionClaimsManager _permissionClaimsManager;
 
-        public SystemAccountValidatedEventHandler ( IPermissionClaimsManager permissionClaimsManager)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemAccountValidatedEventHandler"/> class.
+        /// </summary>
+        /// <param name="permissionClaimsManager">The permission claims manager.</param>
+        public SystemAccountValidatedEventHandler ( IPermissionClaimsManager permissionClaimsManager )
         {
             _permissionClaimsManager = permissionClaimsManager;
         }
 
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Handles the specified system account validated event.
+        /// </summary>
+        /// <param name="systemAccountValidatedEvent">The system account validated event.</param>
         public void Handle ( SystemAccountValidatedEvent systemAccountValidatedEvent )
         {
             _permissionClaimsManager.IssueSystemAccountValidationClaim ( Thread.CurrentPrincipal as ClaimsPrincipal );
         }
+
+        #endregion
     }
 }

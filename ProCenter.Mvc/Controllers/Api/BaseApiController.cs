@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,57 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers.Api
 {
+    #region Using Statements
+
     using System.Web.Http;
     using Agatha.Common;
     using IAsyncRequestDispatcher = Infrastructure.Service.IAsyncRequestDispatcher;
 
+    #endregion
+
+    /// <summary>The base API controller class.</summary>
     public class BaseApiController : ApiController
     {
+        #region Fields
+
         private readonly IRequestDispatcherFactory _requestDispatcherFactory;
 
-        protected BaseApiController()
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseApiController"/> class.
+        /// </summary>
+        protected BaseApiController ()
         {
         }
 
-        protected BaseApiController(IRequestDispatcherFactory requestDispatcherFactory)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseApiController"/> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
+        protected BaseApiController ( IRequestDispatcherFactory requestDispatcherFactory )
         {
             _requestDispatcherFactory = requestDispatcherFactory;
         }
 
-        public IAsyncRequestDispatcher CreateAsyncRequestDispatcher()
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Creates the asynchronous request dispatcher.</summary>
+        /// <returns>A <see cref="IAsyncRequestDispatcher"/>.</returns>
+        public IAsyncRequestDispatcher CreateAsyncRequestDispatcher ()
         {
-            return _requestDispatcherFactory.CreateRequestDispatcher() as IAsyncRequestDispatcher;
+            return _requestDispatcherFactory.CreateRequestDispatcher () as IAsyncRequestDispatcher;
         }
+
+        #endregion
     }
 }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,36 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Patient
 {
     #region Using Statements
 
-    using Common;
-    using Domain.CommonModule;
-    using Domain.PatientModule;
-    using Pillar.Domain.Primitives;
-    using Service.Message.Common;
-    using Service.Message.Patient;
+    using System;
+
     using global::AutoMapper;
+
+    using Pillar.Common.Utility;
+    using Pillar.Domain.Primitives;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.PatientModule;
+    using ProCenter.Infrastructure.Extensions;
+    using ProCenter.Service.Handler.Common;
+    using ProCenter.Service.Message.Common;
+    using ProCenter.Service.Message.Patient;
 
     #endregion
 
-    /// <summary>
-    ///     Save Patient request handler.
-    /// </summary>
+    /// <summary>Save Patient request handler.</summary>
     public class SavePatientDtoRequestHandler : ServiceRequestHandler<SaveDtoRequest<PatientDto>, SaveDtoResponse<PatientDto>>
     {
         #region Fields
 
         private readonly ILookupProvider _lookupProvider;
+
         private readonly IPatientRepository _patientRepository;
 
         #endregion
@@ -76,6 +84,7 @@ namespace ProCenter.Service.Handler.Patient
         protected override void Handle ( SaveDtoRequest<PatientDto> request, SaveDtoResponse<PatientDto> response )
         {
             var patient = _patientRepository.GetByKey ( request.DataTransferObject.Key );
+            DataErrorInfo dataErrorInfo = null;
             if ( patient != null )
             {
                 patient.ReviseName ( request.DataTransferObject.Name );
@@ -89,9 +98,29 @@ namespace ProCenter.Service.Handler.Patient
                 {
                     patient.ReviseReligion ( _lookupProvider.Find<Religion> ( request.DataTransferObject.Religion.Code ) );
                 }
-                patient.ReviseEmail(string.IsNullOrWhiteSpace(request.DataTransferObject.Email) ? null : new Email(request.DataTransferObject.Email));
+                Email newEmail = null;
+                try
+                {
+                    if ( !string.IsNullOrWhiteSpace ( request.DataTransferObject.Email ) )
+                    {
+                        newEmail = new Email(request.DataTransferObject.Email);
+                    }
+                }
+                catch ( ArgumentException ae )
+                {
+                    if (!ae.Message.Contains("email address", StringComparison.OrdinalIgnoreCase))
+                    {
+                        throw;
+                    }
+                    dataErrorInfo = new DataErrorInfo ( ae.Message, ErrorLevel.Error, PropertyUtil.ExtractPropertyName<PatientDto, string> ( s => s.Email ) );
+                }
+                patient.ReviseEmail ( string.IsNullOrWhiteSpace ( request.DataTransferObject.Email ) ? null : newEmail );
 
                 response.DataTransferObject = Mapper.Map<Patient, PatientDto> ( patient );
+                if ( dataErrorInfo != null )
+                {
+                    response.DataTransferObject.AddDataErrorInfo ( dataErrorInfo );
+                }
             }
         }
 

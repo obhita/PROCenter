@@ -1,3 +1,7 @@
 ﻿@model bool
 
-@Html.CheckBoxFor( m => m )
+@{
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+
+@Html.CheckBoxFor( m => m, new {id = ViewData["id"], aria_label = @ariaLabel } )

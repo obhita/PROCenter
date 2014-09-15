@@ -1,28 +1,6 @@
 ﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
-	<s:String x:Key="/Default/Environment/UserInterface/ShortcutSchemeName/@EntryValue">None</s:String>
-	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderText/@EntryValue">/*******************************************************************************&#xD;
- * Open Behavioral Health Information Technology Architecture (OBHITA.org)&#xD;
- * &#xD;
- * Redistribution and use in source and binary forms, with or without&#xD;
- * modification, are permitted provided that the following conditions are met:&#xD;
- *     * Redistributions of source code must retain the above copyright&#xD;
- *       notice, this list of conditions and the following disclaimer.&#xD;
- *     * Redistributions in binary form must reproduce the above copyright&#xD;
- *       notice, this list of conditions and the following disclaimer in the&#xD;
- *       documentation and/or other materials provided with the distribution.&#xD;
- *     * Neither the name of the &lt;organization&gt; nor the&#xD;
- *       names of its contributors may be used to endorse or promote products&#xD;
- *       derived from this software without specific prior written permission.&#xD;
- * &#xD;
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND&#xD;
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED&#xD;
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE&#xD;
- * DISCLAIMED. IN NO EVENT SHALL &lt;COPYRIGHT HOLDER&gt; BE LIABLE FOR ANY&#xD;
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES&#xD;
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;&#xD;
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND&#xD;
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT&#xD;
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS&#xD;
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.&#xD;
- ******************************************************************************/</s:String>
-	<s:String x:Key="/Default/CodeStyle/FileHeader/FileHeaderRegionName/@EntryValue">License Header</s:String></wpf:ResourceDictionary>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=9ADE672F4E15754C8F74B894566DD08C/AbsolutePath/@EntryValue">C:\FEiProjects\ProCenter\ProCenter.Resharper.DotSettings</s:String>
+	<s:String x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=9ADE672F4E15754C8F74B894566DD08C/RelativePath/@EntryValue">..\ProCenter.Resharper.DotSettings</s:String>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/FileInjectedLayer/=9ADE672F4E15754C8F74B894566DD08C/@KeyIndexDefined">True</s:Boolean>
+	<s:Boolean x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File9ADE672F4E15754C8F74B894566DD08C/@KeyIndexDefined">True</s:Boolean>
+	<s:Double x:Key="/Default/Environment/InjectedLayers/InjectedLayerCustomization/=File9ADE672F4E15754C8F74B894566DD08C/RelativePriority/@EntryValue">1</s:Double></wpf:ResourceDictionary>

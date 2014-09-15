@@ -1,29 +1,43 @@
 ﻿@using ProCenter.Mvc.Infrastructure.Extension
-@model ProCenter.Mvc.Models.ScoreHeaderViewModel
+@using ProCenter.Mvc.Models
+@using ProCenter.Mvc.Views.Assessment
 
+@model ScoreHeaderViewModel
 @{
-    var scoreSummary = Model.Score == null || Model.Score.Value == null || ( Model.Score.Value is bool && (bool)Model.Score.Value) ? "Scored" : "Score: " + Model.Score.Value;
+    var scoreSummary = Model.Score == null || Model.Score.Value == null || ( Model.Score.Value is bool && (bool) Model.Score.Value ) ? Strings.Scored : Strings.Score + Model.Score.Value;
 }
 
-@if(Model.Score != null)
+@if ( Model.Score != null )
 {
     <div class="guidance-header" data-expander-summary="@scoreSummary">
         <div class="alert fade in">
-            <div><strong>This assessment has been submitted and is readonly.</strong></div>
+            <div><strong>@Strings.Assessment_ReadOnly</strong></div>
+            @if ( Model.Score != null )
+            {
+                if ( Model.Score.Value != null && Model.Score.Value.GetType ().IsValueType )
+                {
+                    <span>@Strings.Score</span>
+                }
+                else
+                {
+                    <span>@Strings.ScoreDetail</span>
+                }
+                
+                @Html.DisplayFor(n => n.Score.Value)
+            }
             @if ( Model.Score != null && Model.Score.GuidanceCode != null )
             {
-                <span>Score: @Model.Score.Value</span>
                 <span>@Html.GetResource( Model.Score.GuidanceCode )</span>
             }
         </div>
     </div>
 }
-@if (Model.Messages != null && Model.Messages.Any())
+@if ( Model.Messages != null && Model.Messages.Any () )
 {
-    <div class="messages-header"  data-expander-summary="Actions (@Model.Messages.Count())" data-expander-summary-location="right">
-        @foreach (var message in Model.Messages)
+    <div class="messages-header" data-expander-summary="Actions (@Model.Messages.Count())" data-expander-summary-location="right">
+        @foreach ( var message in Model.Messages )
         {
-            @Html.DisplayFor(m => message)
+            @Html.DisplayFor( m => message )
         }
     </div>
 }

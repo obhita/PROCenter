@@ -1,25 +1,41 @@
-﻿@using ProCenter.Mvc.Infrastructure.Extension
-@using ProCenter.Common
+﻿@using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Patient
+@using ProCenter.Mvc.Views.ReportsCenter
 @model ProCenter.Service.Message.Patient.PatientDto
 
 @{
     var patientKey = Model == null ? string.Empty : Model.Key.ToString();
-    ViewBag.Title = "Patient Record";
+    var patientFullName = Model == null ? string.Empty : Model.Name.FullName;
+    ViewBag.Title = Patient.PatientIndexTitle;
 }
 
 @section subnav{
     <div class="sub-nav">
         <div class="patient-header row-fluid">
-            @Html.DisplayFor(m => ViewData["Patient"], new {CanEdit = true})
+            @Html.DisplayFor(m => ViewData["Patient"], new { CanEdit = true })
             <div id="assessment-create" class="assessment-tools">
                 @if (Html.CanAccess("Assessment", "Create"))
                 {
-                    <input type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Organization/FinderSearchActive" data-finder-display="AssessmentName" />
-                    <a title="Create Assessment" class="add-btn btn btn-success" data-icon="&#xe102;" disabled="disabled"></a>
-                    <a title="Create Self Administered Assessment" class="self-admin-add-btn btn btn-success" data-icon="&#xe074;" disabled="disabled"></a>
+                    <input id="assessment-search" aria-label="@Patient.SearchAssessment" type="text" placeholder="@Patient.Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Organization/FinderSearchActive" data-finder-display="AssessmentName" />
+                    <div style="float: right;">
+                        <div style="position: relative;" id="create-assessment-outer-div">
+                            <a data-toggle="dropdown" class="dropdown-toggle" id="assessment-dropdown-toggle">
+                                <span class="fs1 add-btn btn btn-success" id="assessment-add-btn" aria-label="Click to create an assessment" data-icon="&#xe102;" disabled="disabled">Create Assessment</span>
+                            </a>
+                            <ul class="dropdown-menu assessment-create-dropdown">
+                                <li>
+                                    <a title="@Patient.CreateAssessment" class="add-btn" aria-label="@Patient.TakeAssessmentNow">@Patient.CreateAssessment</a>    
+                                </li>
+                                <li>
+                                    <a title="@Patient.CreateSelfAdministeredAssessment" aria-label="@Patient.CreateSelfAssessment" onclick="return checkAccount('@Model.HasAccount.ToString()', '@Model.Name.FullName');" class="self-admin-add-btn">@Patient.CreateSelfAdministeredAssessment</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 }
             </div>
-            <div class="clear"></div>
+            <div class="clearfix"></div>
         </div>
     </div>
 }
@@ -46,7 +62,7 @@
                 @Html.Partial("../Widgets/AssessmentReminderPartial")
             }
         </div>
-        <div class="clear"></div>
+        <div class="clearfix"></div>
     </div>
     <div id="ajax-loader" style="display: none"></div>
 </div>
@@ -57,18 +73,31 @@
     {
         @Scripts.Render("~/bundles/patient")
         <script>
+            function checkAccount(hasAccount, patientName) {
+                if (hasAccount == "False") {
+                    var msg = '@Patient.MustHaveAnAccount';
+                    msg = msg.replace("{0}", '"' + patientName + '"');
+                    var headerText = '@Patient.Warning';
+                    $("#messageModalHeader").text(headerText);
+                    $('#messageModal .modal-body').text(msg);
+                    $("#messageModal").modal("show");
+                    return false;
+                }
+                return true;
+            }
+
             $(document).ready(function() {
                 var canViewReports = @Html.CanAccess("Report", "Get").ToString().ToLower();
                 if (canViewReports) {
                     var canCustomizeReport = @Html.CanAccess("Report", "Customize").ToString().ToLower();
                     window.procenter.InitializePatientReports('@Url.Content("~/Assessment")', '@Url.Content("~/api/Assessment")', '@patientKey', '@Url.Action("Get", "Report")', '@Url.Action("Customize", "Report")', canCustomizeReport);
                 }
-                
+
                 var canViewPatientFeed = @Html.CanAccess("Assessment", "PatientFeed").ToString().ToLower();
                 if (canViewPatientFeed) {
                     window.procenter.InitializePatientFeed('@Url.Content("~/Patient")', '@patientKey');
                 }
-                
+
                 var canViewPatientAssessments = @Html.CanAccess("Assessment", "Edit").ToString().ToLower();
                 if (canViewPatientAssessments) {
                     var canEditAssessments = @Html.CanAccess("Assessment", "Edit", "POST").ToString().ToLower();
@@ -78,21 +107,34 @@
                 var canViewReminders = @Html.CanAccess("AssessmentReminder", "Get").ToString().ToLower();
                 if (canViewReminders) {
                     var canEditReminders = @Html.CanAccess("AssessmentReminder", "Edit", "POST").ToString().ToLower();
-                    window.procenter.InitializeReminders('@Url.Content("~/AssessmentReminder")', '@Url.Content("~/api/AssessmentReminder")', canEditReminders, '@patientKey');
+                    window.procenter.InitializeReminders('@Url.Content("~/AssessmentReminder")', '@Url.Content("~/api/AssessmentReminder")', canEditReminders, '@patientKey', '@patientFullName', '@DateTime.Today' );
                 }
 
+                var systemAccountKey = '@UserContext.Current.SystemAccountKey';
+
+                window.procenter.InitializeReportBuilder('@Url.Content("~/Report/")', systemAccountKey, null, '@ReportsCenter.NoAssessmentWarning', new Array('@ReportsCenter.HeightUnit1', '@ReportsCenter.HeightUnit2'));
+
+                $("#assessment-add-btn").on("click", function(e) {
+                    var selected = $('#assessment-search').data('finder').selectedData !== undefined && $('#assessment-search').data('finder').selectedData != null;
+                    if (!selected) {
+                        e.stopPropagation();
+                    } 
+                });
+
                 $('#assessment-create').on('selectionChanged', function(evt, data) {
+                    $("#create-assessment-outer-div").removeClass("open");
                     if (data && $('#' + data.Key).length === 0) {
+                        $("#assessment-add-btn").removeAttr("disabled");
                         $('#assessment-create a.add-btn').removeAttr("disabled").attr("href", '@Url.Content("~/Assessment")' + '/Create?patientKey=' + '@patientKey' + '&assessmentDefinitionKey=' + data.Key);
                         $('#assessment-create a.self-admin-add-btn').removeAttr("disabled").attr("href", '@Url.Content("~/Assessment")' + '/CreateForSelfAdministration?patientKey=' + '@patientKey' + '&assessmentDefinitionKey=' + data.Key);
                     } else {
-                        $('#assessment-create a.add-btn').attr("disabled", "disabled");
-                        $('#assessment-create a.self-admin-add-btn').attr("disabled", "disabled");
+                        $("#assessment-add-btn").attr("disabled", "disabled");
+                        $('#assessment-create a.add-btn').attr("disabled", "disabled").attr("href", null);
+                        $('#assessment-create a.self-admin-add-btn').attr("disabled", "disabled").attr("href", null);
                     }
                 });
-                
             });
         </script>
-        <noscript>This site contains certain features and services that require javascript in order to function properly. Please enable javascript in your browser and try again.</noscript>
+        <noscript>@Patient.JavascriptNotEnabled</noscript>
     }
 }

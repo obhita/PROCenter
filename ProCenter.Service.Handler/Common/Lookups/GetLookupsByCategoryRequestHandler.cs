@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Common.Lookups
 {
     #region Using Statements
@@ -33,14 +36,12 @@ namespace ProCenter.Service.Handler.Common.Lookups
     using System.Linq;
     using Domain.CommonModule;
     using Domain.CommonModule.Lookups;
-    using Service.Message.Common.Lookups;
     using global::AutoMapper;
+    using Service.Message.Common.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Handler for getting lookups by category.
-    /// </summary>
+    /// <summary>Handler for getting lookups by category.</summary>
     public class GetLookupsByCategoryRequestHandler :
         ServiceRequestHandler<GetLookupsByCategoryRequest, GetLookupsByCategoryResponse>
     {

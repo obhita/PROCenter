@@ -1,0 +1,6 @@
+﻿@model string
+@{
+    var ariaLabel = ViewData["section"] + " " + ViewData["group"] + " " + ViewData["labelString"];
+}
+@Html.TextBoxFor(t => t, new {id = ViewData["id"], aria_label=@ariaLabel, @class = "text-box single-line"})
+@Html.ValidationMessageFor(t => t)

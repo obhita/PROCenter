@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,38 +25,62 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Security
 {
-    #region
+    #region Using Statements
 
     using System.Linq;
     using Common;
     using Domain.SecurityModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Security;
-    using global::AutoMapper;
 
     #endregion
 
+    /// <summary>The get role dto by key request handler class.</summary>
     public class GetRoleDtoByKeyRequestHandler : ServiceRequestHandler<GetRoleDtoByKeyRequest, DtoResponse<RoleDto>>
     {
+        #region Fields
+
         private readonly IRoleRepository _roleRepository;
 
-        public GetRoleDtoByKeyRequestHandler(IRoleRepository roleRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GetRoleDtoByKeyRequestHandler"/> class.
+        /// </summary>
+        /// <param name="roleRepository">The role repository.</param>
+        public GetRoleDtoByKeyRequestHandler ( IRoleRepository roleRepository )
         {
             _roleRepository = roleRepository;
         }
 
-        protected override void Handle(GetRoleDtoByKeyRequest request, DtoResponse<RoleDto> response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( GetRoleDtoByKeyRequest request, DtoResponse<RoleDto> response )
         {
-            var role = _roleRepository.GetByKey(request.Key);
-            if (role != null)
+            var role = _roleRepository.GetByKey ( request.Key );
+            if ( role != null )
             {
-                var roleDto = Mapper.Map<Role, RoleDto>(role);
-                roleDto.Permissions = roleDto.Permissions.OrderBy(p => p);
+                var roleDto = Mapper.Map<Role, RoleDto> ( role );
+                roleDto.Permissions = roleDto.Permissions.OrderBy ( p => p );
                 response.DataTransferObject = roleDto;
             }
         }
+
+        #endregion
     }
 }

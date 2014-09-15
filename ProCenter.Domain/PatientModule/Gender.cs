@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,44 +25,55 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
     #region Using Statements
 
-    using CommonModule;
-    using CommonModule.Lookups;
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.CommonModule.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Class for defining gender lookups.
-    /// </summary>
+    /// <summary>Class for defining gender lookups.</summary>
     public class Gender : Lookup
     {
         #region Static Fields
 
-        private static readonly CodeSystem GenderCodeSystem = CodeSystems.Obhita;
+        private static readonly CodeSystem _genderCodeSystem = CodeSystems.Obhita;
 
         /// <summary>
         ///     Female = 2.
         /// </summary>
         public static readonly Gender Female = new Gender
-            {
-                CodedConcept = new CodedConcept ( code: "Female", codeSystem: GenderCodeSystem, name: "Female" ),
-                SortOrder = 1,
-                Value = 2
-            };
+                                               {
+                                                   CodedConcept = new CodedConcept ( code: "Female", codeSystem: _genderCodeSystem, name: "Female" ),
+                                                   SortOrder = 1,
+                                                   Value = 2
+                                               };
 
         /// <summary>
         ///     Male = 1.
         /// </summary>
         public static readonly Gender Male = new Gender
-            {
-                CodedConcept = new CodedConcept ( code: "Male", codeSystem: GenderCodeSystem, name: "Male" ),
-                SortOrder = 0,
-                Value = 1
-            };
+                                             {
+                                                 CodedConcept = new CodedConcept ( code: "Male", codeSystem: _genderCodeSystem, name: "Male" ),
+                                                 SortOrder = 0,
+                                                 Value = 1
+                                             };
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Gender"/> class.
+        /// </summary>
+        protected internal Gender ()
+        {
+        }
 
         #endregion
     }

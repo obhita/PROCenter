@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,19 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
     #region Using Statements
 
     using System.ComponentModel.DataAnnotations;
-    using Lookups;
+
+    using ProCenter.Service.Message.Common.Lookups;
 
     #endregion
 
-    /// <summary>
-    ///     Address data transfer object.
-    /// </summary>
+    /// <summary>Address data transfer object.</summary>
     public class AddressDto
     {
         #region Public Properties
@@ -47,6 +49,7 @@ namespace ProCenter.Service.Message.Common
         /// <value>
         ///     The name of the city.
         /// </value>
+        [Required]
         public string CityName { get; set; }
 
         /// <summary>
@@ -55,6 +58,7 @@ namespace ProCenter.Service.Message.Common
         /// <value>
         ///     The first street address.
         /// </value>
+        [Required]
         public string FirstStreetAddress { get; set; }
 
         /// <summary>
@@ -63,6 +67,7 @@ namespace ProCenter.Service.Message.Common
         /// <value>
         ///     The postal code.
         /// </value>
+        [Required]
         public string PostalCode { get; set; }
 
         /// <summary>
@@ -71,7 +76,7 @@ namespace ProCenter.Service.Message.Common
         /// <value>
         ///     The second street address.
         /// </value>
-        [Display(Name = "Street address line 2")]
+        [Display ( Name = "Street address line 2" )]
         public string SecondStreetAddress { get; set; }
 
         /// <summary>
@@ -80,6 +85,7 @@ namespace ProCenter.Service.Message.Common
         /// <value>
         ///     The state province.
         /// </value>
+        [Required]
         public LookupDto StateProvince { get; set; }
 
         #endregion

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,24 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.PatientModule
 {
+    #region Using Statements
+
     using System;
 
-    /// <summary>
-    /// Interface to generating patient unique identifier
-    /// </summary>
+    #endregion
+
+    /// <summary>Interface to generating patient unique identifier.</summary>
     public interface IPatientUniqueIdentifierGenerator
     {
+        #region Public Methods and Operators
+
         /// <summary>
-        /// Generates the unique identifier.
+        ///     Generates the unique identifier.
         /// </summary>
         /// <param name="key">The key.</param>
         /// <param name="lastName">The last name.</param>
         /// <param name="gender">The gender.</param>
         /// <param name="dateOfBirth">The date of birth.</param>
-        /// <returns></returns>
+        /// <returns>The unique identifier.</returns>
         string GenerateUniqueIdentifier ( Guid key, string lastName, Gender gender, DateTime dateOfBirth );
+
+        #endregion
     }
 }

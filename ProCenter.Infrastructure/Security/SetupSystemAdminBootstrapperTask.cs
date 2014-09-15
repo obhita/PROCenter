@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,46 +25,93 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Security
 {
+    #region Using Statements
+
     using System;
-    using Common;
+
     using Pillar.Common.InversionOfControl;
     using Pillar.Domain.Primitives;
     using Pillar.Security.AccessControl;
+
+    using ProCenter.Common;
     using ProCenter.Domain.SecurityModule;
 
+    #endregion
+
+    /// <summary>The setup system admin bootstrapper task class.</summary>
     public class SetupSystemAdminBootstrapperTask : IOrderedBootstrapperTask
     {
+        #region Constants
+
+        private const string SystemAccountIdentifier = "system.admin@feisystems.com";
+
+        #endregion
+
+        #region Fields
+
         private readonly IRoleFactory _roleFactory;
+
         private readonly IUnitOfWorkProvider _unitOfWorkProvider;
 
-        private const string systemAccountIdentifier = "system.admin@feisystems.com";
+        #endregion
 
-        public int Order { get { return 1; } }
+        #region Constructors and Destructors
 
-        public SetupSystemAdminBootstrapperTask (IRoleFactory roleFactory, IUnitOfWorkProvider unitOfWorkProvider )
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SetupSystemAdminBootstrapperTask"/> class.
+        /// </summary>
+        /// <param name="roleFactory">The role factory.</param>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        public SetupSystemAdminBootstrapperTask ( IRoleFactory roleFactory, IUnitOfWorkProvider unitOfWorkProvider )
         {
             _roleFactory = roleFactory;
             _unitOfWorkProvider = unitOfWorkProvider;
         }
 
+        #endregion
+
+        #region Public Properties
+
+        /// <summary>
+        /// Gets the order.
+        /// </summary>
+        /// <value>
+        /// The order.
+        /// </value>
+        public int Order
+        {
+            get { return 1; }
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Executes this instance.
+        /// </summary>
         public void Execute ()
         {
             var systemAccountRepository = IoC.CurrentContainer.Resolve<ISystemAccountRepository> ();
-            var systemAccount = systemAccountRepository.GetByIdentifier(systemAccountIdentifier);
+            var systemAccount = systemAccountRepository.GetByIdentifier ( SystemAccountIdentifier );
             if ( systemAccount == null )
             {
-                var systemAdminRole = _roleFactory.Create ( "System Admin", RoleType.Internal );
-                systemAdminRole.AddPermision(SystemAdministrationPermission.SystemAdminPermission);
-                systemAdminRole.AddPermision(new Permission { Name = "infrastructuremodule/accessuserinterface" });
+                var systemAdminRole = _roleFactory.Create ( "System Admin", null, RoleType.Internal );
+                systemAdminRole.AddPermision ( SystemAdministrationPermission.SystemAdminPermission );
+                systemAdminRole.AddPermision ( new Permission { Name = "infrastructuremodule/accessuserinterface" } );
 
-                systemAccount = new SystemAccount(Guid.Empty, systemAccountIdentifier, new Email(systemAccountIdentifier));
+                systemAccount = new SystemAccount ( Guid.Empty, SystemAccountIdentifier, new Email ( SystemAccountIdentifier ) );
                 systemAccount.AddRole ( systemAdminRole.Key );
 
                 _unitOfWorkProvider.GetCurrentUnitOfWork ().Commit ();
             }
         }
+
+        #endregion
     }
 }

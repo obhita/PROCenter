@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
+    /// <summary>Report Severity.</summary>
     public enum ReportSeverity
     {
+        /// <summary>
+        /// The unknown.
+        /// </summary>
         Unknown,
+
+        /// <summary>
+        /// The good.
+        /// </summary>
         Good,
+
+        /// <summary>
+        /// The low.
+        /// </summary>
         Low,
+
+        /// <summary>
+        /// The high.
+        /// </summary>
         High
     }
 }

@@ -32,33 +32,52 @@ namespace ProCenterDatabaseGenerator
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
+    using System.Reflection;
     using System.Security.Claims;
     using System.Threading;
-    using Dapper;
+    using System.Threading.Tasks;
+
+    using NLog.Config;
+
     using Pillar.Common.InversionOfControl;
-    using Pillar.Common.Utility;
+    using Pillar.Domain.Event;
     using Pillar.Domain.Primitives;
+    using Pillar.FluentRuleEngine;
     using Pillar.Security.AccessControl;
     using ProCenter.Common;
+    using ProCenter.Common.Permission;
     using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.AssessmentModule.Lookups;
+    using ProCenter.Domain.AssessmentModule.Rules;
     using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.GainShortScreener;
     using ProCenter.Domain.MessageModule;
     using ProCenter.Domain.Nida;
+    using ProCenter.Domain.Gpra;
+    using ProCenter.Domain.Nih;
     using ProCenter.Domain.OrganizationModule;
     using ProCenter.Domain.PatientModule;
+    using ProCenter.Domain.Psc;
+    using ProCenter.Domain.ReportsModule;
     using ProCenter.Domain.SecurityModule;
     using ProCenter.Infrastructure;
+    using ProCenter.Infrastructure.EventStore;
     using ProCenter.Infrastructure.Security;
-    using ProCenter.Infrastructure.Service.ReadSideService;
     using ProCenter.Mvc.Infrastructure.Boostrapper;
-    using ProCenter.Mvc.Infrastructure.Permission;
-    using ProCenter.Mvc.PermissionDescriptor;
+    using ProCenter.Mvc.Infrastructure.Service;
+    using ProCenter.Mvc.Views.Portal;
     using ProCenter.Primitive;
     using ProCenter.Service.Message.Assessment;
+    using ProCenter.Service.Message.Report;
+
     using Raven.Abstractions.Data;
     using Raven.Abstractions.Indexing;
     using Raven.Client.Document;
     using Raven.Client.Extensions;
+
+    using Gender = ProCenter.Domain.PatientModule.Gender;
+    using ReportNames = ProCenter.Domain.ReportsModule.ReportNames;
 
     #endregion
 
@@ -86,7 +105,7 @@ namespace ProCenterDatabaseGenerator
             using (var documentStore = new DocumentStore())
             {
                 documentStore.Conventions.ShouldCacheRequest = url => false;
-                if (connectionString == null)
+                if (connectionString == null || connectionString == "null")
                 {
                     documentStore.ConnectionStringName = "RavenDbSystem";
                 }
@@ -110,31 +129,77 @@ namespace ProCenterDatabaseGenerator
             }
         }
 
+        private static string GetArgument ( string[] args, string argKey )
+        {
+            var returnVal = string.Empty;
+            for ( var i = 0; i < args.Length - 1; i++ )
+            {
+                if ( args[i] == argKey )
+                {
+                    returnVal = args[i + 1];
+                    break;
+                }
+            }
+            return returnVal;
+        }
+
         private static void Main(string[] args)
         {
-            var assessmentDefinitions = typeof (Frequency).Assembly.GetTypes()
-                                                          .Where(t => t.IsSubclassOf(typeof (AssessmentDefinition)))
-                                                          .Select(assessmentDefType => Activator.CreateInstance(assessmentDefType) as AssessmentDefinition).ToList();
+            ConfigurationItemFactory.Default.LayoutRenderers.RegisterDefinition("user-context", typeof(UserContextLayoutRenderer));
+            var assessmentDefinitions = new List<AssessmentDefinition> (); 
+
+            assessmentDefinitions.Add ( new GpraInterview () );
 
             Console.WriteLine("Data update starting ......");
 
-            InitializeDatabase(args.Length > 0 ? args[0] : null);
+            var connectionString = GetArgument ( args, "-c" );
+            InitializeDatabase(connectionString.Length > 0 ? connectionString : null);
 
             Console.WriteLine("Database cleared ......");
             
             Console.WriteLine("Bootstrapping ......");
             new Bootstrapper().Run();
 
+            AddSystemAccount ();
+
+            //TODO: use assembly locator.
+            var assessmblies = new List<Assembly>
+                               {
+                                   typeof(DrugUseFrequency).Assembly,
+                                   typeof(GainShortScreener).Assembly,
+                                   typeof(PediatricSymptonChecklist).Assembly,
+                                   typeof(NihHealthBehaviorsAssessment).Assembly
+                               };
+
+            Task.Run ( () =>
+                      {
+                          foreach ( var assessmbly in assessmblies )
+                          {
+                              assessmentDefinitions.AddRange (
+                                                              assessmbly
+                                                                  .GetTypes ()
+                                                                  .Where ( t => t.IsSubclassOf ( typeof(Assessment) ) )
+                                                                  .Select (
+                                                                           t =>
+                                                                           {
+                                                                               var assessment = Activator.CreateInstance ( t ) as Assessment;
+                                                                               return assessment.CreateAssessmentDefinition ();
+                                                                           } ) );
+                          }
+                      } ).Wait();
+
             var assessmentDefinitionDtos = new List<AssessmentDefinitionDto>();
+            List<Guid> assessmentDefinitionKeys = new List<Guid> ();
             foreach (var assessmentDefinition in assessmentDefinitions)
             {
-                var assessmentDef = new AssessmentDefinition(assessmentDefinition.CodedConcept);
+                var assessmentDef = new AssessmentDefinition(assessmentDefinition.CodedConcept, assessmentDefinition.ScoreType);
                 assessmentDefinitionDtos.Add(new AssessmentDefinitionDto
                     {
                         Key = assessmentDef.Key,
                         AssessmentName = assessmentDefinition.CodedConcept.Name,
                         AssessmentCode = assessmentDefinition.CodedConcept.Code
                     });
+                assessmentDefinitionKeys.Add ( assessmentDef.Key );
                 foreach (var itemDefinition in assessmentDefinition.ItemDefinitions)
                 {
                     assessmentDef.AddItemDefinition(itemDefinition);
@@ -147,16 +212,147 @@ namespace ProCenterDatabaseGenerator
             Guid staffKey;
             var organizationkey = SetupOrganization(assessmentDefinitionDtos, out staffKey);
             
-            var patientKey = AddPatients(organizationkey);
-            SetupPatientPortal (organizationkey, patientKey);
-            AddAssessmentReminders(assessmentDefinitionDtos, organizationkey, patientKey, staffKey);
+            var patientKeys = AddPatients(organizationkey);
+            var portalRole = SetupPatientPortalRole ( organizationkey );
+            foreach ( var patient in patientKeys )
+            {
+                AssignPatientToPortal(portalRole, organizationkey, patient);
+            }
+            AddReportDefinitions(staffKey);
+            AddAssessmentReminders(assessmentDefinitionDtos, organizationkey, patientKeys.ElementAt (0).Key, staffKey);
 
+            var addAdditionalData =  GetArgument ( args, "-x" );
+            if (addAdditionalData.Length > 0)
+            {
+                AddAdditionalData(organizationkey, portalRole, staffKey, assessmentDefinitionDtos);
+            }
             var unitOfWorkProvider = IoC.CurrentContainer.Resolve<IUnitOfWorkProvider>();
             unitOfWorkProvider.GetCurrentUnitOfWork().Commit();
 
+            WaitForAllToBeDispatched ();
             Console.WriteLine("Data update completed ......");
-            //Console.WriteLine("Press any key to continue:");
-            //Console.ReadKey();
+        }
+
+        private static void AddSystemAccount ()
+        {
+            const string SystemAccountIdentifier = "system.admin@feisystems.com";
+            var systemAccountRepository = IoC.CurrentContainer.Resolve<ISystemAccountRepository>();
+            var roleFactory = IoC.CurrentContainer.Resolve<IRoleFactory>();
+            var systemAccount = systemAccountRepository.GetByIdentifier(SystemAccountIdentifier);
+            if (systemAccount == null)
+            {
+                var systemAdminRole = roleFactory.Create("System Admin", null, RoleType.Internal);
+                systemAdminRole.AddPermision(SystemAdministrationPermission.SystemAdminPermission);
+                systemAdminRole.AddPermision(new Permission { Name = "infrastructuremodule/accessuserinterface" });
+
+                systemAccount = new SystemAccount(Guid.Empty, SystemAccountIdentifier, new Email(SystemAccountIdentifier));
+                systemAccount.AddRole(systemAdminRole.Key);
+            }
+        }
+
+        private static void AddAssessmentReminderForPatient(
+            Guid assessmentDefinitionKey, 
+            Guid organizationKey, 
+            Guid patientKey, 
+            Guid staffKey, 
+            string reminderName, 
+            string description, 
+            string email, 
+            DateTime startDateTime,
+            DateTime endDateTime,
+            AssessmentReminderRecurrence reminderRecurrenceType,
+            AssessmentReminderUnit assessmentReminderUnit)
+        {
+            var assessmentReminder = new AssessmentReminder(organizationKey,
+                                                            patientKey,
+                                                            staffKey,
+                                                            assessmentDefinitionKey,
+                                                            reminderName,
+                                                            startDateTime,
+                                                            description,
+                                                            reminderRecurrenceType,
+                                                            endDateTime);
+            assessmentReminder.ReviseReminder(1, assessmentReminderUnit, new Email(email));
+            Console.WriteLine("Added Assessment Reminder: {0} ......", reminderName);
+        }
+
+        private static void AddAdditionalData(Guid organizationkey, Role portalRole, Guid staffKey, List<AssessmentDefinitionDto> assessmentDefinitionDtos)
+        {
+            var patientFactory = new PatientFactory();
+            {
+                //// How to add a new patient
+                var patient = patientFactory.Create(organizationkey, new PersonName("Billy", "", "Bob"), DateTime.Parse("02/05/1965"), Gender.Male, new Email ( "billy.bob@email.com" ));
+                Console.WriteLine("Added patient: {0} {1} ......", patient.Name.FirstName, patient.Name.LastName);
+
+                //// How to assign this patient an account
+                AssignPatientToPortal(portalRole, organizationkey, patient);
+                assessmentDefinitionDtos.ForEach ( dto => CreateAssessmentForPatient ( GetAssessmentDefinitionByKey ( dto.Key ), patient )  );
+
+                //// How to assign a reminder to this patient
+                AddAssessmentReminderForPatient(
+                    assessmentDefinitionDtos.First(f => f.AssessmentCode == "1000000").Key, 
+                    organizationkey, 
+                    patient.Key, 
+                    staffKey, 
+                    "Test Reminder", 
+                    "Reminder Description", 
+                    "joe@home.com", 
+                    DateTime.Now, 
+                    DateTime.Now.AddDays ( 4 ), 
+                    AssessmentReminderRecurrence.Daily, 
+                    AssessmentReminderUnit.Days );
+            }
+        }
+
+        private static AssessmentDefinition GetAssessmentDefinitionByKey(Guid key)
+        {
+            var assessmentDefinitionRepository = IoC.CurrentContainer.Resolve<IAssessmentDefinitionRepository>();
+            return assessmentDefinitionRepository.GetByKey(key);
+        }
+
+        private static AssessmentInstance CreateAssessmentForPatient ( AssessmentDefinition assessmentDefinition, Patient patient )
+        {
+            var assessmentInstanceFactory = IoC.CurrentContainer.Resolve<IAssessmentInstanceFactory>();
+            var instance = assessmentInstanceFactory.Create(assessmentDefinition, patient.Key, assessmentDefinition.CodedConcept.Name);
+            //instance.UpdateItem();
+            Console.WriteLine("Added Assessment Instance {0} to patient: {1} ......", assessmentDefinition.CodedConcept.Name, patient.Name.FullName);
+            return instance;
+        }
+
+        private static void WaitForAllToBeDispatched ()
+        {
+            const int TimesToTry = 100;
+            var attempted = 0;
+            var eventStoreFactory = IoC.CurrentContainer.Resolve<IEventStoreFactory> ();
+            while ( eventStoreFactory.CachedEventStores.Any( esf => esf.Advanced.GetUndispatchedCommits ().Any( )) )
+            {
+                attempted++;
+                if ( attempted == TimesToTry )
+                {
+                    break;
+                }
+                Thread.Sleep ( 1 );
+            }
+            if ( attempted == TimesToTry )
+            {
+                Console.WriteLine("Too many tries waiting for all commits to be dispatched, there is most likely an exception happening in the Read Side Service.");
+                Console.ReadKey();
+            }
+        }
+
+        private static void AddReportDefinitions ( Guid staffKey )
+        {
+            var reportDefinitionFactory = new ReportDefinitionFactory ( );
+            reportDefinitionFactory.Create(staffKey, ReportNames.AssessmentScoreOverTime, Report.AssessmentScoreOverTime, true);
+            Console.WriteLine("Added report definition: {0}......", ReportNames.AssessmentScoreOverTime);
+            reportDefinitionFactory.Create(staffKey, ReportNames.PatientScoreRange, Report.PatientScoreRange, false);
+            Console.WriteLine("Added report definition: {0}......", ReportNames.PatientScoreRange);
+            reportDefinitionFactory.Create(staffKey, ReportNames.NotCompletedAssessment, Report.NotCompletedAssessment, false);
+            Console.WriteLine("Added report definition: {0}......", ReportNames.NotCompletedAssessment);
+            reportDefinitionFactory.Create(staffKey, ReportNames.PatientsWithSpecificResponse, Report.PatientsWithSpecificResponse, false);
+            Console.WriteLine("Added report definition: {0}......", ReportNames.PatientsWithSpecificResponse);
+            reportDefinitionFactory.Create(staffKey, ReportNames.PatientsWithSpecificResponseAcrossAssessments, Report.PatientsWithSpecificResponseAcrossAssessments, false);
+            Console.WriteLine("Added report definition: {0}......", ReportNames.PatientsWithSpecificResponse);
         }
 
         private static Guid SetupOrganization(IEnumerable<AssessmentDefinitionDto> assessmentDefinitionDtos, out Guid staffKey)
@@ -179,9 +375,8 @@ namespace ProCenterDatabaseGenerator
                 var staff = new Staff(organization.Key, new PersonName("Leo", "Smith"));
                 staffKey = staff.Key;
                 var systemAccount = new SystemAccount(organization.Key, "leo.smith@safeharbor.com", new Email("leo.smith@safeharbor.com"));
-                var role = new Role("Organization Admin");
+                var role = new Role("Organization Admin", organization.Key);
                 var permissionDescriptors = IoC.CurrentContainer.ResolveAll<IPermissionDescriptor>();
-                var type = typeof (BasicAccessPermissionDescriptor);
                 var allPermissions = new List<Permission>();
 
                 foreach (var resource in permissionDescriptors.OfType<IInternalPermissionDescriptor>().Where ( pd => !pd.IsInternal ).SelectMany(pd => pd.Resources))
@@ -210,6 +405,14 @@ namespace ProCenterDatabaseGenerator
                     allPermissions.Add(TeamPermission.TeamViewPermission);
                     allPermissions.Add(AssessmentPermission.AssessmentEditPermission);
                     allPermissions.Add(AssessmentPermission.AssessmentViewPermission);
+                    allPermissions.Add(SystemAccountPermission.LockAccountPermission);
+                    allPermissions.Add(SystemAccountPermission.ResetPasswordPermission);
+                    allPermissions.Add(ReportsCenterPermission.ReportsCenterViewPermission);
+                    allPermissions.Add(AssessmentPermission.AssessmentReminderViewPermission);
+                    allPermissions.Add(AssessmentPermission.AssessmentReminderEditPermission);
+                    allPermissions.Add(AssessmentPermission.ReportEditPermission);
+                    allPermissions.Add(AssessmentPermission.ReportViewPermission);
+                    allPermissions.Add(PortalPermission.PortalViewPermission);
                 }
 
                 foreach (var permission in allPermissions)
@@ -224,7 +427,7 @@ namespace ProCenterDatabaseGenerator
                 var staff = new Staff(organization.Key, new PersonName("Cindy", "Thomas"));
                 var systemAccount = new SystemAccount(organization.Key, "cindy.thomas@safeharbor1x1.com",
                                                       new Email("cindy.thomas@safeharbor1x1.com"));
-                var role = new Role("Organization Viewer");
+                var role = new Role("Organization Viewer", organization.Key);
                 role.AddPermision(BasicAccessPermission.AccessUserInterfacePermission);
                 role.AddPermision(PatientPermission.PatientViewPermission);
                 role.AddPermision(AssessmentPermission.AssessmentViewPermission);
@@ -235,25 +438,26 @@ namespace ProCenterDatabaseGenerator
             return organization.Key;
         }
 
-        private static Guid AddPatients(Guid organizationkey)
+        private static List<Patient> AddPatients(Guid organizationkey)
         {
-            Guid patientKey;
-            var patientFacory = new PatientFactory();
+            var patientKeys = new List<Patient> ();
+            var patientFactory = new PatientFactory();
             {
-                var patient = patientFacory.Create(organizationkey, new PersonName("O-Ren", "Z", "Ishii"), DateTime.Parse("01/01/1954"), Gender.Female);
+                var patient = patientFactory.Create(organizationkey, new PersonName("O-Ren", "Z", "Ishii"), DateTime.Parse("01/01/1954"), Gender.Female, new Email("oren.ishii@gmail.com"));
                 Console.WriteLine("Added patient: {0} {1} ......", patient.Name.FirstName, patient.Name.LastName);
-                patientKey = patient.Key;
+                patientKeys.Add ( patient);
             }
             {
-                var patient = patientFacory.Create(organizationkey, new PersonName("John", "B", "Smith"), DateTime.Parse("01/01/1983"), Gender.Male);
+                var patient = patientFactory.Create(organizationkey, new PersonName("John", "B", "Smith"), DateTime.Parse("01/01/1983"), Gender.Male);
                 Console.WriteLine("Added patient: {0} {1} ......", patient.Name.FirstName, patient.Name.LastName);
+                patientKeys.Add ( patient );
             }
-            return patientKey;
+            return patientKeys;
         }
 
-        private static void SetupPatientPortal (Guid organizationKey, Guid patientKey)
+        private static Role SetupPatientPortalRole(Guid organizationKey)
         {
-            var portalRole = new Role("Patient Portal", RoleType.BuiltIn);
+            var portalRole = new Role("Patient Portal", organizationKey, RoleType.BuiltIn);
             portalRole.AddPermision(BasicAccessPermission.AccessUserInterfacePermission);
             portalRole.AddPermision(PortalPermission.PortalViewPermission);
             portalRole.AddPermision(PatientPermission.PatientViewPermission);
@@ -261,9 +465,17 @@ namespace ProCenterDatabaseGenerator
             portalRole.AddPermision(AssessmentPermission.AssessmentReminderViewPermission);
             portalRole.AddPermision(AssessmentPermission.AssessmentEditPermission);
             portalRole.AddPermision(AssessmentPermission.ReportViewPermission);
+            return portalRole;
+        }
 
-            var systemAccount = new SystemAccount(organizationKey, "oren.ishii@gmail.com", new Email("oren.ishii@gmail.com"));
-            systemAccount.AssignToPatient ( patientKey );
+        private static void AssignPatientToPortal (Role portalRole, Guid organizationKey, Patient patient)
+        {
+            if ( patient.Email == null )
+            {
+                return;
+            }
+            var systemAccount = new SystemAccount(organizationKey, patient.Email.Address, patient.Email);
+            systemAccount.AssignToPatient ( patient.Key );
             systemAccount.AddRole ( portalRole.Key );
         }
 
@@ -276,11 +488,12 @@ namespace ProCenterDatabaseGenerator
                                                             assessmentDefDto.Key,
                                                             "Followup",
                                                             DateTime.Now.AddDays(1),
-                                                            "Test");
-            assessmentReminder.ReviseReminder(1, AssessmentReminderUnit.Days, new Email("yu.mei@feisystems.com"));
+                                                            "Test",
+                                                            AssessmentReminderRecurrence.OneTime,
+                                                            DateTime.Now.AddDays(1));
+            assessmentReminder.ReviseReminder(1, AssessmentReminderUnit.Days, new Email("joey.fox@feisystems.com"));
             Console.WriteLine("Added Assessment Reminder: {0} ......", "Followup");
         }
-
 
         private static void GetPermissionsHelper(IList<Permission> permissions, Resource resource)
         {

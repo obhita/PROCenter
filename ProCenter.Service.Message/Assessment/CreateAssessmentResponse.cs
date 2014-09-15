@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,32 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
     using System;
+
     using Agatha.Common;
 
     #endregion
 
+    /// <summary>The create assessment response class.</summary>
     public class CreateAssessmentResponse : Response
     {
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the assessment instance key.
+        /// </summary>
+        /// <value>
+        /// The assessment instance key.
+        /// </value>
         public Guid AssessmentInstanceKey { get; set; }
+
+        #endregion
     }
 }

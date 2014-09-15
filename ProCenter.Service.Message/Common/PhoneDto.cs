@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,33 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Common
 {
+    using System.ComponentModel.DataAnnotations;
+
+    /// <summary>The phone dto class.</summary>
     public class PhoneDto
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the extension.
+        /// </summary>
+        /// <value>
+        /// The extension.
+        /// </value>
         public string Extension { get; set; }
+
+        /// <summary>
+        /// Gets or sets the number.
+        /// </summary>
+        /// <value>
+        /// The number.
+        /// </value>
+        [Required(ErrorMessage = "Phone Number field is required.")]
         public string Number { get; set; }
 
         #endregion

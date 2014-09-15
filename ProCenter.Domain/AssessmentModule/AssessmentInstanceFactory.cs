@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,16 +25,45 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
-    using System;
+    #region Using Statements
 
+    using System;
+    using System.Linq;
+
+    using Pillar.Common.InversionOfControl;
+    using Pillar.FluentRuleEngine;
+
+    using ProCenter.Domain.AssessmentModule.Lookups;
+    using ProCenter.Domain.AssessmentModule.Metadata;
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>The assessment instance factory class.</summary>
     public class AssessmentInstanceFactory : IAssessmentInstanceFactory
     {
-        public AssessmentInstance Create(Guid assessmentDefinitionKey, Guid patientKey, string assessmentName)
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Creates the specified assessment definition key.
+        /// </summary>
+        /// <param name="assessmentDefinition">The assessment definition.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="assessmentName">Name of the assessment.</param>
+        /// <param name="canSelfAdminister">If set to <c>true</c> [can self administer].</param>
+        /// <returns>
+        /// A <see cref="AssessmentInstance" />.
+        /// </returns>
+        public AssessmentInstance Create ( AssessmentDefinition assessmentDefinition, Guid patientKey, string assessmentName, bool canSelfAdminister = false )
         {
-            return new AssessmentInstance(assessmentDefinitionKey, patientKey, assessmentName);
+            return new AssessmentInstance(assessmentDefinition, patientKey, assessmentName, canSelfAdminister);
         }
+
+        #endregion
     }
 }

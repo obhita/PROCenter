@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Common
 {
     #region Using Statements
@@ -52,24 +55,27 @@ namespace ProCenter.Common
         ResourceManager GetResourceManagerByName ( string name );
 
         /// <summary>
-        /// Registers a resource manager for the type.
+        ///     Registers a resource manager for the type.
         /// </summary>
         /// <typeparam name="TResource">The type of the resource.</typeparam>
-        void Register<TResource> (string code = null);
+        /// <param name="code">The code.</param>
+        void Register<TResource> ( string code = null );
 
         /// <summary>
-        /// Registers a resource manager for the type.
+        ///     Registers a resource manager for the type.
         /// </summary>
         /// <param name="resourceType">Type of the resource.</param>
-        void Register(Type resourceType, string code = null);
+        /// <param name="code">The code.</param>
+        void Register ( Type resourceType, string code = null );
 
         /// <summary>
-        /// Registers a resource manager.
+        ///     Registers a resource manager.
         /// </summary>
         /// <param name="name">The name.</param>
         /// <param name="fullName">The full name.</param>
         /// <param name="assembly">The assembly.</param>
-        void Register(string name, string fullName, Assembly assembly, string code = null);
+        /// <param name="code">The code.</param>
+        void Register ( string name, string fullName, Assembly assembly, string code = null );
 
         #endregion
     }

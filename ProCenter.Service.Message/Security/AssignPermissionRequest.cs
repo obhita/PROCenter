@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,17 +25,49 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
+    #region Using Statements
+
     using System;
     using System.Collections.Generic;
+
     using Agatha.Common;
 
+    #endregion
+
+    /// <summary>The assign permission request class.</summary>
     public class AssignPermissionRequest : Request
     {
-        public Guid  Key { get; set; }
-        public bool  Add { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [add].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [add]; otherwise, <c>false</c>.
+        /// </value>
+        public bool Add { get; set; }
+
+        /// <summary>
+        /// Gets or sets the key.
+        /// </summary>
+        /// <value>
+        /// The key.
+        /// </value>
+        public Guid Key { get; set; }
+
+        /// <summary>
+        /// Gets or sets the permissions.
+        /// </summary>
+        /// <value>
+        /// The permissions.
+        /// </value>
         public IEnumerable<string> Permissions { get; set; }
+
+        #endregion
     }
 }

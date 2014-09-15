@@ -83,7 +83,15 @@
     <Content Include="bin\Lucene.Net.dll" />
     <Content Include="bin\Lucene.Net.pdb" />
     <Content Include="bin\Lucene.Net.xml" />
+    <Content Include="bin\Microsoft.CompilerServices.AsyncTargetingPack.Net4.dll" />
+    <Content Include="bin\Microsoft.CompilerServices.AsyncTargetingPack.Net4.xml" />
+    <Content Include="bin\Microsoft.Data.Edm.dll" />
+    <Content Include="bin\Microsoft.Data.Edm.xml" />
+    <Content Include="bin\Microsoft.Data.OData.dll" />
+    <Content Include="bin\Microsoft.Data.OData.xml" />
     <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Microsoft.WindowsAzure.Storage.dll" />
+    <Content Include="bin\Microsoft.WindowsAzure.Storage.xml" />
     <Content Include="bin\Mono.Cecil.dll" />
     <Content Include="bin\NetTopologySuite.dll" />
     <Content Include="bin\NLog.dll" />
@@ -126,16 +134,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>54279</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/ProCenter.RavenDbServer</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

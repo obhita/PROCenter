@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,21 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Report
 {
     #region Using Statements
 
-    using Common;
-    using Domain.AssessmentModule;
     using Pillar.Common.InversionOfControl;
-    using Service.Message.Report;
+
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Service.Handler.Common;
+    using ProCenter.Service.Message.Report;
 
     #endregion
 
-    /// <summary>
-    ///     Handler for saving a report customization.
-    /// </summary>
+    /// <summary>Handler for saving a report customization.</summary>
     public class SaveReportCustomizationModelRequestHandler : ServiceRequestHandler<SaveReportCustomizationModelRequest, SaveReportCustomizationModelResponse>
     {
         #region Methods
@@ -51,7 +53,12 @@ namespace ProCenter.Service.Handler.Report
         protected override void Handle ( SaveReportCustomizationModelRequest request, SaveReportCustomizationModelResponse response )
         {
             var reportEngine = IoC.CurrentContainer.Resolve<IReportEngine> ( request.ReportName );
-            reportEngine.UpdateCustomizationModel ( request.SourceKey, request.ReportName, request.ReportItemDto.Name, request.ReportItemDto.ShouldShow, request.ReportItemDto.Text );
+            reportEngine.UpdateCustomizationModel (
+                                                   request.SourceKey,
+                request.ReportName,
+                request.ReportItemDto.Name,
+                request.ReportItemDto.ShouldShow,
+                request.ReportItemDto.Text );
         }
 
         #endregion

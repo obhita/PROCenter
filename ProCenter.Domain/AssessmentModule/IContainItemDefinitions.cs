@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,18 +25,20 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
     #region Using Statements
 
     using System.Collections.Generic;
 
+    using ProCenter.Domain.CommonModule;
+
     #endregion
 
-    /// <summary>
-    ///     Interface to classes that contain item definitions.
-    /// </summary>
+    /// <summary>Interface to classes that contain item definitions.</summary>
     public interface IContainItemDefinitions
     {
         #region Public Properties
@@ -47,6 +50,10 @@ namespace ProCenter.Domain.AssessmentModule
         ///     The item definitions.
         /// </value>
         IEnumerable<ItemDefinition> ItemDefinitions { get; }
+
+        /// <summary>Gets the coded concept.</summary>
+        /// <value>The coded concept.</value>
+        CodedConcept CodedConcept { get; }
 
         #endregion
     }

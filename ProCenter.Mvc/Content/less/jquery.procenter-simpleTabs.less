@@ -1,0 +1,40 @@
+﻿.simpleTabs-container {
+    .tabs {
+        list-style: none;
+        margin: 12px 0px 0px 0px;
+        padding: 0 0 3px 0;
+        border-bottom: @dark-blue solid 2px;
+
+        li {
+            float: left;
+            margin-left: 1px;
+
+            &:first-child{
+                margin-left: 0;
+            }
+
+            &.clearfix{
+                float: none;
+            }
+            
+            a {
+               background: #c8e4f7;
+               padding: 5px;
+               margin-left: 4px;
+               text-decoration: none;
+               
+               span {
+                   color: @dark-blue;
+               }
+
+               &.selected,
+               &:hover {
+                   background: @dark-blue;
+                   span {
+                       color: white;
+                   }
+               }
+            }
+        }
+    }
+}

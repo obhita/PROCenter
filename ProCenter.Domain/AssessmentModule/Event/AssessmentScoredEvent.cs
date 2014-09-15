@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,35 +25,38 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Assessment scored event.
-    /// </summary>
+    /// <summary>Assessment scored event.</summary>
     public class AssessmentScoredEvent : CommitEventBase
     {
         #region Constructors and Destructors
 
         /// <summary>
-        ///     Initializes a new instance of the <see cref="AssessmentScoredEvent" /> class.
+        /// Initializes a new instance of the <see cref="AssessmentScoredEvent" /> class.
         /// </summary>
         /// <param name="assessmentKey">The assessment key.</param>
         /// <param name="version">The version.</param>
         /// <param name="scoreCode">The score code.</param>
         /// <param name="value">The value.</param>
+        /// <param name="hasReport">If set to <c>True</c> has report.</param>
         /// <param name="guidance">The guidance.</param>
-        public AssessmentScoredEvent ( Guid assessmentKey, int version, CodedConcept scoreCode, object value, CodedConcept guidance = null )
+        public AssessmentScoredEvent ( Guid assessmentKey, int version, CodedConcept scoreCode, object value, bool hasReport = false, CodedConcept guidance = null )
             : base ( assessmentKey, version )
         {
             Value = value;
+            HasReport = hasReport;
             Guidance = guidance;
             ScoreCode = scoreCode;
         }
@@ -84,6 +88,14 @@ namespace ProCenter.Domain.AssessmentModule.Event
         ///     The value.
         /// </value>
         public object Value { get; private set; }
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has report.
+        /// </summary>
+        /// <value>
+        /// <c>True</c> if this instance has report; otherwise, <c>False</c>.
+        /// </value>
+        public bool HasReport { get; private set; }
 
         #endregion
     }

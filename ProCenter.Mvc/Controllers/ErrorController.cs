@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,25 +25,42 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
-    #region
+    #region Using Statements
 
     using System.Web.Mvc;
 
     #endregion
 
+    /// <summary>The error controller class.</summary>
     public class ErrorController : Controller
     {
-        public ActionResult HttpError()
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// HTTP404s this instance.
+        /// </summary>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        [AllowAnonymous]
+        public ActionResult Http404 ()
         {
-            return View();
+            return View ();
         }
 
-        public ActionResult Http404()
+        /// <summary>
+        /// HTTPs the error.
+        /// </summary>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        [AllowAnonymous]
+        public ActionResult HttpError ()
         {
-            return View();
+            return View ();
         }
+
+        #endregion
     }
 }

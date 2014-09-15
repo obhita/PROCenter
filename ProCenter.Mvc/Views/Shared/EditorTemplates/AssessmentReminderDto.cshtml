@@ -1,60 +1,64 @@
 ﻿@using Newtonsoft.Json
-@using ProCenter.Mvc.Infrastructure.Extension
 @using ProCenter.Common
+@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Mvc.Views.Shared
 @using ProCenter.Primitive
 @using ProCenter.Service.Message.Assessment
 @using ProCenter.Service.Message.Patient
+
 @model ProCenter.Service.Message.Message.AssessmentReminderDto
 
 @{
     var patientAttributes = new Dictionary<string, object>
-        {
-            //Note: using hyphen instead of underscore in the attribute dictionary
-            {"class", Html.PropertyNameFor(m => m.PatientKey)},
-            {"placeholder", "Search Patient"},
-            {"data-control", "finder"},
-            {"data-ajaxform_ignore", "true"},
-            {"data-finder-url", @Url.Content("~/api/Patient/FinderSearch/" + UserContext.Current.OrganizationKey)},
-            {"data-finder-display", "Name.FullName"},
-        };
+    {
+        //Note: using hyphen instead of underscore in the attribute dictionary
+        {"class", Html.PropertyNameFor ( m => m.PatientKey )},
+        {"placeholder", Shared.SearchPatient},
+        {"data-control", "finder"},
+        {"data-ajaxform_ignore", "true"},
+        {"data-finder-url", @Url.Content ( "~/api/Patient/FinderSearch/" + UserContext.Current.OrganizationKey )},
+        {"data-finder-display", "Name.FullName"},
+    };
     if (Model.PatientKey.HasValue)
     {
         patientAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new PatientDto
-            {
-                Key = Model.PatientKey.Value,
-                Name = new PersonName(Model.PatientFirstName, Model.PatientLastName)
-            }));
+        {
+            Key = Model.PatientKey.Value,
+            Name = new PersonName(Model.PatientFirstName, Model.PatientLastName)
+        }));
     }
 
     var assessmentAttributes = new Dictionary<string, object>
-        {
-            {"class", Html.PropertyNameFor(m => m.AssessmentDefinitionKey)},
-            {"placeholder", "Search Assessment"},
-            {"data-control", "finder"},
-            {"data-ajaxform_ignore", "true"},
-            {"data-finder-url", @Url.Content("~/api/Organization/FinderSearchActive")},
-            {"data-finder-display", "AssessmentName"},
-        };
+    {
+        {"class", Html.PropertyNameFor ( m => m.AssessmentDefinitionKey )},
+        {"placeholder", Shared.SearchAssessment},
+        {"data-control", "finder"},
+        {"data-ajaxform_ignore", "true"},
+        {"data-finder-url", @Url.Content ( "~/api/Organization/FinderSearchActive" )},
+        {"data-finder-display", "AssessmentName"},
+    };
     if (Model.AssessmentDefinitionKey.HasValue)
     {
         assessmentAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new AssessmentDefinitionDto
-            {
-                Key = Model.AssessmentDefinitionKey.Value,
-                AssessmentName = Model.AssessmentName
-            }));
+        {
+            Key = Model.AssessmentDefinitionKey.Value,
+            AssessmentName = Model.AssessmentName
+        }));
     }
 
     var setReminderClass = "set-reminder-wrapper";
     var setReminderButtonClass = "set-reminder-button btn btn-success";
-    if ( Model.ReminderTime <= 0 )
-    {
-        setReminderClass += " hidden";
-    }
-    else
-    {
-        setReminderButtonClass += " hidden";
-    }
-    var disable = Html.CanAccess("AssessmentReminder", "Edit", "POST") ? "false" : "true"; 
+    //if (Model.ReminderTime <= 0)
+    //{
+    //    setReminderClass += " hidden";
+    //}
+    //else
+    //{
+    //    setReminderButtonClass += " hidden";
+    //}
+    var disable = Html.CanAccess("AssessmentReminder", "Edit", "POST") ? "false" : "true";
+
+    var recurringReminderClass = Model.ReminderRecurrence.ToString() != "OneTime" ? "recurring-reminder-wrapper is-recurring" : "recurring-reminder-wrapper";
 }
 
 <div data-disabled="@disable">
@@ -62,10 +66,10 @@
     @Html.ValidationSummary()
     <div>
         @Html.LabelFor(m => m.Title)
-        @Html.TextBoxFor(m => m.Title, new {@class = Html.PropertyNameFor(m => m.Title)})
+        @Html.TextBoxFor(m => m.Title, new { @class = Html.PropertyNameFor(m => m.Title) })
         @Html.ValidationMessageFor(m => m.Title)
     </div>
-    <div>
+    <div id="reminder-patient-key">
         @Html.LabelFor(m => m.PatientKey)
         @Html.TextBoxFor(m => m.PatientKey, patientAttributes)
         @Html.ValidationMessageFor(m => m.PatientKey)
@@ -77,20 +81,44 @@
     </div>
     <div>
         @Html.LabelFor(m => m.Start)
-        @Html.TextBoxFor(m => m.Start, new {@class = Html.PropertyNameFor(m => m.Start)})
+        @Html.TextBoxFor(m => m.Start, new { @class = Html.PropertyNameFor(m => m.Start) })
         @Html.ValidationMessageFor(m => m.Start)
     </div>
     <div>
-        @Html.CheckBoxFor(m => m.ForSelfAdministration, new {@class = Html.PropertyNameFor(m => m.ForSelfAdministration)})
+        @Html.CheckBoxFor(m => m.ForSelfAdministration, new { @class = Html.PropertyNameFor(m => m.ForSelfAdministration) })
         @Html.LabelFor(m => m.ForSelfAdministration)
         @Html.ValidationMessageFor(m => m.ForSelfAdministration)
     </div>
-    <button class="@setReminderButtonClass" type="button">Set Reminder</button>
+    <div class="@recurringReminderClass">
+        <div data-control="simpleTabs">
+            <ul class="tabs">
+                <li><a href="#one-time-event"><span class="fs1">@Shared.OneTime</span></a>
+                </li>
+                <li><a href="#recurring-event"><span class="fs1">@Shared.Recurring</span></a>
+                </li>
+                <li class="clearfix"></li>
+            </ul>
+            <div id="one-time-event">
+            </div>
+            <div id="recurring-event">
+                <div style="display: inline-flex;">
+                    @Html.RadioButtonForSelectList(m => m.ReminderRecurrence, Model.ReminderRecurrence.ToSelectList().Where(a => a.Value != "OneTime"))
+                </div>
+                <div>
+                    @Html.LabelFor(m => m.End)
+                    @Html.EditorFor(m => m.End)
+                    @Html.ValidationMessageFor(m => m.End)
+                </div>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+@*    <button class="@setReminderButtonClass" type="button">@Shared.SetNotificationButton</button>*@
     <div class="@setReminderClass" data-ajax-container="true">
         <div>
-            @Html.LabelFor(m => m.ReminderTime)
-            @Html.TextBoxFor(m => m.ReminderTime, new {@class = Html.PropertyNameFor( m => m.ReminderTime ) })
-            @Html.DropDownListFor(m => m.ReminderUnit, Model.ReminderUnit.ToSelectList (), new {@class = Html.PropertyNameFor(m => m.ReminderUnit)})
+            @Html.Label(Shared.NotificationInterval)
+            @Html.TextBoxFor(m => m.ReminderTime, new { @class = Html.PropertyNameFor(m => m.ReminderTime) })
+            @Html.DropDownListFor(m => m.ReminderUnit, Model.ReminderUnit.ToSelectList(), new { @class = Html.PropertyNameFor(m => m.ReminderUnit) })
             <div>
                 @Html.ValidationMessageFor(m => m.ReminderTime)
                 @Html.ValidationMessageFor(m => m.ReminderUnit)
@@ -98,8 +126,8 @@
         </div>
         <div>
             @Html.LabelFor(m => m.SendToEmail)
-            @Html.TextBoxFor(m => m.SendToEmail, new {@class = Html.PropertyNameFor(m => m.SendToEmail), type = "email"})
-            @Html.ValidationMessageFor(m => m.SendToEmail)
+            @Html.TextBoxFor(m => m.SendToEmail, new { @class = Html.PropertyNameFor(m => m.SendToEmail), type = "email" })
+            @Html.ValidationMessageFor( m => m.SendToEmail )
         </div>
     </div>
 </div>

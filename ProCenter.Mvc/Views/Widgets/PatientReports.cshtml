@@ -1,7 +1,9 @@
-﻿<div id="customizeReportModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="customizeReportModalLabel" aria-hidden="true">
+﻿@using ProCenter.Domain.PatientModule
+@using ProCenter.Mvc.Views.Widgets
+<div id="customizeReportModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="customizeReportModalLabel" aria-hidden="true">
     <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="customizeReportModalLabel">Personalize Report</h3>
+        <button type="button" class="close pull-right" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="customizeReportModalLabel">@Widgets.PersonalizeReport</h3>
     </div>
     <form>
         <div class="modal-body">
@@ -10,27 +12,67 @@
     </form>
 </div>
 
-<div class="widget">
+<div id="patientReports" class="widget patient-reports">
     <div class="widget-header">
         <div class="title">
+            <span class="fs1" aria-hidden="true" data-icon="&#xe097;"></span>
             Reports
         </div>
     </div>
     <div class="widget-body" data-layout-height="*">
-        <div class="dataTable_wrapper">
-            <table id="patientReportsDataTable">
-                <thead>
-                    <tr>
-                        <th width="15%">Date Available</th>
-                        <th width="50%">Name</th>
-                        <th width="20%">Status</th>
-                        <th width="15%"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+        <div class="collapsed-content">
+            <div class="row-fluid column-headers">
+                <span class="span2">Type</span>
+                <span class="span4">Name</span>
+                <span class="span2">Status</span>
+                <span class="span2">Date</span>
+                <span class="span3"></span>
+                <div class="clearfix"></div>
+            </div>
+                        <div class="section">
+                <span class="group-header">Assessment Reports</span>
+                <div class="assessment-reports"></div>
+            </div>
+            <div class="section">
+                <span class="group-header">Saved Reports</span>
+                <div class="saved-reports"></div>
+            </div>
         </div>
-        <div class="clear"></div>
+        <div class="expanded-content">
+            <div data-control="simpleTabs">
+                <ul class="tabs">
+                    <li><a href="#assessment-reports-grid"><span class="fs1" data-icon="&#xe1b7;">Assessment Reports</span></a></li>
+                    <li><a href="#report-builder"><span class="fs1" data-icon="&#xe091;">Report Builder</span></a></li>
+                    <li class="clearfix"></li>
+                </ul>
+                <div id="assessment-reports-grid" class="dataTable_wrapper" data-layout-height="*">
+                    <table id="patientReportsDataTable">
+                        <thead>
+                            <tr>
+                                <th width="10%">Type</th>
+                                <th width="40%">Name</th>
+                                <th width="15%">Status</th>
+                                <th width="20%">Date</th>
+                                <th width="15%"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="report-builder" data-layout-height="*">
+                    <div class="btn-group" data-toggle="buttons" style="float: left; margin-left: 10px;" id="btn-group-savedreportstemplates">
+                        <button type="button" class="btn btn-primary" data-toggle="button" id="report-parameters">@Widgets.Parameters</button>
+                        <button type="button" class="btn btn-primary" data-toggle="button" id="report-saved">@Widgets.SavedReports</button>
+                        <button type="button" class="btn btn-primary" data-toggle="button" id="report-templates">@Widgets.Templates</button>
+                    </div>
+                    <br/>
+                    <div>
+                        @Html.Partial( "../Widgets/ReportBuilder" )
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
     </div>
 </div>

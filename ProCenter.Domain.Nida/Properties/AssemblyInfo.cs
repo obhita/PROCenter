@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,30 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
+#region Using Statements
+
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+
+#endregion
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ProCenter.Domain.Nida")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCulture("")]
+
+[assembly: AssemblyTitle ( "ProCenter.Domain.Nida" )]
+[assembly: AssemblyConfiguration ( "" )]
+[assembly: AssemblyCulture ( "" )]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible(false)]
+
+[assembly: ComVisible ( false )]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c94bfe0d-13b5-42e0-8656-dec2209de16e")]
+
+[assembly: Guid ( "c94bfe0d-13b5-42e0-8656-dec2209de16e" )]

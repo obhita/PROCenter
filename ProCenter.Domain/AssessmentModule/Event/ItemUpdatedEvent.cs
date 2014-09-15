@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,35 +25,36 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule.Event
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Event when an item is updated.
-    /// </summary>
+    /// <summary>Event when an item is updated.</summary>
     public class ItemUpdatedEvent : CommitEventBase
     {
         #region Constructors and Destructors
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ItemUpdatedEvent" /> class.
-        /// </summary>
+        /// <summary>Initializes a new instance of the <see cref="ItemUpdatedEvent" /> class.</summary>
         /// <param name="assessmentInstanceKey">The assessment instance key.</param>
         /// <param name="version">The version.</param>
         /// <param name="itemDefinitionCode">The item definition code.</param>
         /// <param name="value">The value.</param>
-        public ItemUpdatedEvent(Guid assessmentInstanceKey, int version, string itemDefinitionCode, object value)
+        /// <param name="isRequired">If set to <c>True</c> is required.</param>
+        public ItemUpdatedEvent ( Guid assessmentInstanceKey, int version, string itemDefinitionCode, object value, bool isRequired )
             : base ( assessmentInstanceKey, version )
         {
             ItemDefinitionCode = itemDefinitionCode;
             Value = value;
+            IsRequired = isRequired;
         }
 
         #endregion
@@ -74,6 +76,10 @@ namespace ProCenter.Domain.AssessmentModule.Event
         ///     The value.
         /// </value>
         public object Value { get; private set; }
+
+        /// <summary>Gets a value indicating whether item is required.</summary>
+        /// <value><c>True</c> if item is required; otherwise, <c>False</c>.</value>
+        public bool IsRequired { get; private set; }
 
         #endregion
     }

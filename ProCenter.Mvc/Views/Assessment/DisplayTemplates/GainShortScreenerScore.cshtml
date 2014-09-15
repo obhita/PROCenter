@@ -1,0 +1,70 @@
+﻿@using ProCenter.Domain.GainShortScreener
+@using ProCenter.Mvc.Infrastructure.Extension
+
+@model GainShortScreenerScore
+
+<table id="gainShortScreenerScoringTemplateDataTable">
+    <thead>
+        <tr>
+            <th style="width: 30%;">@Html.GetResource("Header_Screener")</th>
+            <th style="width: 5%">@Html.GetResource("Header_Items")</th>
+            <th style="width: 16%">@Html.GetResource("Header_PastMonth")</th>
+            <th style="width: 16%">@Html.GetResource("Header_Past90Days")</th>
+            <th style="width: 16%">@Html.GetResource("Header_PastYear")</th>
+            <th style="width: 16%">@Html.GetResource("Header_Lifetime")</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Html.GetResource("_6125002")</td>
+            <td>@Html.GetResource("InternalizingDisorderItems")</td>
+            <td>@Model.InternalDisorder.PastMonth</td>
+            <td>@Model.InternalDisorder.Past90Days</td>
+            <td>@Model.InternalDisorder.PastYear</td>
+            <td>@Model.InternalDisorder.Lifetime</td>
+        </tr>   
+        <tr>
+            <td>@Html.GetResource("_6125010")</td>
+            <td>@Html.GetResource("ExternalizingDisorderItems")</td>
+            <td>@Model.ExternalDisorder.PastMonth</td>
+            <td>@Model.ExternalDisorder.Past90Days</td>
+            <td>@Model.ExternalDisorder.PastYear</td>
+            <td>@Model.ExternalDisorder.Lifetime</td>
+        </tr>   
+        <tr>
+            <td>@Html.GetResource("_6125018")</td>
+            <td>@Html.GetResource("SubstanceDisorderItems")</td>
+            <td>@Model.SubstanceDisorder.PastMonth</td>
+            <td>@Model.SubstanceDisorder.Past90Days</td>
+            <td>@Model.SubstanceDisorder.PastYear</td>
+            <td>@Model.SubstanceDisorder.Lifetime</td>
+        </tr>   
+        <tr>
+            <td>@Html.GetResource("_6125024")</td>
+            <td>@Html.GetResource("CrimeViolenceItems")</td>
+            <td>@Model.CriminalViolenceDisorder.PastMonth</td>
+            <td>@Model.CriminalViolenceDisorder.Past90Days</td>
+            <td>@Model.CriminalViolenceDisorder.PastYear</td>
+            <td>@Model.CriminalViolenceDisorder.Lifetime</td>
+        </tr>   
+        <tr>
+            <td>@Html.GetResource("_6125036")</td>
+            <td>@Html.GetResource("TotalDisorderItems")</td>
+            <td>@Model.TotalDisorder.PastMonth</td>
+            <td>@Model.TotalDisorder.Past90Days</td>
+            <td>@Model.TotalDisorder.PastYear</td>
+            <td>@Model.TotalDisorder.Lifetime</td>
+        </tr>   
+    </tbody>
+</table>
+<div class="clear "></div>
+
+<script>
+    $(document).ready(function() {
+        $('#gainShortScreenerScoringTemplateDataTable').dataTable({
+            "sDom": "<'row-fluid'r>t<'row-fluid'>",
+            "bAutoWidth": true,
+            "bSort": false
+        });
+    });
+</script>

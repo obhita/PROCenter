@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,29 +25,42 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
     #region Using Statements
 
     using System;
     using System.Collections.Generic;
-    using CommonModule;
-    using Event;
+
     using Pillar.Common.Utility;
+
+    using ProCenter.Domain.CommonModule;
+    using ProCenter.Domain.OrganizationModule.Event;
 
     #endregion
 
+    /// <summary>The team class.</summary>
     public class Team : AggregateRootBase
     {
         #region Fields
 
         private readonly List<Guid> _patientKeys = new List<Guid> ();
+
         private readonly List<Guid> _staffKeys = new List<Guid> ();
 
         #endregion
 
         #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Team"/> class.
+        /// </summary>
+        public Team ()
+        {
+        }
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="Team" /> class.
@@ -60,8 +74,6 @@ namespace ProCenter.Domain.OrganizationModule
             Key = CombGuid.NewCombGuid ();
             RaiseEvent ( new TeamCreatedEvent ( Key, Version, organizationKey, name ) );
         }
-
-        public Team(){}
 
         #endregion
 
@@ -134,7 +146,19 @@ namespace ProCenter.Domain.OrganizationModule
         }
 
         /// <summary>
-        /// Removes the staff.
+        ///     Removes the patient.
+        /// </summary>
+        /// <param name="patientKey">The patient key.</param>
+        public void RemovePatient ( Guid patientKey )
+        {
+            if ( _patientKeys.Contains ( patientKey ) )
+            {
+                RaiseEvent ( new PatientRemovedFromTeamEvent ( Key, Version, patientKey ) );
+            }
+        }
+
+        /// <summary>
+        ///     Removes the staff.
         /// </summary>
         /// <param name="staffKey">The staff key.</param>
         public void RemoveStaff ( Guid staffKey )
@@ -146,19 +170,16 @@ namespace ProCenter.Domain.OrganizationModule
         }
 
         /// <summary>
-        /// Removes the patient.
+        /// Removes the team.
         /// </summary>
-        /// <param name="patientKey">The patient key.</param>
-        public void RemovePatient(Guid patientKey)
+        /// <param name="teamKey">The team key.</param>
+        public void RemoveTeam(Guid teamKey)
         {
-            if (_patientKeys.Contains(patientKey))
-            {
-                RaiseEvent(new PatientRemovedFromTeamEvent(Key, Version, patientKey));
-            }
+            RaiseEvent(new TeamRemovedEvent ( teamKey, Version) );
         }
 
         /// <summary>
-        /// Revises the name.
+        ///     Revises the name.
         /// </summary>
         /// <param name="name">The name.</param>
         public void ReviseName ( string name )
@@ -178,7 +199,9 @@ namespace ProCenter.Domain.OrganizationModule
             OrganizationKey = teamCreatedEvent.OrganizationKey;
         }
 
-        private void Apply ( StaffAddedToTeamEvent staffAddedToTeamEvent )
+        private void Apply(TeamRemovedEvent teamRemovedEvent) {}
+
+        private void Apply ( StaffAddedToTeamEvent staffAddedToTeamEvent ) 
         {
             _staffKeys.Add ( staffAddedToTeamEvent.StaffKey );
         }
@@ -188,14 +211,14 @@ namespace ProCenter.Domain.OrganizationModule
             _patientKeys.Add ( patientAddedToTeamEvent.PatientKey );
         }
 
-        private void Apply(StaffRemovedFromTeamEvent staffRemovedFromTeamEvent)
+        private void Apply ( StaffRemovedFromTeamEvent staffRemovedFromTeamEvent )
         {
-            _staffKeys.Remove(staffRemovedFromTeamEvent.StaffKey);
+            _staffKeys.Remove ( staffRemovedFromTeamEvent.StaffKey );
         }
 
-        private void Apply(PatientRemovedFromTeamEvent patientRemovedFromTeamEvent)
+        private void Apply ( PatientRemovedFromTeamEvent patientRemovedFromTeamEvent )
         {
-            _patientKeys.Remove(patientRemovedFromTeamEvent.PatientKey);
+            _patientKeys.Remove ( patientRemovedFromTeamEvent.PatientKey );
         }
 
         private void Apply ( TeamNameRevisedEvent teamNameRevisedEvent )

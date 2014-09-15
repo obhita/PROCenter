@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
     #region Using Statements
@@ -33,15 +36,13 @@ namespace ProCenter.Service.Handler.Organization
     using Common;
     using Domain.CommonModule;
     using Domain.OrganizationModule;
+    using global::AutoMapper;
     using Service.Message.Common;
     using Service.Message.Organization;
-    using global::AutoMapper;
 
     #endregion
 
-    /// <summary>
-    ///     Handler for request to add <see cref="Phone" /> to <see cref="Organization" />.
-    /// </summary>
+    /// <summary>Handler for request to add <see cref="Phone" /> to <see cref="Organization" />.</summary>
     public class AddPhoneToOrganizationRequestHandler :
         ServiceRequestHandler<AddDtoRequest<OrganizationPhoneDto>, AddDtoResponse<OrganizationPhoneDto>>
     {
@@ -74,14 +75,15 @@ namespace ProCenter.Service.Handler.Organization
         /// </summary>
         /// <param name="request">The request.</param>
         /// <param name="response">The response.</param>
-        protected override void Handle(AddDtoRequest<OrganizationPhoneDto> request, AddDtoResponse<OrganizationPhoneDto> response)
+        protected override void Handle ( AddDtoRequest<OrganizationPhoneDto> request, AddDtoResponse<OrganizationPhoneDto> response )
         {
-            var organization = _organizationRepository.GetByKey(request.AggregateKey);
-            var originalPhone = organization.OrganizationPhones.FirstOrDefault(p => p.GetHashCode() == request.DataTransferObject.OriginalHash); var organizationPhoneType = _lookupProvider.Find<OrganizationPhoneType>(request.DataTransferObject.OrganizationPhoneType.Code);
-            var phone = new Phone(request.DataTransferObject.Phone.Number, request.DataTransferObject.Phone.Extension);
+            var organization = _organizationRepository.GetByKey ( request.AggregateKey );
+            var originalPhone = organization.OrganizationPhones.FirstOrDefault ( p => p.GetHashCode () == request.DataTransferObject.OriginalHash );
+            var organizationPhoneType = _lookupProvider.Find<OrganizationPhoneType> ( request.DataTransferObject.OrganizationPhoneType.Code );
+            var phone = new Phone ( request.DataTransferObject.Phone.Number, request.DataTransferObject.Phone.Extension );
 
-            var organizationPhone = new OrganizationPhone(organizationPhoneType, phone, request.DataTransferObject.IsPrimary);
-            if (originalPhone != organizationPhone)
+            var organizationPhone = new OrganizationPhone ( organizationPhoneType, phone, request.DataTransferObject.IsPrimary );
+            if ( originalPhone != organizationPhone )
             {
                 if ( originalPhone != null )
                 {
@@ -95,7 +97,7 @@ namespace ProCenter.Service.Handler.Organization
             }
 
             response.AggregateKey = organization.Key;
-            response.DataTransferObject = Mapper.Map<OrganizationPhone, OrganizationPhoneDto>(organizationPhone);
+            response.DataTransferObject = Mapper.Map<OrganizationPhone, OrganizationPhoneDto> ( organizationPhone );
             response.DataTransferObject.Key = organization.Key;
         }
 

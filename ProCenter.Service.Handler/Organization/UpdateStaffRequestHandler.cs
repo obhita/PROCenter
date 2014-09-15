@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,45 +25,100 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
-    using Common;
-    using Domain.OrganizationModule;
-    using Pillar.Domain.Primitives;
-    using Primitive;
-    using Service.Message.Common;
-    using Service.Message.Organization;
+    #region Using Statements
+
+    using System;
+
     using global::AutoMapper;
 
-    public class UpdateStaffRequestHandler: ServiceRequestHandler<UpdateStaffRequest, DtoResponse<StaffDto> >
+    using Pillar.Common.Utility;
+    using Pillar.Domain.Primitives;
+
+    using ProCenter.Domain.OrganizationModule;
+    using ProCenter.Infrastructure.Extensions;
+    using ProCenter.Primitive;
+    using ProCenter.Service.Handler.Common;
+    using ProCenter.Service.Message.Common;
+    using ProCenter.Service.Message.Organization;
+
+    #endregion
+
+    /// <summary>The update staff request handler class.</summary>
+    public class UpdateStaffRequestHandler : ServiceRequestHandler<UpdateStaffRequest, DtoResponse<StaffDto>>
     {
+        #region Fields
+
         private readonly IStaffRepository _staffRepository;
 
-        public UpdateStaffRequestHandler(IStaffRepository staffRepository)
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        ///     Initializes a new instance of the <see cref="UpdateStaffRequestHandler" /> class.
+        /// </summary>
+        /// <param name="staffRepository">The staff repository.</param>
+        public UpdateStaffRequestHandler ( IStaffRepository staffRepository )
         {
             _staffRepository = staffRepository;
         }
 
-        protected override void Handle(UpdateStaffRequest request, DtoResponse<StaffDto> response)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( UpdateStaffRequest request, DtoResponse<StaffDto> response )
         {
-            var staff = _staffRepository.GetByKey(request.StaffKey);
-            switch (request.UpdateType)
+            var staff = _staffRepository.GetByKey ( request.StaffKey );
+            DataErrorInfo dataErrorInfo = null;
+            switch ( request.UpdateType )
             {
                 case UpdateStaffRequest.StaffUpdateType.Name:
-                    staff.ReviseName((PersonName)request.Value);
+                    staff.ReviseName ( (PersonName)request.Value );
                     break;
                 case UpdateStaffRequest.StaffUpdateType.Email:
-                    staff.ReviseEmail(string.IsNullOrWhiteSpace((string)request.Value) ? null : new Email((string)request.Value));
+                    Email newEmail = null;
+                    try
+                    {
+                        if ( !string.IsNullOrWhiteSpace ( (string)request.Value ) )
+                        {
+                            newEmail = new Email ( (string)request.Value );
+                        }
+                    }
+                    catch ( ArgumentException ae )
+                    {
+                        if ( !ae.Message.Contains ( "email address", StringComparison.OrdinalIgnoreCase ) )
+                        {
+                            throw;
+                        }
+                        dataErrorInfo = new DataErrorInfo ( ae.Message, ErrorLevel.Error, PropertyUtil.ExtractPropertyName<StaffDto, string> ( s => s.Email ) );
+                    }
+                    staff.ReviseEmail ( string.IsNullOrWhiteSpace ( (string)request.Value ) ? null : newEmail );
                     break;
                 case UpdateStaffRequest.StaffUpdateType.Location:
-                    staff.ReviseLocation((string)request.Value);
+                    staff.ReviseLocation ( (string)request.Value );
                     break;
                 case UpdateStaffRequest.StaffUpdateType.NPI:
-                    staff.ReviseNpi((string)request.Value);
+                    staff.ReviseNpi ( (string)request.Value );
                     break;
             }
-            response.DataTransferObject = Mapper.Map<Staff, StaffDto>(staff);
+            response.DataTransferObject = Mapper.Map<Staff, StaffDto> ( staff );
+            if ( dataErrorInfo != null )
+            {
+                response.DataTransferObject.AddDataErrorInfo ( dataErrorInfo );
+            }
         }
+
+        #endregion
     }
 }

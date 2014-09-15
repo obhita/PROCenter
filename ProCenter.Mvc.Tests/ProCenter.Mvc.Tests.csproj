@@ -62,8 +62,7 @@
       <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Agatha, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -76,6 +75,10 @@
     <Reference Include="Pillar.Common.Tests, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\lib\Pillar\Pillar.Common.Tests.dll</HintPath>
+    </Reference>
+    <Reference Include="Pillar.Domain, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\lib\Pillar\Pillar.Domain.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Security, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -153,6 +156,9 @@
     <Compile Include="RouteTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\ProCenter.Mvc\Scripts\jquery.procenter-controls.js">
+      <Link>Scripts\jquery.procenter-controls.js</Link>
+    </Content>
     <Content Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -162,6 +168,10 @@
     <ProjectReference Include="..\ProCenter.Common\ProCenter.Common.csproj">
       <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
       <Name>ProCenter.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain\ProCenter.Domain.csproj">
+      <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>
+      <Name>ProCenter.Domain</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProCenter.Infrastructure\ProCenter.Infrastructure.csproj">
       <Project>{5FAC7FE3-0BEE-404E-89DB-2BB010D6677B}</Project>

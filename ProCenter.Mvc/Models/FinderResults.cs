@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,39 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Models
 {
+    #region Using Statements
+
     using System.Collections.Generic;
 
+    #endregion
+
+    /// <summary>The finder results class.</summary>
+    /// <typeparam name="TModel">The type of the model.</typeparam>
     public class FinderResults<TModel>
     {
-        public int TotalCount { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the data.
+        /// </summary>
+        /// <value>
+        /// The data.
+        /// </value>
         public IEnumerable<TModel> Data { get; set; }
+
+        /// <summary>
+        /// Gets or sets the total count.
+        /// </summary>
+        /// <value>
+        /// The total count.
+        /// </value>
+        public int TotalCount { get; set; }
+
+        #endregion
     }
 }

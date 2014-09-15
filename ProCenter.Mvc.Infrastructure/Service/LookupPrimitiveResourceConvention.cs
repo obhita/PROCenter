@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,28 +25,48 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Service
 {
     #region Using Statements
 
     using System;
-    using System.Resources;
+    using Common;
     using Domain.CommonModule;
     using Domain.CommonModule.Lookups;
-    using Pillar.Common.InversionOfControl;
     using Primitive;
     using StructureMap.Configuration.DSL;
     using StructureMap.Graph;
-    using StructureMap.Pipeline;
 
     #endregion
 
-    /// <summary>
-    ///     Convention to automatically register Lookup Resources
-    /// </summary>
+    /// <summary>Convention to automatically register Lookup Resources.</summary>
     public class LookupPrimitiveResourceConvention : IRegistrationConvention
     {
+        #region Fields
+
+        private readonly ILookupProvider _lookupProvider;
+        private readonly IResourcesManager _resourcesManager;
+
+        #endregion
+
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LookupPrimitiveResourceConvention"/> class.
+        /// </summary>
+        /// <param name="lookupProvider">The lookup provider.</param>
+        /// <param name="resourcesManager">The resources manager.</param>
+        public LookupPrimitiveResourceConvention ( ILookupProvider lookupProvider, IResourcesManager resourcesManager )
+        {
+            _lookupProvider = lookupProvider;
+            _resourcesManager = resourcesManager;
+        }
+
+        #endregion
+
         #region Public Methods and Operators
 
         /// <summary>
@@ -55,11 +76,13 @@ namespace ProCenter.Mvc.Infrastructure.Service
         /// <param name="registry">The registry.</param>
         public void Process ( Type type, Registry registry )
         {
-            if ( typeof(Lookup).IsAssignableFrom ( type ) && type != typeof(Lookup) || typeof(IPrimitive).IsAssignableFrom ( type ) )
+            if ( ( typeof(Lookup).IsAssignableFrom ( type ) && type != typeof(Lookup) ) || typeof(IPrimitive).IsAssignableFrom ( type ) )
             {
-                registry.For<ResourceManager> ()
-                        .Use ( () => new ResourceManager ( type ) )
-                        .Named ( type.Name );
+                if ( typeof(Lookup).IsAssignableFrom ( type ) && type != typeof(Lookup) )
+                {
+                    _lookupProvider.Register ( type );
+                }
+                _resourcesManager.Register ( type );
             }
         }
 

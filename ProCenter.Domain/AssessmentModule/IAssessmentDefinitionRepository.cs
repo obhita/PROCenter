@@ -1,4 +1,5 @@
 #region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,14 +25,29 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.AssessmentModule
 {
-    using System;
-    using CommonModule;
+    #region Using Statements
 
+    using System;
+
+    using ProCenter.Domain.CommonModule;
+
+    #endregion
+
+    /// <summary>Interface for assessment definition repository.</summary>
     public interface IAssessmentDefinitionRepository : IRepository<AssessmentDefinition>
     {
-        Guid GetKeyByCode(string assessmentDefinitionCode);
+        #region Public Methods and Operators
+
+        /// <summary>Gets the key by code.</summary>
+        /// <param name="assessmentDefinitionCode">The assessment definition code.</param>
+        /// <returns>A <see cref="Guid"/>.</returns>
+        Guid GetKeyByCode ( string assessmentDefinitionCode );
+
+        #endregion
     }
 }

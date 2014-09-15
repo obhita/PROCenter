@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,28 +25,40 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Handler.Organization
 {
-    #region
+    #region Using Statements
 
     using Common;
     using Domain.OrganizationModule;
-    using Service.Message.Organization;
     using global::AutoMapper;
+    using Service.Message.Organization;
 
     #endregion
 
+    /// <summary>The create staff request handler class.</summary>
     public class CreateStaffRequestHandler : ServiceRequestHandler<CreateStaffRequest, GetStaffDtoResponse>
     {
-        protected override void Handle(CreateStaffRequest request, GetStaffDtoResponse response)
+        #region Methods
+
+        /// <summary>
+        /// Handles the specified request.
+        /// </summary>
+        /// <param name="request">The request.</param>
+        /// <param name="response">The response.</param>
+        protected override void Handle ( CreateStaffRequest request, GetStaffDtoResponse response )
         {
-            var staff = new StaffFactory().Create(request.OrganizationKey, request.Name);
-            if (staff != null)
+            var staff = new StaffFactory ().Create ( request.OrganizationKey, request.Name );
+            if ( staff != null )
             {
-                var staffDto = Mapper.Map<Staff, StaffDto>(staff);
+                var staffDto = Mapper.Map<Staff, StaffDto> ( staff );
                 response.DataTransferObject = staffDto;
             }
         }
+
+        #endregion
     }
 }

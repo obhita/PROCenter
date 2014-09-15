@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
     using Pillar.Common.Utility;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Organization Address
-    /// </summary>
+    /// <summary>Organization Address.</summary>
     public class OrganizationAddress : IEquatable<OrganizationAddress>
     {
         #region Constructors and Destructors
@@ -48,7 +51,7 @@ namespace ProCenter.Domain.OrganizationModule
         /// <param name="organizationAddressType">Type of the organization address.</param>
         /// <param name="address">The address.</param>
         /// <param name="isPrimary">
-        ///     if set to <c>true</c> [is primary].
+        ///     If set to <c>true</c> [is primary].
         /// </param>
         public OrganizationAddress ( OrganizationAddressType organizationAddressType, Address address, bool isPrimary = false )
         {
@@ -93,22 +96,22 @@ namespace ProCenter.Domain.OrganizationModule
         #region Public Methods and Operators
 
         /// <summary>
-        ///     ==s the specified left.
+        ///     Checks equal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public static bool operator == ( OrganizationAddress left, OrganizationAddress right )
         {
             return Equals ( left, right );
         }
 
         /// <summary>
-        ///     !=s the specified left.
+        ///     Checks not equal.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are not equal.</returns>
         public static bool operator != ( OrganizationAddress left, OrganizationAddress right )
         {
             return !Equals ( left, right );
@@ -118,13 +121,17 @@ namespace ProCenter.Domain.OrganizationModule
         ///     Equalses the specified other.
         /// </summary>
         /// <param name="other">The other.</param>
-        /// <returns></returns>
+        /// <returns>Whether they are equal.</returns>
         public bool Equals ( OrganizationAddress other )
         {
             if ( ReferenceEquals ( null, other ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, other ) )
+            {
                 return true;
+            }
             return Equals ( Address, other.Address ) && Equals ( OrganizationAddressType, other.OrganizationAddressType );
         }
 
@@ -140,12 +147,18 @@ namespace ProCenter.Domain.OrganizationModule
         public override bool Equals ( object obj )
         {
             if ( ReferenceEquals ( null, obj ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, obj ) )
+            {
                 return true;
+            }
             if ( obj.GetType () != this.GetType () )
+            {
                 return false;
-            return Equals ( (OrganizationAddress) obj );
+            }
+            return Equals ( (OrganizationAddress)obj );
         }
 
         /// <summary>

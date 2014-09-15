@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,22 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Domain.OrganizationModule
 {
     #region Using Statements
 
     using System;
-    using CommonModule;
+
     using Pillar.Common.Utility;
+
+    using ProCenter.Domain.CommonModule;
 
     #endregion
 
-    /// <summary>
-    ///     Organization phone.
-    /// </summary>
+    /// <summary>Organization phone.</summary>
     public class OrganizationPhone : IEquatable<OrganizationPhone>
     {
         #region Constructors and Destructors
@@ -48,7 +51,7 @@ namespace ProCenter.Domain.OrganizationModule
         /// <param name="organizationPhoneType">Type of the organization phone.</param>
         /// <param name="phone">The phone.</param>
         /// <param name="isPrimary">
-        ///     if set to <c>true</c> [is primary].
+        ///     If set to <c>true</c> [is primary].
         /// </param>
         public OrganizationPhone ( OrganizationPhoneType organizationPhoneType, Phone phone, bool isPrimary = false )
         {
@@ -93,12 +96,12 @@ namespace ProCenter.Domain.OrganizationModule
         #region Public Methods and Operators
 
         /// <summary>
-        ///     ==s the specified left.
+        ///     Checks equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        ///     <c>true</c> if the specified left <see cref="OrganizationPhone" /> is equal to the right
+        ///     <c>True</c> if the specified left <see cref="OrganizationPhone" /> is equal to the right
         ///     <see
         ///         cref="OrganizationPhone" />
         ///     ; otherwise, <c>false</c>.
@@ -109,12 +112,12 @@ namespace ProCenter.Domain.OrganizationModule
         }
 
         /// <summary>
-        ///     !=s the specified left.
+        ///     Checks not equals.
         /// </summary>
         /// <param name="left">The left.</param>
         /// <param name="right">The right.</param>
         /// <returns>
-        ///     <c>true</c> if the specified left <see cref="OrganizationPhone" /> is not equal to the right
+        ///     <c>True</c> if the specified left <see cref="OrganizationPhone" /> is not equal to the right
         ///     <see
         ///         cref="OrganizationPhone" />
         ///     ; otherwise, <c>false</c>.
@@ -134,9 +137,13 @@ namespace ProCenter.Domain.OrganizationModule
         public bool Equals ( OrganizationPhone other )
         {
             if ( ReferenceEquals ( null, other ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, other ) )
+            {
                 return true;
+            }
             return Equals ( OrganizationPhoneType, other.OrganizationPhoneType ) && Equals ( Phone, other.Phone );
         }
 
@@ -152,12 +159,18 @@ namespace ProCenter.Domain.OrganizationModule
         public override bool Equals ( object obj )
         {
             if ( ReferenceEquals ( null, obj ) )
+            {
                 return false;
+            }
             if ( ReferenceEquals ( this, obj ) )
+            {
                 return true;
+            }
             if ( obj.GetType () != this.GetType () )
+            {
                 return false;
-            return Equals ( (OrganizationPhone) obj );
+            }
+            return Equals ( (OrganizationPhone)obj );
         }
 
         /// <summary>

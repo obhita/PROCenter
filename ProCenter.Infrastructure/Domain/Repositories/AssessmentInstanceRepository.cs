@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,23 +25,74 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
-    using EventStore;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Dapper;
+
+    using ProCenter.Common;
     using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.ReportsModule;
 
     #endregion
 
+    /// <summary>The assessment instance repository class.</summary>
     public class AssessmentInstanceRepository : RepositoryBase<AssessmentInstance>, IAssessmentInstanceRepository
     {
+        #region Fields
+
+        private readonly IDbConnectionFactory _connectionFactory;
+
+        #endregion
+
         #region Constructors and Destructors
 
-        public AssessmentInstanceRepository ( IEventStoreRepository eventStoreRepository )
-            : base ( eventStoreRepository )
+        /// <summary>Initializes a new instance of the <see cref="AssessmentInstanceRepository" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        /// <param name="connectionFactory">The connection factory.</param>
+        public AssessmentInstanceRepository ( IUnitOfWorkProvider unitOfWorkProvider, IDbConnectionFactory connectionFactory )
+            : base ( unitOfWorkProvider )
         {
+            _connectionFactory = connectionFactory;
+        }
+
+        #endregion
+
+        #region Public Methods and Operators
+
+        /// <summary>Gets the assessment scores.</summary>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="assessmentDefinitionCode">The assessment definition code.</param>
+        /// <param name="start">The start.</param>
+        /// <param name="end">The end.</param>
+        /// <returns>A <see cref="List{ScoreData}" />.</returns>
+        public List<ScoreData> GetAssessmentScores ( Guid patientKey, string assessmentDefinitionCode, DateTime start, DateTime end )
+        {
+            const string Query =
+                @"SELECT   
+                            [t].AssessmentScore,  
+                            [t].ScoredDate   
+                    FROM AssessmentModule.AssessmentScores AS [t]
+                    WHERE [t].PatientKey = @patientKey AND [t].AssessmentDefinitionCode = @assessmentDefinitionCode AND [t].ScoredDate >= @startDate AND [t].ScoredDate < @endDate
+                    ORDER BY [t].ScoredDate";
+
+            using ( var connection = _connectionFactory.CreateConnection () )
+            {
+                var startDate = start.Date;
+                var endDate = end.Date.AddDays ( 1 );
+
+                var scores = connection.Query<ScoreData> ( Query, new { patientKey, assessmentDefinitionCode, startDate, endDate } );
+
+                return scores.ToList ();
+            }
         }
 
         #endregion

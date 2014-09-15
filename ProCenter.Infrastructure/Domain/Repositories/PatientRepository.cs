@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,26 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.Domain.Repositories
 {
     #region Using Statements
 
-    using EventStore;
     using ProCenter.Domain.PatientModule;
 
     #endregion
 
+    /// <summary>The patient repository class.</summary>
     public class PatientRepository : RepositoryBase<Patient>, IPatientRepository
     {
         #region Constructors and Destructors
 
-        public PatientRepository ( IEventStoreRepository eventStoreRepository )
-            : base ( eventStoreRepository )
+        /// <summary>Initializes a new instance of the <see cref="PatientRepository" /> class.</summary>
+        /// <param name="unitOfWorkProvider">The unit of work provider.</param>
+        public PatientRepository ( IUnitOfWorkProvider unitOfWorkProvider )
+            : base ( unitOfWorkProvider )
         {
         }
 

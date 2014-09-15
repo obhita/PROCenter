@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,22 +25,70 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Security
 {
-    #region
+    #region Using Statements
 
     using System;
 
     #endregion
 
+    /// <summary>The membership user dto class.</summary>
     public class MembershipUserDto
     {
-        public string Username { get; set; }
-        public string NameIdentifier { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the email.
+        /// </summary>
+        /// <value>
+        /// The email.
+        /// </value>
         public string Email { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is approved].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is approved]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsApproved { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether [is locked out].
+        /// </summary>
+        /// <value>
+        ///   <c>true</c> if [is locked out]; otherwise, <c>false</c>.
+        /// </value>
         public bool IsLockedOut { get; set; }
+
+        /// <summary>
+        /// Gets or sets the last lockout date.
+        /// </summary>
+        /// <value>
+        /// The last lockout date.
+        /// </value>
         public DateTime LastLockoutDate { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name identifier.
+        /// </summary>
+        /// <value>
+        /// The name identifier.
+        /// </value>
+        public string NameIdentifier { get; set; }
+
+        /// <summary>
+        /// Gets or sets the username.
+        /// </summary>
+        /// <value>
+        /// The username.
+        /// </value>
+        public string Username { get; set; }
+
+        #endregion
     }
 }

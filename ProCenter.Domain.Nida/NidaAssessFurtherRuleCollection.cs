@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,45 +25,97 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProCenter.Domain.Nida
 {
-    using AssessmentModule;
-    using AssessmentModule.Event;
+    #region Using Statements
+
+    using System;
+    using System.Linq;
+
     using Pillar.FluentRuleEngine;
 
-    public class NidaAssessFurtherRuleCollection : AbstractRuleCollection<AssessmentInstance>, IAssessmentRuleCollection
-    {
-        public NidaAssessFurtherRuleCollection ()
-        {
-            NewRule ( () => ShouldClear3269984 ).OnContextObject<ItemInstance> ()
-                                               .When ( (assessment,ctx) =>
-                                                   {
-                                                       var itemUpdatedEvent = ctx.WorkingMemory.GetContextObject<ItemUpdatedEvent> ();
-                                                       var itemHasValue =
-                                                           assessment.ItemInstances.Any (
-                                                                                         i =>
-                                                                                         i.ItemDefinitionCode == "3269984" &&
-                                                                                         !( i.Value == null || string.IsNullOrWhiteSpace ( i.Value.ToString () ) ) );
-                                                       if ( itemUpdatedEvent.Value == null )
-                                                       {
-                                                           return itemHasValue;
-                                                       }
-                                                       return itemHasValue && string.IsNullOrWhiteSpace ( itemUpdatedEvent.Value.ToString () );
-                                                   } )
-                                                   .Then ( assessment => assessment.UpdateItem("3269984", null) );
+    using ProCenter.Domain.AssessmentModule;
+    using ProCenter.Domain.AssessmentModule.Event;
+    using ProCenter.Domain.AssessmentModule.Rules;
 
-            NewRuleSet ( () => RuleSet3269985, ShouldClear3269984 );
+    #endregion
+
+    /// <summary>The nida assess further rule collection class.</summary>
+    public class NidaAssessFurtherRuleCollection : AbstractAssessmentRuleCollection
+    {
+        private readonly IAssessmentDefinitionRepository _assessmentDefinitionRepository;
+
+        private static Guid? _nidaAssessmentDefinitionKey;
+        #region Constructors and Destructors
+
+        /// <summary>Initializes a new instance of the <see cref="NidaAssessFurtherRuleCollection" /> class.</summary>
+        /// <param name="assessmentDefinitionRepository">The assessment definition repository.</param>
+        public NidaAssessFurtherRuleCollection ( IAssessmentDefinitionRepository assessmentDefinitionRepository)
+        {
+            _assessmentDefinitionRepository = assessmentDefinitionRepository;
+
+            NewItemSkippingRule ( () => SkipItem3269984 )
+                .ForItemInstance<string> ( "3269985" )
+                .Null ()
+                .SkipItem ( GetItemDefinition ( "3269984" ) );
+
+            NewRuleSet(() => ItemUpdatedRuleSet3269985, SkipItem3269984);
+
+            NewItemSkippingRule ( () => SkipItem3269986 )
+                .ForItemInstance<bool> ( "3269978" )
+                .EqualTo ( false )
+                .SkipItem ( GetItemDefinition ( "3269986" ) );
+
+            NewRuleSet(() => ItemUpdatedRuleSet3269978, SkipItem3269986);
         }
 
-        public IRuleSet RuleSet3269985 { get; set; }
+        #endregion
 
-        public IRule ShouldClear3269984 { get; set; }
+        #region Public Properties
+
+        /// <summary>
+        /// Gets or sets the rule set3269985.
+        /// </summary>
+        /// <value>
+        /// The rule set3269985.
+        /// </value>
+        public IRuleSet ItemUpdatedRuleSet3269985 { get; set; }
+
+        /// <summary>
+        /// Gets or sets the should clear3269984.
+        /// </summary>
+        /// <value>
+        /// The should clear3269984.
+        /// </value>
+        public IItemSkippingRule SkipItem3269984 { get; set; }
+
+        /// <summary>Gets or sets the rule set3269978.</summary>
+        /// <value>The rule set3269978.</value>
+        public IRuleSet ItemUpdatedRuleSet3269978 { get; set; }
+
+        /// <summary>Gets or sets the should clear3269986.</summary>
+        /// <value>The should clear3269986.</value>
+        public IItemSkippingRule SkipItem3269986 { get; set; }
+
+        #endregion
+
+        private ItemDefinition GetItemDefinition(string itemDefinitionCode)
+        {
+            if (!_nidaAssessmentDefinitionKey.HasValue)
+            {
+                _nidaAssessmentDefinitionKey = _assessmentDefinitionRepository.GetKeyByCode(NidaAssessFurther.AssessmentCodedConcept.Code);
+            }
+
+            var assessmentDefinition = _assessmentDefinitionRepository.GetByKey(_nidaAssessmentDefinitionKey.Value);
+            return assessmentDefinition.GetItemDefinitionByCode(itemDefinitionCode);
+        }
+
+        private ItemDefinition[] GetItemDefinition(params string[] itemDefinitionCode)
+        {
+            return itemDefinitionCode.Select(GetItemDefinition).ToArray();
+        }
     }
 }

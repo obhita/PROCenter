@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
@@ -33,15 +36,30 @@ namespace ProCenter.Infrastructure.EventStore
 
     #endregion
 
+    /// <summary>The empty conflict detector class.</summary>
     public class EmptyConflictDetector : IDetectConflicts
     {
         #region Public Methods and Operators
 
+        /// <summary>
+        /// Conflictses the with.
+        /// </summary>
+        /// <param name="uncommittedEvents">The uncommitted events.</param>
+        /// <param name="committedEvents">The committed events.</param>
+        /// <returns>
+        /// Whether there are conficts.
+        /// </returns>
         public bool ConflictsWith ( IEnumerable<object> uncommittedEvents, IEnumerable<object> committedEvents )
         {
             return false;
         }
 
+        /// <summary>
+        /// Registers the specified handler.
+        /// </summary>
+        /// <typeparam name="TUncommitted">The type of the uncommitted.</typeparam>
+        /// <typeparam name="TCommitted">The type of the committed.</typeparam>
+        /// <param name="handler">The handler.</param>
         public void Register<TUncommitted, TCommitted> ( ConflictDelegate handler ) where TUncommitted : class where TCommitted : class
         {
         }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,27 +25,42 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Common.Report
 {
+    /// <summary>The report string class.</summary>
     public class ReportString
     {
         #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the value.
+        /// </summary>
+        /// <value>
+        /// The value.
+        /// </value>
         public string Value { get; set; }
 
         #endregion
 
         #region Public Methods and Operators
 
+        /// <summary>Strings the specified report string.</summary>
+        /// <param name="reportString">The report string.</param>
+        /// <returns>A <see cref="string"/>.</returns>
         public static implicit operator string ( ReportString reportString )
         {
             return reportString.Value;
         }
 
-        public static implicit operator ReportString(string stringValue)
+        /// <summary>Reports the string.</summary>
+        /// <param name="stringValue">The string value.</param>
+        /// <returns>A <see cref="ReportString"/>.</returns>
+        public static implicit operator ReportString ( string stringValue )
         {
-            return new ReportString { Value = stringValue};
+            return new ReportString {Value = stringValue};
         }
 
         #endregion

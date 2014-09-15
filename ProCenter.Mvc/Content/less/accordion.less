@@ -1,25 +1,70 @@
 //
 // Accordion
 // --------------------------------------------------
-
+.accordion {
+      margin-bottom: @baseLineHeight;
+      display: block;
+    }
 
 // Parent container
-.accordion {
-  margin-bottom: @baseLineHeight;
+@media only screen and (max-width: 540px) {
+    #assessmentNavigationExpander {
+        max-width: 100% !important;
+    }
+    .overflow {
+        overflow-x: hidden;
+    }
 }
 
 // Group == heading + body
 .accordion-group {
-  margin-bottom: 2px;
-  border: 1px solid #e5e5e5;
-  .border-radius(@baseBorderRadius);
+  margin-bottom: -1px;
+  margin-left:0px;
+  margin-right:0px;
+  /*border: 1px solid #e5e5e5;
+  .border-radius(@baseBorderRadius);*/
 }
 .accordion-heading {
-  border-bottom: 0;
-}
-.accordion-heading .accordion-toggle {
-  display: block;
-  padding: 8px 15px;
+    /*height: 34px;*/
+    /*border-top: 1px solid #717171;*/ /* inner stroke */
+    border-bottom: 1px solid #5A5A5A; /* inner stroke */
+    /*border: 1px solid #3693cf;*/ /* inner stroke */
+    background-color: #1f5a80; /* layer fill content */
+    background-image: -moz-linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+    background-image: -o-linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+    background-image: -webkit-linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+    background-image: linear-gradient(0deg, #2913F 0%, #98A9B1 0%); /* gradient overlay */
+    list-style-type: none;
+
+    a {
+        color: #ccc; /* text color */
+        text-shadow: 0 1px 0 #3b3b3b; /* drop shadow */
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+        a:hover {
+            color: #ffffff;
+            background-color: #4F6675;
+        }
+
+    .active {
+        width: 182px;
+        height: 34px;
+        border: 1px solid #3693cf; /* inner stroke */
+        background-color: #1f5a80; /* layer fill content */
+        background-image: -moz-linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+        background-image: -o-linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+        background-image: -webkit-linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+        background-image: linear-gradient(90deg, #3693cf 0%, #1f5a80 100%); /* gradient overlay */
+    }
+
+    .accordion-toggle {
+        display: block;
+        padding: 8px 15px;
+    }
+
+
 }
 
 // General toggle styles
@@ -29,6 +74,12 @@
 
 // Inner needs the styles because you can't animate properly with any styles on the element
 .accordion-inner {
-  padding: 9px 15px;
-  border-top: 1px solid #e5e5e5;
+  padding: 10px 15px;
+  /*border-top: 1px solid #e5e5e5;*/
+      a
+      {
+          color:#ffffff;
+          padding-right: 5px;
+      }
+
 }

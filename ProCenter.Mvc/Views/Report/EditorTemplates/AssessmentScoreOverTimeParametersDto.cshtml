@@ -1,0 +1,90 @@
+﻿@using ProCenter.Mvc.Infrastructure.Extension
+@using ProCenter.Primitive
+@using ProCenter.Service.Message.Patient
+@using Newtonsoft.Json
+@model ProCenter.Service.Message.Report.AssessmentScoreOverTimeParametersDto
+
+@{
+    var patientAttributes = new Dictionary<string, object>
+        {
+            {"class", Html.PropertyNameFor ( m => m.PatientKey )},
+            {"placeholder", "Search Patient"},
+            {"data-control", "finder"},
+            {"data-ajaxform_ignore", "true"},
+            {"data-finder-url", @Url.Content ( "~/api/Patient/FinderSearch" )},
+            {"data-finder-display", "Name.FullName"},
+            {"id", "patientkey-finder"}
+        };
+
+    if (Model.PatientKey.HasValue && Model.PatientKey != Guid.Empty)
+    {
+        patientAttributes.Add("data-finder-initial-data", JsonConvert.SerializeObject(new PatientDto
+           {
+               Key = Model.PatientKey.Value,
+               Name = Model.PatientName
+           }));
+    }
+}
+
+<div>
+    @Html.LabelFor( m => m.AssessmentDefinitionCode )
+    @if ( string.IsNullOrEmpty ( Model.AssessmentDefinitionCode ) )
+    {
+        <input id="assessmentdefinitioncode-finder" name="@Html.NameFor( m => m.AssessmentDefinitionCode )" type="text" placeholder="Search" data-control="finder" data-ajaxform-ignore="true" data-finder-url="/api/Organization/FinderSearchActive" data-finder-display="AssessmentName" />
+        @Html.HiddenFor( m => m.AssessmentName )
+    }
+    else
+    {
+        @Html.HiddenFor( m => m.AssessmentDefinitionCode )
+        @Html.EditorFor( m => m.AssessmentName )
+    }
+</div>
+<div id="patientkey-container">
+    @if ( Model.PatientKey.HasValue && Model.PatientKey.Value != Guid.Empty)
+    {
+        @Html.LabelFor(m => m.PatientKey)
+        @Html.TextBoxFor(m => m.PatientKey, patientAttributes)
+    }
+    else
+    {
+        Model.PatientKey = null;
+        @Html.LabelFor(m => m.PatientKey)
+        @Html.TextBoxFor(m => m.PatientKey, patientAttributes)
+    }
+
+</div>
+
+    @Html.Hidden( "ReportTemplateKey", ViewData.ContainsKey ( "ReportTemplateKey" ) )
+<div>
+    <div data-control="simpleTabs">
+        <ul class="tabs">
+            <li><a href="#specify-range"><span>Specify Range</span></a></li>
+            <li><a href="#time-period"><span>Time Period</span></a></li>
+            <li class="clearfix"></li>
+        </ul>
+        <div id="specify-range">
+            <div>
+                @Html.LabelFor( m => m.StartDate )
+                @Html.EditorFor( m => m.StartDate )
+            </div>
+            <div>
+                @Html.LabelFor( m => m.EndDate )
+                @Html.EditorFor( m => m.EndDate )
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+        <div id="time-period">
+            @{
+                var lookupCategory = Html.GetLookupCategory ( "ReportTimePeriod" );
+            }
+            @Html.LabelFor( m => m.TimePeriod )
+            @Html.EditorFor( m => m.TimePeriod, new {LookupItems = Html.GetLookupOptionsForCategory ( lookupCategory ), LookupCategory = lookupCategory} )
+        </div>
+    </div>
+    <div class="tools">
+        @Html.ActionLink( "Generate", "GetReportBuilder", "Report", null, new {id = "generate-report", @class = "btn btn-success"} )
+        @Html.ActionLink( "Save Template", "SaveReportTemplate", "Report", null, new {key = ViewData["ReportTemplateKey"], id = "save-template", @class = "btn btn-info"} )
+    </div>
+    <div class="clearfix"></div>
+</div>

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
     #region Using Statements
@@ -41,26 +44,29 @@ namespace ProCenter.Mvc.Infrastructure.Security
 
     #endregion
 
-    /// <summary>
-    ///     Session Authentication Module that can verify session by JWT Token in header.
-    /// </summary>
+    /// <summary>Session Authentication Module that can verify session by JWT Token in header.</summary>
     public class JWTEnabledSessionAuthenticationModule : SessionAuthenticationModule
     {
         #region Methods
 
+        /// <summary>
+        /// Handles the <see cref="E:System.Web.HttpApplication.AuthenticateRequest" /> event from the ASP.NET pipeline.
+        /// </summary>
+        /// <param name="sender">The source for the event. This will be an <see cref="T:System.Web.HttpApplication" /> object.</param>
+        /// <param name="eventArgs">The data for the event.</param>
         protected override void OnAuthenticateRequest ( object sender, EventArgs eventArgs )
         {
             var request = HttpContext.Current.Request;
             var authenticationConfiguration = new AuthenticationConfiguration
+            {
+                RequireSsl = false,
+                EnableSessionToken = true,
+                SessionToken = new SessionTokenConfiguration
                 {
-                    RequireSsl = false,
-                    EnableSessionToken = true,
-                    SessionToken = new SessionTokenConfiguration
-                        {
-                            HeaderName = "Authorization",
-                            Scheme = "Session",
-                        }
-                };
+                    HeaderName = "Authorization",
+                    Scheme = "Session",
+                }
+            };
             if ( request.Headers.AllKeys.Any ( k => k == authenticationConfiguration.SessionToken.HeaderName ) )
             {
                 var header = request.Headers.Get ( authenticationConfiguration.SessionToken.HeaderName );
@@ -85,11 +91,11 @@ namespace ProCenter.Mvc.Infrastructure.Security
                                 store.Close ();
 
                                 var validationParameters = new TokenValidationParameters
-                                    {
-                                        ValidIssuer = issuer.Value,
-                                        AllowedAudiences = identityConfiguratin.AudienceRestriction.AllowedAudienceUris.Select ( uri => uri.OriginalString ),
-                                        SigningToken = new X509SecurityToken ( cert ),
-                                    };
+                                {
+                                    ValidIssuer = issuer.Value,
+                                    AllowedAudiences = identityConfiguratin.AudienceRestriction.AllowedAudienceUris.Select ( uri => uri.OriginalString ),
+                                    SigningToken = new X509SecurityToken ( cert ),
+                                };
 
                                 var handler = new JwtSecurityTokenHandler ();
                                 var claimsPrinciple = handler.ValidateToken ( token, validationParameters );

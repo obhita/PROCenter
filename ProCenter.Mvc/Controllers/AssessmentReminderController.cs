@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,140 +25,239 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
-    #region
+    #region Using Statements
 
     using System;
+    using System.Linq;
     using System.Threading.Tasks;
+    using System.Web;
     using System.Web.Mvc;
     using Agatha.Common;
     using Common;
-    using Models;
+
+    using Pillar.Agatha.Message;
+
     using Service.Message.Common;
     using Service.Message.Message;
 
     #endregion
 
+    /// <summary>The assessment reminder controller class.</summary>
     public class AssessmentReminderController : BaseController
     {
-        public AssessmentReminderController(IRequestDispatcherFactory requestDispatcherFactory) : base(requestDispatcherFactory)
+        #region Constructors and Destructors
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AssessmentReminderController"/> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
+        public AssessmentReminderController ( IRequestDispatcherFactory requestDispatcherFactory )
+            : base ( requestDispatcherFactory )
         {
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Create(AssessmentReminderDto assessmentReminderDto)
-        {
-            assessmentReminderDto.OrganizationKey = UserContext.Current.OrganizationKey.Value;
-            assessmentReminderDto.CreatedByStaffKey = UserContext.Current.StaffKey.Value;
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new AddDtoRequest<AssessmentReminderDto>
-                {
-                    DataTransferObject = assessmentReminderDto,
-                });
+        #endregion
 
+        #region Public Methods and Operators
+
+        /// <summary>
+        /// Achknowledges the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="assessmentKey">The assessment key.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="recurrenceKey">The recurrence key.</param>
+        /// <returns>
+        /// A <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public async Task<ActionResult> Acknowledge ( Guid key, Guid assessmentKey, Guid patientKey, Guid recurrenceKey )
+        {
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add ( new AcknowledgeAssessmentReminderRequest {Key = key, RecurrenceKey = recurrenceKey} );
+            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>> ();
+
+            //TODO:check for errors
+
+            return new JsonResult
+            {
+                Data = new {key}
+            };
+        }
+
+        /// <summary>
+        /// Administers the assessment.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="patientKey">The patient key.</param>
+        /// <param name="assessmentDefinitionKey">The assessment definition key.</param>
+        /// <param name="recurrenceKey">The recurrence key.</param>
+        /// <returns>
+        /// A <see cref="ActionResult" />.
+        /// </returns>
+        public async Task<ActionResult> AdministerAssessment(Guid key, Guid patientKey, Guid assessmentDefinitionKey, Guid recurrenceKey)
+        {
+            var requestDispatcher = CreateAsyncRequestDispatcher();
+            requestDispatcher.Add(new AcknowledgeAssessmentReminderRequest { Key = recurrenceKey });
             var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
+
+            ////TODO:check for errors
+            return RedirectToAction("Create", "Assessment", new { patientKey, assessmentDefinitionKey, assessmentReminderKey = key, recurrenceKey });
+        }
+
+        /// <summary>
+        /// Cancels the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="recurrenceKey">The recurrence key.</param>
+        /// <returns>
+        /// A <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public async Task<ActionResult> Cancel(Guid key, Guid recurrenceKey)
+        {
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add(new CancelAssessmentReminderRequest { AssessmentReminderKey = key, RecurrenceKey = recurrenceKey});
+
+            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>> ();
 
             var dto = response.DataTransferObject;
             return new JsonResult
-                {
-                    Data = new { success = true }
-                };
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> UpdateDate(Guid key, string dayDelta)
-        {
-            int day;
-            if (int.TryParse(dayDelta, out day) && day != 0)
             {
-                var requestDispatcher = CreateAsyncRequestDispatcher();
-                requestDispatcher.Add(new UpdateAssessmentReminderRequest
-                    {
-                        AssessmentReminderKey = key,
-                        DayDelta = day,
-                    });
-
-                var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
-                var dto = response.DataTransferObject;
-            }
-            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                Data = new {success = true}
+            };
         }
 
+        /// <summary>
+        /// Creates the specified assessment reminder dto.
+        /// </summary>
+        /// <param name="assessmentReminderDto">The assessment reminder dto.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
         [HttpPost]
-        public async Task<ActionResult> Edit(AssessmentReminderDto assessmentReminder)
+        public async Task<ActionResult> Create ( AssessmentReminderDto assessmentReminderDto )
+        {
+            assessmentReminderDto.OrganizationKey = UserContext.Current.OrganizationKey.Value;
+            assessmentReminderDto.CreatedByStaffKey = UserContext.Current.StaffKey.Value;
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add ( new AddDtoRequest<AssessmentReminderDto>
+            {
+                DataTransferObject = assessmentReminderDto,
+            });
+
+            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>> ();
+            if (response.DataTransferObject == null)
+            {
+                throw new HttpException(500, "Assessment Reminder cannot be saved.");
+            }
+
+            if (response.DataTransferObject.DataErrorInfoCollection.Any())
+            {
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        error = true,
+                        errors = response.DataTransferObject.DataErrorInfoCollection
+                    }
+                };
+            }
+
+            return new JsonResult { Data = new { sucess = true } };
+        }
+
+        /// <summary>
+        /// Edits the specified assessment reminder.
+        /// </summary>
+        /// <param name="assessmentReminder">The assessment reminder.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        [HttpPost]
+        public async Task<ActionResult> Edit ( AssessmentReminderDto assessmentReminder )
         {
             assessmentReminder.OrganizationKey = UserContext.Current.OrganizationKey.Value;
             assessmentReminder.CreatedByStaffKey = UserContext.Current.StaffKey.Value;
             var requestDispatcher = CreateAsyncRequestDispatcher();
             requestDispatcher.Add(new UpdateAssessmentReminderRequest
-                {
-                    AssessmentReminderDto = assessmentReminder,
-                });
-
-            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
-
-            var dto = response.DataTransferObject;
-            return new JsonResult
-                {
-                    Data = new { success = true }
-                };
-        }
-
-        public async Task<ActionResult> Get(Guid key)
-        {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new GetAssessmentReminderByKeyRequest {AssessmentReminderKey = key});
-            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
-
-            var dto = response.DataTransferObject;
-            ViewData.TemplateInfo.HtmlFieldPrefix = "assessmentReminder"; //note: matches the Edit action parameter name
-            if ( !dto.ForSelfAdministration && UserContext.Current.PatientKey != null )
             {
-                dto = new AssessmentReminderDto ();
-                ModelState.AddModelError ( "error", "You do not have access to this reminder." );
+                AssessmentReminderDto = assessmentReminder,
+            });
+
+            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
+
+            if (response.DataTransferObject == null)
+            {
+                throw new HttpException(500, "Assessment Reminder cannot be saved.");
             }
-            return PartialView("~/Views/Shared/EditorTemplates/AssessmentReminderDto.cshtml", dto);
+            if (response.DataTransferObject.DataErrorInfoCollection.Any())
+            {
+                return new JsonResult
+                {
+                    Data = new
+                    {
+                        error = true,
+                        errors = response.DataTransferObject.DataErrorInfoCollection
+                    }
+                };
+            }
+            return new JsonResult { Data = new { sucess = true } };
         }
 
-        [HttpPost]
-        public async Task<ActionResult> Cancel(Guid key)
+        /// <summary>
+        /// Gets the specified key.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <returns>
+        /// A <see cref="ActionResult" />.
+        /// </returns>
+        public async Task<ActionResult> Get ( Guid key )
         {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new CancelAssessmentReminderRequest {AssessmentReminderKey = key});
-
-            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
+            var requestDispatcher = CreateAsyncRequestDispatcher ();
+            requestDispatcher.Add ( new GetAssessmentReminderByKeyRequest {AssessmentReminderKey = key} );
+            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>> ();
 
             var dto = response.DataTransferObject;
-            return new JsonResult
-                {
-                    Data = new { success = true }
-                };
-        }
-
-        public async Task<ActionResult> AdministerAssessment(Guid key, Guid patientKey, Guid assessmentDefinitionKey)
-        {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new AcknowledgeAssessmentReminderRequest { Key = key });
-            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
-            //TODO:check for errors
-
-            return RedirectToAction("Create", "Assessment", new { patientKey, assessmentDefinitionKey });
-        }
-
-        [HttpPost]
-        public async Task<ActionResult> Achknowledge(Guid key, Guid assessmentKey, Guid patientKey)
-        {
-            var requestDispatcher = CreateAsyncRequestDispatcher();
-            requestDispatcher.Add(new AcknowledgeAssessmentReminderRequest { Key = key });
-            var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>>();
-            //TODO:check for errors
-
-            return new JsonResult
+            if ( dto == null )
             {
-                Data = new { key }
-            };
+                return null;
+            }
+            ViewData.TemplateInfo.HtmlFieldPrefix = "assessmentReminder"; //note: matches the Edit action parameter name
+            if (UserContext.Current != null && !dto.ForSelfAdministration && UserContext.Current.PatientKey != null) 
+            {
+                dto = new AssessmentReminderDto();
+                ModelState.AddModelError("error", "You do not have access to this reminder.");
+            }
+            return PartialView ( "~/Views/Shared/EditorTemplates/AssessmentReminderDto.cshtml", dto );
         }
+
+        /// <summary>
+        /// Updates the date.
+        /// </summary>
+        /// <param name="key">The key.</param>
+        /// <param name="dayDelta">The day delta.</param>
+        /// <returns>A <see cref="ActionResult"/>.</returns>
+        [HttpPost]
+        public async Task<ActionResult> UpdateDate ( Guid key, string dayDelta )
+        {
+            int day;
+            if ( int.TryParse ( dayDelta, out day ) && day != 0 )
+            {
+                var requestDispatcher = CreateAsyncRequestDispatcher ();
+                requestDispatcher.Add ( new UpdateAssessmentReminderRequest
+                {
+                    AssessmentReminderKey = key,
+                    DayDelta = day,
+                } );
+
+                var response = await requestDispatcher.GetAsync<DtoResponse<AssessmentReminderDto>> ();
+                var dto = response.DataTransferObject;
+            }
+            return Json ( new {success = true}, JsonRequestBehavior.AllowGet );
+        }
+
+        #endregion
     }
 }

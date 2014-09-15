@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
     #region Using Statements
@@ -35,14 +38,12 @@ namespace ProCenter.Mvc.Infrastructure.Security
 
     #endregion
 
-    /// <summary>
-    ///     This class serves the claims information for current user.
-    /// </summary>
+    /// <summary>This class serves the claims information for current user.</summary>
     public class CurrentClaimsPrincipleService : ICurrentClaimsPrincipalService
     {
         #region Static Fields
 
-        private static readonly Logger Logger = LogManager.GetCurrentClassLogger ();
+        private static readonly Logger _logger = LogManager.GetCurrentClassLogger ();
 
         #endregion
 
@@ -56,9 +57,9 @@ namespace ProCenter.Mvc.Infrastructure.Security
         /// </returns>
         public ClaimsPrincipal GetCurrentPrincipal ()
         {
-            Logger.Info (
+            _logger.Info (
                          "CurrentClaimsPrincipalService.GetCurrentPrincipal HttpContext.Current.User Name : " + HttpContext.Current.User.Identity.Name );
-            Logger.Info (
+            _logger.Info (
                          "CurrentClaimsPrincipalService.GetCurrentPrincipal HttpContext.Current.User IsAuthenticated : "
                          + HttpContext.Current.User.Identity.IsAuthenticated );
             return (ClaimsPrincipal) HttpContext.Current.User;

@@ -1370,6 +1370,11 @@
             <param name="formatter">Result formatter</param>
             <param name="path">Output path</param>
         </member>
+        <member name="P:FluentNHibernate.Cfg.Db.DB2Configuration.Informix1150">
+            <summary>
+            DB2 Data Server/Client supports Informix 11.50+ with Informix syntax
+            </summary>
+        </member>
         <member name="T:FluentNHibernate.Conventions.AttributeCollectionConvention`1">
             <summary>
             Base class for attribute based conventions. Create a subclass of this to supply your own
@@ -1392,7 +1397,7 @@
         </member>
         <member name="T:FluentNHibernate.Conventions.IVersionConvention">
             <summary>
-            Version convention, implement this interface to apply changes to vesion mappings.
+            Version convention, implement this interface to apply changes to version mappings.
             </summary>
         </member>
         <member name="T:FluentNHibernate.Conventions.IPropertyConvention">
@@ -2301,7 +2306,7 @@
             and use the constructor to control how your component is persisted.
             </summary>
             <example>
-            public class AddressMap : ComponentMap{Address}
+            public class AddressMap : ComponentMap&lt;Address&gt;
             {
               public AddressMap()
               {
@@ -3133,10 +3138,23 @@
             Fluently configure NHibernate
             </summary>
         </member>
+        <member name="M:FluentNHibernate.Cfg.Fluently.BeginConfigure">
+            <summary>
+            Begin fluently configuring NHibernate
+            </summary>
+            <returns>Fluent Configuration</returns>
+        </member>
         <member name="M:FluentNHibernate.Cfg.Fluently.Configure">
             <summary>
             Begin fluently configuring NHibernate
             </summary>
+            <returns>Fluent Configuration</returns>
+        </member>
+        <member name="M:FluentNHibernate.Cfg.Fluently.BeginConfigure(NHibernate.Cfg.Configuration)">
+            <summary>
+            Begin fluently configuring NHibernate
+            </summary>
+            <param name="cfg">Instance of an NHibernate Configuration</param>
             <returns>Fluent Configuration</returns>
         </member>
         <member name="M:FluentNHibernate.Cfg.Fluently.Configure(NHibernate.Cfg.Configuration)">
@@ -3717,9 +3735,19 @@
             </summary>
             <param name="formula">Formula</param>
         </member>
+        <member name="M:FluentNHibernate.Mapping.ElementPart.Nullable">
+            <summary>
+            Specify the nullability of the column
+            </summary>
+        </member>
         <member name="P:FluentNHibernate.Mapping.ElementPart.Columns">
             <summary>
             Modify the columns for this element
+            </summary>
+        </member>
+        <member name="P:FluentNHibernate.Mapping.ElementPart.Not">
+            <summary>
+            Inverts the next boolean operation
             </summary>
         </member>
         <member name="M:FluentNHibernate.Mapping.CachePart.ReadWrite">
@@ -3816,6 +3844,11 @@
         <member name="M:FluentNHibernate.Mapping.CascadeExpression`1.Merge">
             <summary>
             Cascade deletes
+            </summary>
+        </member>
+        <member name="M:FluentNHibernate.Mapping.CascadeExpression`1.Replicate">
+            <summary>
+            Cascade on replication
             </summary>
         </member>
         <member name="M:FluentNHibernate.Mapping.CollectionCascadeExpression`1.AllDeleteOrphan">
@@ -4521,6 +4554,13 @@
             Sets the access-strategy to use the type referenced.
             </summary>
             <typeparam name="TPropertyAccessorClass">Type to use as the access-strategy</typeparam>
+        </member>
+        <member name="M:FluentNHibernate.Mapping.ComponentPart`1.ColumnPrefix(System.String)">
+            <summary>
+            Sets the prefix for every column defined within the component. To refer to the name of a member that exposes
+            the component use {property}
+            </summary>
+            <param name="prefix"></param>
         </member>
         <member name="M:FluentNHibernate.Mapping.ComponentPart`1.LazyLoad">
             <summary>
@@ -5568,7 +5608,7 @@
         </member>
         <member name="M:FluentNHibernate.Mapping.PropertyPart.Unique">
             <summary>
-            Specify that this property has a unique constranit
+            Specify that this property has a unique constraint
             </summary>
         </member>
         <member name="M:FluentNHibernate.Mapping.PropertyPart.Precision(System.Int32)">

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Infrastructure.EventStore
 {
     #region Using Statements
@@ -32,18 +35,19 @@ namespace ProCenter.Infrastructure.EventStore
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Domain;
+
+    using NEventStore;
+    using NEventStore.Persistence;
+
     using Pillar.Domain.Event;
-    using PipelineHook;
+
     using ProCenter.Domain.CommonModule;
-    using global::EventStore;
-    using global::EventStore.Persistence;
+    using ProCenter.Infrastructure.Domain;
+    using ProCenter.Infrastructure.EventStore.PipelineHook;
 
     #endregion
 
-    /// <summary>
-    ///     Event store repository.
-    /// </summary>
+    /// <summary>Event store repository.</summary>
     public class EventStoreRepository : IEventStoreRepository, IDisposable
     {
         #region Constants
@@ -55,18 +59,23 @@ namespace ProCenter.Infrastructure.EventStore
         #region Fields
 
         private readonly IDetectConflicts _conflictDetector;
-        private readonly IUnitOfWorkProvider _unitOfWorkProvider;
+
         private readonly IEventStoreFactory _eventStoreFactory;
+
         private readonly IAggregateFactory _factory;
+
         private readonly IDictionary<Guid, Snapshot> _snapshots = new Dictionary<Guid, Snapshot> ();
+
         private readonly IDictionary<Guid, IEventStream> _streams = new Dictionary<Guid, IEventStream> ();
+
+        private readonly IUnitOfWorkProvider _unitOfWorkProvider;
 
         #endregion
 
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventStoreRepository" /> class.
+        ///     Initializes a new instance of the <see cref="EventStoreRepository" /> class.
         /// </summary>
         /// <param name="eventStoreFactory">The event store factory.</param>
         /// <param name="factory">The factory.</param>
@@ -75,7 +84,7 @@ namespace ProCenter.Infrastructure.EventStore
         public EventStoreRepository (
             IEventStoreFactory eventStoreFactory,
             IAggregateFactory factory,
-            IDetectConflicts conflictDetector, 
+            IDetectConflicts conflictDetector,
             IUnitOfWorkProvider unitOfWorkProvider )
         {
             _eventStoreFactory = eventStoreFactory;
@@ -98,32 +107,11 @@ namespace ProCenter.Infrastructure.EventStore
         }
 
         /// <summary>
-        /// Gets the last modified date.
-        /// </summary>
-        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
-        /// <param name="key">The aggregate key.</param>
-        /// <returns>
-        /// Last modified date.
-        /// </returns>
-        public virtual DateTime? GetLastModifiedDate<TAggregate>(Guid key)
-        {
-            var eventStore = _eventStoreFactory.Build<TAggregate>();
-            var snapshot = GetSnapshot(eventStore, key, int.MaxValue);
-            var stream = OpenStream(eventStore, key, int.MaxValue, snapshot);
-            var times = stream.CommittedHeaders.Where ( kvp => kvp.Key == AuditPipelineHook.TimestampHeader ).Select ( kvp => DateTime.Parse(kvp.Value.ToString ()) );
-            if ( times.Any () )
-            {
-                return times.Max ();
-            }
-            return null;
-        }
-
-        /// <summary>
         ///     Gets the by key.
         /// </summary>
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="key">The key.</param>
-        /// <returns></returns>
+        /// <returns>The aggregate.</returns>
         public virtual TAggregate GetByKey<TAggregate> ( Guid key )
             where TAggregate : class, IAggregateRoot
         {
@@ -136,27 +124,55 @@ namespace ProCenter.Infrastructure.EventStore
         /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
         /// <param name="key">The key.</param>
         /// <param name="versionToLoad">The version to load.</param>
-        /// <returns></returns>
+        /// <returns>The aggregate.</returns>
         public virtual TAggregate GetByKey<TAggregate> ( Guid key, int versionToLoad )
             where TAggregate : class, IAggregateRoot
         {
-            var unitOfWork = _unitOfWorkProvider.GetCurrentUnitOfWork();
-            if (unitOfWork != null)
+            var unitOfWork = _unitOfWorkProvider.GetCurrentUnitOfWork ();
+            if ( unitOfWork != null )
             {
-                var cachedAggregate = unitOfWork.Get<TAggregate>(key);
-                if (cachedAggregate != null)
+                var cachedAggregate = unitOfWork.Get<TAggregate> ( key );
+                if ( cachedAggregate != null )
                 {
                     return cachedAggregate;
                 }
             }
             var eventStore = _eventStoreFactory.Build<TAggregate> ();
-            var snapshot = GetSnapshot(eventStore, key, versionToLoad);
-            var stream = OpenStream(eventStore, key, versionToLoad, snapshot);
+            var snapshot = GetSnapshot ( eventStore, key, versionToLoad );
+            var stream = OpenStream ( eventStore, key, versionToLoad, snapshot );
+
+            if ( stream.StreamRevision == 0 )
+            {
+                _streams.Remove ( key );
+                return null;
+            }
+
             var aggregate = GetAggregate<TAggregate> ( snapshot, stream );
 
             ApplyEventsToAggregate ( versionToLoad, stream, aggregate );
 
             return aggregate as TAggregate;
+        }
+
+        /// <summary>
+        ///     Gets the last modified date.
+        /// </summary>
+        /// <typeparam name="TAggregate">The type of the aggregate.</typeparam>
+        /// <param name="key">The aggregate key.</param>
+        /// <returns>
+        ///     Last modified date.
+        /// </returns>
+        public virtual DateTime? GetLastModifiedDate<TAggregate> ( Guid key )
+        {
+            var eventStore = _eventStoreFactory.Build<TAggregate> ();
+            var snapshot = GetSnapshot ( eventStore, key, int.MaxValue );
+            var stream = OpenStream ( eventStore, key, int.MaxValue, snapshot );
+            var times = stream.CommittedHeaders.Where ( kvp => kvp.Key == AuditPipelineHook.TimestampHeader ).Select ( kvp => DateTime.Parse ( kvp.Value.ToString () ) );
+            if ( times.Any () )
+            {
+                return times.Max ();
+            }
+            return null;
         }
 
         /// <summary>
@@ -166,8 +182,8 @@ namespace ProCenter.Infrastructure.EventStore
         /// <param name="uncommitedEvents">The uncommited events.</param>
         /// <param name="commitId">The commit id.</param>
         /// <param name="updateHeaders">The update headers.</param>
-        /// <exception cref="ProCenter.Infrastructure.EventStore.ConflictingCommandException"></exception>
-        /// <exception cref="ProCenter.Infrastructure.EventStore.PersistenceException"></exception>
+        /// <exception cref="ProCenter.Infrastructure.EventStore.ConflictingCommandException">Conflicting exception.</exception>
+        /// <exception cref="ProCenter.Infrastructure.EventStore.PersistenceException">Persistence exception.</exception>
         public virtual void Save ( IAggregateRoot aggregate, IEnumerable<IDomainEvent> uncommitedEvents, Guid commitId, Action<IDictionary<string, object>> updateHeaders )
         {
             var headers = PrepareHeaders ( aggregate, updateHeaders );
@@ -189,8 +205,10 @@ namespace ProCenter.Infrastructure.EventStore
                 }
                 catch ( ConcurrencyException e )
                 {
-                    if ( this.ThrowOnConflict ( stream, commitEventCount ) )
+                    if ( ThrowOnConflict ( stream, commitEventCount ) )
+                    {
                         throw new ConflictingCommandException ( e.Message, e );
+                    }
 
                     stream.ClearChanges ();
                 }
@@ -214,12 +232,16 @@ namespace ProCenter.Infrastructure.EventStore
         protected virtual void Dispose ( bool disposing )
         {
             if ( !disposing )
+            {
                 return;
+            }
 
             lock ( _streams )
             {
                 foreach ( var stream in _streams )
+                {
                     stream.Value.Dispose ();
+                }
 
                 _snapshots.Clear ();
                 _streams.Clear ();
@@ -229,8 +251,12 @@ namespace ProCenter.Infrastructure.EventStore
         private static void ApplyEventsToAggregate ( int versionToLoad, IEventStream stream, IAggregateRoot aggregate )
         {
             if ( versionToLoad == 0 || aggregate.Version < versionToLoad )
+            {
                 foreach ( var @event in stream.CommittedEvents.Select ( x => x.Body ) )
+                {
                     aggregate.ApplyEvent ( @event );
+                }
+            }
         }
 
         private static Dictionary<string, object> PrepareHeaders ( IAggregateRoot aggregate, Action<IDictionary<string, object>> updateHeaders )
@@ -239,7 +265,9 @@ namespace ProCenter.Infrastructure.EventStore
 
             headers[AggregateTypeHeader] = aggregate.GetType ().FullName;
             if ( updateHeaders != null )
+            {
                 updateHeaders ( headers );
+            }
 
             return headers;
         }
@@ -255,36 +283,44 @@ namespace ProCenter.Infrastructure.EventStore
         {
             Snapshot snapshot;
             if ( !_snapshots.TryGetValue ( id, out snapshot ) )
-                _snapshots[id] = snapshot = eventStore.Advanced.GetSnapshot(id, version);
+            {
+                _snapshots[id] = snapshot = eventStore.Advanced.GetSnapshot ( id, version );
+            }
 
             return snapshot;
         }
 
-        private IEventStream OpenStream(IStoreEvents eventStore, Guid id, int version, Snapshot snapshot)
+        private IEventStream OpenStream ( IStoreEvents eventStore, Guid id, int version, Snapshot snapshot )
         {
             IEventStream stream;
             if ( _streams.TryGetValue ( id, out stream ) )
+            {
                 return stream;
+            }
 
             stream = snapshot == null
-                         ? eventStore.OpenStream ( id, 0, version )
-                         : eventStore.OpenStream ( snapshot, version );
+                ? eventStore.OpenStream ( id, 0, version )
+                : eventStore.OpenStream ( snapshot, version );
 
             return this._streams[id] = stream;
         }
 
-        private IEventStream PrepareStream( IStoreEvents eventStore, IAggregateRoot aggregate, Dictionary<string, object> headers, IEnumerable<IDomainEvent> uncommitedEvents)
+        private IEventStream PrepareStream ( IStoreEvents eventStore, IAggregateRoot aggregate, Dictionary<string, object> headers, IEnumerable<IDomainEvent> uncommitedEvents )
         {
             IEventStream stream;
             if ( !_streams.TryGetValue ( aggregate.Key, out stream ) )
+            {
                 _streams[aggregate.Key] = stream = eventStore.CreateStream ( aggregate.Key );
+            }
 
             foreach ( var item in headers )
+            {
                 stream.UncommittedHeaders[item.Key] = item.Value;
+            }
 
             uncommitedEvents
                 .Cast<object> ()
-                .Select ( x => new EventMessage {Body = x} )
+                .Select ( x => new EventMessage { Body = x } )
                 .ToList ()
                 .ForEach ( stream.Add );
 

@@ -53,11 +53,11 @@
       <HintPath>..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NLog">
-      <HintPath>..\packages\NLog.2.0.0.2000\lib\net40\NLog.dll</HintPath>
+    <Reference Include="NLog, Version=2.1.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
     </Reference>
     <Reference Include="Pillar.Agatha">
       <HintPath>..\lib\Pillar\Pillar.Agatha.dll</HintPath>
@@ -82,13 +82,12 @@
     <Reference Include="Pillar.Security">
       <HintPath>..\lib\Pillar\Pillar.Security.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Abstractions, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
+    <Reference Include="Raven.Abstractions, Version=2.5.0.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Abstractions.dll</HintPath>
+      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Raven.Client.Lightweight, Version=2.0.3.0, Culture=neutral, PublicKeyToken=37f41c7f99471593, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RavenDB.Client.2.0.2375\lib\net40\Raven.Client.Lightweight.dll</HintPath>
+    <Reference Include="Raven.Client.Lightweight">
+      <HintPath>..\packages\RavenDB.Client.2.5.2851\lib\net45\Raven.Client.Lightweight.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=2.6.4.0, Culture=neutral, PublicKeyToken=e60ad81abae3c223, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -106,10 +105,12 @@
       <HintPath>..\packages\System.IdentityModel.Tokens.Jwt.1.0.0\lib\net45\System.IdentityModel.Tokens.Jwt.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
@@ -127,12 +128,18 @@
       <Link>Properties\VersionInfo.cs</Link>
     </Compile>
     <Compile Include="Binder\EnumerableLookupDtoModelBinder.cs" />
+    <Compile Include="Binder\INullableHandling.cs" />
     <Compile Include="Binder\NullableHandlingValueProviderResult.cs" />
     <Compile Include="Binder\NullableHandlingValueProviderWrapper.cs" />
     <Compile Include="Binder\ProCenterModelBinder.cs" />
     <Compile Include="Boostrapper\AssemblyLocator.cs" />
     <Compile Include="Boostrapper\Bootstrapper.cs" />
     <Compile Include="Boostrapper\CustomDependencyResolver.cs" />
+    <Compile Include="BrowserDetection\XmlsDataFactory.cs" />
+    <Compile Include="BrowserDetection\HttpContextFactory.cs" />
+    <Compile Include="BrowserDetection\IHttpBrowserCapabilitiesBase.cs" />
+    <Compile Include="BrowserDetection\ISupportedBrowser.cs" />
+    <Compile Include="BrowserDetection\SupportedBrowser.cs" />
     <Compile Include="EmptyCompletenessRuleCollection.cs" />
     <Compile Include="EmptyResources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -142,18 +149,12 @@
     <Compile Include="Extension\HtmlHelper.cs" />
     <Compile Include="Extension\MetadataDtoExtensions.cs" />
     <Compile Include="Extension\PatientDtoExtensions.cs" />
+    <Compile Include="Extension\ResourceManagerExtensions.cs" />
     <Compile Include="Filter\ExtendedExceptionFilterAttribute.cs" />
     <Compile Include="Filter\ExtendedHandleErrorAttribute.cs" />
-    <Compile Include="Permission\AssessmentPermission.cs" />
-    <Compile Include="Permission\BasicAccessPermission.cs" />
-    <Compile Include="Permission\OrganizationPermission.cs" />
-    <Compile Include="Permission\PatientPermission.cs" />
-    <Compile Include="Permission\PortalPermission.cs" />
-    <Compile Include="Permission\RolePermission.cs" />
-    <Compile Include="Permission\StaffPermission.cs" />
-    <Compile Include="Permission\TeamPermission.cs" />
+    <Compile Include="Filter\LogAccessFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Security\AccessControlSecurityFilter.cs" />
+    <Compile Include="Security\AccessControlSecurityFilterAttribute.cs" />
     <Compile Include="Security\ClaimsAuthenticationManager.cs" />
     <Compile Include="Security\CurrentClaimsPrincipleService.cs" />
     <Compile Include="Security\CurrentUserPermissionService.cs" />
@@ -170,18 +171,21 @@
     <Compile Include="Security\SystemAccountValidatedEventHandler.cs" />
     <Compile Include="Service\Completeness\CompletenessModelValidator.cs" />
     <Compile Include="Service\Completeness\CompletenessModelValidtorProvider.cs" />
+    <Compile Include="Service\Completeness\IValidateCompleteness.cs" />
     <Compile Include="Service\Completeness\RequiredForCompletenessAttribute.cs" />
     <Compile Include="Service\Completeness\ValidationType.cs" />
+    <Compile Include="Service\ExposedTypeCacheControllerFactory.cs" />
     <Compile Include="Service\LookupPrimitiveResourceConvention.cs" />
     <Compile Include="Service\ResourcesManager.cs" />
     <Compile Include="Service\ResourceModelMetadataProvider.cs" />
     <Compile Include="Service\AsyncRequestDispatcher.cs" />
     <Compile Include="Service\IAsyncRequestDispatcher.cs" />
     <Compile Include="Service\WorkflowEngineConvention.cs" />
-    <Compile Include="Service\WorkflowReportEngineConvention.cs" />
+    <Compile Include="Service\ReportEngineConvention.cs" />
     <Compile Include="SharedStringNames.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -189,9 +193,25 @@
       <Project>{ac53fad1-f5dd-4902-ab48-012f201fb649}</Project>
       <Name>ProCenter.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.GainShortScreener\ProCenter.Domain.GainShortScreener.csproj">
+      <Project>{c6a13400-f0f0-483d-96db-641722256341}</Project>
+      <Name>ProCenter.Domain.GainShortScreener</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Gpra\ProCenter.Domain.Gpra.csproj">
+      <Project>{3558DD1B-328C-4EB3-A831-AC4986444FC8}</Project>
+      <Name>ProCenter.Domain.Gpra</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProCenter.Domain.Nida\ProCenter.Domain.Nida.csproj">
       <Project>{9a809ba5-55ff-4f25-a555-9aed08910998}</Project>
       <Name>ProCenter.Domain.Nida</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Nih\ProCenter.Domain.NihHealthBehaviorsAssessment.csproj">
+      <Project>{86d5bb8b-0817-4e38-9273-3ace619feb88}</Project>
+      <Name>ProCenter.Domain.NihHealthBehaviorsAssessment</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProCenter.Domain.Psc\ProCenter.Domain.Psc.csproj">
+      <Project>{9e38854f-81b2-4b7f-8b29-02ddaeb99a8b}</Project>
+      <Name>ProCenter.Domain.Psc</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProCenter.Domain\ProCenter.Domain.csproj">
       <Project>{3833b305-88e0-49a6-b8f7-9cbbd123da4c}</Project>
@@ -205,6 +225,10 @@
       <Project>{ae01f318-1337-4387-a14a-76ed315277c8}</Project>
       <Name>ProCenter.Primitive</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ProCenter.ReadSideService\ProCenter.ReadSideService.csproj">
+      <Project>{056F69C8-8448-4532-B8F4-A7C3AB957013}</Project>
+      <Name>ProCenter.ReadSideService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ProCenter.Service.Handler\ProCenter.Service.Handler.csproj">
       <Project>{1384d02a-05c3-4edf-a025-b9ce6d2b568b}</Project>
       <Name>ProCenter.Service.Handler</Name>
@@ -216,6 +240,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
+    <Folder Include="Permission\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="EmptyResources.resx">
@@ -223,7 +248,13 @@
       <LastGenOutput>EmptyResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="BrowserDetection\SupportedBrowsers.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\lib\Shared\Stylecop\StyleCop.Targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

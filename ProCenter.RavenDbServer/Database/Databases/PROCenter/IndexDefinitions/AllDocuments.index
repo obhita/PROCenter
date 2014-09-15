@@ -1,5 +1,6 @@
 {
   "Name": "AllDocuments",
+  "LockMode": "Unlock",
   "Map": "from doc in docs select new {doc}",
   "Maps": [
     "from doc in docs select new {doc}"
@@ -8,7 +9,6 @@
   "TransformResults": null,
   "IsMapReduce": false,
   "IsCompiled": false,
-  "IsTemp": false,
   "Stores": {},
   "Indexes": {},
   "SortOptions": {},
@@ -16,5 +16,8 @@
   "Fields": [],
   "Suggestions": {},
   "TermVectors": {},
-  "Type": "Map"
+  "SpatialIndexes": {},
+  "InternalFieldsMapping": null,
+  "Type": "Map",
+  "DisableInMemoryIndexing": false
 }

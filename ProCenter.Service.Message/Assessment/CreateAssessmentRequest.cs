@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,24 +25,64 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Service.Message.Assessment
 {
     #region Using Statements
 
     using System;
+
     using Agatha.Common;
 
     #endregion
 
+    /// <summary>The create assessment request class.</summary>
     public class CreateAssessmentRequest : Request
     {
-        public Guid PatientKey { get; set; }
+        #region Public Properties
 
+        /// <summary>
+        /// Gets or sets the assessment definition key.
+        /// </summary>
+        /// <value>
+        /// The assessment definition key.
+        /// </value>
         public Guid AssessmentDefinitionKey { get; set; }
 
+        /// <summary>
+        /// Gets or sets a value indicating whether [for self administration].
+        /// </summary>
+        /// <value>
+        /// <c>true</c> if [for self administration]; otherwise, <c>false</c>.
+        /// </value>
+        public bool ForSelfAdministration { get; set; }
+
+        /// <summary>
+        /// Gets or sets the patient key.
+        /// </summary>
+        /// <value>
+        /// The patient key.
+        /// </value>
+        public Guid PatientKey { get; set; }
+
+        /// <summary>
+        /// Gets or sets the workflow key.
+        /// </summary>
+        /// <value>
+        /// The workflow key.
+        /// </value>
         public Guid? WorkflowKey { get; set; }
 
-        public bool ForSelfAdministration { get; set; }
+        /// <summary>
+        /// Gets or sets the assessment instance URL.
+        /// </summary>
+        /// <value>
+        /// The assessment instance URL.
+        /// </value>
+        public string AssessmentInstanceUrl { get; set; }
+
+        #endregion
     }
 }

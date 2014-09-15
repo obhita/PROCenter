@@ -1,14 +1,14 @@
 {
   "Name": "EventStoreDocumentsByEntityName",
-  "Map": "from doc in docs \r\n                        let Tag = doc[\"@metadata\"][\"Raven-Entity-Name\"]\r\n                        where  Tag != null \r\n                        select new { Tag, LastModified = (DateTime)doc[\"@metadata\"][\"Last-Modified\"], Partition = doc.Partition ?? null };",
+  "LockMode": "Unlock",
+  "Map": "from doc in docs \n                        let Tag = doc[\"@metadata\"][\"Raven-Entity-Name\"]\n                        where  Tag != null \n                        select new { Tag, LastModified = (DateTime)doc[\"@metadata\"][\"Last-Modified\"], Partition = doc.Partition ?? null };",
   "Maps": [
-    "from doc in docs \r\n                        let Tag = doc[\"@metadata\"][\"Raven-Entity-Name\"]\r\n                        where  Tag != null \r\n                        select new { Tag, LastModified = (DateTime)doc[\"@metadata\"][\"Last-Modified\"], Partition = doc.Partition ?? null };"
+    "from doc in docs \n                        let Tag = doc[\"@metadata\"][\"Raven-Entity-Name\"]\n                        where  Tag != null \n                        select new { Tag, LastModified = (DateTime)doc[\"@metadata\"][\"Last-Modified\"], Partition = doc.Partition ?? null };"
   ],
   "Reduce": null,
   "TransformResults": null,
   "IsMapReduce": false,
   "IsCompiled": false,
-  "IsTemp": false,
   "Stores": {},
   "Indexes": {
     "Tag": "NotAnalyzed",
@@ -19,5 +19,8 @@
   "Fields": [],
   "Suggestions": {},
   "TermVectors": {},
-  "Type": "Map"
+  "SpatialIndexes": {},
+  "InternalFieldsMapping": null,
+  "Type": "Map",
+  "DisableInMemoryIndexing": false
 }

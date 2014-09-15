@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,20 +25,24 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Infrastructure.Security
 {
+    #region Using Statements
+
     using System.Linq;
     using System.Security.Claims;
     using Common;
     using Pillar.Security.AccessControl;
 
-    /// <summary>
-    /// This class serves the permission information for current user.
-    /// </summary>
+    #endregion
+
+    /// <summary>This class serves the permission information for current user.</summary>
     public class CurrentUserPermissionService : ICurrentUserPermissionService
     {
-        #region Constants and Fields
+        #region Fields
 
         private readonly ICurrentClaimsPrincipalService _currentClaimsPrincipalService;
 
@@ -46,32 +51,33 @@ namespace ProCenter.Mvc.Infrastructure.Security
         #region Constructors and Destructors
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="CurrentUserPermissionService"/> class.
+        ///     Initializes a new instance of the <see cref="CurrentUserPermissionService" /> class.
         /// </summary>
         /// <param name="currentClaimsPrincipalService">The current claims principal service.</param>
-        public CurrentUserPermissionService(ICurrentClaimsPrincipalService currentClaimsPrincipalService)
+        public CurrentUserPermissionService ( ICurrentClaimsPrincipalService currentClaimsPrincipalService )
         {
             _currentClaimsPrincipalService = currentClaimsPrincipalService;
         }
 
         #endregion
 
-        #region Public Methods
+        #region Public Methods and Operators
 
         /// <summary>
-        /// Determines whether the current user has the specified <see cref="Permission"/>.
+        ///     Determines whether the current user has the specified <see cref="Permission" />.
         /// </summary>
         /// <param name="permission">The permission.</param>
         /// <returns>
-        ///   <c>true</c> if the user has been granted the specified <see cref="ProCenter.Mvc.Infrastructure.Permission"/>; otherwise, <c>false</c>.
+        ///     <c>true</c> if the user has been granted the specified <see cref="ProCenter.Mvc.Infrastructure.Permission" />;
+        ///     otherwise, <c>false</c>.
         /// </returns>
-        public bool DoesUserHavePermission(Permission permission)
+        public bool DoesUserHavePermission ( Permission permission )
         {
-            var claimsPrincipal = _currentClaimsPrincipalService.GetCurrentPrincipal();
-            var claimsIdentity = (ClaimsIdentity)claimsPrincipal.Identity;
-            var hasClaim = claimsIdentity.Claims.Any(
-                                                     c =>
-                                                     c.Type == ProCenterClaimType.PermissionClaimType && c.Value == permission.Name);
+            var claimsPrincipal = _currentClaimsPrincipalService.GetCurrentPrincipal ();
+            var claimsIdentity = (ClaimsIdentity) claimsPrincipal.Identity;
+            var hasClaim = claimsIdentity.Claims.Any (
+                                                      c =>
+                                                          c.Type == ProCenterClaimType.PermissionClaimType && c.Value == permission.Name );
 
             return hasClaim;
         }

@@ -1,4 +1,5 @@
 ﻿#region License Header
+
 // /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
@@ -24,7 +25,9 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
+
 #endregion
+
 namespace ProCenter.Mvc.Controllers
 {
     #region Using Statements
@@ -34,16 +37,13 @@ namespace ProCenter.Mvc.Controllers
     using System.Linq;
     using System.Web.Mvc;
     using Agatha.Common;
-    using Infrastructure.Security;
     using Service.Message.Attribute;
     using Service.Message.Common.Lookups;
     using IAsyncRequestDispatcher = Infrastructure.Service.IAsyncRequestDispatcher;
 
     #endregion
 
-    /// <summary>
-    ///     Base class for MVC controllers.
-    /// </summary>
+    /// <summary>Base class for MVC controllers.</summary>
     [OutputCache ( NoStore = true, Duration = 0, VaryByParam = "*" )]
     public abstract class BaseController : Controller
     {
@@ -55,6 +55,10 @@ namespace ProCenter.Mvc.Controllers
 
         #region Constructors and Destructors
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BaseController"/> class.
+        /// </summary>
+        /// <param name="requestDispatcherFactory">The request dispatcher factory.</param>
         protected BaseController ( IRequestDispatcherFactory requestDispatcherFactory )
         {
             _requestDispatcherFactory = requestDispatcherFactory;
@@ -65,13 +69,50 @@ namespace ProCenter.Mvc.Controllers
         #region Public Methods and Operators
 
         /// <summary>
-        ///     Creates the async request dispatcher.
+        /// Adds the lookup requests.
         /// </summary>
-        /// <returns></returns>
+        /// <param name="asyncRequestDispatcher">The asynchronous request dispatcher.</param>
+        /// <param name="dtoType">Type of the dto.</param>
+        public void AddLookupRequests ( IAsyncRequestDispatcher asyncRequestDispatcher, Type dtoType )
+        {
+            var lookupCategories =
+                dtoType.GetProperties ()
+                    .Where (
+                            p =>
+                                p.PropertyType == typeof(LookupDto) || p.PropertyType == typeof(IEnumerable<LookupDto>) )
+                    .Select ( p =>
+                    {
+                        var categoryAttribute =
+                            (LookupCategoryAttribute)
+                                p.GetCustomAttributes ( typeof(LookupCategoryAttribute), false ).FirstOrDefault ();
+                        return (string) ( categoryAttribute == null ? p.Name : categoryAttribute.Category );
+                    } )
+                    .Distinct ();
+
+            foreach ( var category in lookupCategories )
+            {
+                asyncRequestDispatcher.Add ( category, new GetLookupsByCategoryRequest {Category = category} );
+            }
+        }
+
+        /// <summary>
+        /// Adds the lookup responses to view data.
+        /// </summary>
+        /// <param name="asyncRequestDispatcher">The asynchronous request dispatcher.</param>
+        public void AddLookupResponsesToViewData ( IAsyncRequestDispatcher asyncRequestDispatcher )
+        {
+            foreach ( GetLookupsByCategoryResponse categoryResponse in asyncRequestDispatcher.Responses.Where ( r => r.GetType () == typeof(GetLookupsByCategoryResponse) ) )
+            {
+                ViewData[categoryResponse.Category + "LookupItems"] = categoryResponse.Lookups.ToList ();
+            }
+        }
+
+        /// <summary>Creates the async request dispatcher.</summary>
+        /// <returns>A <see cref="IAsyncRequestDispatcher"/>.</returns>
         public IAsyncRequestDispatcher CreateAsyncRequestDispatcher ()
         {
             var dispatcher = _requestDispatcherFactory.CreateRequestDispatcher ();
-            return  dispatcher as IAsyncRequestDispatcher;
+            return dispatcher as IAsyncRequestDispatcher;
         }
 
         #endregion
@@ -89,37 +130,6 @@ namespace ProCenter.Mvc.Controllers
                 ModelState.Merge ( (ModelStateDictionary) TempData["ModelState"] );
             }
             base.OnActionExecuted ( filterContext );
-        }
-
-
-        public void AddLookupRequests(IAsyncRequestDispatcher asyncRequestDispatcher, Type dtoType)
-        {
-            var lookupCategories =
-                dtoType.GetProperties()
-                       .Where(
-                           p =>
-                           p.PropertyType == typeof(LookupDto) || p.PropertyType == typeof(IEnumerable<LookupDto>))
-                       .Select(p =>
-                       {
-                           var categoryAttribute =
-                               (LookupCategoryAttribute)
-                               p.GetCustomAttributes(typeof(LookupCategoryAttribute), false).FirstOrDefault();
-                           return (string)(categoryAttribute == null ? p.Name : categoryAttribute.Category);
-                       })
-                       .Distinct();
-
-            foreach (var category in lookupCategories)
-            {
-                asyncRequestDispatcher.Add(category, new GetLookupsByCategoryRequest { Category = category });
-            }
-        }
-
-        public void AddLookupResponsesToViewData(IAsyncRequestDispatcher asyncRequestDispatcher)
-        {
-            foreach (GetLookupsByCategoryResponse categoryResponse in asyncRequestDispatcher.Responses.Where(r => r.GetType() == typeof(GetLookupsByCategoryResponse)))
-            {
-                ViewData[categoryResponse.Category + "LookupItems"] = categoryResponse.Lookups.ToList();
-            }
         }
 
         #endregion

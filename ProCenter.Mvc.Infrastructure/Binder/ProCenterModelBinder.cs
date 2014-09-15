@@ -1,5 +1,4 @@
-﻿#region License Header
-// /*******************************************************************************
+﻿// /*******************************************************************************
 //  * Open Behavioral Health Information Technology Architecture (OBHITA.org)
 //  * 
 //  * Redistribution and use in source and binary forms, with or without
@@ -24,71 +23,145 @@
 //  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 //  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //  ******************************************************************************/
-#endregion
+
 namespace ProCenter.Mvc.Infrastructure.Binder
 {
+    #region Using Statements
+
     using System;
     using System.Linq;
     using System.Web.Mvc;
-    using Primitive;
-    using ProCenter.Infrastructure.Extensions;
 
+    using ProCenter.Infrastructure.Extensions;
+    using ProCenter.Primitive;
+    using ProCenter.Service.Message.Report;
+
+    #endregion
+
+    /// <summary>The pro center model binder class.</summary>
     public class ProCenterModelBinder : DefaultModelBinder
     {
-        public override object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        #region Public Methods and Operators
+
+        /// <summary>
+        ///     Binds the model by using the specified controller context and binding context.
+        /// </summary>
+        /// <param name="controllerContext">
+        ///     The context within which the controller operates. The context information includes the
+        ///     controller, HTTP content, request context, and route data.
+        /// </param>
+        /// <param name="bindingContext">
+        ///     The context within which the model is bound. The context includes information such as the
+        ///     model object, model name, model type, property filter, and value provider.
+        /// </param>
+        /// <returns>
+        ///     The bound object.
+        /// </returns>
+        public override object BindModel ( ControllerContext controllerContext, ModelBindingContext bindingContext )
         {
-            if (!(bindingContext.ValueProvider is INullableHandling))
+            if ( !( bindingContext.ValueProvider is INullableHandling ) )
             {
-                bindingContext.ValueProvider = new NullableHandlingValueProviderWrapper(bindingContext.ValueProvider);
+                bindingContext.ValueProvider = new NullableHandlingValueProviderWrapper ( bindingContext.ValueProvider );
             }
-            return base.BindModel(controllerContext, bindingContext);
+            return base.BindModel ( controllerContext, bindingContext );
         }
 
-        protected override object CreateModel(ControllerContext controllerContext, ModelBindingContext bindingContext, Type modelType)
+        #endregion
+
+        #region Methods
+
+        /// <summary>
+        ///     Creates the specified model type by using the specified controller context and binding context.
+        /// </summary>
+        /// <param name="controllerContext">
+        ///     The context within which the controller operates.
+        ///     The context information includes the controller, HTTP content, request context, and route data.
+        /// </param>
+        /// <param name="bindingContext">
+        ///     The context within which the model is bound.
+        ///     The context includes information such as the model object, model name, model type, property filter, and value
+        ///     provider.
+        /// </param>
+        /// <param name="modelType">The type of the model object to return.</param>
+        /// <returns>
+        ///     A data object of the specified type.
+        /// </returns>
+        protected override object CreateModel ( ControllerContext controllerContext, ModelBindingContext bindingContext, Type modelType )
         {
-            if (typeof (IPrimitive).IsAssignableFrom(modelType))
+            if ( typeof(IPrimitive).IsAssignableFrom ( modelType ) )
             {
-                var modelTypeIsNullable = bindingContext.ModelType.IsNullable();
-                var constructor = modelType.GetConstructors().OrderByDescending(c => c.GetParameters().Count()).FirstOrDefault();
+                var modelTypeIsNullable = bindingContext.ModelType.IsNullable ();
+                var constructor = modelType.GetConstructors ().OrderByDescending ( c => c.GetParameters ().Count () ).FirstOrDefault ();
                 var allParamsNull = true;
-                var parameters = constructor.GetParameters().Select(p =>
-                    {
-                        var propertyName = p.Name.ToFirstLetterUpper();
-                        var propertyPath = (bindingContext.Model == null ? bindingContext.ModelName : bindingContext.ModelMetadata.PropertyName) + "." + propertyName;
-                        var valueResult = bindingContext.ValueProvider.GetValue(propertyPath);
-                        if (modelTypeIsNullable && (valueResult == null || string.IsNullOrWhiteSpace(valueResult.AttemptedValue)))
+                var parameters = constructor.GetParameters ().Select (
+                    p =>
                         {
-                            return null;
-                        }
-                        allParamsNull = false;
-                        var propertyType = bindingContext.PropertyMetadata[propertyName].ModelType;
-                        if (propertyType.IsGenericType && propertyType.GetGenericTypeDefinition() == typeof (Nullable<>))
-                        {
-                            propertyType = Nullable.GetUnderlyingType(propertyType);
-                        }
-                        else if (propertyType.IsEnum)
-                        {
-                            return Enum.Parse(propertyType, valueResult.AttemptedValue.Replace("(", "").Replace(")", ""));
-                        }
-                        return (valueResult.AttemptedValue as IConvertible).ToType(propertyType, valueResult.Culture);
-                    }).ToArray();
-                if (modelTypeIsNullable && allParamsNull)
+                            var propertyName = p.Name.ToFirstLetterUpper ();
+                            var propertyPath = ( bindingContext.Model == null
+                                                     ? bindingContext.ModelName
+                                                     : bindingContext.ModelMetadata.PropertyName ) + "." + propertyName;
+                            var valueResult = bindingContext.ValueProvider.GetValue ( propertyPath );
+                            if ( modelTypeIsNullable
+                                 && ( valueResult == null || string.IsNullOrWhiteSpace ( valueResult.AttemptedValue ) ) )
+                            {
+                                return null;
+                            }
+                            allParamsNull = false;
+                            var propertyType = bindingContext.PropertyMetadata[propertyName].ModelType;
+                            if ( propertyType.IsGenericType && propertyType.GetGenericTypeDefinition () == typeof(Nullable<>) )
+                            {
+                                propertyType = Nullable.GetUnderlyingType ( propertyType );
+                            }
+                            else if ( propertyType.IsEnum )
+                            {
+                                return Enum.Parse (
+                                    propertyType,
+                                    valueResult.AttemptedValue.Replace ( "(", string.Empty ).Replace ( ")", string.Empty ) );
+                            }
+                            return ( valueResult.AttemptedValue as IConvertible ).ToType ( propertyType, valueResult.Culture );
+                        } ).ToArray ();
+                if ( modelTypeIsNullable && allParamsNull )
                 {
                     return null;
                 }
-                var model = Activator.CreateInstance(modelType, parameters);
+                var model = Activator.CreateInstance ( modelType, parameters );
                 return model;
             }
-            return base.CreateModel(controllerContext, bindingContext, modelType);
+
+            if ( typeof(IScoreTypeDto).IsAssignableFrom ( modelType ) )
+            {
+                var typeValue = bindingContext.ValueProvider.GetValue ( bindingContext.ModelName + ".Type" ).AttemptedValue;
+                var type = Type.GetType(typeValue + ", " + typeof(IScoreTypeDto).Assembly.FullName, true);
+                var model = base.CreateModel ( controllerContext, bindingContext, type );
+                bindingContext.ModelMetadata = ModelMetadataProviders.Current.GetMetadataForType ( () => model, type );
+
+                return model;
+            }
+
+            return base.CreateModel ( controllerContext, bindingContext, modelType );
         }
 
-        protected override void OnModelUpdated(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        /// <summary>
+        ///     Called when the model is updated.
+        /// </summary>
+        /// <param name="controllerContext">
+        ///     The context within which the controller operates.
+        ///     The context information includes the controller, HTTP content, request context, and route data.
+        /// </param>
+        /// <param name="bindingContext">
+        ///     The context within which the model is bound.
+        ///     The context includes information such as the model object, model name, model type, property filter, and value
+        ///     provider.
+        /// </param>
+        protected override void OnModelUpdated ( ControllerContext controllerContext, ModelBindingContext bindingContext )
         {
-            if (bindingContext.Model == null)
+            if ( bindingContext.Model == null )
             {
                 return;
             }
-            base.OnModelUpdated(controllerContext, bindingContext);
+            base.OnModelUpdated ( controllerContext, bindingContext );
         }
+
+        #endregion
     }
 }

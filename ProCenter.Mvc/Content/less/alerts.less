@@ -8,11 +8,17 @@
 
 .alert {
   padding: 8px 35px 8px 14px;
-  margin-bottom: @baseLineHeight;
+/*  margin-bottom: @baseLineHeight; */
+  margin-bottom: 1px;
   text-shadow: 0 1px 0 rgba(255,255,255,.5);
   background-color: @warningBackground;
   border: 1px solid @warningBorder;
-  .border-radius(@baseBorderRadius);
+  border-radius: 0;
+/*.border-radius(@baseBorderRadius);*/
+  &:last-of-type {
+      border-radius: 0 0 7px 7px;
+      margin-bottom: 5px;
+  }
 }
 .alert,
 .alert h4 {
@@ -25,9 +31,9 @@
 
 // Adjust close link position
 .alert .close {
-  position: relative;
-  top: -2px;
-  right: -21px;
+  position: absolute;
+  top: 10px;
+  right: 15px;
   line-height: @baseLineHeight;
 }
 
@@ -76,4 +82,11 @@
 }
 .alert-block p + p {
   margin-top: 5px;
+}
+
+// Alerts Add-On classes
+// -------------------------
+
+.alert.notification {
+    position: relative;
 }
